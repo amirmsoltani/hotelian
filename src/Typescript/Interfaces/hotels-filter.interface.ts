@@ -1,5 +1,7 @@
+import {BoardTypeType} from '../Types';
+
 export interface HotelsFilterInterface {
-  boardTypes: object;
+  boardTypes: BoardTypeType;
   locations: object;
   rangePrice: object;
   stars: object;
