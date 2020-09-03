@@ -1,4 +1,8 @@
-export interface HttpResponseInterface<result> {
-  ok: boolean;
-  result: result;
+import {AxiosResponse} from 'axios';
+
+export interface HttpResponseInterface<result> extends AxiosResponse {
+  data: {
+    ok: boolean;
+    result: result
+  };
 }

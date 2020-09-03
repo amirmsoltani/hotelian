@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, FlatList, Text, TouchableHighlight, SafeAreaView} from 'react-native';
 import moment, {Moment, MomentInput} from 'moment';
 import style from './DatepickerStyles';
-import {DateType, Month as MonthType} from 'src/Types/DatepickerTypes';
+import {DateType, Month as MonthType} from '../../Typescript/Types/DatepickerTypes';
 import Month from './Month';
 import IF from '../../Lib/IF';
 

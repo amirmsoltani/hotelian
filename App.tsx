@@ -1,19 +1,18 @@
-import {Provider} from 'react-redux';
-import configureStore from './src/store';
 import React from 'react';
-import {NativeRouter, Route} from 'react-router-native';
-import Search from './src/Pages/Search/Search';
-import Sidebar from './src/Pages/Sidebar/Sidebar';
+import {Provider} from 'react-redux';
+import store, {history} from './src/Store';
+import {Route} from 'react-router-native';
+import {ConnectedRouter} from 'connected-react-router';
+import {SearchRoute} from './src/Routes';
+
 
 declare const global: {HermesInternal: null | {}};
-
 const App = () => {
   return (
-    <Provider store={configureStore()}>
-      <NativeRouter>
-        <Route path="/" component={Search} exact={true}/>
-        <Route path="/sidebar" component={Sidebar}/>
-      </NativeRouter>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Route component={SearchRoute} path='/' exact={true}/>
+      </ConnectedRouter>
     </Provider>
   );
 };

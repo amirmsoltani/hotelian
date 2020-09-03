@@ -7,28 +7,28 @@ import {LinkProps} from 'react-router-native';
 import {Actions} from 'react-native-router-flux';
 
 const mapStateToProps = (state: RootStateInterface) => ({
-  checkIn: state.searchReducer.form_data.checkIn,
-  checkOut: state.searchReducer.form_data.checkOut,
+  checkIn: state.searchReducer.form_data.checkIn?.value,
+  checkOut: state.searchReducer.form_data.checkOut?.value,
 });
 const mapDispatchToProps = {ChangeSearchData};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & LinkProps;
 
-const SearchSelectDate = ({ChangeSearchData, checkIn, checkOut}: Props) => {
+const SelectDataPage = ({ChangeSearchData, checkIn, checkOut}: Props) => {
   const datepicker: {defaultValue?: {checkIn: string, checkOut: string}} = {};
   if (checkIn && checkOut)
     datepicker['defaultValue'] = {checkIn, checkOut};
   return (
     <Datepicker
       onSelect={({checkIn, checkOut}) => {
-        ChangeSearchData({checkIn: checkIn.value, checkOut: checkOut.value});
+        ChangeSearchData({checkIn: checkIn, checkOut: checkOut});
         Actions.pop();
       }}
-      format={'YYYY-MM-DD'}
+      format={'DD-MM-YYYY'}
       {...datepicker}
     />
   );
 
 };
 
-export default connector(SearchSelectDate);
+export default connector(SelectDataPage);

@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import {SafeAreaView} from 'react-native';
-import {Props, State} from './search-route.types';
+import {Props, State} from './search-page.types';
 
 import SearchFrom from '../../Forms/SearchForm/SearchFrom';
+import {Content} from 'native-base';
 
-class SearchRoute extends Component<Props, State> {
+class SearchPage extends Component<Props, State> {
   render() {
     return (
-      <SafeAreaView>
+      <Content>
         <SearchFrom/>
-      </SafeAreaView>
+      </Content>
     );
   }
 }
 
-export default SearchRoute;
+export default SearchPage;

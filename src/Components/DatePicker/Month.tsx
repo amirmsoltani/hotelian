@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Month as monthType} from 'src/Types/DatepickerTypes';
+import {Month as monthType} from '../../Typescript/Types/DatepickerTypes';
 import {View, Text, TouchableHighlight} from 'react-native';
 import style from './DatepickerStyles';
 import IF from '../../Lib/IF';

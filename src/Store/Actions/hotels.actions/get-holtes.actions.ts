@@ -1,11 +1,8 @@
-import {DESTINATIONS_URL} from '../../../URLS';
+import {GET_HOTELS, GetHotelsType} from './hotels.actions.types';
 
-export function GetDestination(search: string): GetDestinationType {
+export function GetHotels(search_id: string): GetHotelsType {
   return {
-    type: GET_DESTINATION,
-    method: 'GET',
-    target: 'destination',
-    url: `${DESTINATIONS_URL}?term=${search}`,
-    debounce: 1000,
+    type: GET_HOTELS,
+    payload: search_id,
   };
 }

@@ -14,6 +14,8 @@ const searchFromStyles = StyleSheet.create({
     alignContent: 'space-around',
     position: 'relative',
     padding: 10,
+    borderRadius: 3,
+    borderBottomRightRadius: 0,
   },
   smallBox: {
     width: '47%',
@@ -34,6 +36,17 @@ const searchFromStyles = StyleSheet.create({
     height: '100%',
     textAlignVertical: 'center',
     paddingHorizontal: 10,
+  },
+  searchButton: {
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    backgroundColor: 'red',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderBottomRightRadius: 3,
+    borderBottomLeftRadius: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
 });

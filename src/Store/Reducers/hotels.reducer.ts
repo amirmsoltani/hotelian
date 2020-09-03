@@ -1,34 +1,19 @@
-import {SearchStateInterface} from '../../Typescript';
-import {
-  CHANGE_SEARCH_FORM_DATA,
-  GET_DESTINATION, GET_NATIONALITY,
-  SearchActionTypes,
-  SET_SEARCH_RESPONSE,
-} from '../Actions/search.actions';
-import {randInt} from '../../Lib/Random';
+import {HotelsStateInterface} from '../../Typescript';
+import {GET_HOTELS, HotelsActionTypes, SET_SEARCH_ID} from '../Actions';
 
-export const searchInit: SearchStateInterface = {
-  destination: {GET: undefined, list: undefined},
-  nationality: {GET: undefined, list: undefined},
-  form_data: {rooms: [{adults: 1, children: [], key: randInt(0xff)}], adultCounts: 1, childCounts: 0},
+export const hotelsInit: HotelsStateInterface = {
+  status: undefined,
+  search_id: undefined,
 };
-const SearchReducer = (state: SearchStateInterface = searchInit, action: SearchActionTypes): SearchStateInterface => {
+const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsActionTypes): HotelsStateInterface => {
   switch (action.type) {
-    case GET_NATIONALITY:
-    case GET_DESTINATION: {
-      return {...state, [action.target]: {...state[action.target], [action.method]: 'loading'}};
-    }
-
-    case SET_SEARCH_RESPONSE: {
-      console.log(action.payload);
-      return {...state, [action.payload.target]: {[action.payload.method]: 'ok', list: action.payload.response}};
-    }
-    case CHANGE_SEARCH_FORM_DATA: {
-      return {...state, form_data: {...state.form_data, ...action.payload}};
+    case GET_HOTELS:
+    case SET_SEARCH_ID: {
+      return {...state, status: 'loading'};
     }
     default:
       return state;
   }
 };
 
-export default SearchReducer;
+export default HotelsReducer;

@@ -1,6 +1,6 @@
-import {PriceType} from 'src/Typescript/Types/price.type';
+import {PriceType} from '../Types';
 
-export type HotelType = {
+export interface HotelInterface  {
   hotel_id: number;
   address: string;
   board_types: string[];

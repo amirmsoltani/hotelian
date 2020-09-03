@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {View, TextInput, ScrollView, Text, TouchableHighlight} from 'react-native';
-import style from './SearchDestinationStyles';
+import style from './select-destination-page.style';
 import {connect, ConnectedProps} from 'react-redux';
 import {GetDestination, ChangeSearchData} from '../../Store/Actions';
 import {LinkProps} from 'react-router-native';
@@ -19,7 +19,7 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & LinkProps;
 
-class SearchDestination extends PureComponent<Props> {
+class SelectDestinationPage extends PureComponent<Props> {
 
   selectDestination(destination: DestinationType) {
     this.props.ChangeSearchData({destination});
@@ -47,4 +47,4 @@ class SearchDestination extends PureComponent<Props> {
   }
 }
 
-export default connector(SearchDestination);
+export default connector(SelectDestinationPage);

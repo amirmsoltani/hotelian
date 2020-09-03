@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 
-const searchDestinationStyles = StyleSheet.create({
+const selectDestinationPageStyle = StyleSheet.create({
   container: {
     padding: 8,
   },
@@ -14,4 +14,4 @@ const searchDestinationStyles = StyleSheet.create({
   },
 });
 
-export default searchDestinationStyles;
+export default selectDestinationPageStyle;
