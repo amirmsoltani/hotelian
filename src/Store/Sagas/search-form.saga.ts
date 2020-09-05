@@ -29,7 +29,7 @@ export function* AcceptSearchFrom() {
 
   } catch (e) {
     yield cancel(loader);
-    console.log(e);
+    console.log(e.response);
     // TODO add error handler after create
   }
 }

@@ -1,6 +1,6 @@
-import {PriceType} from '../Types';
+import {PriceType, StarsRatingType} from '../Types';
 
-export interface HotelInterface  {
+export interface HotelInterface {
   hotel_id: number;
   address: string;
   board_types: string[];
@@ -12,6 +12,6 @@ export interface HotelInterface  {
   location: string;
   name: string;
   price: PriceType;
-  star: number;
+  star: keyof StarsRatingType;
   room: {breakfast: boolean},
 }

@@ -11,3 +11,4 @@ export * from './search-details.interface';
 export * from './hotel.interface';
 export * from './hotels-result.interface';
 export * from './hotels-state.interface';
+export * from './hotels-filter.interface';

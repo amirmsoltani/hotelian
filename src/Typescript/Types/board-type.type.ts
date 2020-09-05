@@ -4,4 +4,5 @@ export type BoardTypeType = {
   fullBoard?: number[];
   breakfast?: number[];
   roomOnly?: number[];
+  other?: number[];
 }
