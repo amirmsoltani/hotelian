@@ -1,13 +1,14 @@
-import {cancel, fork, delay, takeLatest, put, select, call} from 'redux-saga/effects';
-import {push} from 'connected-react-router';
+import {delay, takeLatest, put} from 'redux-saga/effects';
+import {push, replace} from 'connected-react-router';
 import Http from '../../Lib/Http';
-import {SET_SEARCH_ID, SetSearchIdType, GET_HOTELS} from '../Actions';
+import {SET_SEARCH_ID, SetSearchIdType, SetHotels, GET_HOTELS, SearchExpire} from '../Actions';
 import {
   HotelsResultInterface,
   HttpResponseInterface,
 } from '../../Typescript';
 import {HOTEL_SEARCH_RESULT_URL} from '../../URLS';
 import {HotelsInitial} from '../../Lib/FilterTool';
+import Storage from '../../Lib/Storage';
 
 export function* GetHotels(action: SetSearchIdType) {
 
@@ -17,11 +18,18 @@ export function* GetHotels(action: SetSearchIdType) {
     const {hotels, expire, facilities, search_details} = response.data.result;
     const structureCreator = yield  new HotelsInitial(hotels);
     yield structureCreator.initial();
-    console.log(structureCreator.structure, hotels);
-    //yield put(SetHotels({search_id: action.payload,expire:}));
-
-
+    yield put(SetHotels({
+      status: 'ok',
+      basicData: {hotels, facilities, expire, search_details, search_id: action.payload},
+      filter: {structure: structureCreator.structure, active: null, hotels: structureCreator.hotelsIndex},
+    }));
+    const expireTime = Math.floor(expire - new Date().getTime() / 1000) * 1000;
+    yield Storage.save({key: 'search-id', data: action.payload, expires: expireTime});
+    yield put(push({pathname: '/hotels'}));
+    yield delay(expireTime);
+    yield put(SearchExpire());
   } catch (e) {
+    yield put(replace({pathname: '/'}));
     console.log(e.response);
     // TODO add error handler after create
 

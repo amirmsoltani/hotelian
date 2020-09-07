@@ -23,9 +23,13 @@ export type AcceptSearchFormType = ActionInterface<typeof ACCEPT_SEARCH_FORM, un
 export const SET_SEARCH_ID = '[Search Reducer] Set Search ID';
 export type SetSearchIdType = {readonly type: typeof SET_SEARCH_ID, payload: string};
 
+export const SEARCH_EXPIRE = '[Search Reducer] Expire Search ID';
+export type SearchExpireType = {readonly type: typeof SEARCH_EXPIRE};
+
 export type SearchActionTypes =
   GetDestinationType
   | GetNationalityType
   | SetSearchResponseType
   | ChangeSearchFormDataType
-  | SetSearchIdType;
+  | SetSearchIdType
+  | SearchExpireType;

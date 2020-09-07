@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions, Router, Scene, Stack} from 'react-native-router-flux';
-import {SearchPage} from '../Pages';
+import {HotelListPage} from '../Pages';
 import {match} from 'react-router-native';
 import {StatusBar} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Title} from 'native-base';
@@ -14,7 +14,7 @@ const HotelsRoute = (props: {match: match}) => {
         <Left/>
 
         <Body>
-          <Title>result</Title>
+          <Title>search results</Title>
         </Body>
         <Right>
           <Button transparent onPress={Actions.pop}>
@@ -24,7 +24,7 @@ const HotelsRoute = (props: {match: match}) => {
       </Header>
       <Router>
         <Stack key='root'>
-          <Scene key='hotels' component={SearchPage} hideNavBar initial/>
+          <Scene key='hotels' component={HotelListPage} hideNavBar initial/>
         </Stack>
       </Router>
     </Container>

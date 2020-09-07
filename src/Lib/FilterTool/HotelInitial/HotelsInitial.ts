@@ -1,13 +1,13 @@
 import {BoardTypeType, HotelInterface, HotelsFilterInterface, StarsRatingType} from '../../../Typescript';
 import Union from '../Union';
 
-type valueOf<T extends Object | Array<any>> = T[keyof T];
 
 class HotelsInitial {
   protected boardTypes: BoardTypeType;
   protected stars: StarsRatingType;
   protected locations: {[key: string]: number[]};
   protected prices: {[key: string]: number[]};
+  public hotelsIndex: number[] = [];
   static readonly boardType_regex = /all\sinclusive|half\sboard|full\sboard|breakfast|room\sonly/g;
   static readonly convertToBoardType: { [key in string]: keyof BoardTypeType } = {
     'all inclusive': 'allInclusive',
@@ -115,6 +115,7 @@ class HotelsInitial {
       this.star(hotel, index);
       this.location(hotel, index);
       this.price(hotel, index);
+      this.hotelsIndex.push(index);
     });
     this.rangePrice();
     // TODO test here

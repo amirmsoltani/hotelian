@@ -5,7 +5,7 @@ import {SearchDetailsInterface} from 'src/Typescript/Interfaces/search-details.i
 export interface HotelsResultInterface {
   currency: string;
   expire: number;
-  facilities: FacilityType;
+  facilities: FacilityType[];
   hotels: HotelInterface[];
   hotel_count: number;
   search_details: SearchDetailsInterface;

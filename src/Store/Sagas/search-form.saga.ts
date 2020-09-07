@@ -26,7 +26,6 @@ export function* AcceptSearchFrom() {
       method: 'POST',
     });
     yield put(SetSearchId(response.data.result.search_id));
-
   } catch (e) {
     yield cancel(loader);
     console.log(e.response);
