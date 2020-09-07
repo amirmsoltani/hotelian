@@ -6,7 +6,7 @@ import {StatusBar} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Title} from 'native-base';
 
 
-const ResultRoute = (props: {match: match}) => {
+const HotelsRoute = (props: {match: match}) => {
   return (
     <Container>
       <StatusBar hidden={true}/>
@@ -31,4 +31,4 @@ const ResultRoute = (props: {match: match}) => {
   );
 };
 
-export default ResultRoute;
+export default HotelsRoute;
