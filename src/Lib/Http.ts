@@ -1,9 +1,9 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import store from '../Store';
+import {globalStore} from '../Store';
 
 export default {
   headers() {
-    const {currency, language} = store.getState().userReducer;
+    const {currency, language} = globalStore.getState().userReducer;
     return {'X-Currency': currency, 'X-Language': language};
   },
 
