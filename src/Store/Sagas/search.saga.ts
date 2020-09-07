@@ -15,7 +15,7 @@ export function* GetSearchData(action: GetDestinationType | GetNationalityType) 
     action.response = response.data.result;
     yield put(SetSearchResponse(action));
   } catch (e) {
-    console.log(e.request);
+    console.log(action);
   }
 }
 

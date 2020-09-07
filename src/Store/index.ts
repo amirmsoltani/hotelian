@@ -1,37 +1,27 @@
-import {createStore, applyMiddleware, compose} from 'redux';
+import {createStore, applyMiddleware, compose, Store} from 'redux';
 import CreateSaga from 'redux-saga';
-import {createLogger} from 'redux-logger';
 import rootReducer from './Reducers';
 import appSaga from './Sagas';
-import {createMemoryHistory} from 'history';
+import {createMemoryHistory, MemoryHistory, History} from 'history';
 import {routerMiddleware} from 'connected-react-router';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
-// create history
-export const history = createMemoryHistory();
+export let globalStore: Store;
 
-// function configureStore() {
-const middleware = [];
-
-//saga middleware
-const saga = CreateSaga();
-middleware.push(saga);
-//******************
-
-//logger middleware
-if (__DEV__) {
-  middleware.push(createLogger());
+export default function(entries: string[]): [Store, MemoryHistory<History.UnknownFacade>] {
+  const history = createMemoryHistory({initialEntries: entries});
+  const middleware = [];
+  const saga = CreateSaga();
+  middleware.push(saga);
+  middleware.push(routerMiddleware(history));
+  const apply = applyMiddleware(...middleware);
+  const store = createStore(
+    rootReducer(history),
+    __DEV__ ? composeWithDevTools(apply) : compose(apply),
+  );
+  saga.run(appSaga);
+  globalStore = store;
+  return [store, history];
 }
-//******************
 
-//router middleware
-middleware.push(routerMiddleware(history));
-//******************
 
-const store = createStore(
-  rootReducer(history),
-  compose(applyMiddleware(...middleware)),
-);
-saga.run(appSaga);
-// }
-
-export default store;
