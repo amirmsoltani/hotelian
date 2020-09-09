@@ -1,8 +1,8 @@
-export type BoardTypeType = {
-  allInclusive?: number[];
-  halfBoard?: number[];
-  fullBoard?: number[];
-  breakfast?: number[];
-  roomOnly?: number[];
-  other?: number[];
+export type BoardTypeType<T = number[]> = {
+  allInclusive?: T;
+  halfBoard?: T;
+  fullBoard?: T;
+  breakfast?: T;
+  roomOnly?: T;
+  other?: T;
 }

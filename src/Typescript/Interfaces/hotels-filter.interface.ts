@@ -1,10 +1,10 @@
 import {BoardTypeType, StarsRatingType} from '../Types';
 
-export interface HotelsFilterInterface {
-  boardTypes: BoardTypeType;
-  locations: {[key: string]: number[]};
-  rangePrice: {[key: string]: number[]};
-  stars: StarsRatingType;
+export interface HotelsFilterInterface<T=number[]> {
+  boardTypes: BoardTypeType<T>;
+  locations: {[key: string]: T};
+  rangePrice: {[key: string]: T};
+  stars: StarsRatingType<T>;
   // sorting: object;
   // other: object;
 }
