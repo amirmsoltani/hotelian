@@ -1,10 +1,10 @@
-export type StarsRatingType = {
-  0?: number[];
-  1?: number[];
-  2?: number[];
-  3?: number[];
-  4?: number[];
-  5?: number[];
-  6?: number[];
-  7?: number[];
+export type StarsRatingType<T = number[]> = {
+  0?: T;
+  1?: T;
+  2?: T;
+  3?: T;
+  4?: T;
+  5?: T;
+  6?: T;
+  7?: T;
 }
