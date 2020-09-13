@@ -59,7 +59,7 @@ class App extends React.Component<any, {ok: boolean}> {
         <></>
     );
   }
-};
+}
 
 
 export default App;
