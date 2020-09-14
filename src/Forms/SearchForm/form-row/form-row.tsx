@@ -15,9 +15,9 @@ type formRow = {
 const FormRow = (props: formRow) => {
     return (
         <View>
-            <Icon name='search'
+            <Icon name='location'
                   style={style.icon}
-                  type={'AntDesign'}/>
+                  type={'EvilIcons'}/>
             <Text style={style.text}>
                 {props.text}
             </Text>
