@@ -1,26 +1,57 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {Icon} from "native-base";
 
 import style from './form-row-styles';
+import {AppText} from "../../../Containers";
 
 type formRow = {
     text: string;
-    isEmpty: boolean;
+    isFilled: boolean;
     hasError: boolean;
 
     //for assigning icon
     type: string;
 };
 const FormRow = (props: formRow) => {
+    let icon;
+    let sharedStyles: object[] = [];
+    if (props.isFilled) {
+        sharedStyles.push(style.filled);
+    }
+    if (props.hasError) {
+        sharedStyles.push(style.error);
+    }
+    switch (props.type) {
+        case'destination' :
+            icon = <Icon name='location'
+                         style={[style.icon, [...sharedStyles]]}
+                         type={'Octicons'}/>
+            break;
+        case'nationality' :
+            icon = <Icon name='flag'
+                         style={[style.icon, [...sharedStyles]]}
+                         type={'Foundation'}/>
+            break;
+        case'checkin-out' :
+            icon = <Icon name='calendar'
+                         style={[style.icon, [...sharedStyles]]}
+                         type={'Octicons'}/>
+            break;
+        case'passenger' :
+            icon = <Icon name='user-friends'
+                         style={[style.icon, [...sharedStyles]]}
+                         type={'FontAwesome5'}/>
+            break;
+        default:
+            icon = null;
+    }
+
     return (
-        <View>
-            <Icon name='location'
-                  style={style.icon}
-                  type={'EvilIcons'}/>
-            <Text style={style.text}>
-                {props.text}
-            </Text>
+        <View style={style.container}>
+            {icon}
+            <AppText style={[style.text, [...sharedStyles]]}>
+                {props.text}</AppText>
         </View>
     );
 };
