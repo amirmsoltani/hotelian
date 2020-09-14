@@ -8,7 +8,7 @@ const formRowStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 5,
-        margin: 10,
+        marginVertical: 10,
     },
     icon: {
         fontSize: TEXT_SIZE,
