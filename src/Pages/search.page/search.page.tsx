@@ -41,8 +41,12 @@ class SearchPage extends Component<Props, State> {
 
         return (
             <ScrollView style={style.container}>
+
+                {/*background shapes*/}
                 <View style={style.bg_rect}/>
                 <View style={style.bg_triangle}/>
+
+                {/*search form*/}
                 <View style={{
                     paddingHorizontal: 15,
                     paddingVertical: 25,
@@ -50,10 +54,13 @@ class SearchPage extends Component<Props, State> {
                     <SearchFrom/>
                 </View>
 
+                {/*recent search*/}
                 <View style={[style.wrapper]}>
                     <H3 style={style.header}>Recent Search</H3>
                     <View>
-                        <ScrollView horizontal={true}>
+                        <ScrollView
+                            style={{paddingBottom: 5,}}
+                            horizontal={true}>
                             {data.map(item =>
                                 <RecentSearch
                                     dest={item.dest}
@@ -67,6 +74,10 @@ class SearchPage extends Component<Props, State> {
                         </ScrollView>
                     </View>
                 </View>
+
+                {/*top destinations*/}
+                <View></View>
+
             </ScrollView>
         );
     }

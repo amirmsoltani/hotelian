@@ -4,7 +4,6 @@ import {View} from "react-native";
 import recentSearchStyles from './recent-search.styles';
 import {AppRow, AppText} from "../../Containers";
 import {Icon} from "native-base";
-import {COLOR_PRIMARY, COLOR_WARNING} from "../../../native-base-theme/variables/config";
 
 type propType = {
     dest: string,

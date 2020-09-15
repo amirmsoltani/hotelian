@@ -1,5 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
+import {COLOR_PRIMARY, SHADOW_SM_X} from "../../../native-base-theme/variables/config";
 
 const searchPageStyles = StyleSheet.create({
     container: {
