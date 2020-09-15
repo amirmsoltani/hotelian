@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {RnViewStyleProp} from "native-base";
 
-const AppRow = (props: { style: RnViewStyleProp, [key: string]: any }) => {
+const AppRow = (props: { style?: RnViewStyleProp, [key: string]: any }) => {
     return (
         <View {...props}
               style={[styles.row, props?.style]}>

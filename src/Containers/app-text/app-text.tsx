@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
+import {RnTextStyleProp} from "native-base";
 
 import {COLOR_BLACK, TEXT_SIZE} from "../../../native-base-theme/variables/config";
 
-const AppText = (props: any) => {
+const AppText = (props: { style?: RnTextStyleProp, [key: string]: any }) => {
     return (
         <Text {...props}
               style={[styles.myAppText, props?.style]}>
