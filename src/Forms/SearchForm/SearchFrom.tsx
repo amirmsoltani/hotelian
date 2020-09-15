@@ -31,7 +31,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
             <View>
                 <TouchableOpacity onPress={Actions.destination}>
                     <FormRow
-                        text={destination ? destination.label : 'Where are you going?'}
+                        text={destination ? destination.text : 'Where are you going?'}
                         isFilled={!!destination}
                         hasError={false}
                         type={'destination'}
@@ -67,7 +67,6 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                     <AppRow style={searchFromStyles.btnSection}>
                         <Col style={{paddingRight: 10, width: 120}}>
                             <Button rounded block
-                                    onPress={props.AcceptSearchForm}
                                     style={{backgroundColor: GRAY_LIGHT_XXX,}}>
                                 <AppRow
                                     style={{
@@ -94,6 +93,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                         </Col>
                         <Col style={{paddingLeft: 10}}>
                             <Button rounded block
+                                    onPress={props.AcceptSearchForm}
                                     style={{backgroundColor: COLOR_IMPORTANT}}>
                                 <AppText style={{
                                     color: COLOR_WHITE,
