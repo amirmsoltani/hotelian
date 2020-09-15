@@ -7,6 +7,10 @@ const searchPageStyles = StyleSheet.create({
         margin: 0,
     },
 
+    wrapper: {
+        paddingHorizontal: 15,
+    },
+
     bg_rect: {
         position: "absolute",
         left: 0,
@@ -14,6 +18,12 @@ const searchPageStyles = StyleSheet.create({
         top: 0,
         height: 150,
         backgroundColor: COLOR_PRIMARY,
+    },
+
+    header: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginBottom:15,
     },
     bg_triangle: {
         width: 0,
@@ -27,6 +37,8 @@ const searchPageStyles = StyleSheet.create({
         position: "absolute",
         top: 150,
     },
+    recent_search: {},
+
 });
 
 export default searchPageStyles;
