@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {COLOR_WARNING, GRAY_LIGHT, GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
+import {GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
 
 
 const selectDestinationPageStyle = StyleSheet.create({
@@ -11,10 +11,10 @@ const selectDestinationPageStyle = StyleSheet.create({
     input: {
         width: '100%',
         height: 55,
-        fontSize:18,
+        fontSize: 18,
         paddingHorizontal: 10,
-        backgroundColor:GRAY_LIGHT_XXX,
-        borderRadius:5,
+        backgroundColor: GRAY_LIGHT_XXX,
+        borderRadius: 5,
     },
 
 });

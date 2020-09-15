@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {LinkProps} from 'react-router-native';
 import {Actions} from 'react-native-router-flux';
@@ -33,11 +33,11 @@ class SelectDestinationPage extends PureComponent<Props> {
     render() {
         const {destinations, GetDestination} = this.props;
         return (
-            <View style={style.container}>
+            <ScrollView style={style.container}>
                 <TextInput style={style.input} placeholder="e.g London, Paris, Madrid"
                            onChangeText={(text) => GetDestination(text)}
                 />
-                <ScrollView>
+                <View>
                     <List>
                         {destinations?.map((des, index) => (
                             <ListItem style={{marginLeft: 0, paddingTop: 0, paddingBottom: 0}}>
@@ -67,8 +67,8 @@ class SelectDestinationPage extends PureComponent<Props> {
 
                         ))}
                     </List>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 }
