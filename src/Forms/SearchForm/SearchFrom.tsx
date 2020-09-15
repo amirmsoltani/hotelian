@@ -1,12 +1,15 @@
 import React from 'react';
-import {Text, TouchableHighlight, View} from 'react-native';
-import style from './searchFormStyles';
+import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
+import {Actions} from 'react-native-router-flux';
+import {Button, Col, Form, Grid, Icon} from 'native-base';
+
 import {RootStateInterface} from 'src/Typescript';
 import {AcceptSearchForm} from '../../Store/Actions';
-import {Actions} from 'react-native-router-flux';
-import {Form, Icon} from 'native-base';
 import FormRow from "./form-row/form-row";
+import searchFromStyles from './searchFormStyles'
+import {COLOR_IMPORTANT, COLOR_PRIMARY, COLOR_WHITE, GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
+import {AppRow, AppText} from "../../Containers/index";
 
 declare var global: {};
 const mapStateToProps = ({searchReducer: {form_data}}: RootStateInterface) => ({
@@ -24,49 +27,84 @@ const connector = connect(mapStateToProps, {AcceptSearchForm});
 type Props = ConnectedProps<typeof connector>;
 const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCounts, childCounts, ...props}: Props) => {
     return (
-        <Form>
+        <Form style={searchFromStyles.container}>
             <View>
-
-                {/*Destination*/}
-                <TouchableHighlight onPress={Actions.destination}>
+                <TouchableOpacity onPress={Actions.destination}>
                     <FormRow
-                        text={destination ? destination.label : 'Select destination'}
-                        isEmpty={!!destination}
+                        text={destination ? destination.label : 'Where are you going?'}
+                        isFilled={!!destination}
                         hasError={false}
                         type={'destination'}
                     />
-                </TouchableHighlight>
-
-                {/*CheckIN*/}
-                <TouchableHighlight onPress={Actions.datepicker}>
-                    <Text>{checkIn ? checkIn : 'check - in'}</Text>
-                </TouchableHighlight>
-
-                {/*CheckOut*/}
-                <TouchableHighlight onPress={Actions.datepicker}>
-                    <Text>{checkOut ? checkOut : 'check - out'}</Text>
-                </TouchableHighlight>
-
-                {/*Nationality*/}
-                <TouchableHighlight onPress={Actions.nationality}>
-                    <Text>{nationality ? nationality.name : 'Select Nationality'}</Text>
-                </TouchableHighlight>
-
-                {/*Rooms*/}
-                <TouchableHighlight onPress={Actions.rooms}>
-                    <Text>
-                        {`${rooms?.length} Rooms / ${adultCounts} Adults / ${childCounts} Children`}
-                    </Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={Actions.datepicker}>
+                    <FormRow
+                        text={checkIn ? checkIn : 'Check in - Check out'}
+                        isFilled={!!checkIn}
+                        hasError={false}
+                        type={'checkin-out'}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={Actions.nationality}>
+                    <FormRow
+                        text={nationality ? nationality.name : 'Select Nationality'}
+                        isFilled={!!nationality}
+                        hasError={false}
+                        type={'nationality'}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={Actions.rooms}>
+                    <FormRow
+                        text={`${rooms?.length} Rooms / ${adultCounts} Adults / ${childCounts} Children`}
+                        isFilled={!!nationality}
+                        hasError={false}
+                        type={'passenger'}
+                    />
+                </TouchableOpacity>
             </View>
-            <TouchableHighlight style={style.searchButton} onPress={props.AcceptSearchForm}>
-                <>
-                    <Icon name='search1' type={'AntDesign'} style={{color: 'white', marginRight: 10, fontSize: 18}}/>
-                    <Text style={{color: 'white'}}>
-                        Search
-                    </Text>
-                </>
-            </TouchableHighlight>
+            <View>
+                <Grid>
+                    <AppRow style={searchFromStyles.btnSection}>
+                        <Col style={{paddingRight: 10, width: 120}}>
+                            <Button rounded block
+                                    onPress={props.AcceptSearchForm}
+                                    style={{backgroundColor: GRAY_LIGHT_XXX,}}>
+                                <AppRow
+                                    style={{
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                    <Icon
+                                        style={{
+                                            color: COLOR_PRIMARY,
+                                            fontSize: 18,
+                                            marginRight: 5,
+                                            marginLeft: 5,
+                                        }}
+                                        name='my-location'
+                                        type={'MaterialIcons'}/>
+                                    <AppText
+                                        style={{
+                                            color: COLOR_PRIMARY,
+                                            textAlign: 'center'
+                                        }}
+                                    >Map</AppText>
+                                </AppRow>
+                            </Button>
+                        </Col>
+                        <Col style={{paddingLeft: 10}}>
+                            <Button rounded block
+                                    style={{backgroundColor: COLOR_IMPORTANT}}>
+                                <AppText style={{
+                                    color: COLOR_WHITE,
+                                    width: '100%',
+                                    textAlign: 'center'
+                                }}>SEARCH</AppText>
+                            </Button>
+                        </Col>
+                    </AppRow>
+                </Grid>
+            </View>
         </Form>
     );
 };
