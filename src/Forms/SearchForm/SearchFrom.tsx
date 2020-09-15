@@ -63,30 +63,33 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                 </TouchableOpacity>
             </View>
             <View>
-                {/*<TouchableOpacity onPress={props.AcceptSearchForm}>*/}
-                {/*    <>*/}
-                {/*        <Icon name='search1' type={'AntDesign'}*/}
-                {/*              style={{color: 'white', marginRight: 10, fontSize: 18}}/>*/}
-                {/*        <Text>Search</Text>*/}
-                {/*    </>*/}
-                {/*</TouchableOpacity>*/}
                 <Grid>
                     <AppRow style={searchFromStyles.btnSection}>
                         <Col style={{paddingRight: 10, width: 120}}>
                             <Button rounded block
-                                    style={{backgroundColor: GRAY_LIGHT_XXX}}>
-                                <Icon
+                                    onPress={props.AcceptSearchForm}
+                                    style={{backgroundColor: GRAY_LIGHT_XXX,}}>
+                                <AppRow
                                     style={{
-                                        color: COLOR_PRIMARY,
-                                        fontSize: 18,
-                                        marginRight:10,
-                                    }}
-                                    name='my-location'
-                                    type={'MaterialIcons'}/>
-                                <AppText style={{
-                                    color: COLOR_PRIMARY,
-                                    textAlign: 'center'
-                                }}>Map</AppText>
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                    <Icon
+                                        style={{
+                                            color: COLOR_PRIMARY,
+                                            fontSize: 18,
+                                            marginRight: 5,
+                                            marginLeft: 5,
+                                        }}
+                                        name='my-location'
+                                        type={'MaterialIcons'}/>
+                                    <AppText
+                                        style={{
+                                            color: COLOR_PRIMARY,
+                                            textAlign: 'center'
+                                        }}
+                                    >Map</AppText>
+                                </AppRow>
                             </Button>
                         </Col>
                         <Col style={{paddingLeft: 10}}>
