@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {RnViewStyleProp} from "native-base";
 
-const AppRow = (props: any) => {
+const AppRow = (props: { style: RnViewStyleProp, [key: string]: any }) => {
     return (
         <View {...props}
               style={[styles.row, props?.style]}>
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     row: {
         flex: 1,
         flexDirection: 'row',
-        width:'100%',
+        width: '100%',
     },
 });
 
