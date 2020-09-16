@@ -7,8 +7,9 @@ export default function U<T = any>({unity, args}: {unity?: T[], args: Array<T[]>
   if (!unity && args.length < 2)
     throw 'Arguments submitted must be more than two';
   const Unity: T[] = [...(unity || args.pop()!)];
+  const u = [...Unity];
   const check = args.pop();
-  Unity.forEach(item => {
+  u.forEach(item => {
     if (!check!.includes(item))
       Unity.splice(Unity.indexOf(item), 1);
   });

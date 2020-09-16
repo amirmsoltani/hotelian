@@ -47,11 +47,11 @@ export const MUTED_DARK = '#7784a9';
 //=======================================
 // Font
 //=======================================
-export const TEXT_SIZE_SM_X= '70%';
-export const TEXT_SIZE_SM= '85%';
-export const TEXT_SIZE_LG= '130%';
-export const TEXT_SIZE_LG_X= '16%';
-export const TEXT_SIZE_LG_XX= '200%';
+export const TEXT_SIZE_SM_X = '70%';
+export const TEXT_SIZE_SM = '85%';
+export const TEXT_SIZE_LG = '130%';
+export const TEXT_SIZE_LG_X = '16%';
+export const TEXT_SIZE_LG_XX = '200%';
 
 
 //=======================================

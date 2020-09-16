@@ -21,7 +21,7 @@ export function* GetHotels(action: SetSearchIdType) {
     yield put(SetHotels({
       status: 'ok',
       basicData: {hotels, facilities, expire, search_details, search_id: action.payload},
-      filter: {structure: structureCreator.structure, active: null, hotels: structureCreator.hotelsIndex},
+      filter: {structure: structureCreator.structure,  hotels: structureCreator.hotelsIndex},
     }));
     const expireTime = Math.floor(expire - new Date().getTime() / 1000) * 1000;
     yield Storage.save({key: 'search-id', data: action.payload, expires: expireTime});

@@ -8,7 +8,8 @@ export interface HotelsStateInterface {
   filter?: {
     hotels: number[];
     structure: HotelsFilterInterface;
-    active: {actives: [], len: HotelsFilterInterface<number>} | null;
+    actives?: {[key: string]: {indexes: number[], name: string}};
+    numbers?: HotelsFilterInterface<number>;
   }
   basicData?: {
     search_id: string;

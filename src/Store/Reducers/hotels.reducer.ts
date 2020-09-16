@@ -1,5 +1,12 @@
 import {HotelsStateInterface} from '../../Typescript';
-import {GET_HOTELS, HotelsActionTypes, SEARCH_EXPIRE, SET_HOTELS, SET_SEARCH_ID} from '../Actions';
+import {
+  GET_HOTELS,
+  HotelsActionTypes,
+  SEARCH_EXPIRE,
+  SET_HOTELS,
+  SET_HOTELS_AFTER_FILTERS,
+  SET_SEARCH_ID,
+} from '../Actions';
 
 export const hotelsInit: HotelsStateInterface = {
   status: null,
@@ -11,10 +18,21 @@ const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsA
       return {...state, status: 'loading'};
     }
     case SET_HOTELS: {
-      return {...action.payload};
+      return {...state, ...action.payload};
     }
     case SEARCH_EXPIRE: {
       return {...state, status: 'expire'};
+    }
+    case SET_HOTELS_AFTER_FILTERS: {
+      return {
+        ...state,
+        filter: {
+          structure:state.filter!.structure,
+          hotels: action.payload.hotels,
+          numbers: action.payload.structure,
+          actives: action.payload.actives,
+        },
+      };
     }
     default:
       return state;

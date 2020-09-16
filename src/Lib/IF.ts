@@ -27,7 +27,7 @@ class IF {
     return this;
   }
 
-  IFP<T>(condition: boolean, item: T, resolve: ((item: T) => any)): this {
+  IFP<T = any>(condition: boolean, item: T, resolve: ((item: T) => any)): this {
     if (condition && !this.response && item)
       this.response = resolve(item);
     return this;
