@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {SafeAreaView, StatusBar, Text, VirtualizedList} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {Body, Spinner} from 'native-base';
-import {HotelCard} from '../../Components';
 import {HotelInterface, RootStateInterface} from '../../Typescript';
-import {GetHotels} from '../../Store/Actions';
 import {replace, push} from 'connected-react-router';
 
 
@@ -31,18 +29,10 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   state = {end: false, scroll: false};
   timeOut: any | null = null;
 
-  componentDidMount() {
-    const {search_id, hotels_search_id, GetHotels, status, replace} = this.props;
-    if (status === null && search_id === undefined && hotels_search_id === undefined)
-      replace('/');
-    else if (status === null && search_id)
-      GetHotels(search_id);
 
-
-  }
 
   bookIt(id: number) {
-    this.props.push(`/hotel/${id}`);
+    this.props.push(`/passengers/${id}`);
   }
 
 
