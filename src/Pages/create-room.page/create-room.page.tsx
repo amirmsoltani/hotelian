@@ -2,7 +2,7 @@ import React from 'react';
 import {Content, Card, Text, Footer, Icon} from 'native-base';
 import {RoomType, RootStateInterface} from '../../Typescript';
 import {RoomComponent} from '../../Components';
-import {TouchableHighlight} from 'react-native';
+import {TouchableHighlight, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {ChangeSearchData} from '../../Store/Actions';
 import {Actions} from 'react-native-router-flux';
@@ -29,7 +29,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
   return (
     <>
       <Content>
-        <Card>
+        <View>
           {
             rooms.map((room, index) => {
                 return <RoomComponent key={room.key}
@@ -71,7 +71,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
                 </>
               </TouchableHighlight> : <></>
           }
-        </Card>
+        </View>
       </Content>
       <Footer style={{paddingHorizontal: 15, backgroundColor: 'white'}}>
         <TouchableHighlight

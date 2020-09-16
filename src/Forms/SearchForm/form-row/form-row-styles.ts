@@ -1,23 +1,36 @@
 import {StyleSheet} from 'react-native';
-import {GRAY_DARK, GRAY_LIGHT, GRAY_LIGHT_X} from "../../../../native-base-theme/variables/config";
+import {
+    COLOR_BLACK,
+    COLOR_DANGER,
+    GRAY_DARK,
+    GRAY_LIGHT_XX,
+    TEXT_SIZE
+} from "../../../../native-base-theme/variables/config";
 
 const formRowStyles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: 50,
         borderBottomWidth: 1,
-        color: GRAY_LIGHT_X,
-        display: "flex",
+        borderBottomColor: GRAY_LIGHT_XX,
         flexDirection: 'row',
-        borderBottomColor: GRAY_LIGHT_X,
+        alignItems: 'center',
+        padding: 5,
+        marginVertical: 10,
     },
     icon: {
+        fontSize: TEXT_SIZE,
         color: GRAY_DARK,
-        fontSize: 18,
+        width: 30,
+    },
+    filled: {
+        color: COLOR_BLACK
+    },
+    error: {
+        color: COLOR_DANGER,
     },
     text: {
         color: GRAY_DARK,
-        fontSize: 18,
+        flex: 1,
+        flexWrap: 'wrap',
     },
 });
 
