@@ -12,7 +12,7 @@ class SearchPage extends Component<Props, State> {
 
     render() {
         //dummy data
-        const data = [
+        const recentSearch = [
             {
                 dest: 'Rome, Italy',
                 checkin: '02 Sep',
@@ -41,6 +41,34 @@ class SearchPage extends Component<Props, State> {
                 key: '4fn2sdj3498rfr4hj',
             },
         ];
+        const topDestination = [
+            {
+                source: require('../../Assets/Images/top_destination_1.jpg'),
+                caption: 'London, United Kingdom',
+                key: 1,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_2.jpg'),
+                caption: 'Paris, France',
+                key: 2,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_3.jpg'),
+                caption: 'Madrid, Spain',
+                key: 3,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_4.jpg'),
+                caption: 'Dubai, UAE',
+                key: 4,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_5.jpg'),
+                caption: 'Vassa, Finland',
+                key: 5,
+            },
+        ];
+
         return (
             <ScrollView style={style.container}>
 
@@ -61,7 +89,7 @@ class SearchPage extends Component<Props, State> {
                     <H3 style={style.header}>Recent Search</H3>
                     <View>
                         <FlatList
-                            data={data}
+                            data={recentSearch}
                             renderItem={({item}) =>
                                 <RecentSearch
                                     dest={item.dest}
@@ -83,9 +111,12 @@ class SearchPage extends Component<Props, State> {
                     <H3 style={style.header}>Top Destinations</H3>
                     <View>
                         <FlatList
-                            data={data}
+                            data={topDestination}
                             renderItem={({item}) =>
-                                <TopDestination/>
+                                <TopDestination
+                                    source={item.source}
+                                    caption={item.caption}
+                                />
                             }
                             keyExtractor={item => item.key}
                             horizontal={true}

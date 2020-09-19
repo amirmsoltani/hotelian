@@ -1,14 +1,20 @@
 import {StyleSheet} from "react-native";
-import {BLACK_LIGHT, COLOR_PRIMARY, MUTED_LIGHT_XXX, SHADOW_SM_X} from "../../../native-base-theme/variables/config";
+import {
+    BLACK_LIGHT,
+    BORDER_RADIUS,
+    COLOR_PRIMARY,
+    MUTED_LIGHT_XXX,
+    SHADOW_SM_X
+} from "../../../native-base-theme/variables/config";
 
 const recentSearchStyles = StyleSheet.create({
     container: {
         padding: 15,
         backgroundColor: MUTED_LIGHT_XXX,
-        borderRadius: 5,
+        borderRadius: BORDER_RADIUS,
         marginRight: 15,
         ...SHADOW_SM_X,
-        margin:5,
+        margin: 5,
     },
     title: {
         fontWeight: "bold",
@@ -28,8 +34,8 @@ const recentSearchStyles = StyleSheet.create({
         fontSize: 13,
         textAlign: "center",
     },
-    icon:{
-        fontSize:16,
+    icon: {
+        fontSize: 16,
         color: COLOR_PRIMARY,
         marginRight: 5,
     }

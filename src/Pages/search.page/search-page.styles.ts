@@ -9,7 +9,7 @@ const searchPageStyles = StyleSheet.create({
 
     wrapper: {
         paddingHorizontal: 15,
-        marginBottom: 30,
+        marginBottom: 40,
     },
 
     bg_rect: {
@@ -24,7 +24,7 @@ const searchPageStyles = StyleSheet.create({
     header: {
         fontWeight: 'bold',
         fontSize: 18,
-        marginBottom: 15,
+        marginBottom: 10,
     },
     bg_triangle: {
         width: 0,
