@@ -5,7 +5,7 @@ import {H3, View} from "native-base";
 import {Props, State} from './search-page.types';
 import style from './search-page.styles'
 import SearchFrom from '../../Forms/SearchForm/SearchFrom';
-import {RecentSearch, TopDestination} from "../../Components";
+import {RecentSearch, TopDestination, TopProperty} from "../../Components";
 
 
 class SearchPage extends Component<Props, State> {
@@ -68,6 +68,28 @@ class SearchPage extends Component<Props, State> {
                 key: 5,
             },
         ];
+        const topProperty = [
+            {
+                source: require('../../Assets/Images/hostel.png'),
+                caption: 'Hostel',
+                key: 1,
+            },
+            {
+                source: require('../../Assets/Images/apartment.png'),
+                caption: 'Apartment',
+                key: 2,
+            },
+            {
+                source: require('../../Assets/Images/resort.png'),
+                caption: 'Resort',
+                key: 3,
+            },
+            {
+                source: require('../../Assets/Images/villa.png'),
+                caption: 'Villa',
+                key: 4,
+            },
+        ];
 
         return (
             <ScrollView style={style.container}>
@@ -114,6 +136,25 @@ class SearchPage extends Component<Props, State> {
                             data={topDestination}
                             renderItem={({item}) =>
                                 <TopDestination
+                                    source={item.source}
+                                    caption={item.caption}
+                                />
+                            }
+                            keyExtractor={item => item.key}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+
+                {/*top properties*/}
+                <View style={[style.wrapper]}>
+                    <H3 style={style.header}>Top Destinations</H3>
+                    <View>
+                        <FlatList
+                            data={topProperty}
+                            renderItem={({item}) =>
+                                <TopProperty
                                     source={item.source}
                                     caption={item.caption}
                                 />
