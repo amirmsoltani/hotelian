@@ -8,11 +8,8 @@ type propType = {
     caption: string,
     source: ImageSourcePropType,
 }
-const TopDestination = (props: propType) => {
-    console.log(props);
-
-
-    return (<View style={style.wrapper}>
+const TopDestination = (props: propType) =>
+    <View style={style.wrapper}>
         <View style={style.container}>
             <Image
                 source={props.source}
@@ -25,8 +22,6 @@ const TopDestination = (props: propType) => {
                 </View>
             </View>
         </View>
-    </View>)
-}
-
+    </View>
 
 export default TopDestination;
