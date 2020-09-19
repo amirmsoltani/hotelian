@@ -1,5 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {COLOR_PRIMARY, SHADOW_SM_X} from "../../../native-base-theme/variables/config";
+import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
 
 const searchPageStyles = StyleSheet.create({
     container: {
@@ -9,6 +9,7 @@ const searchPageStyles = StyleSheet.create({
 
     wrapper: {
         paddingHorizontal: 15,
+        marginBottom: 30,
     },
 
     bg_rect: {
@@ -23,7 +24,7 @@ const searchPageStyles = StyleSheet.create({
     header: {
         fontWeight: 'bold',
         fontSize: 18,
-        marginBottom:15,
+        marginBottom: 15,
     },
     bg_triangle: {
         width: 0,

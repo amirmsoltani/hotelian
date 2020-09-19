@@ -24,7 +24,7 @@ const recentSearchStyles = StyleSheet.create({
     },
     passenger: {
         color: COLOR_PRIMARY,
-        marginRight: 10,
+        marginRight: 20,
         fontSize: 13,
         textAlign: "center",
     },
