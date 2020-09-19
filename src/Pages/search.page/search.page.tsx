@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import {ScrollView} from "react-native";
+import {FlatList, ScrollView} from "react-native";
 import {H3, View} from "native-base";
 
 import {Props, State} from './search-page.types';
 import style from './search-page.styles'
 import SearchFrom from '../../Forms/SearchForm/SearchFrom';
-import {RecentSearch} from "../../Components";
+import {RecentSearch, TopDestination} from "../../Components";
 
 
 class SearchPage extends Component<Props, State> {
 
     render() {
         //dummy data
-        const data = [
+        const recentSearch = [
             {
                 dest: 'Rome, Italy',
                 checkin: '02 Sep',
@@ -20,6 +20,7 @@ class SearchPage extends Component<Props, State> {
                 adult: 1,
                 room: 2,
                 children: 3,
+                key: 'vsn2ad3d4980f3df2q',
             },
             {
                 dest: 'London, United Kingdom',
@@ -28,6 +29,7 @@ class SearchPage extends Component<Props, State> {
                 adult: 9,
                 room: 9,
                 children: 9,
+                key: '56n2sd33498rf3df2j',
             },
             {
                 dest: 'Las Vegas, Under city, United State of America',
@@ -36,6 +38,34 @@ class SearchPage extends Component<Props, State> {
                 adult: 2,
                 room: 2,
                 children: 0,
+                key: '4fn2sdj3498rfr4hj',
+            },
+        ];
+        const topDestination = [
+            {
+                source: require('../../Assets/Images/top_destination_1.jpg'),
+                caption: 'London, United Kingdom',
+                key: 1,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_2.jpg'),
+                caption: 'Paris, France',
+                key: 2,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_3.jpg'),
+                caption: 'Madrid, Spain',
+                key: 3,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_4.jpg'),
+                caption: 'Dubai, UAE',
+                key: 4,
+            },
+            {
+                source: require('../../Assets/Images/top_destination_5.jpg'),
+                caption: 'Vassa, Finland',
+                key: 5,
             },
         ];
 
@@ -58,25 +88,42 @@ class SearchPage extends Component<Props, State> {
                 <View style={[style.wrapper]}>
                     <H3 style={style.header}>Recent Search</H3>
                     <View>
-                        <ScrollView
-                            style={{paddingBottom: 5,}}
-                            horizontal={true}>
-                            {data.map(item =>
+                        <FlatList
+                            data={recentSearch}
+                            renderItem={({item}) =>
                                 <RecentSearch
                                     dest={item.dest}
                                     checkin={item.checkin}
                                     checkout={item.checkout}
                                     adult={item.adult}
                                     room={item.room}
-                                    children={item.children}
-                                />
-                            )}
-                        </ScrollView>
+                                    children={item.children}/>
+                            }
+                            keyExtractor={item => item.key}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
                     </View>
                 </View>
 
-                {/*top destinations*/}
-                <View></View>
+                {/*top destination*/}
+                <View style={[style.wrapper]}>
+                    <H3 style={style.header}>Top Destinations</H3>
+                    <View>
+                        <FlatList
+                            data={topDestination}
+                            renderItem={({item}) =>
+                                <TopDestination
+                                    source={item.source}
+                                    caption={item.caption}
+                                />
+                            }
+                            keyExtractor={item => item.key}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
 
             </ScrollView>
         );
