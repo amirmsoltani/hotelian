@@ -13,7 +13,7 @@ export const COLOR_SECONDARY = '#D3DAEB';
 export const COLOR_MUTED = '#909bb9';
 export const COLOR_GRAY = '#a8a8a8';
 export const COLOR_WHITE = '#ffffff';
-export const COLOR_BLACK = '#2D2327';
+export const COLOR_BLACK = '#2d2327';
 //=======================================
 export const COLOR_NON_REFUNDABLE = '#a35baf';
 export const COLOR_SPECIAL_OFFER = '#e91e63';
@@ -121,6 +121,6 @@ export const SHADOW_LG_XX = {
 
 
 //=======================================
-// line height
-// font-size
+// Others
 //=======================================
+export const BORDER_RADIUS = 5;
