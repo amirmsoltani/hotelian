@@ -11,6 +11,7 @@ import {RecentSearch, TopDestination, TopProperty} from "../../Components";
 class SearchPage extends Component<Props, State> {
 
     render() {
+
         //dummy data
         const recentSearch = [
             {
@@ -45,49 +46,49 @@ class SearchPage extends Component<Props, State> {
             {
                 source: require('../../Assets/Images/top_destination_1.jpg'),
                 caption: 'London, United Kingdom',
-                key: 1,
+                key: '1',
             },
             {
                 source: require('../../Assets/Images/top_destination_2.jpg'),
                 caption: 'Paris, France',
-                key: 2,
+                key: '2',
             },
             {
                 source: require('../../Assets/Images/top_destination_3.jpg'),
                 caption: 'Madrid, Spain',
-                key: 3,
+                key: '3',
             },
             {
                 source: require('../../Assets/Images/top_destination_4.jpg'),
                 caption: 'Dubai, UAE',
-                key: 4,
+                key: '4',
             },
             {
                 source: require('../../Assets/Images/top_destination_5.jpg'),
                 caption: 'Vassa, Finland',
-                key: 5,
+                key: '5',
             },
         ];
         const topProperty = [
             {
                 source: require('../../Assets/Images/hostel.png'),
                 caption: 'Hostel',
-                key: 1,
+                key: '1',
             },
             {
                 source: require('../../Assets/Images/apartment.png'),
                 caption: 'Apartment',
-                key: 2,
+                key: '2',
             },
             {
                 source: require('../../Assets/Images/resort.png'),
                 caption: 'Resort',
-                key: 3,
+                key: '3',
             },
             {
                 source: require('../../Assets/Images/villa.png'),
                 caption: 'Villa',
-                key: 4,
+                key: '4',
             },
         ];
 
