@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {LinkProps} from 'react-router-native';
 import {Actions} from 'react-native-router-flux';
@@ -9,8 +9,7 @@ import {ChangeSearchData, GetNationality} from '../../Store/Actions';
 import {NationalityType, RootStateInterface} from '../../Typescript';
 import style from './../select-destination.page/select-destination-page.style';
 import {AppRow, AppText} from '../../Containers';
-import {COLOR_BLACK} from '../../../native-base-theme/variables/config';
-import {SearchPageSkeletonLoader} from "../../Components";
+import {Conditional, ElIf, If, SearchFormIdle, SearchPageSkeletonLoader} from "../../Components";
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -32,62 +31,77 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
         ChangeSearchData({nationality});
         Actions.pop();
     };
-
+    const [inputStyle, setStyle] = useState(style.blurredInput);
 
     return (
-        <View style={style.container}>
-            <ScrollView>
-                <TextInput style={style.input} placeholder="e.g United Kingdom, Japan"
-                           onChangeText={(text) => GetNationality(text)}
+        <ScrollView style={style.container}>
+            <View style={style.inputContainer}>
+                <TextInput
+                    style={[style.input, inputStyle]}
+                    placeholder="e.g United Kingdom, Japan"
+                    onChangeText={(text) => GetNationality(text)}
+                    onFocus={() => setStyle(style.focusedInput)}
+                    onBlur={() => setStyle(style.blurredInput)}
                 />
-                <View>
-                    {
-                        status === 'loading' ?
-                            <View>
-                                <SearchPageSkeletonLoader/>
-                                <SearchPageSkeletonLoader/>
-                                <SearchPageSkeletonLoader/>
-                                <SearchPageSkeletonLoader/>
-                            </View>
-                            :
-                            <List>
-                                {nationalities?.map((nation, index) => (
-                                    <ListItem style={{marginLeft: 0, paddingTop: 0, paddingBottom: 0}}
-                                              key={nation.code}>
-                                        <TouchableHighlight
-                                            style={{
-                                                flex: 1,
-                                                paddingVertical: 10,
-                                                marginVertical: 5
-                                            }}
-                                            onPress={() => selectNationality(nation)} key={index}>
-                                            <AppRow>
-                                                <Icon
-                                                    style={{
-                                                        color: COLOR_BLACK,
-                                                        fontSize: 30,
-                                                        marginRight: 15,
-                                                        marginLeft: 0,
-                                                        alignSelf: 'center',
-                                                    }}
-                                                    name={'flag'}
-                                                    type={'FontAwesome'}
-                                                />
-                                                <View>
-                                                    <AppText
-                                                        style={{fontWeight: 'bold', letterSpacing: 1}}
-                                                    >{nation.code}</AppText>
-                                                    <Text>{nation.name}</Text>
-                                                </View>
-                                            </AppRow>
-                                        </TouchableHighlight>
-                                    </ListItem>
-                                ))}
-                            </List>
-                    }
-                </View>
-            </ScrollView>
-        </View>
+            </View>
+            <View>
+                <Conditional>
+                    <If condition={status === 'loading'}>
+                        <View style={style.contentContainer}>
+                            <SearchPageSkeletonLoader/>
+                            <SearchPageSkeletonLoader/>
+                            <SearchPageSkeletonLoader/>
+                            <SearchPageSkeletonLoader/>
+                        </View>
+                    </If>
+                    <ElIf condition={status === 'ok'}>
+                        {
+                            nationalities?.length === 0 ?
+                                <View style={style.idleContainer}>
+                                    <SearchFormIdle
+                                        mode={'nationality'}
+                                    />
+                                </View>
+                                :
+                                <View style={style.contentContainer}>
+                                    <List>
+                                        {nationalities?.map((nation, index) => (
+                                            <ListItem
+                                                style={style.listItem}
+                                                key={nation.code}>
+                                                <TouchableOpacity
+                                                    style={style.touchableOp}
+                                                    onPress={() => selectNationality(nation)}
+                                                    key={index}>
+                                                    <AppRow>
+                                                        <Icon
+                                                            style={style.icon}
+                                                            name={'flag'}
+                                                            type={'FontAwesome'}
+                                                        />
+                                                        <View>
+                                                            <AppText
+                                                                style={style.appText}
+                                                            >{nation.code}</AppText>
+                                                            <Text>{nation.name}</Text>
+                                                        </View>
+                                                    </AppRow>
+                                                </TouchableOpacity>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </View>
+                        }
+                    </ElIf>
+                    <ElIf condition={status === 'error'}>
+                        <Text>Errors goes here !!!</Text>
+                    </ElIf>
+                    <ElIf condition={status === 'idle'}>
+                        <Text>Idle goes here !!!</Text>
+                    </ElIf>
+                </Conditional>
+            </View>
+        </ScrollView>
     );
 };
 

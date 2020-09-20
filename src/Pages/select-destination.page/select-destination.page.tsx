@@ -58,7 +58,7 @@ class SelectDestinationPage extends PureComponent<Props> {
                         </If>
                         <ElIf condition={this.props.status === 'ok'}>
                             {
-                                (destinations?.length === 0) ?
+                                destinations?.length === 0 ?
                                     <View style={style.idleContainer}>
                                         <SearchFormIdle
                                             mode={'destination'}

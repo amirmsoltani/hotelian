@@ -31,7 +31,10 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
             <View>
                 <TouchableOpacity onPress={Actions.destination}>
                     <FormRow
-                        text={destination ? destination.text : 'Where are you going?'}
+                        text={destination ?
+                            (destination.dest_type === 'city') ? destination.text : `${destination.label}, ${destination.text}`
+                            :
+                            'Where are you going?'}
                         isFilled={!!destination}
                         hasError={false}
                         type={'destination'}
