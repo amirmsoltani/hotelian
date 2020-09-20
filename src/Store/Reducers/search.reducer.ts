@@ -12,8 +12,8 @@ import {randInt} from '../../Lib/Random';
 import Storage from '../../Lib/Storage';
 
 const defaultData: SearchStateInterface = {
-  destination: {GET: 'idle', list: []},
-  nationality: {GET: 'idle', list: []},
+  destination: {GET: 'notFound', list: []},
+  nationality: {GET: 'notFound', list: []},
   form_data: {rooms: [{adults: 1, children: [], key: randInt(0xff)}], adultCounts: 1, childCounts: 0},
 };
 export const searchInit = async (): Promise<SearchStateInterface> => {
