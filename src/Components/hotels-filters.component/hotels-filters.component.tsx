@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {CardItem, Header} from 'native-base';
-import Conditional, {If, Else} from '../conditional.component';
+import Conditional, {If, Else, ElIf} from '../conditional.component';
 import HotelsFiltersStars from './hotels-filters-stars.component';
 import HotelsFiltersAll from './hotels-filters-all.componnent';
 
@@ -45,6 +45,7 @@ export default function HotelsFilter({actives, length, structure, name, ChangeFi
             />)
           }
         </Else>
+
       </Conditional>
 
 
