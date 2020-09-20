@@ -1,15 +1,25 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
+import {
+    COLOR_PRIMARY,
+    COLOR_WHITE,
+    MUTED_LIGHT_XXX,
+    SHADOW_SM_X,
+    SHADOW_SM_XX
+} from "../../../native-base-theme/variables/config";
 
 const searchPageStyles = StyleSheet.create({
     container: {
         padding: 0,
         margin: 0,
+        backgroundColor: MUTED_LIGHT_XXX,
     },
 
     wrapper: {
         paddingHorizontal: 15,
-        marginBottom: 40,
+        paddingVertical: 25,
+        marginBottom: 10,
+        backgroundColor: COLOR_WHITE,
+        ...SHADOW_SM_XX,
     },
 
     bg_rect: {
