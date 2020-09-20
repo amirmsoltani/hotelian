@@ -54,8 +54,13 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
                                 {nationalities?.map((nation, index) => (
                                     <ListItem style={{marginLeft: 0, paddingTop: 0, paddingBottom: 0}}
                                               key={nation.code}>
-                                        <TouchableHighlight style={{flex: 1, paddingVertical: 10, marginVertical: 5}}
-                                                            onPress={() => selectNationality(nation)} key={index}>
+                                        <TouchableHighlight
+                                            style={{
+                                                flex: 1,
+                                                paddingVertical: 10,
+                                                marginVertical: 5
+                                            }}
+                                            onPress={() => selectNationality(nation)} key={index}>
                                             <AppRow>
                                                 <Icon
                                                     style={{

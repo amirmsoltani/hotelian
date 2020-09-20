@@ -7,3 +7,4 @@ export {default as TopDestination} from './top-destination/top-destination';
 export {default as TopProperty} from './top-property/top-property';
 export {default as SkeletonLoader} from './skeleton-loader/skeleton-loader';
 export {default as SearchPageSkeletonLoader} from './search-page-skeleton-loader/search-page-skeleton-loader';
+export {default as SearchFormIdle} from './search-form-idle/search-form-idle';
