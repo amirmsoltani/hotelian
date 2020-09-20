@@ -9,7 +9,7 @@ import {ChangeSearchData, GetNationality} from '../../Store/Actions';
 import {NationalityType, RootStateInterface} from '../../Typescript';
 import style from './../select-destination.page/select-destination-page.style';
 import {AppRow, AppText} from '../../Containers';
-import {Conditional, ElIf, If, SearchFormError, SearchFormIdle, SearchPageSkeletonLoader} from "../../Components";
+import {Conditional, ElIf, If, SearchFormError, SearchFormIdle, SearchPageSkeletonLoader,SearchFormInit} from "../../Components";
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -98,8 +98,12 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
                             <SearchFormError/>
                         </View>
                     </ElIf>
-                    <ElIf condition={status === 'idle'}>
-                        <Text>Idle goes here !!!</Text>
+                    <ElIf condition={status === undefined}>
+                        <View style={style.idleContainer}>
+                            <SearchFormInit
+                                mode={'nationality'}
+                            />
+                        </View>
                     </ElIf>
                 </Conditional>
             </View>
