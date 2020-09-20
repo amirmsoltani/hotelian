@@ -1,28 +1,28 @@
 import {StyleSheet} from "react-native";
-import {GRAY_DARK, GRAY_LIGHT} from "../../../native-base-theme/variables/config";
+import {COLOR_MUTED, MUTED_DARK_X, MUTED_LIGHT} from "../../../native-base-theme/variables/config";
 
 export default StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'row',
         justifyContent: 'center',
     },
-    image:{
+    image: {
         width: 120,
         height: 100,
         marginBottom: 10,
     },
-    textContainer:{
+    textContainer: {
         width: 300,
     },
-    title:{
+    title: {
         fontWeight: "bold",
         textAlign: "center",
-        color: GRAY_DARK,
+        color: MUTED_DARK_X,
         marginBottom: 5,
     },
-    caption:{
+    caption: {
         textAlign: "center",
         fontSize: 14,
-        color: GRAY_LIGHT,
+        color: COLOR_MUTED,
     },
 });
