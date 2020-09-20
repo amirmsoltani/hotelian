@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
+import {BORDER_RADIUS, GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
 
 
 const selectDestinationPageStyle = StyleSheet.create({
@@ -14,7 +14,7 @@ const selectDestinationPageStyle = StyleSheet.create({
         fontSize: 18,
         paddingHorizontal: 10,
         backgroundColor: GRAY_LIGHT_XXX,
-        borderRadius: 5,
+        borderRadius: BORDER_RADIUS,
     },
 
 });
