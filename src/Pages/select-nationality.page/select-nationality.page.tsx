@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {LinkProps} from 'react-router-native';
 import {Actions} from 'react-native-router-flux';
@@ -9,66 +9,112 @@ import {ChangeSearchData, GetNationality} from '../../Store/Actions';
 import {NationalityType, RootStateInterface} from '../../Typescript';
 import style from './../select-destination.page/select-destination-page.style';
 import {AppRow, AppText} from '../../Containers';
-import {COLOR_BLACK} from '../../../native-base-theme/variables/config';
+import {
+    Conditional,
+    ElIf,
+    If,
+    SearchFormError,
+    SearchFormIdle,
+    SearchFormInit,
+    SearchPageSkeletonLoader
+} from "../../Components";
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
-  nationalities: state.searchReducer.nationality.list,
+    nationalities: state.searchReducer.nationality.list,
+    status: state.searchReducer.nationality.GET,
 });
 
 const mapDispatchToProps = {
-  GetNationality,
-  ChangeSearchData,
+    GetNationality,
+    ChangeSearchData,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & LinkProps;
 
-const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality}: Props) => {
+const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality, status}: Props) => {
 
-  const selectNationality = (nationality: NationalityType) => {
-    ChangeSearchData({nationality});
-    Actions.pop();
-  };
+    const selectNationality = (nationality: NationalityType) => {
+        ChangeSearchData({nationality});
+        Actions.pop();
+    };
+    const [inputStyle, setStyle] = useState(style.blurredInput);
 
-
-  return (
-    <View style={style.container}>
-      <TextInput style={style.input} placeholder="e.g United Kingdom, Japan"
-                 onChangeText={(text) => GetNationality(text)}
-      />
-      <ScrollView>
-        <List>
-          {nationalities?.map((nation, index) => (
-            <ListItem style={{marginLeft: 0, paddingTop: 0, paddingBottom: 0}} key={nation.code}>
-              <TouchableHighlight style={{flex: 1, paddingVertical: 10, marginVertical: 5}}
-                                  onPress={() => selectNationality(nation)} key={index}>
-                <AppRow>
-                  <Icon
-                    style={{
-                      color: COLOR_BLACK,
-                      fontSize: 30,
-                      marginRight: 15,
-                      marginLeft: 0,
-                      alignSelf: 'center',
-                    }}
-                    name={'flag'}
-                    type={'FontAwesome'}
-                  />
-                  <View>
-                    <AppText
-                      style={{fontWeight: 'bold', letterSpacing: 1}}
-                    >{nation.code}</AppText>
-                    <Text>{nation.name}</Text>
-                  </View>
-                </AppRow>
-              </TouchableHighlight>
-            </ListItem>
-          ))}
-        </List>
-      </ScrollView>
-    </View>
-  );
+    return (
+        <ScrollView style={style.container}>
+            <View style={style.inputContainer}>
+                <TextInput
+                    style={[style.input, inputStyle]}
+                    placeholder="e.g United Kingdom, Japan"
+                    onChangeText={(text) => GetNationality(text)}
+                    onFocus={() => setStyle(style.focusedInput)}
+                    onBlur={() => setStyle(style.blurredInput)}
+                />
+            </View>
+            <View>
+                <Conditional>
+                    <If condition={status === 'loading'}>
+                        <View style={style.contentContainer}>
+                            <SearchPageSkeletonLoader/>
+                            <SearchPageSkeletonLoader/>
+                            <SearchPageSkeletonLoader/>
+                            <SearchPageSkeletonLoader/>
+                        </View>
+                    </If>
+                    <ElIf condition={status === 'ok'}>
+                        <View style={style.contentContainer}>
+                            <List>
+                                {nationalities?.map((nation, index) => (
+                                    <ListItem
+                                        style={style.listItem}
+                                        key={nation.code}>
+                                        <TouchableOpacity
+                                            style={style.touchableOp}
+                                            onPress={() => selectNationality(nation)}
+                                            key={index}>
+                                            <AppRow>
+                                                <Icon
+                                                    style={style.icon}
+                                                    name={'flag'}
+                                                    type={'FontAwesome'}
+                                                />
+                                                <View>
+                                                    <AppText
+                                                        style={style.appText}
+                                                    >{nation.code}</AppText>
+                                                    <Text>{nation.name}</Text>
+                                                </View>
+                                            </AppRow>
+                                        </TouchableOpacity>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </View>
+                    </ElIf>
+                    <ElIf condition={status === 'notFound'}>
+                        <View style={style.idleContainer}>
+                            <SearchFormIdle
+                                mode={'nationality'}
+                            />
+                        </View>
+                    </ElIf>
+                    <ElIf condition={status === 'error'}>
+                        <View style={style.idleContainer}>
+                            <SearchFormError/>
+                        </View>
+                    </ElIf>
+                    <ElIf condition={status === 'idle'}>
+                        <View style={style.idleContainer}>
+                            <SearchFormInit
+                                mode={'nationality'}
+                            />
+                        </View>
+                    </ElIf>
+                </Conditional>
+            </View>
+        </ScrollView>
+    );
 };
 
 export default connector(SelectNationalityPage);

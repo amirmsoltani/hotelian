@@ -4,13 +4,14 @@ import {CreateRoomPage, SearchPage, SelectDatePage, SelectDestinationPage, Selec
 import {match} from 'react-router-native';
 import {StatusBar} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Title} from 'native-base';
+import {COLOR_PRIMARY} from "../../native-base-theme/variables/config";
 
 
 const SearchRoute = (props: { match: match }) => {
     return (
         <Container>
             <StatusBar hidden={true}/>
-            <Header>
+            <Header style={{backgroundColor: COLOR_PRIMARY}}>
                 <Left>
                     <Button transparent onPress={Actions.pop}>
                         <Icon type={'AntDesign'} name='arrowleft'/>

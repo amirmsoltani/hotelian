@@ -37,7 +37,7 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
       return {
         ...state,
         [action.payload.target]: {
-          [action.payload.method]: (action.payload.response!.length === 0 ? 'idle' : 'ok'),
+          [action.payload.method]: (action.payload.response!.length === 0 ? 'notFound' : 'ok'),
           list: action.payload.response,
         },
       };

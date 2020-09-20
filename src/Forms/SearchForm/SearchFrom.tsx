@@ -31,7 +31,10 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
             <View>
                 <TouchableOpacity onPress={Actions.destination}>
                     <FormRow
-                        text={destination ? destination.text : 'Where are you going?'}
+                        text={destination ?
+                            destination.dest_type === 'city' ? destination.text : `${destination.label}, ${destination.text}`
+                            :
+                            'Where are you going?'}
                         isFilled={!!destination}
                         hasError={false}
                         type={'destination'}
@@ -39,7 +42,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                 </TouchableOpacity>
                 <TouchableOpacity onPress={Actions.datepicker}>
                     <FormRow
-                        text={checkIn ? checkIn : 'Check in - Check out'}
+                        text={checkIn ? `${checkIn} - ${checkOut}` : 'Check in - Check out'}
                         isFilled={!!checkIn}
                         hasError={false}
                         type={'checkin-out'}
@@ -55,7 +58,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                 </TouchableOpacity>
                 <TouchableOpacity onPress={Actions.rooms}>
                     <FormRow
-                        text={`${rooms?.length} Rooms / ${adultCounts} Adults / ${childCounts} Children`}
+                        text={`${rooms?.length} Room(s) / ${adultCounts} Adult(s) / ${childCounts} Children`}
                         isFilled={!!nationality}
                         hasError={false}
                         type={'passenger'}
@@ -67,7 +70,9 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                     <AppRow style={searchFromStyles.btnSection}>
                         <Col style={{paddingRight: 10, width: 120}}>
                             <Button rounded block
-                                    style={{backgroundColor: GRAY_LIGHT_XXX,}}>
+                                    style={{
+                                        backgroundColor: GRAY_LIGHT_XXX,
+                                    }}>
                                 <AppRow
                                     style={{
                                         justifyContent: 'center',

@@ -3,14 +3,14 @@ import {
     COLOR_BLACK,
     COLOR_DANGER,
     GRAY_DARK,
-    GRAY_LIGHT_XX,
+    GRAY_LIGHT_XX, MUTED_DARK, MUTED_LIGHT_XX,
     TEXT_SIZE
 } from "../../../../native-base-theme/variables/config";
 
 const formRowStyles = StyleSheet.create({
     container: {
         borderBottomWidth: 1,
-        borderBottomColor: GRAY_LIGHT_XX,
+        borderBottomColor: MUTED_LIGHT_XX,
         flexDirection: 'row',
         alignItems: 'center',
         padding: 5,
@@ -18,7 +18,7 @@ const formRowStyles = StyleSheet.create({
     },
     icon: {
         fontSize: TEXT_SIZE,
-        color: GRAY_DARK,
+        color: MUTED_DARK,
         width: 30,
     },
     filled: {
@@ -28,7 +28,7 @@ const formRowStyles = StyleSheet.create({
         color: COLOR_DANGER,
     },
     text: {
-        color: GRAY_DARK,
+        color: MUTED_DARK,
         flex: 1,
         flexWrap: 'wrap',
     },
