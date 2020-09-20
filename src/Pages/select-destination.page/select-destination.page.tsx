@@ -65,48 +65,48 @@ class SelectDestinationPage extends PureComponent<Props> {
                             </View>
                         </If>
                         <ElIf condition={this.props.status === 'ok'}>
-                            {
-                                destinations?.length === 0 ?
-                                    <View style={style.idleContainer}>
-                                        <SearchFormIdle
-                                            mode={'destination'}
-                                        />
-                                    </View>
-                                    :
-                                    <View style={style.contentContainer}>
-                                        <List>
-                                            {destinations?.map((des, index) => (
-                                                <ListItem style={style.listItem}
-                                                          key={des.dest_code}>
-                                                    <TouchableOpacity style={style.touchableOp}
-                                                                      onPress={() => this.selectDestination(des)}
-                                                                      key={index}>
-                                                        <AppRow>
-                                                            <Icon
-                                                                style={style.icon}
-                                                                name={des.dest_type === 'hotel' ? 'hotel' : 'city'}
-                                                                type={des.dest_type === 'hotel' ? 'Fontisto' : 'FontAwesome5'}
-                                                            />
-                                                            <View>
-                                                                <AppText
-                                                                    style={style.appText}
-                                                                >{des.label}</AppText>
-                                                                <Text>{des.text}</Text>
-                                                            </View>
-                                                        </AppRow>
-                                                    </TouchableOpacity>
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    </View>
-                            }
+                            <View style={style.contentContainer}>
+                                <List>
+                                    {destinations?.map((des, index) => (
+                                        <ListItem style={style.listItem}
+                                                  key={des.dest_code}>
+                                            <TouchableOpacity style={style.touchableOp}
+                                                              onPress={() => this.selectDestination(des)}
+                                                              key={index}>
+                                                <AppRow>
+                                                    <Icon
+                                                        style={style.icon}
+                                                        name={des.dest_type === 'hotel' ? 'hotel' : 'city'}
+                                                        type={des.dest_type === 'hotel' ? 'Fontisto' : 'FontAwesome5'}
+                                                    />
+                                                    <View>
+                                                        <AppText
+                                                            style={style.appText}
+                                                        >{des.label}</AppText>
+                                                        <Text>{des.text}</Text>
+                                                    </View>
+                                                </AppRow>
+                                            </TouchableOpacity>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </View>
+                        </ElIf>
+                        <ElIf condition={this.props.status === 'notFound'}>
+                            <View style={style.idleContainer}>
+                                <SearchFormIdle
+                                    mode={'destination'}
+                                />
+                            </View>
                         </ElIf>
                         <ElIf condition={this.props.status === 'error'}>
                             <View style={style.idleContainer}>
                                 <SearchFormError/>
                             </View>
                         </ElIf>
-                        <ElIf condition={this.props.status === undefined}>
+
+                        {/*initial state*/}
+                        <ElIf condition={this.props.status === 'idle'}>
                             <View style={style.idleContainer}>
                                 <SearchFormInit
                                     mode={'destination'}

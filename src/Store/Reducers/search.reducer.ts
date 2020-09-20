@@ -12,8 +12,8 @@ import {randInt} from '../../Lib/Random';
 import Storage from '../../Lib/Storage';
 
 const defaultData: SearchStateInterface = {
-  destination: {GET: 'notFound', list: []},
-  nationality: {GET: 'notFound', list: []},
+  destination: {GET: 'idle', list: []},
+  nationality: {GET: 'idle', list: []},
   form_data: {rooms: [{adults: 1, children: [], key: randInt(0xff)}], adultCounts: 1, childCounts: 0},
 };
 export const searchInit = async (): Promise<SearchStateInterface> => {
@@ -37,7 +37,7 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
       return {
         ...state,
         [action.payload.target]: {
-          [action.payload.method]: (action.payload.response!.length === 0 ? 'idle' : 'ok'),
+          [action.payload.method]: (action.payload.response!.length === 0 ? 'notFound' : 'ok'),
           list: action.payload.response,
         },
       };
