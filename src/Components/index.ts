@@ -9,3 +9,4 @@ export {default as SkeletonLoader} from './skeleton-loader/skeleton-loader';
 export {default as SearchPageSkeletonLoader} from './search-page-skeleton-loader/search-page-skeleton-loader';
 export {default as SearchFormIdle} from './search-form-idle/search-form-idle';
 export {default as SearchFormError} from './search-form-error/search-form-error';
+export {default as SearchFormInit} from './search-form-init/search-form-init';
