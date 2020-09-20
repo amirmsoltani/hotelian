@@ -7,7 +7,7 @@ import {Actions} from 'react-native-router-flux';
 import style from './select-destination-page.style';
 import {ChangeSearchData, GetDestination} from '../../Store/Actions';
 import {DestinationType, RootStateInterface} from '../../Typescript';
-import {Conditional, ElIf, If, SearchFormIdle, SearchPageSkeletonLoader} from "../../Components";
+import {Conditional, ElIf, If, SearchFormError, SearchFormIdle, SearchPageSkeletonLoader} from "../../Components";
 import {Icon, List, ListItem} from "native-base";
 import {AppRow, AppText} from "../../Containers";
 
@@ -94,7 +94,9 @@ class SelectDestinationPage extends PureComponent<Props> {
                             }
                         </ElIf>
                         <ElIf condition={this.props.status === 'error'}>
-                            <Text>Errors goes here !!!</Text>
+                            <View style={style.idleContainer}>
+                                <SearchFormError/>
+                            </View>
                         </ElIf>
                         <ElIf condition={this.props.status === 'idle'}>
                             <Text>Idle goes here !!!</Text>

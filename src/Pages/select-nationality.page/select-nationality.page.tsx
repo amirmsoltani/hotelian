@@ -9,7 +9,7 @@ import {ChangeSearchData, GetNationality} from '../../Store/Actions';
 import {NationalityType, RootStateInterface} from '../../Typescript';
 import style from './../select-destination.page/select-destination-page.style';
 import {AppRow, AppText} from '../../Containers';
-import {Conditional, ElIf, If, SearchFormIdle, SearchPageSkeletonLoader} from "../../Components";
+import {Conditional, ElIf, If, SearchFormError, SearchFormIdle, SearchPageSkeletonLoader} from "../../Components";
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -94,7 +94,9 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
                         }
                     </ElIf>
                     <ElIf condition={status === 'error'}>
-                        <Text>Errors goes here !!!</Text>
+                        <View style={style.idleContainer}>
+                            <SearchFormError/>
+                        </View>
                     </ElIf>
                     <ElIf condition={status === 'idle'}>
                         <Text>Idle goes here !!!</Text>
