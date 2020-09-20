@@ -7,10 +7,11 @@ import {ApplyHotelsFilters} from '../../Store/Actions';
 import {Actions} from 'react-native-router-flux';
 import {Conditional, HotelsFilters, If} from '../../Components';
 
-const mapStateToProps = ({hotelsReducer: {filter}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInterface) => ({
   structure: filter!.structure,
   numbers: filter!.numbers,
   actives: filter!.actives,
+  change_filter: change_filter,
 });
 
 const mapDispatchToProps = {
@@ -22,6 +23,7 @@ type Props = ConnectedProps<typeof connector>;
 
 class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number[], name: string}}> {
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
+  change_filter: number;
 
   constructor(props: Props) {
     super(props);
@@ -29,12 +31,20 @@ class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number
       Actions.replace('hotels');
     this.state = props.actives || {};
     this.setState = this.setState.bind(this);
+    this.change_filter = this.props.change_filter;
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: any) {
+    this.change_filter = prevProps.change_filter;
+    if (this.state !== prevState)
+      this.props.ApplyHotelsFilters(this.state, this.props.structure);
   }
 
   render() {
-    const {numbers, structure, actives, ApplyHotelsFilters} = this.props;
+    const {numbers, structure} = this.props;
     return (
       <>
+
         {/*<StatusBar animated={true} hidden={true}/>*/}
         <Content>
           <Card>
@@ -47,9 +57,7 @@ class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number
         </Content>
         <Conditional>
           <If
-            condition={(Object.entries(this.state).length !== 0 && actives === undefined)
-            || (Object.entries(this.state).length === 0 && actives !== undefined)
-            || (Object.keys(this.state).join('').length !== Object.keys(actives || {}).join('').length)}>
+            condition={this.props.change_filter !== this.change_filter}>
             <Footer style={{backgroundColor: 'white'}}>
               <TouchableOpacity style={{
                 width: '100%',
@@ -57,7 +65,7 @@ class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-                                onPress={() => ApplyHotelsFilters(this.state)}
+                                onPress={() => Actions.jump('hotels')}
               >
                 <Text>
                   Apply
@@ -66,7 +74,6 @@ class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number
             </Footer>
           </If>
         </Conditional>
-
       </>
     );
   }

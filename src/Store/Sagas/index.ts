@@ -9,7 +9,6 @@ function* appSaga() {
     ...SearchSaga,
     AcceptSearchFromSaga,
     ...GetHotels,
-    ApplyHotelsFilters,
   ]);
 }
 

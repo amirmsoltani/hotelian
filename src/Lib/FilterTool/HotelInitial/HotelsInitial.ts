@@ -30,9 +30,10 @@ class HotelsInitial {
    * @param name if filter multi subcategory category name
    */
   protected setBoardType(index: number, name: keyof BoardTypeType) {
-    if (name in this.boardTypes)
-      this.boardTypes[name]!.push(index);
-    else
+    if (name in this.boardTypes) {
+      if (!this.boardTypes[name]!.includes(index))
+        this.boardTypes[name]!.push(index);
+    } else
       this.boardTypes[name] = [index];
   }
 
@@ -42,14 +43,12 @@ class HotelsInitial {
    * @param index:number index hotel in original array;
    */
   protected boardType(hotel: HotelInterface, index: number) {
-    let other = 0;
     const boardTypes: string[] =
       hotel.board_types.join('').toLocaleLowerCase().match(HotelsInitial.boardType_regex) || [];
-    Union<string>({args: [boardTypes]}).forEach(boardType => {
+    boardTypes.forEach(boardType => {
       this.setBoardType(index, HotelsInitial.convertToBoardType[boardType]);
-      other++;
     });
-    if ((other === 0 && hotel.board_types) || hotel.board_types && other < hotel.board_types.length)
+    if ((boardTypes.length === 0 && hotel.board_types.length) || boardTypes.length < hotel.board_types.length)
       this.setBoardType(index, 'other');
   }
 

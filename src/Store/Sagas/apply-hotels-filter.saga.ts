@@ -11,20 +11,21 @@ function* ApplyHotelsFilter({payload: {actives, union}}: ApplyHotelsFilterType) 
     yield put(SetHotelsAfterFilters(undefined, undefined, list));
     return;
   }
-  const unity = union.length > 1 ? Unity({args: union}) : union[0];
+  const unity = union.length > 1 ? Unity(...union) : union[0];
   const length: any = {};
   Object.keys(structure).forEach((key => {
     const parent = structure[key];
     if (Array.isArray(parent))
-      length[key] = Unity({unity, args: [parent]}).length;
+      length[key] = Unity(unity, parent);
     else {
       length[key] = {};
       Object.keys(parent).forEach(key1 => {
-        length[key][key1] = Unity<number>({unity, args: [parent[key1]]}).length;
+        length[key][key1] = Unity<number>(unity, parent[key1]);
       });
     }
   }));
   yield put(SetHotelsAfterFilters(actives, length, unity));
+  console.log('update', new Date().getTime());
 }
 
 

@@ -5,11 +5,12 @@ import {FacilityType} from '../Types';
 
 export interface HotelsStateInterface {
   status: 'ok' | 'loading' | 'expire' | 'error' | null;
+  change_filter: number;
   filter?: {
     hotels: number[];
     structure: HotelsFilterInterface;
     actives?: {[key: string]: {indexes: number[], name: string}};
-    numbers?: HotelsFilterInterface<number>;
+    numbers?: HotelsFilterInterface<number[]>;
   }
   basicData?: {
     search_id: string;

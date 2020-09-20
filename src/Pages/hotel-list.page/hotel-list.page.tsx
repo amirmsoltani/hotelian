@@ -50,7 +50,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
     const {hotels, indexes, facilities, status} = this.props;
     return (
       <>
-        <StatusBar animated={true} backgroundColor={'red'} hidden={false}><Text>Salam</Text></StatusBar>
+        <StatusBar animated={true} backgroundColor={'red'} hidden={false}/>
         <Body>
           <SafeAreaView>
             {status === 'ok' ?

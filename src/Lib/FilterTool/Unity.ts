@@ -4,7 +4,7 @@
  * @param args:Array of Array of any; Array length must be greater than 2
  */
 export default function U<T = any>({unity, args}: {unity?: T[], args: Array<T[]>}): T[] {
-  if (!unity && args.length < 2)
+  if ((!unity && args.length < 2))
     throw 'Arguments submitted must be more than two';
   const Unity: T[] = [...(unity || args.pop()!)];
   const u = [...Unity];

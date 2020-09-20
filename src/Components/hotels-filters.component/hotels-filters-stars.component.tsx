@@ -31,7 +31,7 @@ const HotelsFiltersStars = ({item, length, structure, actives, onPressFilters}: 
 
           ))
         }
-        <Text>{`(${length ? length.stars[item] : structure[item].length})`}</Text>
+        <Text>{`(${length ? length.stars[item].length : structure[item].length})`}</Text>
       </Else>
     </Conditional>
   </TouchableOpacity>);

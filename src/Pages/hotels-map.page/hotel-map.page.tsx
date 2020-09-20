@@ -34,7 +34,7 @@ const HotelMapPage = ({hotels, indexes}: Props) => {
       >
         {
           indexes.map(index => <Marker coordinate={{latitude: +hotels[index].lat, longitude: +hotels[index].lng}}
-                                       icon={image}/>)
+                                       icon={image} key={hotels[index].hotel_id}/>)
         }
       </MapView>
       <StatusBar hidden={true}/>

@@ -21,7 +21,7 @@ const HotelsFiltersAll = ({item, length, structure, name, actives, onPressFilter
     onPress={onPressFilters}
   >
     <Text>{item === '' ? 'Unknown' : item}</Text>
-    <Text>{`(${length ? length[name][item] : structure[item].length})`}</Text>
+    <Text>{`(${length ? length[name][item].length : structure[item].length})`}</Text>
   </TouchableOpacity>);
 
 export default HotelsFiltersAll;
