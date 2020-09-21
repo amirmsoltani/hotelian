@@ -3,8 +3,7 @@ import {BORDER_RADIUS, COLOR_WHITE, SHADOW_SM} from "../../../native-base-theme/
 
 export default StyleSheet.create({
     text:{
-        fontSize: 18,
-        fontWeight: "bold",
+        fontSize: 16,
         color: COLOR_WHITE,
     },
     textOverlay:{

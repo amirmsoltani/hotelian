@@ -1,9 +1,11 @@
 import React from 'react';
 import {CardItem, Icon, Picker, Text, View} from 'native-base';
-import {TouchableHighlight} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+
 import {RoomType} from '../../Typescript';
 import style from './room-component.style';
 import {randInt} from '../../Lib/Random';
+import {AppText} from "../../Containers";
 
 type Props = { title: string, onChange: (room: RoomType) => void, defaultValue?: RoomType, onDelete: () => void, removable: boolean }
 export default (props: Props): React.FunctionComponentElement<CardItem> => {
@@ -40,53 +42,53 @@ export default (props: Props): React.FunctionComponentElement<CardItem> => {
             justifyContent: 'flex-start',
         }}>
             <View style={style.roomHeader}>
-                <Text style={style.roomText}>{props.title}</Text>
+                <AppText style={style.roomText}>{props.title}</AppText>
                 {
                     props.removable ?
-                        <TouchableHighlight onPress={props.onDelete}>
+                        <TouchableOpacity onPress={props.onDelete}>
                             <Icon type='FontAwesome5' name='trash' style={style.headerTrash}/>
-                        </TouchableHighlight> : <></>
+                        </TouchableOpacity> : <></>
                 }
             </View>
             <View style={style.body}>
                 <View style={style.scope}>
-                    <Text style={style.scopeText}>adults</Text>
+                    <AppText style={style.scopeText}>adults</AppText>
 
 
-                    <TouchableHighlight onPress={() => {
+                    <TouchableOpacity onPress={() => {
                         setStateWithProps({...state, adults: (state.adults > 1 && --state.adults) || state.adults});
                     }}>
                         <Icon type='SimpleLineIcons' name='minus' style={style.scopeIcon}/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
 
 
-                    <Text style={style.scopeNumber}>{state.adults}</Text>
+                    <AppText style={style.scopeNumber}>{state.adults}</AppText>
 
 
-                    <TouchableHighlight onPress={() => {
+                    <TouchableOpacity onPress={() => {
                         setStateWithProps({...state, adults: (state.adults < 4 && ++state.adults) || state.adults});
                     }} style={style.scopeIcon}>
                         <Icon type='SimpleLineIcons' name='plus' style={style.scopeIcon}/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
 
 
                 <View style={style.scope}>
                     <Text style={style.scopeText}>children</Text>
-                    <TouchableHighlight onPress={minusChild}>
+                    <TouchableOpacity onPress={minusChild}>
                         <Icon type='SimpleLineIcons' name='minus' style={style.scopeIcon}/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <Text style={style.scopeNumber}>{state.children.length}</Text>
 
-                    <TouchableHighlight onPress={addChild} style={style.scopeIcon}>
+                    <TouchableOpacity onPress={addChild} style={style.scopeIcon}>
                         <Icon type='SimpleLineIcons' name="plus" style={style.scopeIcon}/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
             </View>
             {
                 state.children.length > 0 ?
                     <View style={style.childrenAges}>
-                        <Text style={style.childrenAgesText}>children ages:</Text>
+                        <AppText style={style.childrenAgesText}>children ages:</AppText>
                         {
                             state.children.map((child, index) => {
                                 return (
