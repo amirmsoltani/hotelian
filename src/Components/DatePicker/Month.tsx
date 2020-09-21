@@ -28,7 +28,6 @@ class Month extends Component<Props, State> {
       return true;
     else if (this.props.checkIn < days[days.length - 1].time && this.props.checkOut === -1)
       return true;
-    console.log('false');
     return false;
   }
 
