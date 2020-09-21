@@ -58,7 +58,11 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                 </TouchableOpacity>
                 <TouchableOpacity onPress={Actions.rooms}>
                     <FormRow
-                        text={`${rooms?.length} Room(s) / ${adultCounts} Adult(s) / ${childCounts} Children`}
+                        text={
+                            `${rooms?.length} Room${rooms?.length > 1 ? 's' : ''} / ` +
+                            `${adultCounts} Adult${adultCounts > 1 ? 's' : ''} / ` +
+                            `${childCounts} Children`
+                        }
                         isFilled={!!nationality}
                         hasError={false}
                         type={'passenger'}
