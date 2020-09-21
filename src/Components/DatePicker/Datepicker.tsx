@@ -31,10 +31,10 @@ class Datepicker extends Component<Props, State> {
   year: MonthType[];
   static defaultProps = {
     defaultValue: {
-      checkIn: moment().format('YYYY-MM-DD'),
-      checkOut: moment().add(1, 'day').format('YYYY-MM-DD'),
+      checkIn: moment().format('DD-MM-YYYY'),
+      checkOut: moment().add(1, 'day').format('DD-MM-YYYY'),
     },
-    format: 'YYYY-MM-DD',
+    format: 'DD-MM-YYYY',
   };
 
   convertToZero(date: Moment): Moment {
@@ -49,7 +49,6 @@ class Datepicker extends Component<Props, State> {
     super(props);
     const checkIn = this.convertToZero(moment(this.props.defaultValue!.checkIn, this.props.format)).unix();
     const checkOut = this.convertToZero(moment(this.props.defaultValue!.checkOut, this.props.format)).unix();
-    console.log(moment(checkIn * 1000).format('YYYY,MMMM,DD'), this.props.defaultValue!.checkOut);
     this.state = {checkIn, checkOut};
     this.year = this.createOneYear();
     this.selectDay = this.selectDay.bind(this);
@@ -72,7 +71,7 @@ class Datepicker extends Component<Props, State> {
   }
 
   createOneYear(): MonthType[] {
-    const date =moment();
+    const date = moment();
     date.startOf('month');
     this.convertToZero(date);
     const oneYear: MonthType[] = [];
