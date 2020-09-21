@@ -44,7 +44,9 @@ class SelectDestinationPage extends PureComponent<Props> {
     render() {
         const {destinations, GetDestination} = this.props;
         return (
-            <ScrollView style={style.container}>
+            <ScrollView
+                keyboardShouldPersistTaps={"always"}
+                style={style.container}>
                 <View style={style.inputContainer}>
                     <TextInput
                         style={[style.input, this.state.inputStyle]}

@@ -42,7 +42,9 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
     const [inputStyle, setStyle] = useState(style.blurredInput);
 
     return (
-        <ScrollView style={style.container}>
+        <ScrollView
+            keyboardShouldPersistTaps={"always"}
+            style={style.container}>
             <View style={style.inputContainer}>
                 <TextInput
                     style={[style.input, inputStyle]}
