@@ -18,7 +18,7 @@ const SearchRoute = (props: { match: match }) => {
                     </Button>
                 </Left>
                 <Body>
-                    <Title> Select Nationality</Title>
+                    <Title>Coming Soon</Title>
                 </Body>
                 <Right/>
             </Header>
