@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 import {
     COLOR_BLACK,
     COLOR_DANGER,
-    GRAY_DARK,
-    GRAY_LIGHT_XX, MUTED_DARK, MUTED_LIGHT_XX,
+    MUTED_DARK,
+    MUTED_LIGHT_XX,
     TEXT_SIZE
 } from "../../../../native-base-theme/variables/config";
 
