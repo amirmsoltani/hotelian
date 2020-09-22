@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         // fontFamily: Arial,
         fontSize: TEXT_SIZE,
         color: COLOR_BLACK,
+        textAlign:'left',
     },
 });
 

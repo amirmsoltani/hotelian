@@ -15,11 +15,13 @@ export default async function(data: {entries: string[], index: number}): Promise
   await middleware.push(saga);
   await middleware.push(routerMiddleware(history));
   const apply = await applyMiddleware(...middleware);
+
   const store = await createStore(
     rootReducer(history),
     {
-      searchReducer: await Initial.searchInit(),
       hotelsReducer: Initial.hotelsInit,
+      searchReducer: await Initial.searchInit(),
+      appReducer: await Initial.appInit(),
     }
     ,
     __DEV__ ? composeWithDevTools(apply) : compose(apply),

@@ -3,7 +3,7 @@ import {globalStore} from '../Store';
 
 export default {
   headers() {
-    const {currency, language} = globalStore.getState().userReducer;
+    const {currency, language} = globalStore.getState().appReducer;
     return {'X-Currency': currency, 'X-Language': language};
   },
 
