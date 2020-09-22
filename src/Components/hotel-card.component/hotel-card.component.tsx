@@ -1,10 +1,9 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {CardItem, H1, H2, H3, Text, Badge, View, Icon} from 'native-base';
-import {TouchableHighlight} from 'react-native';
+import {Image, TouchableHighlight} from 'react-native';
+import {Badge, CardItem, H1, H2, H3, Icon, Text, View} from 'native-base';
 import {HotelInterface} from '../../Typescript';
 
-type Props = {hotel: HotelInterface, hotelFacilities: string[], book: (id: number) => void};
+type Props = { hotel: HotelInterface, hotelFacilities: string[], book: (id: number) => void };
 export default ({hotel: {hotel_id, image, name, location, address, price, star, room}, hotelFacilities, book}: Props) => {
 
   return (
