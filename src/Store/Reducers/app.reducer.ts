@@ -7,7 +7,7 @@ const defaultData: AppStateInterface = {
   today: {unix: 0, datetime: ''},
   track_code: '',
   language: 'fa',
-  rtl: true,
+  rtl: false,
   currency: 'USD',
   locales: [],
 };

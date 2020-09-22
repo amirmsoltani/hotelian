@@ -151,81 +151,81 @@ class SearchPage extends Component<Props, State> {
             </Button>
           </Right>
         </Header>
-        {/*<ScrollView style={style.container}>*/}
+        <ScrollView style={style.container}>
 
-        {/*  /!*background shapes*!/*/}
-        {/*  <View style={style.bg_rect}/>*/}
-        {/*  <View style={style.bg_triangle}/>*/}
+          {/*background shapes*/}
+          <View style={style.bg_rect}/>
+          <View style={style.bg_triangle}/>
 
-        {/*  /!*search form*!/*/}
-        {/*  <View style={{*/}
-        {/*    paddingHorizontal: 15,*/}
-        {/*    paddingVertical: 25,*/}
-        {/*  }}>*/}
-        {/*    <SearchFrom/>*/}
-        {/*  </View>*/}
+          {/*search form*/}
+          <View style={{
+            paddingHorizontal: 15,
+            paddingVertical: 25,
+          }}>
+            <SearchFrom/>
+          </View>
 
-        {/*  /!*recent search*!/*/}
-        {/*  <View style={[style.wrapper]}>*/}
-        {/*    <H3 style={style.header}>Recent Search</H3>*/}
-        {/*    <View>*/}
-        {/*      <FlatList*/}
-        {/*        data={recentSearch}*/}
-        {/*        renderItem={({item}) =>*/}
-        {/*          <RecentSearch*/}
-        {/*            dest={item.dest}*/}
-        {/*            checkin={item.checkin}*/}
-        {/*            checkout={item.checkout}*/}
-        {/*            adult={item.adult}*/}
-        {/*            room={item.room}*/}
-        {/*            children={item.children}/>*/}
-        {/*        }*/}
-        {/*        keyExtractor={item => item.key}*/}
-        {/*        horizontal={true}*/}
-        {/*        showsHorizontalScrollIndicator={false}*/}
-        {/*      />*/}
-        {/*    </View>*/}
-        {/*  </View>*/}
+          {/*recent search*/}
+          <View style={[style.wrapper]}>
+            <H3 style={style.header}>Recent Search</H3>
+            <View>
+              <FlatList
+                data={recentSearch}
+                renderItem={({item}) =>
+                  <RecentSearch
+                    dest={item.dest}
+                    checkin={item.checkin}
+                    checkout={item.checkout}
+                    adult={item.adult}
+                    room={item.room}
+                    children={item.children}/>
+                }
+                keyExtractor={item => item.key}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
 
-        {/*  /!*top destination*!/*/}
-        {/*  <View style={[style.wrapper]}>*/}
-        {/*    <H3 style={style.header}>Top Destinations</H3>*/}
-        {/*    <View>*/}
-        {/*      <FlatList*/}
-        {/*        data={topDestination}*/}
-        {/*        renderItem={({item}) =>*/}
-        {/*          <TopDestination*/}
-        {/*            source={item.source}*/}
-        {/*            caption={item.caption}*/}
-        {/*          />*/}
-        {/*        }*/}
-        {/*        keyExtractor={item => item.key}*/}
-        {/*        horizontal={true}*/}
-        {/*        showsHorizontalScrollIndicator={false}*/}
-        {/*      />*/}
-        {/*    </View>*/}
-        {/*  </View>*/}
+          {/*top destination*/}
+          <View style={[style.wrapper]}>
+            <H3 style={style.header}>Top Destinations</H3>
+            <View>
+              <FlatList
+                data={topDestination}
+                renderItem={({item}) =>
+                  <TopDestination
+                    source={item.source}
+                    caption={item.caption}
+                  />
+                }
+                keyExtractor={item => item.key}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
 
-        {/*  /!*top properties*!/*/}
-        {/*  <View style={[style.wrapper]}>*/}
-        {/*    <H3 style={style.header}>Top Destinations</H3>*/}
-        {/*    <View>*/}
-        {/*      <FlatList*/}
-        {/*        data={topProperty}*/}
-        {/*        renderItem={({item}) =>*/}
-        {/*          <TopProperty*/}
-        {/*            source={item.source}*/}
-        {/*            caption={item.caption}*/}
-        {/*          />*/}
-        {/*        }*/}
-        {/*        keyExtractor={item => item.key}*/}
-        {/*        horizontal={true}*/}
-        {/*        showsHorizontalScrollIndicator={false}*/}
-        {/*      />*/}
-        {/*    </View>*/}
-        {/*  </View>*/}
+          {/*top properties*/}
+          <View style={[style.wrapper]}>
+            <H3 style={style.header}>Top Destinations</H3>
+            <View>
+              <FlatList
+                data={topProperty}
+                renderItem={({item}) =>
+                  <TopProperty
+                    source={item.source}
+                    caption={item.caption}
+                  />
+                }
+                keyExtractor={item => item.key}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
 
-        {/*</ScrollView>*/}
+        </ScrollView>
       </>
     );
   }
