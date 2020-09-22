@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {LinkProps} from 'react-router-native';
@@ -30,17 +30,18 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & LinkProps;
 
-class SelectDestinationPage extends PureComponent<Props> {
+class SelectDestinationPage extends Component<Props> {
 
     state = {
+
+        //add style when focusing on <TextInput />
         inputStyle: style.blurredInput,
     };
 
-    selectDestination(destination: DestinationType) {
-        this.props.ChangeSearchData({destination});
-        Actions.pop();
-    }
 
+    //=======================================
+    // Hooks
+    //=======================================
     render() {
         const {destinations, GetDestination} = this.props;
         return (
@@ -50,6 +51,7 @@ class SelectDestinationPage extends PureComponent<Props> {
                 <View style={style.inputContainer}>
                     <TextInput
                         style={[style.input, this.state.inputStyle]}
+                        autoFocus={true}
                         placeholder="e.g London, Paris, Madrid"
                         onChangeText={(text) => GetDestination(text)}
                         onFocus={() => this.setState({inputStyle: {...style.focusedInput}})}
@@ -79,7 +81,7 @@ class SelectDestinationPage extends PureComponent<Props> {
                                                     <Icon
                                                         style={style.icon}
                                                         name={des.dest_type === 'hotel' ? 'hotel' : 'city'}
-                                                        type={des.dest_type === 'hotel' ? 'Fontisto' : 'FontAwesome5'}
+                                                        type={des.dest_type === 'hotel' ? 'FontAwesome' : 'FontAwesome5'}
                                                     />
                                                     <View>
                                                         <AppText
@@ -120,6 +122,16 @@ class SelectDestinationPage extends PureComponent<Props> {
             </ScrollView>
         );
     }
+
+
+    //=======================================
+    // Methods
+    //=======================================
+    selectDestination(destination: DestinationType) {
+        this.props.ChangeSearchData({destination});
+        Actions.pop();
+    }
+
 }
 
 export default connector(SelectDestinationPage);
