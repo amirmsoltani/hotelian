@@ -4,6 +4,8 @@ import axios, {AxiosResponse} from 'axios';
 import {LANGUAGE_URL} from '../../URLS';
 import Storage from '../../Lib/Storage';
 import {RootStateInterface} from '../../Typescript';
+import Translator from '../../Lib/Languages';
+import RNRestart from 'react-native-restart';
 
 function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
   try {
@@ -13,7 +15,9 @@ function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
       currency: state.appReducer.currency,
     }));
     yield Storage.save({key: 'app-data', expires: null, data: {track_code, currency, rtl, lang}});
+    Translator(lang, rtl, response.data.result);
     yield put(SetLanguage({lang, rtl, json: response.data.result}));
+    RNRestart.Restart();
   } catch (e) {
 
   }
