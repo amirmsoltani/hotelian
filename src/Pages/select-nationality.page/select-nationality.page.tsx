@@ -47,6 +47,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
             style={style.container}>
             <View style={style.inputContainer}>
                 <TextInput
+                    autoFocus={true}
                     style={[style.input, inputStyle]}
                     placeholder="e.g United Kingdom, Japan"
                     onChangeText={(text) => GetNationality(text)}
