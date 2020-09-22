@@ -2,7 +2,6 @@ import {delay, takeLatest, put} from 'redux-saga/effects';
 import Http from '../../Lib/Http';
 import {GET_DESTINATION, GET_NATIONALITY, GetDestinationType, GetNationalityType, SetSearchResponse} from '../Actions';
 import {HttpResponseInterface} from '../../Typescript';
-import {AxiosError} from 'axios';
 
 export function* GetSearchData(action: GetDestinationType | GetNationalityType) {
 
