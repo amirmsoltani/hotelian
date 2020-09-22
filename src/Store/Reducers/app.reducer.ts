@@ -1,12 +1,13 @@
 import {AppStateInterface} from '../../Typescript';
 import Storage from '../../Lib/Storage';
 import axios from 'axios';
-import {USER_TRACK_CODE_URL, INITIAL_URL, LANGUAGE_URL} from '../../URLS';
+import {INITIAL_URL, LANGUAGE_URL, USER_TRACK_CODE_URL} from '../../URLS';
+import {AppActionsTypes, SET_LANGUAGE} from '../Actions';
 
 const defaultData: AppStateInterface = {
   today: {unix: 0, datetime: ''},
   track_code: '',
-  language: 'fa',
+  language: 'en',
   rtl: false,
   currency: 'USD',
   locales: [],
@@ -22,7 +23,8 @@ export const appInit = async (): Promise<AppStateInterface> => {
     try {
       const response = await axios.get<{result: {user_track_code: string}}>(USER_TRACK_CODE_URL);
       defaultData.track_code = response.data.result.user_track_code;
-      Storage.save({key: 'app-data', data: defaultData, expires: null}).then();
+      const {rtl, language, track_code, currency} = defaultData;
+      Storage.save({key: 'app-data', data: {rtl, language, track_code, currency}, expires: null}).then();
     } catch (e) {
     }
   }
@@ -41,8 +43,11 @@ export const appInit = async (): Promise<AppStateInterface> => {
   }
   return defaultData;
 };
-const AppReducer = (state: AppStateInterface = defaultData, action: any): AppStateInterface => {
+const AppReducer = (state: AppStateInterface = defaultData, action: AppActionsTypes): AppStateInterface => {
   switch (action.type) {
+    case SET_LANGUAGE: {
+      return {...state, rtl: action.payload.rtl, json: action.payload.json, language: action.payload.lang};
+    }
     default:
       return state;
   }
