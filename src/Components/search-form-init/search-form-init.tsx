@@ -8,8 +8,8 @@ type propsType = {mode: string}
 const SearchFormInit = (props: propsType) => {
   const _data = {
     source: (props.mode === 'nationality') ?
-      require('../../Assets/Images/earth-globe.png') :
-      require('../../Assets/Images/globe-grid.png'),
+      require('Assets/Images/earth-globe.png') :
+      require('Assets/Images/globe-grid.png'),
   };
   return (
     <View>

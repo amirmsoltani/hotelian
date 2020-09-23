@@ -4,12 +4,12 @@ import {FlatList, SafeAreaView, Text, View} from 'react-native';
 import {Button} from 'native-base';
 
 import style from './DatepickerStyles';
-import {DateType, Month as MonthType} from '../../Typescript/Types/DatepickerTypes';
+import {DateType, Month as MonthType} from 'Typescript/Types/DatepickerTypes';
 import Month from './Month';
-import IF from '../../Lib/IF';
-import {AppText} from '../../Containers';
-import {Style} from '../../Styles';
-import {translate} from '../../Lib/Languages';
+import IF from 'Lib/IF';
+import {AppText} from 'Containers';
+import {Style} from 'Styles';
+import {translate} from 'Lib/Languages';
 
 interface Props {
   defaultValue?: {
@@ -22,6 +22,7 @@ interface Props {
     closeAfter?: boolean;
   }) => void;
   format: string;
+  today: number
 }
 
 interface State {
@@ -39,11 +40,13 @@ class Datepicker extends Component<Props, State> {
     },
     format: 'DD-MM-YYYY',
   };
+  today: Moment;
 
   constructor(props: Props) {
     super(props);
-    const checkIn = this.convertToZero(moment(this.props.defaultValue!.checkIn, this.props.format)).unix();
-    const checkOut = this.convertToZero(moment(this.props.defaultValue!.checkOut, this.props.format)).unix();
+    this.today = this.convertToZero(moment(props.today));
+    const checkIn = this.convertToZero(moment(props.defaultValue!.checkIn, props.format)).unix();
+    const checkOut = this.convertToZero(moment(props.defaultValue!.checkOut, props.format)).unix();
     this.state = {checkIn, checkOut};
     this.year = this.createOneYear();
     this.selectDay = this.selectDay.bind(this);
@@ -137,7 +140,7 @@ class Datepicker extends Component<Props, State> {
                   Style.text__center,
                   Style.text__bold,
                   Style.text__white,
-                ]}>Check-out</AppText>
+                ]}>{translate('check-out')}</AppText>
               <AppText style={
                 [
                   {fontSize: 14},
@@ -159,6 +162,7 @@ class Datepicker extends Component<Props, State> {
               onSelect={this.selectDay}
               checkOut={checkOut}
               checkIn={checkIn}
+              today={this.today.unix()}
               {...item}/>)}
             keyExtractor={(month) => month.time.toString()}
           />
@@ -170,7 +174,7 @@ class Datepicker extends Component<Props, State> {
               <AppText style={style.doneText}>
                 DONE
                 <AppText style={style.dontNightText}>
-                  {` (${this.nights} Night${this.nights > 1 ? 's' : ''})`}
+                  {` (${this.nights} ${(`night${this.nights > 1 ? 's' : ''})`)}`}
                 </AppText>
               </AppText>
             </Button>
