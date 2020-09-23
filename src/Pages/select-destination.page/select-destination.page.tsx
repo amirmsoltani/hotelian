@@ -8,129 +8,149 @@ import style from './select-destination-page.style';
 import {ChangeSearchData, GetDestination} from '../../Store/Actions';
 import {DestinationType, RootStateInterface} from '../../Typescript';
 import {
-    Conditional,
-    ElIf,
-    If,
-    SearchFormError,
-    SearchFormIdle,
-    SearchFormInit,
-    SearchPageSkeletonLoader
+  Conditional,
+  ElIf,
+  If,
+  SearchFormError,
+  SearchFormIdle,
+  SearchFormInit,
+  SearchPageSkeletonLoader
 } from "../../Components";
-import {Icon, List, ListItem} from "native-base";
+import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
 import {AppRow, AppText} from "../../Containers";
+import {Style} from "../../Styles";
 
 const mapStateToProps = (state: RootStateInterface) => ({
-    destinations: state.searchReducer.destination.list,
-    status: state.searchReducer.destination.GET,
+  destinations: state.searchReducer.destination.list,
+  status: state.searchReducer.destination.GET,
 });
 const mapDispatchToProps = {
-    ChangeSearchData,
-    GetDestination,
+  ChangeSearchData,
+  GetDestination,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & LinkProps;
 
 class SelectDestinationPage extends Component<Props> {
 
-    state = {
+  state = {
 
-        //add style when focusing on <TextInput />
-        inputStyle: style.blurredInput,
-    };
+    //add style when focusing on <TextInput />
+    inputStyle: style.blurredInput,
+  };
 
 
-    //=======================================
-    // Hooks
-    //=======================================
-    render() {
-        const {destinations, GetDestination} = this.props;
-        return (
-            <ScrollView
-                keyboardShouldPersistTaps={"always"}
-                style={style.container}>
-                <View style={style.inputContainer}>
-                    <TextInput
-                        style={[style.input, this.state.inputStyle]}
-                        autoFocus={true}
-                        placeholder="e.g London, Paris, Madrid"
-                        onChangeText={(text) => GetDestination(text)}
-                        onFocus={() => this.setState({inputStyle: {...style.focusedInput}})}
-                        onBlur={() => this.setState({inputStyle: {...style.blurredInput}})}
-                    />
+  //=======================================
+  // Hooks
+  //=======================================
+  render() {
+    const {destinations, GetDestination} = this.props;
+    return (
+      <Container>
+        <Header style={[Style.bg__primary]}>
+          <Left>
+            <Button onPress={Actions.pop} transparent>
+              <Icon
+                type={'MaterialIcons'}
+                name='keyboard-backspace'
+                style={[
+                  {fontSize: 30},
+                  Style.text__white,
+                ]}/>
+            </Button>
+          </Left>
+          <Body>
+            <Title>Destination</Title>
+          </Body>
+          <Right/>
+        </Header>
+        <ScrollView
+          keyboardShouldPersistTaps={"always"}
+          style={style.container}>
+          <View style={style.inputContainer}>
+            <TextInput
+              style={[style.input, this.state.inputStyle]}
+              autoFocus={true}
+              placeholder="e.g London, Paris, Madrid"
+              onChangeText={(text) => GetDestination(text)}
+              onFocus={() => this.setState({inputStyle: {...style.focusedInput}})}
+              onBlur={() => this.setState({inputStyle: {...style.blurredInput}})}
+            />
+          </View>
+          <View>
+            <Conditional>
+              <If condition={this.props.status === 'loading'}>
+                <View style={style.contentContainer}>
+                  <SearchPageSkeletonLoader/>
+                  <SearchPageSkeletonLoader/>
+                  <SearchPageSkeletonLoader/>
+                  <SearchPageSkeletonLoader/>
                 </View>
-                <View>
-                    <Conditional>
-                        <If condition={this.props.status === 'loading'}>
-                            <View style={style.contentContainer}>
-                                <SearchPageSkeletonLoader/>
-                                <SearchPageSkeletonLoader/>
-                                <SearchPageSkeletonLoader/>
-                                <SearchPageSkeletonLoader/>
+              </If>
+              <ElIf condition={this.props.status === 'ok'}>
+                <View style={style.contentContainer}>
+                  <List>
+                    {destinations?.map((des, index) => (
+                      <ListItem style={style.listItem}
+                                key={des.dest_code}>
+                        <TouchableOpacity style={style.touchableOp}
+                                          onPress={() => this.selectDestination(des)}
+                                          key={index}>
+                          <AppRow>
+                            <Icon
+                              style={style.icon}
+                              name={des.dest_type === 'hotel' ? 'hotel' : 'city'}
+                              type={des.dest_type === 'hotel' ? 'FontAwesome' : 'FontAwesome5'}
+                            />
+                            <View>
+                              <AppText
+                                style={style.appText}
+                              >{des.label}</AppText>
+                              <Text>{des.text}</Text>
                             </View>
-                        </If>
-                        <ElIf condition={this.props.status === 'ok'}>
-                            <View style={style.contentContainer}>
-                                <List>
-                                    {destinations?.map((des, index) => (
-                                        <ListItem style={style.listItem}
-                                                  key={des.dest_code}>
-                                            <TouchableOpacity style={style.touchableOp}
-                                                              onPress={() => this.selectDestination(des)}
-                                                              key={index}>
-                                                <AppRow>
-                                                    <Icon
-                                                        style={style.icon}
-                                                        name={des.dest_type === 'hotel' ? 'hotel' : 'city'}
-                                                        type={des.dest_type === 'hotel' ? 'FontAwesome' : 'FontAwesome5'}
-                                                    />
-                                                    <View>
-                                                        <AppText
-                                                            style={style.appText}
-                                                        >{des.label}</AppText>
-                                                        <Text>{des.text}</Text>
-                                                    </View>
-                                                </AppRow>
-                                            </TouchableOpacity>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </View>
-                        </ElIf>
-                        <ElIf condition={this.props.status === 'notFound'}>
-                            <View style={style.idleContainer}>
-                                <SearchFormIdle
-                                    mode={'destination'}
-                                />
-                            </View>
-                        </ElIf>
-                        <ElIf condition={this.props.status === 'error'}>
-                            <View style={style.idleContainer}>
-                                <SearchFormError/>
-                            </View>
-                        </ElIf>
-
-                        {/*initial state*/}
-                        <ElIf condition={this.props.status === 'idle'}>
-                            <View style={style.idleContainer}>
-                                <SearchFormInit
-                                    mode={'destination'}
-                                />
-                            </View>
-                        </ElIf>
-                    </Conditional>
+                          </AppRow>
+                        </TouchableOpacity>
+                      </ListItem>
+                    ))}
+                  </List>
                 </View>
-            </ScrollView>
-        );
-    }
+              </ElIf>
+              <ElIf condition={this.props.status === 'notFound'}>
+                <View style={style.idleContainer}>
+                  <SearchFormIdle
+                    mode={'destination'}
+                  />
+                </View>
+              </ElIf>
+              <ElIf condition={this.props.status === 'error'}>
+                <View style={style.idleContainer}>
+                  <SearchFormError/>
+                </View>
+              </ElIf>
+
+              {/*initial state*/}
+              <ElIf condition={this.props.status === 'idle'}>
+                <View style={style.idleContainer}>
+                  <SearchFormInit
+                    mode={'destination'}
+                  />
+                </View>
+              </ElIf>
+            </Conditional>
+          </View>
+        </ScrollView>
+      </Container>
+    );
+  }
 
 
-    //=======================================
-    // Methods
-    //=======================================
-    selectDestination(destination: DestinationType) {
-        this.props.ChangeSearchData({destination});
-        Actions.pop();
-    }
+  //=======================================
+  // Methods
+  //=======================================
+  selectDestination(destination: DestinationType) {
+    this.props.ChangeSearchData({destination});
+    Actions.pop();
+  }
 
 }
 

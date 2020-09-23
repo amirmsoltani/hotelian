@@ -1,5 +1,5 @@
 import React from 'react';
-import {Content, Footer, Icon} from 'native-base';
+import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right, Title} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -9,6 +9,7 @@ import {RoomComponent} from '../../Components';
 import {ChangeSearchData} from '../../Store/Actions';
 import {randInt} from '../../Lib/Random';
 import {AppText} from "../../Containers";
+import {Style} from "../../Styles";
 
 const connector = connect((state: RootStateInterface) => ({rooms: state.searchReducer.form_data.rooms}), {ChangeSearchData});
 const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
@@ -29,7 +30,24 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
     setRooms(new_rooms);
   };
   return (
-    <>
+    <Container>
+      <Header style={[Style.bg__primary]}>
+        <Left>
+          <Button onPress={Actions.pop} transparent>
+            <Icon
+              type={'MaterialIcons'}
+              name='keyboard-backspace'
+              style={[
+                {fontSize: 30},
+                Style.text__white,
+              ]}/>
+          </Button>
+        </Left>
+        <Body>
+          <Title>Rooms</Title>
+        </Body>
+        <Right/>
+      </Header>
       <Content>
         <View>
           {
@@ -86,7 +104,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
           </AppText>
         </TouchableOpacity>
       </Footer>
-    </>);
+    </Container>);
 };
 
 export default connector(CreateRoomPage);
