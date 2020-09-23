@@ -2,17 +2,23 @@ import React, {Component} from 'react';
 import {Actions} from "react-native-router-flux";
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
-import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
+import {SafeAreaView, TouchableHighlight, View, VirtualizedList} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Spinner, Subtitle, Title} from 'native-base';
 
+import {
+  COLOR_WARNING,
+  GRAY_LIGHT_XXX,
+  MUTED_LIGHT_XX,
+  MUTED_LIGHT_XXX,
+  SHADOW_NM
+} from "../../../native-base-theme/variables/config";
 import {Style} from "Styles";
 import {HotelCard} from 'Components';
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {COLOR_WARNING, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_NM} from "../../../native-base-theme/variables/config";
-import {AppText} from "../../Containers";
+import {AppText} from "Containers";
 
-const mapStateToProps = ({hotelsReducer: {basicData, status, filter}, searchReducer: {search_id, form_data}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {basicData, status, filter,}, searchReducer: {search_id, form_data}}: RootStateInterface) => ({
   search_id,
   form_data,
   status: status,
@@ -28,8 +34,8 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector>;
 
 class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
-  state = {end: false, scroll: false};
   timeOut: any | null = null;
+  state = {end: false, scroll: false};
 
   //=======================================
   // Hooks
@@ -61,37 +67,60 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </View>
           <Right style={{backgroundColor: COLOR_WARNING}}/>
         </Header>
-        <Body style={[{backgroundColor: MUTED_LIGHT_XXX},]}>
+        <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
           <View style={[
-            {
-              height: 50,
-            },
-            Style.bg__white,
-            Style.justify__content_between,
-            Style.flex__row,
-            Style.align__items_center,
+            {height: 50,},
             SHADOW_NM,
+            Style.bg__white,
+            Style.flex__row,
+            Style.justify__content_between,
+            Style.align__items_center,
           ]}>
-            <TouchableOpacity
-              style={[Style.col__4, Style.h__100, Style.flex__row, Style.justify__content_center, Style.align__items_center]}
-              onPress={() => Actions.jump('filter')}>
+
+            {/*sort*/}
+            <TouchableHighlight
+              style={[
+                Style.col__4,
+                Style.h__100,
+                Style.flex__row,
+                Style.justify__content_center,
+                Style.align__items_center]}>
               <>
                 <Icon type="MaterialIcons" name="sort" style={[{fontSize: 24}, Style.text__primary]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Sort</AppText>
               </>
-            </TouchableOpacity>
+            </TouchableHighlight>
+
+            {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
-            <TouchableOpacity
-              style={[Style.col__4, Style.h__100, Style.flex__row, Style.justify__content_center, Style.align__items_center]}
-              onPress={() => Actions.jump('hotels')}>
+
+            {/*filter*/}
+            <TouchableHighlight
+              underlayColor={GRAY_LIGHT_XXX}
+              style={[
+                Style.col__4,
+                Style.h__100,
+                Style.flex__row,
+                Style.justify__content_center,
+                Style.align__items_center]}
+              onPress={() => Actions.jump('filter')}>
               <>
                 <Icon type="MaterialIcons" name="filter-none" style={[{fontSize: 24}, Style.text__primary]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
               </>
-            </TouchableOpacity>
+            </TouchableHighlight>
+
+            {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
-            <TouchableOpacity
-              style={[Style.col__4, Style.h__100, Style.flex__row, Style.justify__content_center, Style.align__items_center]}
+
+            {/*map*/}
+            <TouchableHighlight
+              style={[
+                Style.col__4,
+                Style.h__100,
+                Style.flex__row,
+                Style.justify__content_center,
+                Style.align__items_center]}
               onPress={() => {
                 Actions.push('map');
               }}>
@@ -99,9 +128,10 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 <Icon type="SimpleLineIcons" name="map" style={[{fontSize: 24}, Style.text__primary]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Map</AppText>
               </>
-            </TouchableOpacity>
+            </TouchableHighlight>
+
           </View>
-          <SafeAreaView>
+          <SafeAreaView style={[Style.w__100, Style.bg__warning]}>
             {status === 'ok' ?
               <VirtualizedList<HotelInterface>
                 data={indexes}
@@ -110,20 +140,11 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 getItemCount={() => indexes!.length}
                 keyExtractor={item => item.hotel_id.toString()}
                 ListFooterComponent={this.state.end ? <></> : <Spinner color={'blue'}/>}
-                onEndReached={() => {
-                  this.setState({end: true});
-                }}
+                onEndReached={() => this.setState({end: true})}
                 renderItem={({item}) => {
                   let facility = facilities![item.hotel_id] ? facilities![item.hotel_id]['Hotel Facilities'] : [];
-                  return <HotelCard hotel={item}
-                                    hotelFacilities={facility}
-                                    book={this.bookIt}
-                  />;
-                }}
-
-              />
-              :
-              <></>
+                  return <HotelCard hotel={item} hotelFacilities={facility} book={this.bookIt}/>;
+                }}/> : <></>
             }
 
           </SafeAreaView>
