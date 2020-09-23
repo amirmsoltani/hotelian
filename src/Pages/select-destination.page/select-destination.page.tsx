@@ -3,10 +3,11 @@ import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native'
 import {connect, ConnectedProps} from 'react-redux';
 import {LinkProps} from 'react-router-native';
 import {Actions} from 'react-native-router-flux';
+import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
 
 import style from './select-destination-page.style';
-import {ChangeSearchData, GetDestination} from '../../Store/Actions';
-import {DestinationType, RootStateInterface} from '../../Typescript';
+import {ChangeSearchData, GetDestination} from 'Store/Actions';
+import {DestinationType, RootStateInterface} from 'Typescript';
 import {
   Conditional,
   ElIf,
@@ -15,10 +16,11 @@ import {
   SearchFormIdle,
   SearchFormInit,
   SearchPageSkeletonLoader
-} from "../../Components";
-import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
-import {AppRow, AppText} from "../../Containers";
-import {Style} from "../../Styles";
+} from "Components";
+import {AppRow, AppText} from "Containers";
+import {Style} from "Styles";
+import {translate as t} from "../../Lib/Languages";
+
 
 const mapStateToProps = (state: RootStateInterface) => ({
   destinations: state.searchReducer.destination.list,
@@ -71,7 +73,7 @@ class SelectDestinationPage extends Component<Props> {
             <TextInput
               style={[style.input, this.state.inputStyle]}
               autoFocus={true}
-              placeholder="e.g London, Paris, Madrid"
+              placeholder={`${t('city')}, ${t('hotel')}, ${t('landmarks')}`}
               onChangeText={(text) => GetDestination(text)}
               onFocus={() => this.setState({inputStyle: {...style.focusedInput}})}
               onBlur={() => this.setState({inputStyle: {...style.blurredInput}})}

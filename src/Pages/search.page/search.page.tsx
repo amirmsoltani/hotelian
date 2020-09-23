@@ -6,7 +6,7 @@ import {Menu, MenuOption, MenuOptions, MenuTrigger,} from 'react-native-popup-me
 
 import {Props, State} from './search-page.types';
 import style from './search-page.styles'
-import SearchFrom from '../../Forms/SearchForm/SearchFrom';
+import SearchFrom from 'Forms/SearchForm/SearchFrom';
 import {
   Conditional,
   CurrencyModal,
@@ -16,10 +16,11 @@ import {
   RecentSearch,
   TopDestination,
   TopProperty
-} from "../../Components";
+} from "Components";
 import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
-import {AppModal, AppText} from "../../Containers";
-import {Style} from "../../Styles";
+import {AppModal, AppText} from "Containers";
+import {Style} from "Styles";
+import {translate as t} from "../../Lib/Languages";
 
 
 class SearchPage extends Component<Props, State> {
@@ -152,11 +153,11 @@ class SearchPage extends Component<Props, State> {
                   <MenuOption
                     style={[Style.p__2]}
                     onSelect={() => this.onShowModal('language')}>
-                    <AppText style={Style.text__black}>Language</AppText>
+                    <AppText style={Style.text__black}>{t('language')}</AppText>
                   </MenuOption>
                   <MenuOption style={[Style.p__2]}
                               onSelect={() => this.onShowModal('currency')}>
-                    <AppText style={Style.text__black}>Currency</AppText>
+                    <AppText style={Style.text__black}>{t('currency')}</AppText>
                   </MenuOption>
                 </MenuOptions>
               </Menu>
@@ -191,7 +192,7 @@ class SearchPage extends Component<Props, State> {
 
           {/*recent search*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>Recent Search</H3>
+            <H3 style={style.header}>{t('recent-search')}</H3>
             <View>
               <FlatList
                 data={recentSearch}
@@ -213,7 +214,7 @@ class SearchPage extends Component<Props, State> {
 
           {/*top destination*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>Top Destinations</H3>
+            <H3 style={style.header}>{t('top-cities')}</H3>
             <View>
               <FlatList
                 data={topDestination}
@@ -232,7 +233,7 @@ class SearchPage extends Component<Props, State> {
 
           {/*top properties*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>Top Destinations</H3>
+            <H3 style={style.header}>{t('top-property')}</H3>
             <View>
               <FlatList
                 data={topProperty}

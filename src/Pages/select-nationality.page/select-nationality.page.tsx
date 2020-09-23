@@ -19,6 +19,7 @@ import {
     SearchPageSkeletonLoader
 } from "../../Components";
 import {Style} from "../../Styles";
+import {translate} from "../../Lib/Languages";
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -57,7 +58,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
                  </Button>
              </Left>
              <Body>
-                 <Title>Nationality</Title>
+                 <Title>{translate('nationality')}</Title>
              </Body>
              <Right/>
          </Header>
@@ -68,7 +69,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
                  <TextInput
                    autoFocus={true}
                    style={[style.input, inputStyle]}
-                   placeholder="e.g United Kingdom, Japan"
+                   placeholder={translate('e.g-united-kingdom')}
                    onChangeText={(text) => GetNationality(text)}
                    onFocus={() => setStyle(style.focusedInput)}
                    onBlur={() => setStyle(style.blurredInput)}
