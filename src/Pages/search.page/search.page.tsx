@@ -1,28 +1,40 @@
 import React, {Component} from 'react';
 import {FlatList, ScrollView} from "react-native";
-import {Body, Button, Container, Content, Form, H3, Header, Icon, Left, Picker, Right, View} from "native-base";
+import {Body, Button, H3, Header, Icon, Left, Right, View} from "native-base";
+import {Actions} from "react-native-router-flux";
+import {Menu, MenuOption, MenuOptions, MenuTrigger,} from 'react-native-popup-menu';
 
 import {Props, State} from './search-page.types';
 import style from './search-page.styles'
 import SearchFrom from '../../Forms/SearchForm/SearchFrom';
-import {RecentSearch, TopDestination, TopProperty} from "../../Components";
+import {
+  Conditional,
+  CurrencyModal,
+  ElIf,
+  If,
+  LanguageModal,
+  RecentSearch,
+  TopDestination,
+  TopProperty
+} from "../../Components";
 import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
-import {Actions} from "react-native-router-flux";
-import {AppText} from "../../Containers";
+import {AppModal, AppText} from "../../Containers";
 import {Style} from "../../Styles";
 
 
 class SearchPage extends Component<Props, State> {
-  state = {
-    selected: "key1"
-  };
 
-  onValueChange(value: string) {
-    this.setState({
-      selected: value
-    });
+  state = {
+    modalVisibility: false,
+
+    //'language' , 'currency
+    modalName: null,
+
   }
 
+  //=======================================
+  // Hooks
+  //=======================================
   render() {
 
     //dummy data
@@ -105,7 +117,6 @@ class SearchPage extends Component<Props, State> {
       },
     ];
 
-
     return (
       <>
         <Header style={[{backgroundColor: COLOR_PRIMARY},]}>
@@ -121,33 +132,46 @@ class SearchPage extends Component<Props, State> {
               Style.w__100,
               Style.text__bold,
               {fontSize: 24,}
-            ]}>
-              Hotelian<AppText style={[
-              {fontSize: 24,},
-              Style.text__important,
-            ]}>.com</AppText> </AppText>
+            ]}>Hotelian<AppText style={[{fontSize: 24,}, Style.text__important,]}>.com</AppText>
+            </AppText>
           </Body>
           <Right>
-            <Button style={[
-              Style.px__0,
-              Style.justify__content_end,
-              {minWidth: 55,}
-            ]} transparent>
+            <Button style={[Style.px__0, Style.justify__content_end, {width: 55,}]} transparent>
               <Icon type={'AntDesign'} name='message1' style={{fontSize: 20}}/>
             </Button>
-            <Button style={[
-              Style.px__0,
-              Style.justify__content_end,
-              {minWidth: 55,}
-            ]} transparent badge>
+            <Button style={[Style.px__0, Style.justify__content_end, {width: 55,}]} transparent>
               <Icon type={'MaterialIcons'} name='notifications-none' style={{fontSize: 24}}/>
             </Button>
-            <Button style={[
-              Style.px__0,
-              Style.justify__content_end,
-              {minWidth: 46,}
-            ]} transparent>
-              <Icon type={'Feather'} name='more-vertical' style={{fontSize: 24}}/>
+            <Button style={[Style.px__0, Style.justify__content_end, {width: 55,}]} transparent>
+              <Menu style={[Style.w__100, Style.h__100, Style.justify__content_center,]}>
+                <MenuTrigger>
+                  <Icon type={'Feather'} name='more-vertical'
+                        style={[{fontSize: 24,}, Style.text__right]}/>
+                </MenuTrigger>
+                <MenuOptions>
+                  <MenuOption
+                    style={[Style.p__2]}
+                    onSelect={() => this.onShowModal('language')}>
+                    <AppText style={Style.text__black}>Language</AppText>
+                  </MenuOption>
+                  <MenuOption style={[Style.p__2]}
+                              onSelect={() => this.onShowModal('currency')}>
+                    <AppText style={Style.text__black}>Currency</AppText>
+                  </MenuOption>
+                </MenuOptions>
+              </Menu>
+              <AppModal
+                visibility={this.state.modalVisibility}
+                onClose={() => this.onCloseModal()}>
+                <Conditional>
+                  <If condition={this.state.modalName === 'language'}>
+                    <LanguageModal onClose={() => this.onCloseModal()}/>
+                  </If>
+                  <ElIf condition={this.state.modalName === 'currency'}>
+                    <CurrencyModal onClose={() => this.onCloseModal()}/>
+                  </ElIf>
+                </Conditional>
+              </AppModal>
             </Button>
           </Right>
         </Header>
@@ -228,6 +252,23 @@ class SearchPage extends Component<Props, State> {
         </ScrollView>
       </>
     );
+  }
+
+  //=======================================
+  // Handlers
+  //=======================================
+  onCloseModal() {
+    this.setState({
+      modalVisibility: false,
+      modalName: null,
+    });
+  }
+
+  onShowModal(modalName: string) {
+    this.setState({
+      modalVisibility: true,
+      modalName: modalName,
+    });
   }
 }
 

@@ -5,7 +5,7 @@ import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Ri
 import {Style} from "../../Styles";
 import {AppText} from "../../Containers";
 import {ChangeLanguage} from "../../Store/Actions";
-import {RootStateInterface} from "src/Typescript";
+import {RootStateInterface} from "../../Typescript";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   locales: state.appReducer.locales,
@@ -44,7 +44,6 @@ const LanguageModal = (props: propType) => {
       <Content>
         <List>
           <ListItem
-            selected
             onPress={() => props.ChangeLanguage({dir: 'ltr', lang: 'en'})}
             style={[Style.px__3, Style.mx__0,]}
           >
