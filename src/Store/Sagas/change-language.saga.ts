@@ -15,7 +15,6 @@ function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
     yield Storage.save({key: 'app-data', expires: null, data: {track_code, currency, rtl, lang}});
     yield put(SetLanguage({lang, rtl, json: response.data.result}));
   } catch (e) {
-
   }
 }
 
