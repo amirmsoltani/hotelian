@@ -11,3 +11,4 @@ export {default as SearchFormIdle} from './search-form-idle/search-form-idle';
 export {default as SearchFormError} from './search-form-error/search-form-error';
 export {default as SearchFormInit} from './search-form-init/search-form-init';
 export {default as LanguageModal} from './language-modal/language-modal';
+export {default as CurrencyModal} from './currency-modal/currency-modal';
