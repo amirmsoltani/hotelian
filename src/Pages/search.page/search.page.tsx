@@ -153,11 +153,11 @@ class SearchPage extends Component<Props, State> {
                   <MenuOption
                     style={[Style.p__2]}
                     onSelect={() => this.onShowModal('language')}>
-                    <AppText style={Style.text__black}>{t('language')}</AppText>
+                    <AppText style={Style.text__black}>{t('change-language')}</AppText>
                   </MenuOption>
                   <MenuOption style={[Style.p__2]}
                               onSelect={() => this.onShowModal('currency')}>
-                    <AppText style={Style.text__black}>{t('currency')}</AppText>
+                    <AppText style={Style.text__black}>{t('change-currency')}</AppText>
                   </MenuOption>
                 </MenuOptions>
               </Menu>
