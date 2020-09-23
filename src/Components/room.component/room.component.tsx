@@ -6,6 +6,7 @@ import {RoomType} from '../../Typescript';
 import style from './room-component.style';
 import {randInt} from '../../Lib/Random';
 import {AppText} from "../../Containers";
+import {translate} from "../../Lib/Languages";
 
 type Props = { title: string, onChange: (room: RoomType) => void, defaultValue?: RoomType, onDelete: () => void, removable: boolean }
 export default (props: Props): React.FunctionComponentElement<CardItem> => {
@@ -52,7 +53,7 @@ export default (props: Props): React.FunctionComponentElement<CardItem> => {
             </View>
             <View style={style.body}>
                 <View style={style.scope}>
-                    <AppText style={style.scopeText}>adults</AppText>
+                    <AppText style={style.scopeText}>{translate('adults')}</AppText>
 
 
                     <TouchableOpacity onPress={() => {
@@ -74,7 +75,7 @@ export default (props: Props): React.FunctionComponentElement<CardItem> => {
 
 
                 <View style={style.scope}>
-                    <Text style={style.scopeText}>children</Text>
+                    <AppText style={style.scopeText}>{translate('children')}</AppText>
                     <TouchableOpacity onPress={minusChild}>
                         <Icon type='SimpleLineIcons' name='minus' style={style.scopeIcon}/>
                     </TouchableOpacity>
@@ -88,7 +89,7 @@ export default (props: Props): React.FunctionComponentElement<CardItem> => {
             {
                 state.children.length > 0 ?
                     <View style={style.childrenAges}>
-                        <AppText style={style.childrenAgesText}>children ages:</AppText>
+                        <AppText style={style.childrenAgesText}>{translate('children-ages')}:</AppText>
                         {
                             state.children.map((child, index) => {
                                 return (
@@ -96,7 +97,7 @@ export default (props: Props): React.FunctionComponentElement<CardItem> => {
                                             onValueChange={(value) => changeChildAge(value, index)}>
                                         {
                                             [...Array(11).keys()].map(item => <Picker.Item
-                                                label={(item + 1) + ' years old'} key={item}
+                                                label={(item + 1) + ' '+translate('years-old')} key={item}
                                                 value={item + 1}/>)
                                         }
                                     </Picker>

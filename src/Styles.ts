@@ -56,6 +56,15 @@ export const Style = StyleSheet.create({
   text__right: {
     textAlign: "right",
   },
+  text__lowerCase: {
+    textTransform: 'lowercase'
+  },
+  text__upperCase: {
+    textTransform: 'uppercase'
+  },
+  text__capitalize: {
+    textTransform: 'capitalize'
+  },
 
 
 //=======================================

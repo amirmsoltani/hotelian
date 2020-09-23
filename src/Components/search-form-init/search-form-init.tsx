@@ -1,10 +1,12 @@
 import React from 'react';
 import {Image, View} from 'react-native';
-import style from '../search-form-idle/search-form-idle.style';
-import {AppText} from '../../Containers';
-import {If, ElIf, Conditional} from 'Components';
 
-type propsType = {mode: string}
+import style from '../search-form-idle/search-form-idle.style';
+import {AppText} from 'Containers';
+import {Conditional, ElIf, If} from 'Components';
+import {translate as t} from "Lib/Languages";
+
+type propsType = { mode: string }
 const SearchFormInit = (props: propsType) => {
   const _data = {
     source: (props.mode === 'nationality') ?
@@ -23,12 +25,10 @@ const SearchFormInit = (props: propsType) => {
       <View style={style.textContainer}>
         <Conditional>
           <If condition={props.mode === 'destination'}>
-            <AppText style={style.caption}>Access to over 440,000 hotels around a world.</AppText>
-            <AppText style={style.caption}>City, hotels, landmarks and other stuff.</AppText>
+            <AppText style={style.caption}>{t('what-we-offer-p1')}.</AppText>
           </If>
           <ElIf condition={props.mode === 'nationality'}>
-            <AppText style={style.caption}>International platform for all nations and all countries around
-              world</AppText>
+            <AppText style={style.caption}>{t('products-hotels-p1')}</AppText>
           </ElIf>
         </Conditional>
       </View>

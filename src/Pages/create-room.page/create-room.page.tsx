@@ -10,6 +10,7 @@ import {ChangeSearchData} from '../../Store/Actions';
 import {randInt} from '../../Lib/Random';
 import {AppText} from "../../Containers";
 import {Style} from "../../Styles";
+import {translate} from "../../Lib/Languages";
 
 const connector = connect((state: RootStateInterface) => ({rooms: state.searchReducer.form_data.rooms}), {ChangeSearchData});
 const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
@@ -24,7 +25,6 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
     Actions.pop();
   };
   const deleteRoom = (index: number) => {
-    console.log(index, rooms[0]);
     const new_rooms = [...rooms];
     new_rooms.splice(index, 1);
     setRooms(new_rooms);
@@ -44,7 +44,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
           </Button>
         </Left>
         <Body>
-          <Title>Rooms</Title>
+          <Title>{translate('Rooms')}</Title>
         </Body>
         <Right/>
       </Header>
@@ -54,7 +54,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
             rooms.map((room, index) => {
                 return <RoomComponent
                   key={room.key}
-                  title={'room ' + (index + 1)}
+                  title={translate('room') + (index + 1)}
                   onChange={(room) => {
                     rooms[index] = room;
                     setRooms([...rooms]);
@@ -87,8 +87,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
                   <AppText style={{
                     color: '#cf142b',
                   }}>
-
-                    Add new Room
+                    {translate('add-new-room')}
                   </AppText>
                 </>
               </TouchableOpacity> : <></>
@@ -100,7 +99,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
           onPress={done}
           style={{width: '100%', height: 50, backgroundColor: '#00247d', borderRadius: 3}}>
           <AppText style={{textAlign: 'center', color: 'white', height: '100%', textAlignVertical: 'center'}}>
-            Done
+            {translate('done')}
           </AppText>
         </TouchableOpacity>
       </Footer>
