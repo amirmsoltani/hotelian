@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import style from '../search-form-idle/search-form-idle.style';
-import {AppText} from 'Containers';
+import {AppText} from '../../Containers';
 import {If, ElIf, Conditional} from 'Components';
 
 type propsType = {mode: string}
