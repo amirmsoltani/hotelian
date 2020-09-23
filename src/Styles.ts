@@ -1,6 +1,9 @@
 import {
+  COLOR_BLACK,
   COLOR_DANGER,
+  COLOR_GRAY,
   COLOR_IMPORTANT,
+  COLOR_MUTED,
   COLOR_PRIMARY,
   COLOR_SUCCESS,
   COLOR_WARNING,
@@ -34,6 +37,15 @@ export const Style = StyleSheet.create({
   },
   text__warning: {
     color: COLOR_WARNING,
+  },
+  text__gray: {
+    color: COLOR_GRAY,
+  },
+  text__black: {
+    color: COLOR_BLACK,
+  },
+  text__muted: {
+    color: COLOR_MUTED,
   },
   text__center: {
     textAlign: "center",
@@ -383,6 +395,18 @@ export const Style = StyleSheet.create({
   },
   flex__no__wrap: {
     flexWrap: 'nowrap',
+  },
+  flex__grow__1: {
+    flexGrow: 1,
+  },
+  flex__grow__0: {
+    flexGrow: 0,
+  },
+  flex__shrink__1: {
+    flexShrink: 1,
+  },
+  flex__shrink__0: {
+    flexShrink: 0,
   },
 //=======================================
   justify__content_center: {
