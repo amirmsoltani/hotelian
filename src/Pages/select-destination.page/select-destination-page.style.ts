@@ -24,7 +24,7 @@ const selectDestinationPageStyle = StyleSheet.create({
     textAlign: 'left',
     direction: 'ltr',
   },
-  focusedInput: {borderWidth: 1, borderColor: COLOR_WARNING},
+  focusedInput: {borderWidth: 2, borderColor: 'rgb(132,195,245)'},
   blurredInput: {},
   listItem: {marginLeft: 0, paddingTop: 0, paddingBottom: 0},
   touchableOp: {flex: 1, paddingVertical: 10, marginVertical: 5},
