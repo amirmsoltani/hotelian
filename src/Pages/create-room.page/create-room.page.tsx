@@ -12,80 +12,81 @@ import {AppText} from "../../Containers";
 
 const connector = connect((state: RootStateInterface) => ({rooms: state.searchReducer.form_data.rooms}), {ChangeSearchData});
 const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
-    const [rooms, setRooms] = React.useState<RoomType[]>(props.rooms!);
-    const done = () => {
-        let adultCounts = 0, childCounts = 0;
-        rooms.forEach(room => {
-            adultCounts += room.adults;
-            childCounts += room.children.length;
-        });
-        props.ChangeSearchData({rooms, adultCounts, childCounts});
-        Actions.pop();
-    };
-    const deleteRoom = (index: number) => {
-        console.log(index, rooms[0]);
-        const new_rooms = [...rooms];
-        new_rooms.splice(index, 1);
-        setRooms(new_rooms);
-    };
-    return (
-        <>
-            <Content>
-                <View>
-                    {
-                        rooms.map((room, index) => {
-                                return <RoomComponent key={room.key}
-                                                      title={'room ' + (index + 1)}
-                                                      onChange={(room) => {
-                                                          rooms[index] = room;
-                                                          setRooms([...rooms]);
-                                                      }}
-                                                      removable={rooms.length > 1}
-                                                      onDelete={() => deleteRoom(index)}
-                                                      defaultValue={room}
-                                />;
-                            },
-                        )
-                    }
-                    {
-                        rooms.length < 6 ?
-                            <TouchableOpacity
-                                onPress={() => setRooms([...rooms, {adults: 1, children: [], key: randInt(0xff)}])}
-                                style={{
-                                    backgroundColor: 'rgb(239,239,239)',
-                                    width: '40%',
-                                    height: 30,
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    paddingHorizontal: 5,
-                                    borderRadius: 3,
-                                    marginBottom: 15,
-                                    marginLeft: 30,
-                                }}>
-                                <>
-                                    <Icon name='plus' type='FontAwesome5' style={{fontSize: 16, color: '#cf142b'}}/>
-                                    <AppText style={{
-                                        color: '#cf142b',
-                                    }}>
+  const [rooms, setRooms] = React.useState<RoomType[]>(props.rooms!);
+  const done = () => {
+    let adultCounts = 0, childCounts = 0;
+    rooms.forEach(room => {
+      adultCounts += room.adults;
+      childCounts += room.children.length;
+    });
+    props.ChangeSearchData({rooms, adultCounts, childCounts});
+    Actions.pop();
+  };
+  const deleteRoom = (index: number) => {
+    console.log(index, rooms[0]);
+    const new_rooms = [...rooms];
+    new_rooms.splice(index, 1);
+    setRooms(new_rooms);
+  };
+  return (
+    <>
+      <Content>
+        <View>
+          {
+            rooms.map((room, index) => {
+                return <RoomComponent
+                  key={room.key}
+                  title={'room ' + (index + 1)}
+                  onChange={(room) => {
+                    rooms[index] = room;
+                    setRooms([...rooms]);
+                  }}
+                  removable={rooms.length > 1}
+                  onDelete={() => deleteRoom(index)}
+                  defaultValue={room}
+                />;
+              },
+            )
+          }
+          {
+            rooms.length < 6 ?
+              <TouchableOpacity
+                onPress={() => setRooms([...rooms, {adults: 1, children: [], key: randInt(0xff)}])}
+                style={{
+                  backgroundColor: 'rgb(239,239,239)',
+                  width: '40%',
+                  height: 30,
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  paddingHorizontal: 5,
+                  borderRadius: 3,
+                  marginBottom: 15,
+                  marginLeft: 30,
+                }}>
+                <>
+                  <Icon name='plus' type='FontAwesome5' style={{fontSize: 16, color: '#cf142b'}}/>
+                  <AppText style={{
+                    color: '#cf142b',
+                  }}>
 
-                                        Add new Room
-                                    </AppText>
-                                </>
-                            </TouchableOpacity> : <></>
-                    }
-                </View>
-            </Content>
-            <Footer style={{paddingHorizontal: 15, backgroundColor: 'white'}}>
-                <TouchableOpacity
-                    onPress={done}
-                    style={{width: '100%', height: 50, backgroundColor: '#00247d', borderRadius: 3}}>
-                    <AppText style={{textAlign: 'center', color: 'white', height: '100%', textAlignVertical: 'center'}}>
-                        Done
-                    </AppText>
-                </TouchableOpacity>
-            </Footer>
-        </>);
+                    Add new Room
+                  </AppText>
+                </>
+              </TouchableOpacity> : <></>
+          }
+        </View>
+      </Content>
+      <Footer style={{paddingHorizontal: 15, backgroundColor: 'white'}}>
+        <TouchableOpacity
+          onPress={done}
+          style={{width: '100%', height: 50, backgroundColor: '#00247d', borderRadius: 3}}>
+          <AppText style={{textAlign: 'center', color: 'white', height: '100%', textAlignVertical: 'center'}}>
+            Done
+          </AppText>
+        </TouchableOpacity>
+      </Footer>
+    </>);
 };
 
 export default connector(CreateRoomPage);
