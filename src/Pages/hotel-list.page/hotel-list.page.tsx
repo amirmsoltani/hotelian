@@ -18,14 +18,16 @@ import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from "Containers";
 
-const mapStateToProps = ({hotelsReducer: {basicData, status, filter,}, searchReducer: {search_id, form_data}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {basicData, status, filter,}, searchReducer: {search_id, form_data}, appReducer: {currency}}: RootStateInterface) => ({
   search_id,
   form_data,
+  currency,
   status: status,
   indexes: filter?.hotels,
   hotels: basicData?.hotels,
   facilities: basicData?.facilities,
   hotels_search_id: basicData?.search_id,
+  nights: basicData?.search_details.nights_count,
 });
 
 const mapDispatchToProps = {GetHotels, replace, push};
@@ -49,7 +51,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
   }
 
   render() {
-    const {hotels, indexes, facilities, status, form_data} = this.props;
+    const {hotels, indexes, facilities, status, form_data, currency, nights} = this.props;
     return (
       <Container>
         <Header style={[Style.bg__primary, Style.flex__row,]}>
@@ -131,7 +133,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             </TouchableHighlight>
 
           </View>
-          <SafeAreaView style={[Style.w__100, Style.bg__warning]}>
+          <SafeAreaView style={[Style.w__100]}>
             {status === 'ok' ?
               <VirtualizedList<HotelInterface>
                 data={indexes}
@@ -143,7 +145,12 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 onEndReached={() => this.setState({end: true})}
                 renderItem={({item}) => {
                   let facility = facilities![item.hotel_id] ? facilities![item.hotel_id]['Hotel Facilities'] : [];
-                  return <HotelCard hotel={item} hotelFacilities={facility} book={this.bookIt}/>;
+                  return <HotelCard
+                    hotel={item}
+                    currency={currency}
+                    nights={nights!}
+                    hotelFacilities={facility}
+                    book={this.bookIt}/>;
                 }}/> : <></>
             }
 
