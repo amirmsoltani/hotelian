@@ -12,3 +12,4 @@ export * from './hotels-result.interface';
 export * from './hotels-state.interface';
 export * from './hotels-filter.interface';
 export * from './app-state.interface';
+export * from './hotel-details.interface';

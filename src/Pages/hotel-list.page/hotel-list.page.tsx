@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Actions} from "react-native-router-flux";
+import {Actions} from 'react-native-router-flux';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {SafeAreaView, TouchableHighlight, View, VirtualizedList} from 'react-native';
@@ -10,19 +10,20 @@ import {
   GRAY_LIGHT_XXX,
   MUTED_LIGHT_XX,
   MUTED_LIGHT_XXX,
-  SHADOW_NM
-} from "../../../native-base-theme/variables/config";
-import {Style} from "Styles";
+  SHADOW_NM,
+} from '../../../native-base-theme/variables/config';
+import {Style} from 'Styles';
 import {HotelCard} from 'Components';
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {AppText} from "Containers";
+import {AppText} from 'Containers';
 
-const mapStateToProps = ({hotelsReducer: {basicData, status, filter,}, searchReducer: {search_id, form_data}, appReducer: {currency}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {basicData, status, filter}, searchReducer: {search_id, form_data, ...search}, appReducer: {currency}}: RootStateInterface) => ({
   search_id,
   form_data,
   currency,
   status: status,
+  search_status: search.status,
   indexes: filter?.hotels,
   hotels: basicData?.hotels,
   facilities: basicData?.facilities,
@@ -35,7 +36,7 @@ const mapDispatchToProps = {GetHotels, replace, push};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector>;
 
-class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
+class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   timeOut: any | null = null;
   state = {end: false, scroll: false};
 
@@ -43,10 +44,10 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
   // Hooks
   //=======================================
   componentDidMount() {
-    const {search_id, hotels_search_id, GetHotels, status, replace} = this.props;
-    if (status === null && search_id === undefined && hotels_search_id === undefined)
+    const {search_id, hotels_search_id, search_status, GetHotels, status, replace} = this.props;
+    if (status === null || search_status === undefined && search_id === undefined && hotels_search_id === undefined)
       replace('/');
-    else if (status === null && search_id)
+    else if (status === null && search_status === undefined && search_id)
       GetHotels(search_id);
   }
 
@@ -54,13 +55,13 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     const {hotels, indexes, facilities, status, form_data, currency, nights} = this.props;
     return (
       <Container>
-        <Header style={[Style.bg__primary, Style.flex__row,]}>
+        <Header style={[Style.bg__primary, Style.flex__row]}>
           <Left>
             <Button onPress={() => this.props.replace('/')} transparent>
               <Icon
                 type={'MaterialIcons'}
                 name='keyboard-backspace'
-                style={[{fontSize: 30}, Style.text__white,]}/>
+                style={[{fontSize: 30}, Style.text__white]}/>
             </Button>
           </Left>
           <View style={[Style.ml__2]}>
@@ -71,7 +72,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
         </Header>
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
           <View style={[
-            {height: 50,},
+            {height: 50},
             SHADOW_NM,
             Style.bg__white,
             Style.flex__row,
@@ -94,7 +95,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             </TouchableHighlight>
 
             {/*divider*/}
-            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
+            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*filter*/}
             <TouchableHighlight
@@ -113,7 +114,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             </TouchableHighlight>
 
             {/*divider*/}
-            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
+            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*map*/}
             <TouchableHighlight

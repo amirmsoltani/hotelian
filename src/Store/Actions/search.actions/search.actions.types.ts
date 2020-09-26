@@ -32,4 +32,6 @@ export type SearchActionTypes =
   | SetSearchResponseType
   | ChangeSearchFormDataType
   | SetSearchIdType
-  | SearchExpireType;
+  | SearchExpireType
+  | AcceptSearchFormType
+  ;

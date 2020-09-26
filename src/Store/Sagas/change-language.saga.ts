@@ -14,7 +14,7 @@ function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
       track_code: state.appReducer.track_code,
       currency: state.appReducer.currency,
     }));
-    yield Storage.save({key: 'app-data', expires: null, data: {track_code, currency, rtl, lang}});
+    yield Storage.save({key: 'app-data', expires: null, data: {track_code, currency, rtl, language: lang}});
     Translator(lang, rtl, response.data.result);
     yield put(SetLanguage({lang, rtl, json: response.data.result}));
     RNRestart.Restart();

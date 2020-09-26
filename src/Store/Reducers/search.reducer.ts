@@ -1,5 +1,6 @@
 import {SearchStateInterface} from '../../Typescript';
 import {
+  ACCEPT_SEARCH_FORM,
   CHANGE_SEARCH_FORM_DATA,
   GET_DESTINATION,
   GET_NATIONALITY,
@@ -15,6 +16,7 @@ const defaultData: SearchStateInterface = {
   destination: {GET: 'idle', list: []},
   nationality: {GET: 'idle', list: []},
   form_data: {rooms: [{adults: 1, children: [], key: randInt(0xff)}], adultCounts: 1, childCounts: 0},
+  status: undefined,
 };
 export const searchInit = async (): Promise<SearchStateInterface> => {
   let search_id;
@@ -50,6 +52,9 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
     }
     case SEARCH_EXPIRE: {
       return {...state, search_id: 'expire'};
+    }
+    case ACCEPT_SEARCH_FORM: {
+      return {...state, status: 'loading'};
     }
     default:
       return state;
