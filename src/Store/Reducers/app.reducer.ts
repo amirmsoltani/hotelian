@@ -16,7 +16,7 @@ export const appInit = async (): Promise<AppStateInterface> => {
   try {
     const result = await Storage.load({key: 'app-data'});
     defaultData.currency = result.currency;
-    defaultData.language = result.lang;
+    defaultData.language = result.language;
     defaultData.track_code = result.track_code;
     defaultData.rtl = result.rtl;
   } catch (e) {
