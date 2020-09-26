@@ -123,4 +123,6 @@ export const SHADOW_LG_XX = {
 //=======================================
 // Others
 //=======================================
+export const BORDER_RADIUS_SM = 3;
 export const BORDER_RADIUS = 5;
+export const BORDER_RADIUS_LG = 7;
