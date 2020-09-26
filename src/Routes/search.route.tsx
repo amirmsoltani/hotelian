@@ -1,25 +1,24 @@
 import React from 'react';
-import {Router, Scene, Stack} from 'react-native-router-flux';
 import {match} from 'react-router-native';
-import {StatusBar} from 'react-native';
 import {Container} from 'native-base';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import {CreateRoomPage, SearchPage, SelectDatePage, SelectDestinationPage, SelectNationalityPage} from '../Pages';
 
-
-const SearchRoute = (props: { match: match }) => {
+const Stack = createStackNavigator();
+const SearchRoute = (props: {match: match}) => {
   return (
     <Container>
-      <StatusBar hidden={true}/>
-      <Router>
-        <Stack key='root'>
-          {props.match.path === '/' ? <Scene key='from' component={SearchPage} hideNavBar initial/> : ''}
-          <Scene key='destination' component={SelectDestinationPage} hideNavBar back/>
-          <Scene key='datepicker' component={SelectDatePage} hideNavBar back/>
-          <Scene key='nationality' component={SelectNationalityPage} hideNavBar back/>
-          <Scene key='rooms' component={CreateRoomPage} hideNavBar back/>
-        </Stack>
-      </Router>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="form">
+          <Stack.Screen name="form" component={SearchPage} options={{headerShown: false}}/>
+          <Stack.Screen name="destination" component={SelectDestinationPage} options={{headerShown: false}}/>
+          <Stack.Screen name="nationality" component={SelectNationalityPage} options={{headerShown: false}}/>
+          <Stack.Screen name="datepicker" component={SelectDatePage} options={{headerShown: false}}/>
+          <Stack.Screen name="rooms" component={CreateRoomPage} options={{headerShown: false}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </Container>
   );
 };

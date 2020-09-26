@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {FlatList, ScrollView} from "react-native";
-import {Body, Button, H3, Header, Icon, Left, Right, View} from "native-base";
-import {Actions} from "react-native-router-flux";
-import {Menu, MenuOption, MenuOptions, MenuTrigger,} from 'react-native-popup-menu';
-
+import {FlatList, ScrollView} from 'react-native';
+import {Body, Button, H3, Header, Icon, Left, Right, View} from 'native-base';
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
+import {StackScreenProps} from '@react-navigation/stack';
 import {Props, State} from './search-page.types';
-import style from './search-page.styles'
+import style from './search-page.styles';
 import SearchFrom from 'Forms/SearchForm/SearchFrom';
 import {
   Conditional,
@@ -15,23 +14,26 @@ import {
   LanguageModal,
   RecentSearch,
   TopDestination,
-  TopProperty
-} from "Components";
-import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
-import {AppModal, AppText} from "Containers";
-import {Style} from "Styles";
-import {translate as t} from "../../Lib/Languages";
+  TopProperty,
+} from 'Components';
+import {COLOR_PRIMARY} from '../../../native-base-theme/variables/config';
+import {AppModal, AppText} from 'Containers';
+import {Style} from 'Styles';
+import {translate as t} from 'Lib/Languages';
 
 
-class SearchPage extends Component<Props, State> {
-
+class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
+  static navigationOptions = {
+    //To hide the ActionBar/NavigationBar
+    header: null,
+  };
   state = {
     modalVisibility: false,
 
     //'language' , 'currency
     modalName: null,
 
-  }
+  };
 
   //=======================================
   // Hooks
@@ -117,12 +119,12 @@ class SearchPage extends Component<Props, State> {
         key: '4',
       },
     ];
-
+    const {navigation} = this.props;
     return (
       <>
-        <Header style={[{backgroundColor: COLOR_PRIMARY},]}>
+        <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
           <Left>
-            <Button transparent onPress={Actions.pop}>
+            <Button transparent onPress={navigation.pop}>
               <Icon type={'Feather'} name='menu' style={{fontSize: 30}}/>
             </Button>
           </Left>
@@ -132,22 +134,22 @@ class SearchPage extends Component<Props, State> {
               Style.text__center,
               Style.w__100,
               Style.text__bold,
-              {fontSize: 24,}
-            ]}>Hotelian<AppText style={[{fontSize: 24,}, Style.text__important,]}>.com</AppText>
+              {fontSize: 24},
+            ]}>Hotelian<AppText style={[{fontSize: 24}, Style.text__important]}>.com</AppText>
             </AppText>
           </Body>
           <Right>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55,}]} transparent>
+            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
               <Icon type={'AntDesign'} name='message1' style={{fontSize: 20}}/>
             </Button>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55,}]} transparent>
+            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
               <Icon type={'MaterialIcons'} name='notifications-none' style={{fontSize: 24}}/>
             </Button>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55,}]} transparent>
-              <Menu style={[Style.w__100, Style.h__100, Style.justify__content_center,]}>
+            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
+              <Menu style={[Style.w__100, Style.h__100, Style.justify__content_center]}>
                 <MenuTrigger>
                   <Icon type={'Feather'} name='more-vertical'
-                        style={[{fontSize: 24,}, Style.text__right]}/>
+                        style={[{fontSize: 24}, Style.text__right]}/>
                 </MenuTrigger>
                 <MenuOptions>
                   <MenuOption

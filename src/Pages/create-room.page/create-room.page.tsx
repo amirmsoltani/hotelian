@@ -2,18 +2,17 @@ import React from 'react';
 import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right, Title} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Actions} from 'react-native-router-flux';
-
-import {RoomType, RootStateInterface} from '../../Typescript';
-import {RoomComponent} from '../../Components';
-import {ChangeSearchData} from '../../Store/Actions';
-import {randInt} from '../../Lib/Random';
-import {AppText} from "../../Containers";
-import {Style} from "../../Styles";
-import {translate} from "../../Lib/Languages";
+import {StackScreenProps} from '@react-navigation/stack';
+import {RoomType, RootStateInterface} from 'Typescript';
+import {RoomComponent} from 'Components';
+import {ChangeSearchData} from 'Store/Actions';
+import {randInt} from 'Lib/Random';
+import {AppText} from 'Containers';
+import {Style} from 'Styles';
+import {translate} from 'Lib/Languages';
 
 const connector = connect((state: RootStateInterface) => ({rooms: state.searchReducer.form_data.rooms}), {ChangeSearchData});
-const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
+const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenProps<{}>) => {
   const [rooms, setRooms] = React.useState<RoomType[]>(props.rooms!);
   const done = () => {
     let adultCounts = 0, childCounts = 0;
@@ -22,7 +21,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
       childCounts += room.children.length;
     });
     props.ChangeSearchData({rooms, adultCounts, childCounts});
-    Actions.pop();
+    props.navigation.pop();
   };
   const deleteRoom = (index: number) => {
     const new_rooms = [...rooms];
@@ -33,7 +32,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector>) => {
     <Container>
       <Header style={[Style.bg__primary]}>
         <Left>
-          <Button onPress={Actions.pop} transparent>
+          <Button onPress={() => props.navigation.pop()} transparent>
             <Icon
               type={'MaterialIcons'}
               name='keyboard-backspace'

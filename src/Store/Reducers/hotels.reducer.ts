@@ -21,7 +21,7 @@ const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsA
       return {...state, status: 'loading'};
     }
     case SET_HOTELS: {
-      return {...state, ...action.payload};
+      return {...state, ...action.payload, status: 'ok'};
     }
     case SEARCH_EXPIRE: {
       return {...state, status: 'expire'};

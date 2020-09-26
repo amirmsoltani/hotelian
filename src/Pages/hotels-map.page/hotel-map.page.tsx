@@ -5,7 +5,6 @@ import {connect, ConnectedProps} from 'react-redux';
 import {RootStateInterface} from '../../Typescript';
 import {Actions} from 'react-native-router-flux';
 
-
 const mapStateToProps = ({hotelsReducer: {filter, basicData}}: RootStateInterface) => ({
   hotels: basicData!.hotels,
   indexes: filter!.hotels,

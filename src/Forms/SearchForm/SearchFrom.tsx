@@ -1,16 +1,15 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Actions} from 'react-native-router-flux';
 import {Button, Col, Form, Grid, Icon} from 'native-base';
-
+import {useNavigation} from '@react-navigation/native';
 import {RootStateInterface} from 'Typescript';
 import {AcceptSearchForm} from 'Store/Actions';
-import FormRow from "./form-row/form-row";
-import searchFromStyles from './searchFormStyles'
-import {COLOR_IMPORTANT, COLOR_PRIMARY, COLOR_WHITE, GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
-import {AppRow, AppText} from "Containers/index";
-import {translate} from "Lib/Languages";
+import FormRow from './form-row/form-row';
+import searchFromStyles from './searchFormStyles';
+import {COLOR_IMPORTANT, COLOR_PRIMARY, COLOR_WHITE, GRAY_LIGHT_XXX} from '../../../native-base-theme/variables/config';
+import {AppRow, AppText} from 'Containers/index';
+import {translate} from 'Lib/Languages';
 
 declare var global: {};
 const mapStateToProps = ({searchReducer: {form_data}}: RootStateInterface) => ({
@@ -25,12 +24,13 @@ const mapStateToProps = ({searchReducer: {form_data}}: RootStateInterface) => ({
 
 
 const connector = connect(mapStateToProps, {AcceptSearchForm});
-type Props = ConnectedProps<typeof connector>;
+type Props = ConnectedProps<typeof connector>
 const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCounts, childCounts, ...props}: Props) => {
+  const navigation = useNavigation();
   return (
     <Form style={searchFromStyles.container}>
       <View>
-        <TouchableOpacity onPress={Actions.destination}>
+        <TouchableOpacity onPress={() => navigation.navigate('destination')}>
           <FormRow
             text={destination ?
               destination.dest_type === 'city' ? destination.text : `${destination.label}, ${destination.text}`
@@ -42,7 +42,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
             type={'destination'}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={Actions.datepicker}>
+        <TouchableOpacity onPress={() => navigation.navigate('datepicker')}>
           <FormRow
             text={checkIn ? `${checkIn} - ${checkOut}` : translate('check-in') + ' - ' + translate('check-out')}
             isFilled={!!checkIn}
@@ -50,15 +50,15 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
             type={'checkin-out'}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={Actions.nationality}>
+        <TouchableOpacity onPress={() => navigation.navigate('nationality')}>
           <FormRow
-            text={nationality ? nationality.name : translate("enter-your-nationality")}
+            text={nationality ? nationality.name : translate('enter-your-nationality')}
             isFilled={!!nationality}
             hasError={false}
             type={'nationality'}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={Actions.rooms}>
+        <TouchableOpacity onPress={() => navigation.navigate('rooms')}>
           <FormRow
             text={
               `${rooms?.length} ${translate('room')}${!!rooms && rooms?.length > 1 ? 's' : ''} / ` +
@@ -82,7 +82,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
                 <AppRow
                   style={{
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
                   }}>
                   <Icon
                     style={{

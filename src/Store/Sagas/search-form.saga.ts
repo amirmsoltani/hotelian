@@ -17,7 +17,7 @@ export function* AcceptSearchFrom() {
   };
   const loader = yield fork(function* () {
     yield delay(1000);
-    yield put(push('/search-loader'));
+    yield put(push('/hotels'));
   });
   try {
     const response: HttpResponseInterface<{search_id: string}> = yield Http.request({

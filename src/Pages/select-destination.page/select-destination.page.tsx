@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {LinkProps} from 'react-router-native';
-import {Actions} from 'react-native-router-flux';
-import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
-
+import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from 'native-base';
+import {StackScreenProps} from '@react-navigation/stack';
 import style from './select-destination-page.style';
 import {ChangeSearchData, GetDestination} from 'Store/Actions';
 import {DestinationType, RootStateInterface} from 'Typescript';
@@ -15,11 +13,11 @@ import {
   SearchFormError,
   SearchFormIdle,
   SearchFormInit,
-  SearchPageSkeletonLoader
-} from "Components";
-import {AppRow, AppText} from "Containers";
-import {Style} from "Styles";
-import {translate as t} from "../../Lib/Languages";
+  SearchPageSkeletonLoader,
+} from 'Components';
+import {AppRow, AppText} from 'Containers';
+import {Style} from 'Styles';
+import {translate as t} from 'Lib/Languages';
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -31,7 +29,7 @@ const mapDispatchToProps = {
   GetDestination,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type Props = ConnectedProps<typeof connector> & LinkProps;
+type Props = ConnectedProps<typeof connector> & StackScreenProps<{}>;
 
 class SelectDestinationPage extends Component<Props> {
 
@@ -46,12 +44,12 @@ class SelectDestinationPage extends Component<Props> {
   // Hooks
   //=======================================
   render() {
-    const {destinations, GetDestination} = this.props;
+    const {destinations, GetDestination, navigation} = this.props;
     return (
       <Container>
         <Header style={[Style.bg__primary]}>
           <Left>
-            <Button onPress={Actions.pop} transparent>
+            <Button onPress={() => navigation.pop()} transparent>
               <Icon
                 type={'MaterialIcons'}
                 name='keyboard-backspace'
@@ -67,7 +65,7 @@ class SelectDestinationPage extends Component<Props> {
           <Right/>
         </Header>
         <ScrollView
-          keyboardShouldPersistTaps={"always"}
+          keyboardShouldPersistTaps={'always'}
           style={style.container}>
           <View style={style.inputContainer}>
             <TextInput
@@ -151,7 +149,7 @@ class SelectDestinationPage extends Component<Props> {
   //=======================================
   selectDestination(destination: DestinationType) {
     this.props.ChangeSearchData({destination});
-    Actions.pop();
+    this.props.navigation.pop();
   }
 
 }

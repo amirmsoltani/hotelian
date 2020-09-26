@@ -21,15 +21,18 @@ export function* GetHotels(action: SetSearchIdType) {
     yield put(SetHotels({
       status: 'ok',
       basicData: {hotels, facilities, expire, search_details, search_id: action.payload},
-      filter: {structure: structureCreator.structure,  hotels: structureCreator.hotelsIndex},
+      filter: {structure: structureCreator.structure, hotels: structureCreator.hotelsIndex},
+      change_filter: 0,
     }));
     const expireTime = Math.floor(expire - new Date().getTime() / 1000) * 1000;
     yield Storage.save({key: 'search-id', data: action.payload, expires: expireTime});
-    yield put(push({pathname: '/hotels'}));
-    yield delay(expireTime);
+    // yield put(push({pathname: '/hotels'}));
+    while (new Date().getTime() < expire)
+      yield delay(10000);
     yield put(SearchExpire());
   } catch (e) {
     yield put(replace({pathname: '/'}));
+    // TODO after create expire put expire
     console.log(e.response);
     // TODO add error handler after create
 
