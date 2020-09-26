@@ -27,7 +27,7 @@ export function* GetHotels(action: SetSearchIdType) {
     const expireTime = Math.floor(expire - new Date().getTime() / 1000) * 1000;
     yield Storage.save({key: 'search-id', data: action.payload, expires: expireTime});
     // yield put(push({pathname: '/hotels'}));
-    while (new Date().getTime() < expire)
+    while (new Date().getTime() < expire * 1000)
       yield delay(10000);
     yield put(SearchExpire());
   } catch (e) {
