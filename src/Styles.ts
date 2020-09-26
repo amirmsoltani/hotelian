@@ -7,7 +7,21 @@ import {
   COLOR_PRIMARY,
   COLOR_SUCCESS,
   COLOR_WARNING,
-  COLOR_WHITE
+  COLOR_WHITE,
+  GRAY_DARK,
+  GRAY_DARK_X,
+  GRAY_DARK_XX,
+  GRAY_DARK_XXX,
+  GRAY_LIGHT,
+  GRAY_LIGHT_X,
+  GRAY_LIGHT_XX,
+  GRAY_LIGHT_XXX,
+  MUTED_DARK,
+  MUTED_DARK_X,
+  MUTED_LIGHT,
+  MUTED_LIGHT_X,
+  MUTED_LIGHT_XX,
+  MUTED_LIGHT_XXX
 } from "../native-base-theme/variables/config";
 import {StyleSheet} from "react-native";
 
@@ -26,15 +40,37 @@ export const Style = StyleSheet.create({
   text__success: {color: COLOR_SUCCESS,},
   text__danger: {color: COLOR_DANGER,},
   text__warning: {color: COLOR_WARNING,},
-  text__gray: {color: COLOR_GRAY,},
   text__black: {color: COLOR_BLACK,},
-  text__muted: {color: COLOR_MUTED,},
   text__center: {textAlign: "center",},
+//=======================================
+  text__gray: {color: COLOR_GRAY,},
+  text__gray_l: {color: GRAY_LIGHT,},
+  text__gray_l_X: {color: GRAY_LIGHT_X,},
+  text__gray_l_XX: {color: GRAY_LIGHT_XX,},
+  text__gray_l_XXX: {color: GRAY_LIGHT_XXX,},
+  text__gray_d: {color: GRAY_DARK,},
+  text__gray_d_X: {color: GRAY_DARK_X,},
+  text__gray_d_XX: {color: GRAY_DARK_XX,},
+  text__gray_d_XXX: {color: GRAY_DARK_XXX,},
+//=======================================
+  //=======================================
+  text__muted: {color: COLOR_MUTED,},
+  text__muted_l: {color: MUTED_LIGHT,},
+  text__muted_l_X: {color: MUTED_LIGHT_X,},
+  text__muted_l_XX: {color: MUTED_LIGHT_XX,},
+  text__muted_l_XXX: {color: MUTED_LIGHT_XXX,},
+  text__muted_d: {color: MUTED_DARK,},
+  text__muted_d_X: {color: MUTED_DARK_X,},
+//=======================================
   text__left: {textAlign: "left",},
   text__right: {textAlign: "right",},
+//=======================================
   text__lowerCase: {textTransform: 'lowercase'},
   text__upperCase: {textTransform: 'uppercase'},
   text__capitalize: {textTransform: 'capitalize'},
+//=======================================
+  text__wrap: {flex: 1, flexWrap: 'wrap'},
+  text__underline: {flex: 1, flexWrap: 'wrap'},
 
 
 //=======================================
@@ -52,6 +88,21 @@ export const Style = StyleSheet.create({
 // Font
 //=======================================
   text__bold: {fontWeight: 'bold',},
+  f__10: {fontSize: 10,},
+  f__11: {fontSize: 11,},
+  f__12: {fontSize: 12,},
+  f__13: {fontSize: 13,},
+  f__14: {fontSize: 14,},
+  f__15: {fontSize: 15,},
+  f__16: {fontSize: 16,},
+  f__17: {fontSize: 17,},
+  f__18: {fontSize: 18,},
+  f__19: {fontSize: 19,},
+  f__20: {fontSize: 20,},
+  f__22: {fontSize: 22,},
+  f__24: {fontSize: 24,},
+  f__30: {fontSize: 30,},
+  f__36: {fontSize: 36,},
 
 
 //=======================================
@@ -192,6 +243,11 @@ export const Style = StyleSheet.create({
   align__items_start: {alignItems: 'flex-start',},
   align__items_end: {alignItems: 'flex-end',},
   align__items_stretch: {alignItems: 'stretch',},
+//=======================================
+  align__self_center: {alignSelf: 'center',},
+  align__self_start: {alignSelf: 'flex-start',},
+  align__self_end: {alignSelf: 'flex-end',},
+  align__self_stretch: {alignSelf: 'stretch',},
 
 
 //=======================================
@@ -204,9 +260,9 @@ export const Style = StyleSheet.create({
   h__100: {height: '100%',},
 
 
-  //=======================================
-  // Grid
-  //=======================================
+//=======================================
+// Grid
+//=======================================
   col__1: {width: '8.33%'},
   col__2: {width: '16.66%'},
   col__3: {width: '25%'},
