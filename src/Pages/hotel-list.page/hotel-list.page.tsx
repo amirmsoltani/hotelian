@@ -13,7 +13,7 @@ import {
   SHADOW_NM
 } from "../../../native-base-theme/variables/config";
 import {Style} from "Styles";
-import {HotelCard} from 'Components';
+import {Conditional, HotelCard, If} from 'Components';
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from "Containers";
@@ -24,6 +24,7 @@ const mapStateToProps = ({hotelsReducer: {basicData, status, filter,}, searchRed
   currency,
   status: status,
   indexes: filter?.hotels,
+  filters: filter?.actives,
   hotels: basicData?.hotels,
   facilities: basicData?.facilities,
   hotels_search_id: basicData?.search_id,
@@ -51,7 +52,11 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
   }
 
   render() {
+    //for checking number of active filters
+    const activatedFilter = (this.props.filters) ? Object.keys(this.props.filters).length : 0;
+
     const {hotels, indexes, facilities, status, form_data, currency, nights} = this.props;
+
     return (
       <Container>
         <Header style={[Style.bg__primary, Style.flex__row,]}>
@@ -60,7 +65,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               <Icon
                 type={'MaterialIcons'}
                 name='keyboard-backspace'
-                style={[{fontSize: 30}, Style.text__white,]}/>
+                style={[Style.f__30, Style.text__white,]}/>
             </Button>
           </Left>
           <View style={[Style.ml__2]}>
@@ -109,6 +114,17 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               <>
                 <Icon type="MaterialIcons" name="filter-none" style={[{fontSize: 24}, Style.text__primary]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
+                <Conditional>
+                  <If condition={!!activatedFilter}>r
+                    <View style={[Style.bg__primary,
+                      {width: 20, height: 20, borderRadius: 10, position: 'absolute', top: 10, right: 10,}]}>
+                      <AppText
+                        style={[Style.text__white, Style.f__12, Style.text__center]}>
+                        {activatedFilter > 9 ? '+9' : activatedFilter}
+                      </AppText>
+                    </View>
+                  </If>
+                </Conditional>
               </>
             </TouchableHighlight>
 
@@ -116,16 +132,12 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
 
             {/*map*/}
-            <TouchableHighlight
-              style={[
-                Style.col__4,
-                Style.h__100,
-                Style.flex__row,
-                Style.justify__content_center,
-                Style.align__items_center]}
-              onPress={() => {
-                Actions.push('map');
-              }}>
+            <TouchableHighlight style={[
+              Style.col__4, Style.h__100, Style.flex__row,
+              Style.justify__content_center, Style.align__items_center]
+            } onPress={() => {
+              Actions.push('map');
+            }}>
               <>
                 <Icon type="SimpleLineIcons" name="map" style={[{fontSize: 24}, Style.text__primary]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Map</AppText>

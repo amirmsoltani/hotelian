@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import {connect, ConnectedProps} from 'react-redux';
-import {Body, Button, Footer, Header, Icon, Left, Right, Subtitle, Title} from 'native-base';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Body, Button, Footer, Header, Icon, Left, Right, Title} from 'native-base';
+
 import {RootStateInterface} from '../../Typescript';
 import {ApplyHotelsFilters} from '../../Store/Actions';
-import {Actions} from 'react-native-router-flux';
 import {Conditional, HotelsFilters, If} from '../../Components';
 import {Style} from "../../Styles";
 import style from "../search.page/search-page.styles";
@@ -25,7 +26,7 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector>;
 
-class HotelsFilterPage extends Component<Props, { [key: string]: { indexes: number[], name: string } }> {
+class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { indexes: number[], name: string } } }> {
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
   change_filter: number;
 
@@ -33,19 +34,29 @@ class HotelsFilterPage extends Component<Props, { [key: string]: { indexes: numb
     super(props);
     if (props.structure === undefined)
       Actions.replace('hotels');
-    this.state = props.actives || {};
-    this.setState = this.setState.bind(this);
+    this.state = {filters: props.actives || {}};
+    this.reset = this.reset.bind(this);
+    this.setstate = this.setstate.bind(this);
     this.change_filter = this.props.change_filter;
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: any) {
     this.change_filter = prevProps.change_filter;
     if (this.state !== prevState)
-      this.props.ApplyHotelsFilters(this.state, this.props.structure);
+      this.props.ApplyHotelsFilters(this.state.filters, this.props.structure);
+  }
+
+  reset() {
+    this.setState({filters: {}});
+  }
+
+  setstate(filters: { [key: string]: { indexes: number[], name: string } }) {
+    this.setState({filters: {...this.state.filters, ...filters}});
   }
 
   render() {
     const {numbers, structure} = this.props;
+    const canReset = Object.keys(this.state.filters).length > 0;
     return (
       <>
         <Header style={[Style.bg__primary]}>
@@ -57,18 +68,22 @@ class HotelsFilterPage extends Component<Props, { [key: string]: { indexes: numb
           </Left>
           <Body><Title>Set your filters</Title></Body>
           <Right>
-            <Button transparent>
-              <Subtitle>RESET</Subtitle>
-            </Button>
+            <Conditional>
+              <If condition={canReset}>
+                <Button transparent onPress={this.reset}>
+                  <AppText style={[Style.text__white]}>RESET</AppText>
+                </Button>
+              </If>
+            </Conditional>
           </Right>
         </Header>
         <ScrollView style={[Style.bg__white]}>
           <View style={[style.wrapper, Style.mb__0]}>
 
             {Object.keys(structure).filter(name => HotelsFilterPage.filters.includes(name)).map(name =>
-              // @ts-ignore
-              <HotelsFilters structure={structure[name]} actives={this.state} length={numbers} name={name} key={name}
-                             ChangeFilters={this.setState}/>)
+              <HotelsFilters
+                structure={structure[name]} actives={this.state.filters} length={numbers} name={name}
+                key={name} ChangeFilters={this.setstate}/>)
             }
           </View>
         </ScrollView>

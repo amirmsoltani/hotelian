@@ -21,7 +21,7 @@ export default ({hotel: {hotel_id, image, name, location, address, price, star, 
 
 
   return (
-    <View style={[Style.p__3, Style.w__100,]}>
+    <View style={[Style.px__3, Style.py__2, Style.w__100]}>
       <TouchableOpacity onPress={() => book(hotel_id)}
                         style={[Style.bg__white, SHADOW_SM, {borderRadius: BORDER_RADIUS_SM}]}>
         <View style={[Style.flex__column, Style.w__100,]}>
@@ -40,7 +40,7 @@ export default ({hotel: {hotel_id, image, name, location, address, price, star, 
 
           {/*name*/}
           <View style={[Style.px__3, Style.mb__2]}>
-            <AppText style={[Style.text__bold]}>{name}</AppText>
+            <AppText style={[Style.text__bold, Style.f__20]}>{name}</AppText>
           </View>
 
           {/*location and address*/}
@@ -48,10 +48,10 @@ export default ({hotel: {hotel_id, image, name, location, address, price, star, 
             <View style={[Style.flex__row, Style.align__items_center]}>
               <Icon type='SimpleLineIcons' name='location-pin'
                     style={[Style.text__black, Style.ml__0, Style.mr__1, Style.f__16,]}/>
-              <AppText style={[]}>{location}</AppText>
+              <AppText>{location}</AppText>
             </View>
             <View style={[Style.mb__1]}>
-              <AppText style={[Style.f__14, Style.text__wrap]}>{address}</AppText>
+              <AppText style={[Style.f__14, Style.text__wrap,]}>{address}</AppText>
             </View>
           </View>
 
