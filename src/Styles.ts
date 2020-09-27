@@ -3,6 +3,7 @@ import {
   COLOR_DANGER,
   COLOR_GRAY,
   COLOR_IMPORTANT,
+  COLOR_INFO,
   COLOR_MUTED,
   COLOR_PRIMARY,
   COLOR_SUCCESS,
@@ -41,6 +42,7 @@ export const Style = StyleSheet.create({
   text__danger: {color: COLOR_DANGER,},
   text__warning: {color: COLOR_WARNING,},
   text__black: {color: COLOR_BLACK,},
+  text__info: {color: COLOR_INFO,},
   text__center: {textAlign: "center",},
 //=======================================
   text__gray: {color: COLOR_GRAY,},
@@ -82,6 +84,7 @@ export const Style = StyleSheet.create({
   bg__success: {backgroundColor: COLOR_SUCCESS,},
   bg__danger: {backgroundColor: COLOR_DANGER,},
   bg__warning: {backgroundColor: COLOR_WARNING,},
+  bg__info: {backgroundColor: COLOR_INFO,},
 
 
 //=======================================
