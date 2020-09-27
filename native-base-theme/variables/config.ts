@@ -7,7 +7,7 @@ export const COLOR_IMPORTANT = '#cf142b';
 export const COLOR_DANGER = '#b73b3b';
 export const COLOR_SUCCESS = '#50a047';
 export const COLOR_WARNING = '#efb300';
-export const COLOR_INFO = '#359bba';
+export const COLOR_INFO = '#02abef';
 export const COLOR_SECONDARY = '#D3DAEB';
 //=======================================
 export const COLOR_MUTED = '#909bb9';

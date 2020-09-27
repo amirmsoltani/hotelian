@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {RootStateInterface} from '../Typescript';
-import {default as SearchRoute} from './search.route';
-import {default as HotelsRoute} from './hotels.route';
 import {Route} from 'react-router-native';
+
+import {RootStateInterface} from '../Typescript';
 import Translator from '../Lib/Languages';
 import HotelRoute from './hotel.route';
 

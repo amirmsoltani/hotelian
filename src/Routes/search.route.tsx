@@ -4,14 +4,22 @@ import {Container} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {CreateRoomPage, SearchPage, SelectDatePage, SelectDestinationPage, SelectNationalityPage} from '../Pages';
+import {
+  CreateRoomPage,
+  SearchPage,
+  SelectDatePage,
+  SelectDestinationPage,
+  SelectNationalityPage,
+  TestPage
+} from '../Pages';
 
 const Stack = createStackNavigator();
-const SearchRoute = (props: {match: match}) => {
+const SearchRoute = (props: { match: match }) => {
   return (
     <Container>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="form">
+          <Stack.Screen name="test" component={TestPage} options={{headerShown: false}}/>
           <Stack.Screen name="form" component={SearchPage} options={{headerShown: false}}/>
           <Stack.Screen name="destination" component={SelectDestinationPage} options={{headerShown: false}}/>
           <Stack.Screen name="nationality" component={SelectNationalityPage} options={{headerShown: false}}/>

@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import {connect, ConnectedProps} from 'react-redux';
-import {Card, Content, Footer} from 'native-base';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Body, Button, Footer, Header, Icon, Left, Right, Title} from 'native-base';
+
 import {RootStateInterface} from '../../Typescript';
 import {ApplyHotelsFilters} from '../../Store/Actions';
-import {Actions} from 'react-native-router-flux';
 import {Conditional, HotelsFilters, If} from '../../Components';
+import {Style} from "../../Styles";
+import style from "../search.page/search-page.styles";
+import {SHADOW_LG_XX} from "../../../native-base-theme/variables/config";
+import {AppText} from "../../Containers";
 
 const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInterface) => ({
   structure: filter!.structure,
@@ -21,7 +26,7 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector>;
 
-class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number[], name: string}}> {
+class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { indexes: number[], name: string } } }> {
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
   change_filter: number;
 
@@ -29,51 +34,79 @@ class HotelsFilterPage extends Component<Props, {[key: string]: {indexes: number
     super(props);
     if (props.structure === undefined)
       Actions.replace('hotels');
-    this.state = props.actives || {};
-    this.setState = this.setState.bind(this);
+    this.state = {filters: props.actives || {}};
+    this.reset = this.reset.bind(this);
+    this.setstate = this.setstate.bind(this);
     this.change_filter = this.props.change_filter;
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: any) {
     this.change_filter = prevProps.change_filter;
     if (this.state !== prevState)
-      this.props.ApplyHotelsFilters(this.state, this.props.structure);
+      this.props.ApplyHotelsFilters(this.state.filters, this.props.structure);
+  }
+
+  reset() {
+    this.setState({filters: {}});
+  }
+
+  setstate(filters: { [key: string]: { indexes: number[], name: string } }) {
+    this.setState({filters: {...this.state.filters, ...filters}});
   }
 
   render() {
     const {numbers, structure} = this.props;
+    const canReset = Object.keys(this.state.filters).length > 0;
     return (
       <>
+        <Header style={[Style.bg__primary]}>
+          <Left>
+            <Button transparent>
+              <Icon type={'MaterialIcons'} name='keyboard-backspace'
+                    style={[Style.f__30, Style.text__white,]}/>
+            </Button>
+          </Left>
+          <Body><Title>Set your filters</Title></Body>
+          <Right>
+            <Conditional>
+              <If condition={canReset}>
+                <Button transparent onPress={this.reset}>
+                  <AppText style={[Style.text__white]}>RESET</AppText>
+                </Button>
+              </If>
+            </Conditional>
+          </Right>
+        </Header>
+        <ScrollView style={[Style.bg__white]}>
+          <View style={[style.wrapper, Style.mb__0]}>
 
-        {/*<StatusBar animated={true} hidden={true}/>*/}
-        <Content>
-          <Card>
             {Object.keys(structure).filter(name => HotelsFilterPage.filters.includes(name)).map(name =>
-              // @ts-ignore
-              <HotelsFilters structure={structure[name]} actives={this.state} length={numbers} name={name} key={name}
-                             ChangeFilters={this.setState}/>)
+              <HotelsFilters
+                structure={structure[name]} actives={this.state.filters} length={numbers} name={name}
+                key={name} ChangeFilters={this.setstate}/>)
             }
-          </Card>
-        </Content>
-        <Conditional>
-          <If
-            condition={this.props.change_filter !== this.change_filter}>
-            <Footer style={{backgroundColor: 'white'}}>
-              <TouchableOpacity style={{
-                width: '100%',
-                backgroundColor: 'rgba(30,40,50,.6)',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-                                onPress={() => Actions.jump('hotels')}
-              >
-                <Text>
-                  Apply
-                </Text>
-              </TouchableOpacity>
-            </Footer>
-          </If>
-        </Conditional>
+          </View>
+        </ScrollView>
+        <Footer style={[SHADOW_LG_XX]}>
+          <Conditional>
+            <If
+              condition={this.props.change_filter !== this.change_filter}>
+              <Footer style={{backgroundColor: 'white'}}>
+                <TouchableOpacity
+                  style={{
+                    width: '100%',
+                    backgroundColor: 'rgba(30,40,50,.6)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => Actions.jump('hotels')}>
+                  <Text>Apply</Text>
+                </TouchableOpacity>
+              </Footer>
+            </If>
+          </Conditional>
+          <AppText>Footer goes here !!!</AppText>
+        </Footer>
       </>
     );
   }
