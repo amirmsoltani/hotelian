@@ -5,6 +5,7 @@ import {default as SearchRoute} from './search.route';
 import {default as HotelsRoute} from './hotels.route';
 import {Route} from 'react-router-native';
 import Translator from '../Lib/Languages';
+import HotelRoute from './hotel.route';
 
 const mapStateToProps = (state: RootStateInterface) => ({
   language: state.appReducer.language,
@@ -28,6 +29,8 @@ class Routes extends Component<Props> {
       <>
         <Route component={SearchRoute} path='/' exact={true}/>
         <Route component={HotelsRoute} path='/hotels' exact={true}/>
+        <Route component={HotelRoute} path='/hotel/:id/:name/:checkIn/:checkOut' exact={true}/>
+        <Route component={HotelRoute} path='/hotel/:id/:name' exact={true}/>
       </>
     );
   }

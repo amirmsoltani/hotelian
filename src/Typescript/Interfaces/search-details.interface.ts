@@ -1,4 +1,4 @@
-import {NationalityType, RoomType} from 'src/Typescript';
+import {NationalityType, RoomType} from 'Typescript';
 
 export interface SearchDetailsInterface {
   checkin: {rwa: string, formatted: string};
@@ -9,5 +9,5 @@ export interface SearchDetailsInterface {
   dest_type: string;
   nationality: NationalityType;
   nights_count: number;
-  rooms:RoomType[]
+  rooms: RoomType[]
 }

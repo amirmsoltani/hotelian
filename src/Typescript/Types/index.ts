@@ -8,3 +8,4 @@ export * from './stars-rating.type';
 export * from './hotel.type';
 export * from './image.type';
 export * from './nsg-facilities.type';
+export * from './status.type';

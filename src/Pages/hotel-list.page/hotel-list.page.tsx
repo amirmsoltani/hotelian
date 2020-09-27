@@ -18,7 +18,11 @@ import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
 
-const mapStateToProps = ({hotelsReducer: {basicData, status, filter}, searchReducer: {search_id, form_data, ...search}, appReducer: {currency}}: RootStateInterface) => ({
+const mapStateToProps = ({
+                           hotelsReducer: {basicData, status, filter},
+                           searchReducer: {search_id, form_data, ...search},
+                           appReducer: {currency},
+                         }: RootStateInterface) => ({
   search_id,
   form_data,
   currency,
@@ -29,6 +33,7 @@ const mapStateToProps = ({hotelsReducer: {basicData, status, filter}, searchRedu
   facilities: basicData?.facilities,
   hotels_search_id: basicData?.search_id,
   nights: basicData?.search_details.nights_count,
+  details: basicData?.search_details,
 });
 
 const mapDispatchToProps = {GetHotels, replace, push};
@@ -43,9 +48,14 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   //=======================================
   // Hooks
   //=======================================
+  constructor(props: Props) {
+    super(props);
+    this.bookIt = this.bookIt.bind(this);
+  }
+
   componentDidMount() {
     const {search_id, hotels_search_id, search_status, GetHotels, status, replace} = this.props;
-    if (status === null || search_status === undefined && search_id === undefined && hotels_search_id === undefined)
+    if (status === null && search_status === undefined && search_id === undefined && hotels_search_id === undefined)
       replace('/');
     else if (status === null && search_status === undefined && search_id)
       GetHotels(search_id);
@@ -165,8 +175,9 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   //=======================================
   // Handlers
   //=======================================
-  bookIt(id: number) {
-    this.props.push(`/hotel/${id}`);
+  bookIt(id: number, name: string) {
+    const {checkin, checkout} = this.props.details!;
+    this.props.push(`/hotel/${id}/${name}/${checkin.formatted}/${checkout.formatted}`);
   }
 
 }

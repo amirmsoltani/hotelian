@@ -19,9 +19,9 @@ export default async function(data: {entries: string[], index: number}): Promise
   const store = await createStore(
     rootReducer(history),
     {
-      hotelsReducer: Initial.hotelsInit,
       searchReducer: await Initial.searchInit(),
       appReducer: await Initial.appInit(),
+      hotelsReducer: Initial.hotelsInit,
     }
     ,
     __DEV__ ? composeWithDevTools(apply) : compose(apply),

@@ -12,3 +12,4 @@ export default {
     return axios.request(config);
   },
 };
+

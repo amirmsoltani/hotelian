@@ -4,32 +4,36 @@ import {connect, ConnectedProps} from 'react-redux';
 import {Body, Spinner} from 'native-base';
 import {HotelInterface, RootStateInterface} from '../../Typescript';
 import {replace, push} from 'connected-react-router';
+import {GetHotel} from 'Store/Actions';
+import {StackScreenProps} from '@react-navigation/stack';
+import {Conditional, If, ElIf, Else} from 'Components';
 
-
-const mapStateToProps = ({hotelsReducer: {basicData, status, filter}, searchReducer: {search_id}}: RootStateInterface) => ({
-  hotels: basicData?.hotels,
-  indexes: filter?.hotels,
-  status: status,
-  facilities: basicData?.facilities,
+const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}},router}: RootStateInterface) => ({
   search_id,
-  hotels_search_id: basicData?.search_id,
+  status,
+  result,
+  hotels: basicData?.hotels,
+  router
 });
 
 const mapDispatchToProps = {
-  GetHotels,
+  GetHotel,
   replace,
   push,
-
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type Props = ConnectedProps<typeof connector>;
+type Props =
+  ConnectedProps<typeof connector>
+  & StackScreenProps<{hotel: {id: string, name: string, checkIn?: string, checkOut?: string}}, 'hotel'>;
 
-class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
-  state = {end: false, scroll: false};
-  timeOut: any | null = null;
+class HotelListPage extends Component<Props> {
 
-
+  componentDidMount() {
+    const {route: {params: {id}}, result} = this.props;
+    if (this.props.status === undefined || (result && result.hotel.id !== +id))
+      this.props.GetHotel(+id);
+  }
 
   bookIt(id: number) {
     this.props.push(`/passengers/${id}`);
@@ -37,36 +41,26 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
 
 
   render() {
-    const {hotels, indexes, facilities, status} = this.props;
+    const {status, result, route: {params: {checkIn, checkOut, name}}} = this.props;
     return (
       <>
-        <StatusBar animated={true} backgroundColor={'red'} hidden={false}><Text>Salam</Text></StatusBar>
         <Body>
           <SafeAreaView>
-            {status === 'ok' ?
-              <VirtualizedList<HotelInterface>
-                data={indexes}
-                initialNumToRender={10}
-                getItem={(data, index) => hotels![indexes![index]]}
-                getItemCount={() => indexes!.length}
-                keyExtractor={item => item.hotel_id.toString()}
-                ListFooterComponent={this.state.end ? <></> : <Spinner color={'blue'}/>}
-                onEndReached={() => {
-                  this.setState({end: true});
-                }}
-                renderItem={({item}) => {
-                  let facility = facilities![item.hotel_id] ? facilities![item.hotel_id]['Hotel Facilities'] : [];
-                  return <HotelCard hotel={item}
-                                    hotelFacilities={facility}
-                                    book={this.bookIt}
-                  />;
-                }}
-
-              />
-              :
-              <></>
-            }
-
+            <Conditional>
+              <If condition={status === 'ok'}>
+                <Text>{checkIn}</Text>
+                <Text>{checkOut}</Text>
+                <Text>{name}</Text>
+              </If>
+              <Else>
+                <Text>
+                  not loaded
+                </Text>
+                <Text>{checkIn}</Text>
+                <Text>{checkOut}</Text>
+                <Text>{name}</Text>
+              </Else>
+            </Conditional>
           </SafeAreaView>
         </Body>
       </>

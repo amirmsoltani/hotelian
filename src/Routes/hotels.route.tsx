@@ -9,7 +9,6 @@ import {StatusBar} from "react-native";
 const HotelsRoute = (props: { match: match }) => {
   return (
     <Container>
-      <StatusBar hidden={true}/>
       <Router>
         <Stack key='root'>
           <Scene key='hotels' component={HotelListPage} hideNavBar initial/>
