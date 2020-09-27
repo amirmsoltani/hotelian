@@ -6,3 +6,4 @@ export {default as CreateRoomPage} from './create-room.page/create-room.page';
 export {default as HotelListPage} from './hotel-list.page/hotel-list.page';
 export {default as HotelsFilterPage} from './hotels-filter.page/hotels-filter.page';
 export {default as HotelsMapPage} from './hotels-map.page/hotel-map.page';
+export {default as TestPage} from './test/test.page';
