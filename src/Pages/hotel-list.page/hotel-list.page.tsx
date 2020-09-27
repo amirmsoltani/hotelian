@@ -115,7 +115,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 <Icon type="MaterialIcons" name="filter-none" style={[{fontSize: 24}, Style.text__primary]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
                 <Conditional>
-                  <If condition={!!activatedFilter}>r
+                  <If condition={!!activatedFilter}>
                     <View style={[Style.bg__primary,
                       {width: 20, height: 20, borderRadius: 10, position: 'absolute', top: 10, right: 10,}]}>
                       <AppText
