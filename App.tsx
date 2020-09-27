@@ -5,7 +5,7 @@ import {ConnectedRouter} from 'connected-react-router';
 import {History, MemoryHistory} from 'history';
 import Storage from './src/Lib/Storage';
 import createStore from './src/Store';
-import Routes from './src/Routes';
+import Routes from "./src/Routes/index";
 import axios from 'axios';
 import {LANGUAGE_URL} from './src/URLS';
 import {MenuProvider} from 'react-native-popup-menu';
