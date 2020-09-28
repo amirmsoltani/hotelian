@@ -5,18 +5,25 @@ import {push, replace} from 'connected-react-router';
 import {SafeAreaView, StatusBar, TouchableOpacity, View, VirtualizedList} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Spinner, Subtitle, Title} from 'native-base';
 
-import {COLOR_PRIMARY, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_NM} from "../../../native-base-theme/variables/config";
+import {
+  COLOR_PRIMARY,
+  MUTED_LIGHT_XX,
+  MUTED_LIGHT_XXX,
+  SHADOW_SM_X
+} from "../../../native-base-theme/variables/config";
 import {Style} from "Styles";
 import {Conditional, HotelCard, If} from 'Components';
+
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
 
-const mapStateToProps = ({
-                           hotelsReducer: {basicData, status, filter},
-                           searchReducer: {search_id, form_data, ...search},
-                           appReducer: {currency},
-                         }: RootStateInterface) => ({
+const mapStateToProps = (
+  {
+    hotelsReducer: {basicData, status, filter},
+    searchReducer: {search_id, form_data, ...search},
+    appReducer: {currency},
+  }: RootStateInterface) => ({
   search_id,
   form_data,
   currency,
@@ -77,7 +84,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           <TouchableOpacity
             activeOpacity={1}
             style={[
-              SHADOW_NM,
+              SHADOW_SM_X,
               Style.ml__2,
               Style.px__5,
               Style.flex__row,
@@ -103,7 +110,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
           <View style={[
             {height: 50},
-            SHADOW_NM,
+            SHADOW_SM_X,
             Style.bg__white,
             Style.flex__row,
             Style.justify__content_between,

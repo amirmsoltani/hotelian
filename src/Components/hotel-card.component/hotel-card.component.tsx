@@ -6,7 +6,7 @@ import {Style} from 'Styles';
 import style from './hotel-card-component.style';
 import {HotelInterface} from 'Typescript';
 import {AppText} from '../../Containers';
-import {BORDER_RADIUS_SM, SHADOW_SM} from '../../../native-base-theme/variables/config';
+import {BORDER_RADIUS_SM, SHADOW_SM_X, SHADOW_SM_XX} from '../../../native-base-theme/variables/config';
 import {translate} from '../../Lib/Languages';
 
 const hotelImage = require('../../Assets/Images/no-image.png');
@@ -22,7 +22,7 @@ export default ({hotel: {hotel_id, image, name, location, address, price, star, 
 
   return (
     <View style={[Style.px__2, Style.pt__2, Style.w__100]}>
-      <View style={[Style.bg__white, SHADOW_SM, {borderRadius: BORDER_RADIUS_SM}]}>
+      <View style={[Style.bg__white, SHADOW_SM_X, {borderRadius: BORDER_RADIUS_SM}]}>
         <TouchableNativeFeedback onPress={() => book(hotel_id, name)}>
           <View style={[Style.flex__column, Style.w__100]}>
 
