@@ -82,6 +82,7 @@ class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { in
 
             {Object.keys(structure).filter(name => HotelsFilterPage.filters.includes(name)).map(name =>
               <HotelsFilters
+                // @ts-ignore
                 structure={structure[name]} actives={this.state.filters} length={numbers} name={name}
                 key={name} ChangeFilters={this.setstate}/>)
             }
