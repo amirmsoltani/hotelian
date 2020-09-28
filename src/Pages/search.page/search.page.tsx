@@ -3,6 +3,7 @@ import {FlatList, ScrollView, StatusBar} from 'react-native';
 import {Body, Button, H3, Header, Icon, Left, Right, View} from 'native-base';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 import {StackScreenProps} from '@react-navigation/stack';
+
 import {Props, State} from './search-page.types';
 import style from './search-page.styles';
 import SearchFrom from 'Forms/SearchForm/SearchFrom';
@@ -120,6 +121,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
       },
     ];
     const {navigation} = this.props;
+
     return (
       <>
         <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
@@ -127,7 +129,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           <StatusBar hidden={true}/>
           <Left>
             <Button transparent onPress={navigation.pop}>
-              <Icon type={'Feather'} name='menu' style={{fontSize: 30}}/>
+              <Icon type={'Feather'} name='menu' style={Style.f__18}/>
             </Button>
           </Left>
           <Body>
@@ -136,22 +138,42 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
               Style.text__left,
               Style.w__100,
               Style.text__bold,
-              Style.f__22
-            ]}>Hotelian<AppText style={[Style.f__22, Style.text__important]}>.com</AppText>
+              Style.f__18
+            ]}>Hotelian<AppText style={[Style.f__18, Style.text__important]}>.com</AppText>
             </AppText>
           </Body>
           <Right>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
-              <Icon type={'AntDesign'} name='message1' style={{fontSize: 20}}/>
+            <Button
+              style={[Style.justify__content_end]}
+              transparent>
+              <Icon type={'AntDesign'} name='message1' style={Style.f__16}/>
+              <Conditional>
+                <If condition={true}>
+                  <View style={[Style.bg__important,
+                    {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 10, right: 10,}]}>
+                  </View>
+                </If>
+              </Conditional>
             </Button>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
-              <Icon type={'MaterialIcons'} name='notifications-none' style={{fontSize: 24}}/>
+            <Button
+              style={[Style.justify__content_end]}
+              transparent>
+              <Icon type={'AntDesign'} name='notification' style={Style.f__18}/>
+              <Conditional>
+                <If condition={true}>
+                  <View style={[Style.bg__important,
+                    {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 10, right: 10,}]}>
+                  </View>
+                </If>
+              </Conditional>
             </Button>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
-              <Menu style={[Style.w__100, Style.h__100, Style.justify__content_center]}>
+            <Button
+              style={[Style.justify__content_end, Style.pr__0]}
+              transparent>
+              <Menu style={[Style.justify__content_center]}>
                 <MenuTrigger>
-                  <Icon type={'Feather'} name='more-vertical'
-                        style={[{fontSize: 24}, Style.text__right]}/>
+                  <Icon type='Feather' name='more-vertical'
+                        style={[Style.f__20, Style.text__right]}/>
                 </MenuTrigger>
                 <MenuOptions>
                   <MenuOption

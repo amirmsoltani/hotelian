@@ -3,6 +3,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
 
 import {Style} from "../../Styles";
+import {translate} from "../../Lib/Languages";
 import {AppText} from "../../Containers";
 import {ChangeLanguage} from "../../Store/Actions";
 import {RootStateInterface} from "../../Typescript";
@@ -25,12 +26,10 @@ const LanguageModal = (props: propType) => {
     ]}>
       <Header style={[Style.bg__primary]}>
         <Body>
-          <Title>Language</Title>
+          <Title>{translate('language')}</Title>
         </Body>
         <Right>
-          <Button
-            transparent
-            onPress={props.onClose}>
+          <Button transparent onPress={props.onClose}>
             <Icon
               type={'AntDesign'}
               name='close'
