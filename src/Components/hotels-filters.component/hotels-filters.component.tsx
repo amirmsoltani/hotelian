@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import Conditional, {ElIf, Else, If} from '../conditional.component';
 import HotelsFiltersStars from './hotels-filters-stars.component';
 import HotelsFiltersAll from './hotels-filters-all.componnent';
-import {GRAY_LIGHT_XX} from "../../../native-base-theme/variables/config";
+import {GRAY_LIGHT_X, GRAY_LIGHT_XX, GRAY_LIGHT_XXX} from "../../../native-base-theme/variables/config";
 import {Style} from "../../Styles";
 import {AppText} from "../../Containers";
 
@@ -31,8 +31,8 @@ export default function HotelsFilter({actives, length, structure, name, ChangeFi
   };
   return (
     <View
-      style={[(name !== 'rangePrice' ? {borderBottomColor: GRAY_LIGHT_XX, borderBottomWidth: 1} : {}), Style.py__5]}>
-      <AppText style={[Style.text__bold, Style.f__16, Style.mb__2]}>{filterNames[name]}</AppText>
+      style={[(name !== 'rangePrice' ? {borderBottomColor: GRAY_LIGHT_XX, borderBottomWidth: .5} : {}), Style.py__2]}>
+      <AppText style={[Style.text__bold, Style.f__14, Style.mb__1]}>{filterNames[name]}</AppText>
       <View style={[Style.flex__row, Style.flex__wrap]}>
 
         <Conditional>
@@ -73,22 +73,3 @@ export default function HotelsFilter({actives, length, structure, name, ChangeFi
   );
 };
 
-
-{/*active*/
-}
-{/*<View style={[{borderWidth: 1, borderColor: COLOR_PRIMARY, borderRadius: 3,},*/
-}
-{/*  Style.mr__1, Style.mb__1, Style.p__2, Style.bg__primary]}>*/
-}
-{/*  <View style={[Style.flex__row, Style.align__items_center]}>*/
-}
-{/*    <AppText style={[Style.text__white, Style.mr__1, Style.f__14]}>5 Stars</AppText>*/
-}
-{/*    <AppText style={[Style.text__muted_l_XXX, Style.mr__2, Style.f__14]}>(255)</AppText>*/
-}
-{/*    <Icon name={'close'} type={'EvilIcons'} style={[Style.f__16]}/>*/
-}
-{/*  </View>*/
-}
-{/*</View>*/
-}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, ScrollView} from 'react-native';
+import {FlatList, ScrollView, StatusBar} from 'react-native';
 import {Body, Button, H3, Header, Icon, Left, Right, View} from 'native-base';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -123,6 +123,8 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
     return (
       <>
         <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
+          {/*<StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>*/}
+          <StatusBar hidden={true}/>
           <Left>
             <Button transparent onPress={navigation.pop}>
               <Icon type={'Feather'} name='menu' style={{fontSize: 30}}/>
@@ -131,11 +133,11 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           <Body>
             <AppText style={[
               Style.text__white,
-              Style.text__center,
+              Style.text__left,
               Style.w__100,
               Style.text__bold,
-              {fontSize: 24},
-            ]}>Hotelian<AppText style={[{fontSize: 24}, Style.text__important]}>.com</AppText>
+              Style.f__22
+            ]}>Hotelian<AppText style={[Style.f__22, Style.text__important]}>.com</AppText>
             </AppText>
           </Body>
           <Right>

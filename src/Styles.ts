@@ -1,11 +1,14 @@
 import {
+  COLOR_AMARANTH,
   COLOR_BLACK,
   COLOR_DANGER,
   COLOR_GRAY,
   COLOR_IMPORTANT,
   COLOR_INFO,
+  COLOR_MINT,
   COLOR_MUTED,
   COLOR_PRIMARY,
+  COLOR_PURPLE,
   COLOR_SUCCESS,
   COLOR_WARNING,
   COLOR_WHITE,
@@ -43,7 +46,9 @@ export const Style = StyleSheet.create({
   text__warning: {color: COLOR_WARNING,},
   text__black: {color: COLOR_BLACK,},
   text__info: {color: COLOR_INFO,},
-  text__center: {textAlign: "center",},
+  text__purple: {color: COLOR_PURPLE,},
+  text__amaranth: {color: COLOR_AMARANTH,},
+  text__mint: {color: COLOR_MINT,},
 //=======================================
   text__gray: {color: COLOR_GRAY,},
   text__gray_l: {color: GRAY_LIGHT,},
@@ -55,7 +60,6 @@ export const Style = StyleSheet.create({
   text__gray_d_XX: {color: GRAY_DARK_XX,},
   text__gray_d_XXX: {color: GRAY_DARK_XXX,},
 //=======================================
-  //=======================================
   text__muted: {color: COLOR_MUTED,},
   text__muted_l: {color: MUTED_LIGHT,},
   text__muted_l_X: {color: MUTED_LIGHT_X,},
@@ -66,13 +70,14 @@ export const Style = StyleSheet.create({
 //=======================================
   text__left: {textAlign: "left",},
   text__right: {textAlign: "right",},
+  text__center: {textAlign: "center",},
 //=======================================
   text__lowerCase: {textTransform: 'lowercase'},
   text__upperCase: {textTransform: 'uppercase'},
   text__capitalize: {textTransform: 'capitalize'},
 //=======================================
   text__wrap: {flex: 1, flexWrap: 'wrap'},
-  text__underline: {flex: 1, flexWrap: 'wrap'},
+  text__underline: {textDecorationLine: 'underline'},
 
 
 //=======================================
@@ -85,6 +90,9 @@ export const Style = StyleSheet.create({
   bg__danger: {backgroundColor: COLOR_DANGER,},
   bg__warning: {backgroundColor: COLOR_WARNING,},
   bg__info: {backgroundColor: COLOR_INFO,},
+  bg__purple: {backgroundColor: COLOR_PURPLE,},
+  bg__amaranth: {backgroundColor: COLOR_AMARANTH,},
+  bg__mint: {backgroundColor: COLOR_MINT,},
 
 
 //=======================================

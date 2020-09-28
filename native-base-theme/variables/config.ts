@@ -15,9 +15,9 @@ export const COLOR_GRAY = '#a8a8a8';
 export const COLOR_WHITE = '#ffffff';
 export const COLOR_BLACK = '#2d2327';
 //=======================================
-export const COLOR_NON_REFUNDABLE = '#a35baf';
-export const COLOR_SPECIAL_OFFER = '#e91e63';
-export const COLOR_BREAKFAST = '#119e7b';
+export const COLOR_PURPLE = '#a35baf';
+export const COLOR_AMARANTH = '#e91e63';
+export const COLOR_MINT = '#119e7b';
 
 
 //=======================================
@@ -47,30 +47,7 @@ export const MUTED_DARK = '#7784a9';
 //=======================================
 // Font
 //=======================================
-export const TEXT_SIZE_SM_XX = 8;
-export const TEXT_SIZE_SM_X = 12;
-export const TEXT_SIZE_SM = 14;
-export const TEXT_SIZE = 16;
-export const TEXT_SIZE_LG = 18;
-export const TEXT_SIZE_LG_X = 22;
-export const TEXT_SIZE_LG_XX = 30;
-//=======================================
-
-
-//=======================================
-// GRID
-//=======================================
-//navigation bar's height
-export const HEADER_HEIGHT = '50px';
-
-//margin between <Header /> and <Content />
-export const MARGIN_HC = '25px';
-
-//margin between <Content /> and <Footer />
-export const MARGIN_CF = '25px';
-
-// default horizontal padding for almost contents
-export const CONTENT_PADDING_X = '15px';
+export const TEXT_SIZE = 12;
 
 
 //=======================================

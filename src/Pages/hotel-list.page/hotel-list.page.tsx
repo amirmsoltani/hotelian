@@ -2,27 +2,28 @@ import React, {Component} from 'react';
 import {Actions} from 'react-native-router-flux';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
-import {SafeAreaView, TouchableHighlight, View, VirtualizedList} from 'react-native';
-import {Body, Button, Container, Header, Icon, Left, Right, Spinner, Subtitle, Title} from 'native-base';
+import {SafeAreaView, StatusBar, TouchableOpacity, View, VirtualizedList} from 'react-native';
+import {Body, Button, Container, Header, Icon, Left, Spinner, Subtitle, Title} from 'native-base';
 
 import {
-  COLOR_WARNING,
-  GRAY_LIGHT_XXX,
+  COLOR_PRIMARY,
   MUTED_LIGHT_XX,
   MUTED_LIGHT_XXX,
-  SHADOW_NM
+  SHADOW_SM_X
 } from "../../../native-base-theme/variables/config";
 import {Style} from "Styles";
 import {Conditional, HotelCard, If} from 'Components';
+
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
 
-const mapStateToProps = ({
-                           hotelsReducer: {basicData, status, filter},
-                           searchReducer: {search_id, form_data, ...search},
-                           appReducer: {currency},
-                         }: RootStateInterface) => ({
+const mapStateToProps = (
+  {
+    hotelsReducer: {basicData, status, filter},
+    searchReducer: {search_id, form_data, ...search},
+    appReducer: {currency},
+  }: RootStateInterface) => ({
   search_id,
   form_data,
   currency,
@@ -42,7 +43,7 @@ const mapDispatchToProps = {GetHotels, replace, push};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector>;
 
-class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
+class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
   timeOut: any | null = null;
   state = {end: false, scroll: false};
 
@@ -71,24 +72,45 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
     return (
       <Container>
         <Header style={[Style.bg__primary, Style.flex__row]}>
-          <Left>
+          <StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>
+          <Left style={[{minWidth: 30,}, Style.flex__shrink__0]}>
             <Button onPress={() => this.props.replace('/')} transparent>
               <Icon
                 type={'MaterialIcons'}
                 name='keyboard-backspace'
-                style={[Style.f__30, Style.text__white,]}/>
+                style={[Style.f__30, Style.text__white]}/>
             </Button>
           </Left>
-          <View style={[Style.ml__2]}>
-            <Title>{form_data?.destination?.label}</Title>
-            <Subtitle>{`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
-          </View>
-          <Right style={{backgroundColor: COLOR_WARNING}}/>
+          <TouchableOpacity
+            activeOpacity={1}
+            style={[
+              SHADOW_SM_X,
+              Style.ml__2,
+              Style.px__5,
+              Style.flex__row,
+              Style.flex__grow__1,
+              Style.align__self_center,
+              Style.align__items_center,
+              Style.justify__content_between,
+              {backgroundColor: '#2047aa', borderRadius: 30, paddingVertical: 3,}
+            ]}>
+            <View style={[Style.mr__4,]}>
+              <Title style={[Style.f__14]}>{form_data?.destination?.label}</Title>
+              <Subtitle
+                style={[Style.f__12]}>{`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
+            </View>
+            <View>
+              <Icon
+                type={'AntDesign'}
+                name='search1'
+                style={[Style.f__20, Style.text__white,]}/>
+            </View>
+          </TouchableOpacity>
         </Header>
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
           <View style={[
             {height: 50},
-            SHADOW_NM,
+            SHADOW_SM_X,
             Style.bg__white,
             Style.flex__row,
             Style.justify__content_between,
@@ -96,7 +118,8 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
           ]}>
 
             {/*sort*/}
-            <TouchableHighlight
+            <TouchableOpacity
+              activeOpacity={1}
               style={[
                 Style.col__4,
                 Style.h__100,
@@ -104,17 +127,24 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
                 Style.justify__content_center,
                 Style.align__items_center]}>
               <>
-                <Icon type="MaterialIcons" name="sort" style={[{fontSize: 24}, Style.text__primary]}/>
+                <Icon type="MaterialIcons" name="sort" style={[Style.f__16, Style.text__info]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Sort</AppText>
+                <Conditional>
+                  <If condition={!!activatedFilter}>
+                    <View style={[Style.bg__danger,
+                      {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 15, right: 15,}]}>
+                    </View>
+                  </If>
+                </Conditional>
               </>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*filter*/}
-            <TouchableHighlight
-              underlayColor={GRAY_LIGHT_XXX}
+            <TouchableOpacity
+              activeOpacity={1}
               style={[
                 Style.col__4,
                 Style.h__100,
@@ -123,37 +153,35 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
                 Style.align__items_center]}
               onPress={() => Actions.jump('filter')}>
               <>
-                <Icon type="MaterialIcons" name="filter-none" style={[{fontSize: 24}, Style.text__primary]}/>
+                <Icon type="AntDesign" name="filter" style={[Style.f__16, Style.text__info]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
                 <Conditional>
                   <If condition={!!activatedFilter}>
-                    <View style={[Style.bg__primary,
-                      {width: 20, height: 20, borderRadius: 10, position: 'absolute', top: 10, right: 10,}]}>
-                      <AppText
-                        style={[Style.text__white, Style.f__12, Style.text__center]}>
-                        {activatedFilter > 9 ? '+9' : activatedFilter}
-                      </AppText>
+                    <View style={[Style.bg__danger,
+                      {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 15, right: 15,}]}>
                     </View>
                   </If>
                 </Conditional>
               </>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*map*/}
-            <TouchableHighlight style={[
-              Style.col__4, Style.h__100, Style.flex__row,
-              Style.justify__content_center, Style.align__items_center]
-            } onPress={() => {
+            <TouchableOpacity
+              activeOpacity={1}
+              style={[
+                Style.col__4, Style.h__100, Style.flex__row,
+                Style.justify__content_center, Style.align__items_center]
+              } onPress={() => {
               Actions.push('map');
             }}>
               <>
-                <Icon type="SimpleLineIcons" name="map" style={[{fontSize: 24}, Style.text__primary]}/>
+                <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Map</AppText>
               </>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
           </View>
           <SafeAreaView style={[Style.w__100]}>
