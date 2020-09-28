@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import {Actions} from 'react-native-router-flux';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {SafeAreaView, StatusBar, TouchableOpacity, View, VirtualizedList} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Spinner, Subtitle, Title} from 'native-base';
+import {StackScreenProps} from '@react-navigation/stack';
 
 import {
   COLOR_PRIMARY,
   MUTED_LIGHT_XX,
   MUTED_LIGHT_XXX,
-  SHADOW_SM_X
-} from "../../../native-base-theme/variables/config";
-import {Style} from "Styles";
+  SHADOW_SM_X,
+} from '../../../native-base-theme/variables/config';
+import {Style} from 'Styles';
 import {Conditional, HotelCard, If} from 'Components';
 
 import {GetHotels} from 'Store/Actions';
@@ -41,9 +41,9 @@ const mapStateToProps = (
 const mapDispatchToProps = {GetHotels, replace, push};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type Props = ConnectedProps<typeof connector>;
+type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
+class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   timeOut: any | null = null;
   state = {end: false, scroll: false};
 
@@ -73,7 +73,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
       <Container>
         <Header style={[Style.bg__primary, Style.flex__row]}>
           <StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>
-          <Left style={[{minWidth: 30,}, Style.flex__shrink__0]}>
+          <Left style={[{minWidth: 30}, Style.flex__shrink__0]}>
             <Button onPress={() => this.props.replace('/')} transparent>
               <Icon
                 type={'MaterialIcons'}
@@ -92,9 +92,9 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               Style.align__self_center,
               Style.align__items_center,
               Style.justify__content_between,
-              {backgroundColor: '#2047aa', borderRadius: 30, paddingVertical: 3,}
+              {backgroundColor: '#2047aa', borderRadius: 30, paddingVertical: 3},
             ]}>
-            <View style={[Style.mr__4,]}>
+            <View style={[Style.mr__4]}>
               <Title style={[Style.f__14]}>{form_data?.destination?.label}</Title>
               <Subtitle
                 style={[Style.f__12]}>{`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
@@ -103,7 +103,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               <Icon
                 type={'AntDesign'}
                 name='search1'
-                style={[Style.f__20, Style.text__white,]}/>
+                style={[Style.f__20, Style.text__white]}/>
             </View>
           </TouchableOpacity>
         </Header>
@@ -132,7 +132,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 <Conditional>
                   <If condition={!!activatedFilter}>
                     <View style={[Style.bg__danger,
-                      {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 15, right: 15,}]}>
+                      {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 15, right: 15}]}>
                     </View>
                   </If>
                 </Conditional>
@@ -151,14 +151,14 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 Style.flex__row,
                 Style.justify__content_center,
                 Style.align__items_center]}
-              onPress={() => Actions.jump('filter')}>
+              onPress={() => this.props.navigation.navigate('filter')}>
               <>
                 <Icon type="AntDesign" name="filter" style={[Style.f__16, Style.text__info]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
                 <Conditional>
                   <If condition={!!activatedFilter}>
                     <View style={[Style.bg__danger,
-                      {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 15, right: 15,}]}>
+                      {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 15, right: 15}]}>
                     </View>
                   </If>
                 </Conditional>
@@ -175,7 +175,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 Style.col__4, Style.h__100, Style.flex__row,
                 Style.justify__content_center, Style.align__items_center]
               } onPress={() => {
-              Actions.push('map');
+              this.props.navigation.navigate('map');
             }}>
               <>
                 <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>

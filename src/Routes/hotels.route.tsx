@@ -1,21 +1,34 @@
 import React from 'react';
-import {Router, Scene, Stack} from 'react-native-router-flux';
 import {match} from 'react-router-native';
 import {Container} from 'native-base';
 
-import {HotelListPage, HotelsFilterPage, HotelsMapPage} from '../Pages';
-import {StatusBar} from "react-native";
+import {
+  CreateRoomPage,
+  HotelListPage,
+  HotelsFilterPage,
+  HotelsMapPage,
+  SelectDatePage,
+  SelectDestinationPage,
+  SelectNationalityPage,
+} from '../Pages';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const HotelsRoute = (props: { match: match }) => {
+const Stack = createStackNavigator();
+const HotelsRoute = (props: {match: match}) => {
   return (
     <Container>
-      <Router>
-        <Stack key='root'>
-          <Scene key='hotels' component={HotelListPage} hideNavBar initial/>
-          <Scene key='filter' component={HotelsFilterPage} hideNavBar/>
-          <Scene key='map' component={HotelsMapPage} hideNavBar/>
-        </Stack>
-      </Router>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="hotels">
+          <Stack.Screen name="hotels" component={HotelListPage} options={{headerShown: false}}/>
+          <Stack.Screen name="filter" component={HotelsFilterPage} options={{headerShown: false}}/>
+          <Stack.Screen name="map" component={HotelsMapPage} options={{headerShown: false}}/>
+          <Stack.Screen name="destination" component={SelectDestinationPage} options={{headerShown: false}}/>
+          <Stack.Screen name="nationality" component={SelectNationalityPage} options={{headerShown: false}}/>
+          <Stack.Screen name="datepicker" component={SelectDatePage} options={{headerShown: false}}/>
+          <Stack.Screen name="rooms" component={CreateRoomPage} options={{headerShown: false}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </Container>
   );
 };
