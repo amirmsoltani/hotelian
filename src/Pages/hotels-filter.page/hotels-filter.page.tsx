@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import {Actions} from 'react-native-router-flux';
+import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Footer, Header, Icon, Left, Right, Title} from 'native-base';
+import {StackScreenProps} from '@react-navigation/stack';
 
-import {RootStateInterface} from '../../Typescript';
-import {ApplyHotelsFilters} from '../../Store/Actions';
-import {Conditional, HotelsFilters, If} from '../../Components';
-import {Style} from "../../Styles";
-import style from "../search.page/search-page.styles";
-import {SHADOW_LG_XX} from "../../../native-base-theme/variables/config";
-import {AppText} from "../../Containers";
+import {RootStateInterface} from 'Typescript';
+import {ApplyHotelsFilters} from 'Store/Actions';
+import {Conditional, HotelsFilters, If} from 'Components';
+import {Style} from 'Styles';
+import style from '../search.page/search-page.styles';
+import {SHADOW_LG_XX} from '../../../native-base-theme/variables/config';
+import {AppText} from 'Containers';
 
 const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInterface) => ({
   structure: filter!.structure,
@@ -24,16 +24,16 @@ const mapDispatchToProps = {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type Props = ConnectedProps<typeof connector>;
+type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { indexes: number[], name: string } } }> {
+class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {indexes: number[], name: string}}}> {
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
   change_filter: number;
 
   constructor(props: Props) {
     super(props);
     if (props.structure === undefined)
-      Actions.replace('hotels');
+      props.navigation.replace('hotels');
     this.state = {filters: props.actives || {}};
     this.reset = this.reset.bind(this);
     this.setstate = this.setstate.bind(this);
@@ -50,7 +50,7 @@ class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { in
     this.setState({filters: {}});
   }
 
-  setstate(filters: { [key: string]: { indexes: number[], name: string } }) {
+  setstate(filters: {[key: string]: {indexes: number[], name: string}}) {
     this.setState({filters: {...this.state.filters, ...filters}});
   }
 
@@ -63,7 +63,7 @@ class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { in
           <Left>
             <Button transparent>
               <Icon type={'MaterialIcons'} name='keyboard-backspace'
-                    style={[Style.f__30, Style.text__white,]}/>
+                    style={[Style.f__30, Style.text__white]}/>
             </Button>
           </Left>
           <Body><Title>Set your filters</Title></Body>
@@ -100,7 +100,7 @@ class HotelsFilterPage extends Component<Props, { filters: { [key: string]: { in
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  onPress={() => Actions.jump('hotels')}>
+                  onPress={() => this.props.navigation.navigate('hotels')}>
                   <Text>Apply</Text>
                 </TouchableOpacity>
               </Footer>
