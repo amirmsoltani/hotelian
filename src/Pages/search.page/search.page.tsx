@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, ScrollView, StatusBar} from 'react-native';
-import {Body, Button, H3, Header, Icon, Left, Right, View} from 'native-base';
+import {Body, Button, Header, Icon, Left, Right, View} from 'native-base';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 import {StackScreenProps} from '@react-navigation/stack';
 
@@ -143,33 +143,19 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             </AppText>
           </Body>
           <Right>
-            <Button
-              style={[Style.justify__content_end]}
-              transparent>
+            <Button style={[Style.justify__content_end]} transparent>
               <Icon type={'AntDesign'} name='message1' style={Style.f__16}/>
               <Conditional>
-                <If condition={true}>
-                  <View style={[Style.bg__important,
-                    {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 10, right: 10,}]}>
-                  </View>
-                </If>
+                <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
               </Conditional>
             </Button>
-            <Button
-              style={[Style.justify__content_end]}
-              transparent>
+            <Button style={[Style.justify__content_end]} transparent>
               <Icon type={'AntDesign'} name='notification' style={Style.f__18}/>
               <Conditional>
-                <If condition={true}>
-                  <View style={[Style.bg__important,
-                    {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 10, right: 10,}]}>
-                  </View>
-                </If>
+                <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
               </Conditional>
             </Button>
-            <Button
-              style={[Style.justify__content_end, Style.pr__0]}
-              transparent>
+            <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
               <Menu style={[Style.justify__content_center]}>
                 <MenuTrigger>
                   <Icon type='Feather' name='more-vertical'
@@ -209,16 +195,11 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           <View style={style.bg_triangle}/>
 
           {/*search form*/}
-          <View style={{
-            paddingHorizontal: 15,
-            paddingVertical: 25,
-          }}>
-            <SearchFrom/>
-          </View>
+          <View style={[Style.px__3, Style.py__5]}><SearchFrom/></View>
 
           {/*recent search*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>{t('recent-search')}</H3>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('recent-search')}</AppText>
             <View>
               <FlatList
                 data={recentSearch}
@@ -238,9 +219,9 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             </View>
           </View>
 
-          {/*top destination*/}
+          {/*top cities*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>{t('top-cities')}</H3>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-cities')}</AppText>
             <View>
               <FlatList
                 data={topDestination}
@@ -259,7 +240,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
 
           {/*top properties*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>{t('top-property')}</H3>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-property')}</AppText>
             <View>
               <FlatList
                 data={topProperty}

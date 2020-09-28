@@ -39,7 +39,7 @@ const searchPageStyles = StyleSheet.create({
     position: "absolute",
     top: 150,
   },
-  recent_search: {},
+  redBullet: {width: 6, height: 6, borderRadius: 3, position: 'absolute', top: 10, right: 10,},
 });
 
 export default searchPageStyles;
