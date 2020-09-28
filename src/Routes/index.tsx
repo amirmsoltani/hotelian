@@ -5,6 +5,8 @@ import {Route} from 'react-router-native';
 import {RootStateInterface} from '../Typescript';
 import Translator from '../Lib/Languages';
 import HotelRoute from './hotel.route';
+import HotelsRoute from './hotels.route';
+import SearchRoute from './search.route';
 
 const mapStateToProps = (state: RootStateInterface) => ({
   language: state.appReducer.language,

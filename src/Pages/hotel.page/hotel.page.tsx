@@ -1,25 +1,30 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StatusBar, Text, VirtualizedList} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Body, Spinner} from 'native-base';
+import {Body, Button, Footer, H1, Header, Icon, Spinner} from 'native-base';
 import {HotelInterface, RootStateInterface} from '../../Typescript';
-import {replace, push} from 'connected-react-router';
+import {replace, push, goBack} from 'connected-react-router';
 import {GetHotel} from 'Store/Actions';
 import {StackScreenProps} from '@react-navigation/stack';
 import {Conditional, If, ElIf, Else} from 'Components';
+import {Style} from 'Styles';
+import {useParams} from 'react-router-native';
+import {ImageType} from 'Typescript';
+import {translate} from 'Lib/Languages';
 
-const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}},router}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
   search_id,
   status,
   result,
   hotels: basicData?.hotels,
-  router
+  router,
 });
 
 const mapDispatchToProps = {
   GetHotel,
   replace,
   push,
+  goBack,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -28,6 +33,12 @@ type Props =
   & StackScreenProps<{hotel: {id: string, name: string, checkIn?: string, checkOut?: string}}, 'hotel'>;
 
 class HotelListPage extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.Ok = this.Ok.bind(this);
+    this.Header = this.Header.bind(this);
+    this.Loading = this.Loading.bind(this);
+  }
 
   componentDidMount() {
     const {route: {params: {id}}, result} = this.props;
@@ -39,30 +50,80 @@ class HotelListPage extends Component<Props> {
     this.props.push(`/passengers/${id}`);
   }
 
+  Ok() {
+    const {hotel, nsg_images, nsg_descriptions, nsg_facilities} = this.props.result!;
+    return (
+      <ScrollView>
+        <View style={[Style.bg__info, Style.w__100]}>
+          <View>
+            {
+              [...(new Array(+hotel.star)).keys()].map((name) => <Icon key={name} type={'Entypo'} name='star'/>)
+            }
+          </View>
+          <H1>{hotel.name}</H1>
+          <Icon name='location' type={'Entypo'}/>
+          <Text>{hotel.location}</Text>
+          <Text>
+            {nsg_descriptions.replace(/\&lt\;br(\s|'')\/\&gt\;/g, '\n')}
+          </Text>
+        </View>
+        <Image source={{uri: hotel.image}} style={[Style.w__100, {height: 300}]}/>
+        {/*  TODO add Carousel after create component*/}
+        {
+          Object.values(nsg_facilities).map(item => (
+            <View key={item.name}>
+
+              <H1 style={[Style.w__100]}>{item.name}</H1>
+              {
+                item.values.map(data => <Text key={data}>{data}</Text>)
+              }
+            </View>
+          ))
+        }
+      </ScrollView>
+    );
+  }
+
+  Loading() {
+    return (
+      <Spinner style={[Style.mb__auto, Style.mt__auto, Style.ml__auto, Style.mr__auto]}/>
+    );
+  }
+
+  Header() {
+    const {name, checkOut, checkIn} = useParams();
+    return (<Header>
+      <Button onPress={this.props.goBack}>
+        <Text>
+          back
+        </Text>
+      </Button>
+      <Text>{checkIn}</Text>
+      <Text>{checkOut}</Text>
+      <Text>{name}</Text>
+    </Header>);
+  }
 
   render() {
-    const {status, result, route: {params: {checkIn, checkOut, name}}} = this.props;
+    const status = this.props.status;
     return (
       <>
-        <Body>
-          <SafeAreaView>
-            <Conditional>
-              <If condition={status === 'ok'}>
-                <Text>{checkIn}</Text>
-                <Text>{checkOut}</Text>
-                <Text>{name}</Text>
-              </If>
-              <Else>
-                <Text>
-                  not loaded
-                </Text>
-                <Text>{checkIn}</Text>
-                <Text>{checkOut}</Text>
-                <Text>{name}</Text>
-              </Else>
-            </Conditional>
-          </SafeAreaView>
+        <this.Header/>
+        <Body style={[Style.w__100]}>
+          <Conditional>
+            <If condition={status === 'ok'}>
+              <this.Ok/>
+            </If>
+            <Else>
+              <this.Loading/>
+            </Else>
+          </Conditional>
         </Body>
+        <Footer>
+          <TouchableOpacity>
+            <Text>{translate('show-rooms')}</Text>
+          </TouchableOpacity>
+        </Footer>
       </>
     );
   }

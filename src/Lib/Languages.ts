@@ -3,7 +3,10 @@ import memoize from 'lodash.memoize';
 import i18n from 'i18n-js';
 
 export const translate = memoize(
-  (key, config?) => i18n.t(key, config),
+  (key, config?) => {
+    const t = i18n.t(key, config);
+    return t[0] === '[' ? key + '***' : t;
+  },
   (key, config?) => (config ? key + JSON.stringify(config) : key),
 );
 
