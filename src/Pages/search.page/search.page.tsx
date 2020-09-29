@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {FlatList, ScrollView, StatusBar} from 'react-native';
-import {Body, Button, H3, Header, Icon, Left, Right, View} from 'native-base';
+import {Body, Button, Header, Icon, Left, Right, View} from 'native-base';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 import {StackScreenProps} from '@react-navigation/stack';
+
 import {Props, State} from './search-page.types';
 import style from './search-page.styles';
 import SearchFrom from 'Forms/SearchForm/SearchFrom';
@@ -120,6 +121,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
       },
     ];
     const {navigation} = this.props;
+
     return (
       <>
         <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
@@ -127,7 +129,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           <StatusBar hidden={true}/>
           <Left>
             <Button transparent>
-              <Icon type={'Feather'} name='menu' style={{fontSize: 30}}/>
+              <Icon type={'Feather'} name='menu' style={Style.f__18}/>
             </Button>
           </Left>
           <Body>
@@ -136,22 +138,28 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
               Style.text__left,
               Style.w__100,
               Style.text__bold,
-              Style.f__22
-            ]}>Hotelian<AppText style={[Style.f__22, Style.text__important]}>.com</AppText>
+              Style.f__18
+            ]}>Hotelian<AppText style={[Style.f__18, Style.text__important]}>.com</AppText>
             </AppText>
           </Body>
           <Right>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
-              <Icon type={'AntDesign'} name='message1' style={{fontSize: 20}}/>
+            <Button style={[Style.justify__content_end]} transparent>
+              <Icon type={'AntDesign'} name='message1' style={Style.f__16}/>
+              <Conditional>
+                <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
+              </Conditional>
             </Button>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
-              <Icon type={'MaterialIcons'} name='notifications-none' style={{fontSize: 24}}/>
+            <Button style={[Style.justify__content_end]} transparent>
+              <Icon type={'AntDesign'} name='notification' style={Style.f__18}/>
+              <Conditional>
+                <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
+              </Conditional>
             </Button>
-            <Button style={[Style.px__0, Style.justify__content_end, {width: 55}]} transparent>
-              <Menu style={[Style.w__100, Style.h__100, Style.justify__content_center]}>
+            <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
+              <Menu style={[Style.justify__content_center]}>
                 <MenuTrigger>
-                  <Icon type={'Feather'} name='more-vertical'
-                        style={[{fontSize: 24}, Style.text__right]}/>
+                  <Icon type='Feather' name='more-vertical'
+                        style={[Style.f__20, Style.text__right]}/>
                 </MenuTrigger>
                 <MenuOptions>
                   <MenuOption
@@ -187,16 +195,11 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           <View style={style.bg_triangle}/>
 
           {/*search form*/}
-          <View style={{
-            paddingHorizontal: 15,
-            paddingVertical: 25,
-          }}>
-            <SearchFrom/>
-          </View>
+          <View style={[Style.px__3, Style.py__5]}><SearchFrom/></View>
 
           {/*recent search*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>{t('recent-search')}</H3>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('recent-search')}</AppText>
             <View>
               <FlatList
                 data={recentSearch}
@@ -216,9 +219,9 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             </View>
           </View>
 
-          {/*top destination*/}
+          {/*top cities*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>{t('top-cities')}</H3>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-cities')}</AppText>
             <View>
               <FlatList
                 data={topDestination}
@@ -237,7 +240,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
 
           {/*top properties*/}
           <View style={[style.wrapper]}>
-            <H3 style={style.header}>{t('top-property')}</H3>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-property')}</AppText>
             <View>
               <FlatList
                 data={topProperty}

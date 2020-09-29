@@ -47,53 +47,53 @@ export const MUTED_DARK = '#7784a9';
 //=======================================
 // Font
 //=======================================
-export const TEXT_SIZE = 12;
+export const TEXT_SIZE = 14;
 
 
 //=======================================
 // Shadow
 //=======================================
 export const SHADOW_SM_XX = {
-    shadowColor: BLACK_DARK,
-    shadowOffset: {width: 0, height: 1,},
-    shadowOpacity: 0.18,
-    shadowRadius: 1.00,
-    elevation: 1,
+  shadowColor: BLACK_DARK,
+  shadowOffset: {width: 0, height: 1,},
+  shadowOpacity: 0.18,
+  shadowRadius: 1.00,
+  elevation: 1,
 }
 export const SHADOW_SM_X = {
-    shadowColor: BLACK_DARK,
-    shadowOffset: {width: 0, height: 1,},
-    shadowOpacity: 0.20,
-    shadowRadius: 1.41,
-    elevation: 2,
+  shadowColor: BLACK_DARK,
+  shadowOffset: {width: 0, height: 1,},
+  shadowOpacity: 0.20,
+  shadowRadius: 1.41,
+  elevation: 2,
 }
 export const SHADOW_SM = {
-    shadowColor: BLACK_DARK,
-    shadowOffset: {width: 0, height: 1,},
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3
+  shadowColor: BLACK_DARK,
+  shadowOffset: {width: 0, height: 1,},
+  shadowOpacity: 0.22,
+  shadowRadius: 2.22,
+  elevation: 3
 }
 export const SHADOW_NM = {
-    shadowColor: BLACK_DARK,
-    shadowOffset: {width: 0, height: 2,},
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
+  shadowColor: BLACK_DARK,
+  shadowOffset: {width: 0, height: 2,},
+  shadowOpacity: 0.23,
+  shadowRadius: 2.62,
+  elevation: 4,
 }
 export const SHADOW_LG_X = {
-    shadowColor: BLACK_DARK,
-    shadowOffset: {width: 0, height: 3,},
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+  shadowColor: BLACK_DARK,
+  shadowOffset: {width: 0, height: 3,},
+  shadowOpacity: 0.27,
+  shadowRadius: 4.65,
+  elevation: 6,
 }
 export const SHADOW_LG_XX = {
-    shadowColor: BLACK_DARK,
-    shadowOffset: {width: 0, height: 5,},
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
+  shadowColor: BLACK_DARK,
+  shadowOffset: {width: 0, height: 5,},
+  shadowOpacity: 0.34,
+  shadowRadius: 6.27,
+  elevation: 10,
 }
 
 
