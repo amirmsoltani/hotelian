@@ -3,6 +3,7 @@ import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {Button, Col, Form, Grid, Icon} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
+
 import {RootStateInterface} from 'Typescript';
 import {AcceptSearchForm} from 'Store/Actions';
 import FormRow from './form-row/form-row';
@@ -34,8 +35,7 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
           <FormRow
             text={destination ?
               destination.dest_type === 'city' ? destination.text : `${destination.label}, ${destination.text}`
-              :
-              translate('where-are-you-going?')
+              : translate('where-are-you-going?')
             }
             isFilled={!!destination}
             hasError={false}
