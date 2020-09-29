@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {Body, Button, Footer, H1, Header, Icon, Spinner} from 'native-base';
@@ -32,7 +32,9 @@ type Props =
   ConnectedProps<typeof connector>
   & StackScreenProps<{hotel: {id: string, name: string, checkIn?: string, checkOut?: string}}, 'hotel'>;
 
-class HotelListPage extends Component<Props> {
+class HotelListPage extends PureComponent<Props> {
+  id?: string;
+
   constructor(props: Props) {
     super(props);
     this.Ok = this.Ok.bind(this);
@@ -41,9 +43,24 @@ class HotelListPage extends Component<Props> {
   }
 
   componentDidMount() {
-    const {route: {params: {id}}, result} = this.props;
-    if (this.props.status === undefined || (result && result.hotel.id !== +id))
-      this.props.GetHotel(+id);
+    const {result} = this.props;
+    if (this.props.status === undefined || (result && result.hotel.id !== +this.id!))
+      this.props.GetHotel(+this.id!);
+  }
+
+  Header() {
+    const {name, checkOut, checkIn, id} = useParams();
+    this.id = id;
+    return (<Header>
+      <Button onPress={this.props.goBack}>
+        <Text>
+          back
+        </Text>
+      </Button>
+      <Text>{checkIn}</Text>
+      <Text>{checkOut}</Text>
+      <Text>{name}</Text>
+    </Header>);
   }
 
   bookIt(id: number) {
@@ -90,19 +107,6 @@ class HotelListPage extends Component<Props> {
     );
   }
 
-  Header() {
-    const {name, checkOut, checkIn} = useParams();
-    return (<Header>
-      <Button onPress={this.props.goBack}>
-        <Text>
-          back
-        </Text>
-      </Button>
-      <Text>{checkIn}</Text>
-      <Text>{checkOut}</Text>
-      <Text>{name}</Text>
-    </Header>);
-  }
 
   render() {
     const status = this.props.status;

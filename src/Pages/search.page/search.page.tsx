@@ -126,7 +126,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           {/*<StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>*/}
           <StatusBar hidden={true}/>
           <Left>
-            <Button transparent onPress={navigation.pop}>
+            <Button transparent>
               <Icon type={'Feather'} name='menu' style={{fontSize: 30}}/>
             </Button>
           </Left>
