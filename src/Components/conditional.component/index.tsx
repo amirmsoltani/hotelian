@@ -1,19 +1,33 @@
 import React, {FunctionComponentElement, ReactNodeArray, ReactElement} from 'react';
+import {Text} from 'react-native';
 
-export const If = ({children}: {children: any, condition: boolean | (() => boolean)}) => children;
-export const ElIf = If;
-export const Else = (children: any) => children;
+export function If({children}: {children: any, condition: boolean | (() => boolean)}) {
+  return children;
+};
+If.displayName = 'If';
+
+export function ElIf({children}: {children: any, condition: boolean | (() => boolean)}) {
+  return children;
+};
+ElIf.displayName = 'ElIf';
+
+export function Else(children: any) {
+  return children;
+};
+Else.displayName = 'Else';
+
 type Children = FunctionComponentElement<{
   condition: boolean | (() => boolean),
   children: ReactElement
 }>
+
 const Conditional: React.FC<{
   children: Children | Children[]
 }> = ({children}: {children: Children | Children[]}): any => {
   let Child: ReactNodeArray = [];
   let con: boolean = false;
   React.Children.forEach<Children>(children, child => {
-    switch (child.type.name) {
+    switch (child.type.displayName) {
       case 'If': {
         con = false;
         if (typeof child.props.condition === 'boolean' && child.props.condition) {
@@ -42,7 +56,8 @@ const Conditional: React.FC<{
         break;
       }
       default:
-        throw 'please use If ElIf and Else Component';
+        Child.push(<Text>con error</Text>);
+      // throw 'please use If ElIf and Else Component';
     }
   });
   return Child.length !== 0 ? Child : null;
