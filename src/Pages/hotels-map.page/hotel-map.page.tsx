@@ -3,7 +3,7 @@ import MapView, {Marker} from 'react-native-maps';
 import {StatusBar} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootStateInterface} from '../../Typescript';
-import {Actions} from 'react-native-router-flux';
+import {StackScreenProps} from '@react-navigation/stack';
 
 const mapStateToProps = ({hotelsReducer: {filter, basicData}}: RootStateInterface) => ({
   hotels: basicData!.hotels,
@@ -13,11 +13,12 @@ const mapStateToProps = ({hotelsReducer: {filter, basicData}}: RootStateInterfac
 
 const connector = connect(mapStateToProps);
 
-const image = require('../../Assets/Icons/single-pin.png');
-type Props = ConnectedProps<typeof connector>;
-const HotelMapPage = ({hotels, indexes}: Props) => {
+const image = require('Assets/Icons/single-pin.png');
+type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
+;
+const HotelMapPage = ({hotels, indexes, navigation}: Props) => {
   if (indexes === undefined) {
-    Actions.replace('hotels');
+    navigation.replace('hotels');
     return <></>;
   }
   return (
