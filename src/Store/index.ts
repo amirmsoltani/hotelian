@@ -4,7 +4,6 @@ import rootReducer, {Initial} from './Reducers';
 import appSaga from './Sagas';
 import {createMemoryHistory, MemoryHistory, History} from 'history';
 import {routerMiddleware} from 'connected-react-router';
-import {composeWithDevTools} from 'redux-devtools-extension';
 
 export let globalStore: Store;
 
@@ -24,7 +23,7 @@ export default async function(data: {entries: string[], index: number}): Promise
       hotelsReducer: Initial.hotelsInit,
     }
     ,
-    __DEV__ ? composeWithDevTools(apply) : compose(apply),
+    __DEV__ ? require('redux-devtools-extension').composeWithDevTools(apply) : compose(apply),
   );
   await saga.run(appSaga);
   globalStore = store;
