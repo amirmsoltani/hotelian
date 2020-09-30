@@ -1,16 +1,16 @@
 import {StyleSheet} from "react-native";
-import {BORDER_RADIUS, COLOR_WHITE, SHADOW_SM} from "../../../native-base-theme/variables/config";
+import {BORDER_RADIUS, COLOR_WHITE, SHADOW_LG_XX, SHADOW_SM} from "../../../native-base-theme/variables/config";
 
 export default StyleSheet.create({
     text:{
-        fontSize: 16,
+        fontSize: 12,
         color: COLOR_WHITE,
     },
     textOverlay:{
         backgroundColor: 'rgba(45, 35, 39, 0.8)',
-        borderRadius: 15,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        borderRadius: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -24,15 +24,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     image:{
-        height: 180,
+        height: 150,
         width: undefined,
-        minWidth: 300,
+        minWidth: 240,
         flex: 1,
         borderRadius: BORDER_RADIUS,
-    },
-    container:{
-        ...SHADOW_SM,
-        marginRight: 10,
     },
     wrapper:{
         padding: 5,

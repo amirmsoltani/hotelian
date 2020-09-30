@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from 'native-base';
+import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 
 import {ChangeSearchData, GetNationality} from 'Store/Actions';
 import {NationalityType, RootStateInterface} from 'Typescript';
@@ -47,17 +47,12 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
       <Header style={[Style.bg__primary]}>
         <Left>
           <Button onPress={() => navigation.pop()} transparent>
-            <Icon
-              type={'MaterialIcons'}
-              name='keyboard-backspace'
-              style={[
-                {fontSize: 30},
-                Style.text__white,
-              ]}/>
+            <Icon type={'SimpleLineIcons'} name='arrow-left' style={[Style.f__18, Style.text__white,]}/>
           </Button>
         </Left>
         <Body>
-          <Title>{translate('nationality')}</Title>
+          <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
+            {translate('nationality')}</AppText>
         </Body>
         <Right/>
       </Header>
@@ -88,24 +83,16 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
               <View style={style.contentContainer}>
                 <List>
                   {nationalities?.map((nation, index) => (
-                    <ListItem
-                      style={style.listItem}
-                      key={nation.code}>
+                    <ListItem style={style.listItem} key={nation.code}>
                       <TouchableOpacity
                         style={style.touchableOp}
                         onPress={() => selectNationality(nation)}
                         key={index}>
                         <AppRow>
-                          <Icon
-                            style={style.icon}
-                            name={'flag'}
-                            type={'FontAwesome'}
-                          />
+                          <Icon style={style.icon} name={'flag'} type={'FontAwesome'}/>
                           <View>
-                            <AppText
-                              style={style.appText}
-                            >{nation.code}</AppText>
-                            <Text>{nation.name}</Text>
+                            <AppText style={[style.appText, Style.f__14]}>{nation.code}</AppText>
+                            <AppText style={[Style.f__14]}>{nation.name}</AppText>
                           </View>
                         </AppRow>
                       </TouchableOpacity>
@@ -116,9 +103,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
             </ElIf>
             <ElIf condition={status === 'notFound'}>
               <View style={style.idleContainer}>
-                <SearchFormIdle
-                  mode={'nationality'}
-                />
+                <SearchFormIdle mode={'nationality'}/>
               </View>
             </ElIf>
             <ElIf condition={status === 'error'}>

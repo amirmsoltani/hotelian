@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
-import {SafeAreaView, StatusBar, TouchableOpacity, View, VirtualizedList} from 'react-native';
+import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Spinner, Subtitle, Title} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
-import {
-  COLOR_PRIMARY,
-  MUTED_LIGHT_XX,
-  MUTED_LIGHT_XXX,
-  SHADOW_SM_X,
-} from '../../../native-base-theme/variables/config';
+import {MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X,} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
 import {Conditional, HotelCard, If} from 'Components';
 
@@ -43,7 +38,7 @@ const mapDispatchToProps = {GetHotels, replace, push};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
+class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
   timeOut: any | null = null;
   state = {end: false, scroll: false};
 
@@ -72,13 +67,10 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
     return (
       <Container>
         <Header style={[Style.bg__primary, Style.flex__row]}>
-          <StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>
-          <Left style={[{minWidth: 30}, Style.flex__shrink__0]}>
+          {/*<StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>*/}
+          <Left>
             <Button onPress={() => this.props.replace('/')} transparent>
-              <Icon
-                type={'MaterialIcons'}
-                name='keyboard-backspace'
-                style={[Style.f__30, Style.text__white]}/>
+              <Icon type={'SimpleLineIcons'} name='arrow-left' style={[Style.f__18, Style.text__white,]}/>
             </Button>
           </Left>
           <TouchableOpacity
@@ -86,7 +78,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
             style={[
               SHADOW_SM_X,
               Style.ml__2,
-              Style.px__5,
+              Style.px__3,
               Style.flex__row,
               Style.flex__grow__1,
               Style.align__self_center,
@@ -95,15 +87,12 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
               {backgroundColor: '#2047aa', borderRadius: 30, paddingVertical: 3},
             ]}>
             <View style={[Style.mr__4]}>
-              <Title style={[Style.f__14]}>{form_data?.destination?.label}</Title>
-              <Subtitle
-                style={[Style.f__12]}>{`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
+              <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
+              <Subtitle style={[Style.f__10,{fontWeight:"800"}]}>
+                {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
             </View>
             <View>
-              <Icon
-                type={'AntDesign'}
-                name='search1'
-                style={[Style.f__20, Style.text__white]}/>
+              <Icon type={'EvilIcons'} name='search' style={[Style.f__18, Style.text__white]}/>
             </View>
           </TouchableOpacity>
         </Header>

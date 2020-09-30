@@ -6,6 +6,8 @@ import {RootStateInterface} from 'Typescript';
 import {Body, Button, Container, Header, Icon, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 import {Style} from '../../Styles';
+import {AppText} from "../../Containers";
+import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   checkIn: state.searchReducer.form_data.checkIn?.value,
@@ -26,12 +28,9 @@ const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}
         <Left>
           <Button onPress={() => navigation.pop()} transparent>
             <Icon
-              type={'MaterialIcons'}
-              name='keyboard-backspace'
-              style={[
-                {fontSize: 30},
-                Style.text__white,
-              ]}/>
+              type={'SimpleLineIcons'}
+              name='arrow-left'
+              style={[Style.f__18, Style.text__white,]}/>
           </Button>
         </Left>
         <Body/>
