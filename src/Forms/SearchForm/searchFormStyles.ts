@@ -6,12 +6,12 @@ const searchFromStyles = StyleSheet.create({
         backgroundColor: COLOR_WHITE,
         ...SHADOW_SM,
         margin: 5,
-        paddingVertical: 15,
-        paddingHorizontal: 25,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         borderRadius: 5,
     },
     btnSection: {
-        marginVertical: 25,
+        marginVertical: 15,
     }
 });
 

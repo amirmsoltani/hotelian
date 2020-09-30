@@ -1,12 +1,14 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
-import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from "native-base";
 
 import {Style} from "../../Styles";
 import {translate} from "../../Lib/Languages";
 import {AppText} from "../../Containers";
 import {ChangeLanguage} from "../../Store/Actions";
 import {RootStateInterface} from "../../Typescript";
+import {Text} from "react-native";
+import {BORDER_RADIUS_SM} from "../../../native-base-theme/variables/config";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   locales: state.appReducer.locales,
@@ -23,20 +25,15 @@ const LanguageModal = (props: propType) => {
     <Container style={[
       Style.w__100,
       Style.bg__white,
+      {borderRadius: BORDER_RADIUS_SM},
     ]}>
-      <Header style={[Style.bg__primary]}>
+      <Header style={[Style.bg__white]}>
         <Body>
-          <Title>{translate('language')}</Title>
+          <AppText style={[Style.text__bold]}>{translate('change-language')}</AppText>
         </Body>
         <Right>
           <Button transparent onPress={props.onClose}>
-            <Icon
-              type={'AntDesign'}
-              name='close'
-              style={[
-                {fontSize: 30},
-                Style.text__white,
-              ]}/>
+            <Icon type={'AntDesign'} name='close' style={[Style.f__18, Style.text__black,]}/>
           </Button>
         </Right>
       </Header>
@@ -47,18 +44,20 @@ const LanguageModal = (props: propType) => {
             style={[Style.px__3, Style.mx__0,]}
           >
             <Left><AppText>English</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name="arrow-forward"/></Right>
+            <Right>
+              <Icon style={[Style.text__info]} type={'MaterialIcons'} name="radio-button-checked"/>
+            </Right>
           </ListItem>
           <ListItem
             onPress={() => props.ChangeLanguage({dir: 'rtl', lang: 'fa'})}
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>Persian</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name="arrow-forward"/></Right>
+            <Right><Icon type={'MaterialIcons'} name="radio-button-unchecked"/></Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>Arabic</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name="arrow-forward"/></Right>
+            <Right><Icon type={'MaterialIcons'} name="radio-button-unchecked"/></Right>
           </ListItem>
         </List>
       </Content>

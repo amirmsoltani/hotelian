@@ -35,6 +35,39 @@
 		4027A587E2184CE79EAF2E99 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47D436663DB1420C87988383 /* rubicon-icon-font.ttf */; };
 		D331337AC766495596B6247F /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08FFEF425725493CB3068D12 /* SimpleLineIcons.ttf */; };
 		D31B67981B6742B88B524B3A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB267FE2D10445996E3BF13 /* Zocial.ttf */; };
+		398A7813FE5A4FE1A75D9625 /* Roboto100-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C02EC6A7BD5D436FB834A1C9 /* Roboto100-Thin.ttf */; };
+		C6771B8CEA344FE0B46F6DCF /* Roboto300-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1FB4D9FEB84F0C9D9AD6AB /* Roboto300-Light.ttf */; };
+		7DAF56C735794F2A8415F969 /* Roboto400-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C65A6A065CA46A896C46260 /* Roboto400-Regular.ttf */; };
+		0ECB358683B549EBA652B093 /* Roboto500-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4B04386BD4249D0B6D09C4E /* Roboto500-Medium.ttf */; };
+		16DBF5CD238C4313A647D090 /* Roboto700-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF7E6851EBD34440AE1CB620 /* Roboto700-Bold.ttf */; };
+		9B4FC7BD89884C038357E172 /* Roboto900-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22DDA453503D4A3BAE9F32F9 /* Roboto900-Black.ttf */; };
+		68BC851D17454A2AAE8E6B6C /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = DB759A96520146BBB12C4917 /* pin.png */; };
+		2438B43B0D9547E9A2D9487D /* single-pin.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA004EC8BBD40A896EEED3D /* single-pin.png */; };
+		E3E62DF4CC8B4F69AEB6BB92 /* apartment.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B7E456A9B4F43B089F80EBC /* apartment.png */; };
+		070F8AEECF08433CAB8D4DA0 /* earth-globe.png in Resources */ = {isa = PBXBuildFile; fileRef = F20B16435DAD449A846841A6 /* earth-globe.png */; };
+		30198B9AEBF24E459EAE0B79 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCC6F61F38F492FAE07980F /* error.png */; };
+		E2B9BD59FFAA491A89C027B4 /* globe-grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AE7429F2614A24BBAD936C /* globe-grid.png */; };
+		6C8CA5065D03452CBA8F6148 /* hostel.png in Resources */ = {isa = PBXBuildFile; fileRef = B0C4EE56F2304CB5AF1E1EF8 /* hostel.png */; };
+		93BE22874B684F5090CA10C6 /* no-image.png in Resources */ = {isa = PBXBuildFile; fileRef = D2257D61B2534735BE00D6BF /* no-image.png */; };
+		F56E4205A56B4AAC9EF4B09B /* not_found.png in Resources */ = {isa = PBXBuildFile; fileRef = C485CAC211F14B7BA224C63A /* not_found.png */; };
+		65E6B9FCDCCE45DF9C866CE4 /* resort.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCD1FBDFA32413AB04AE6C9 /* resort.png */; };
+		45E5C2A5E3F14D37A32E600F /* top_destination_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 61BF6F325F6246EDA5162B58 /* top_destination_1.jpg */; };
+		DC2F4595B5ED49538D700116 /* top_destination_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8CAF47CB43A490C87BAB7AE /* top_destination_2.jpg */; };
+		E2B2384473B84063BEF9899D /* top_destination_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E965C24843549C092C2BDFA /* top_destination_3.jpg */; };
+		D91D88A31E944A92B5A33FCA /* top_destination_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A417D9B3A75749FCBE59F4D4 /* top_destination_4.jpg */; };
+		A0432908E4724C628424FD26 /* top_destination_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 943CC2BFE2DA47EFA6869F9A /* top_destination_5.jpg */; };
+		9DEDCB1587BD408FB1D88F71 /* travelers1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A1418F8B04884402A3489020 /* travelers1.jpg */; };
+		D1E208E5C86744D795BC1BF5 /* travelers2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7498D642436A47C3B14E777F /* travelers2.jpg */; };
+		92F23F9B530F41EFA03CBE4C /* travelers3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F690A678112487B92F1378D /* travelers3.jpg */; };
+		A8201E97AA3F4BB7B526E293 /* travelers4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BB4A7F64AB434BC188CDDFCA /* travelers4.jpg */; };
+		F97319B2FDFF4F8BAE46929B /* travelers5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 74A810115C2B4C98812A22EF /* travelers5.jpg */; };
+		1352B147F5CF42ED98A6E227 /* villa.png in Resources */ = {isa = PBXBuildFile; fileRef = 43D5E1172D304AE99ADA939E /* villa.png */; };
+		BD1FA2863668442DA0366D35 /* RobotoBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49D7D57B7F8B46E397F69D9A /* RobotoBlack.ttf */; };
+		FE1FC584F131483EA9584695 /* RobotoBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B6D074B2324B8DAEF42F54 /* RobotoBold.ttf */; };
+		9081B893421D497CA124C15B /* RobotoLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B875C0E2EAC4B18AF534548 /* RobotoLight.ttf */; };
+		4FE1D671E1614C3393F532AF /* RobotoMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4DA714A52EA64E74A46F3CA8 /* RobotoMedium.ttf */; };
+		D9FA3371C2B547B18B92E8EA /* RobotoRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FBFCF3FEC7F40318A0DAE1F /* RobotoRegular.ttf */; };
+		AEB97846CF04415794F18FDE /* RobotoThin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8334FE761A9F43B790572906 /* RobotoThin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +122,39 @@
 		47D436663DB1420C87988383 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		08FFEF425725493CB3068D12 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FEB267FE2D10445996E3BF13 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C02EC6A7BD5D436FB834A1C9 /* Roboto100-Thin.ttf */ = {isa = PBXFileReference; name = "Roboto100-Thin.ttf"; path = "../src/assets/fonts/Roboto/Roboto100-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7F1FB4D9FEB84F0C9D9AD6AB /* Roboto300-Light.ttf */ = {isa = PBXFileReference; name = "Roboto300-Light.ttf"; path = "../src/assets/fonts/Roboto/Roboto300-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9C65A6A065CA46A896C46260 /* Roboto400-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto400-Regular.ttf"; path = "../src/assets/fonts/Roboto/Roboto400-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4B04386BD4249D0B6D09C4E /* Roboto500-Medium.ttf */ = {isa = PBXFileReference; name = "Roboto500-Medium.ttf"; path = "../src/assets/fonts/Roboto/Roboto500-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DF7E6851EBD34440AE1CB620 /* Roboto700-Bold.ttf */ = {isa = PBXFileReference; name = "Roboto700-Bold.ttf"; path = "../src/assets/fonts/Roboto/Roboto700-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		22DDA453503D4A3BAE9F32F9 /* Roboto900-Black.ttf */ = {isa = PBXFileReference; name = "Roboto900-Black.ttf"; path = "../src/assets/fonts/Roboto/Roboto900-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DB759A96520146BBB12C4917 /* pin.png */ = {isa = PBXFileReference; name = "pin.png"; path = "../src/Assets/Icons/pin.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CBA004EC8BBD40A896EEED3D /* single-pin.png */ = {isa = PBXFileReference; name = "single-pin.png"; path = "../src/Assets/Icons/single-pin.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4B7E456A9B4F43B089F80EBC /* apartment.png */ = {isa = PBXFileReference; name = "apartment.png"; path = "../src/Assets/Images/apartment.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F20B16435DAD449A846841A6 /* earth-globe.png */ = {isa = PBXFileReference; name = "earth-globe.png"; path = "../src/Assets/Images/earth-globe.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ECCC6F61F38F492FAE07980F /* error.png */ = {isa = PBXFileReference; name = "error.png"; path = "../src/Assets/Images/error.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		89AE7429F2614A24BBAD936C /* globe-grid.png */ = {isa = PBXFileReference; name = "globe-grid.png"; path = "../src/Assets/Images/globe-grid.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B0C4EE56F2304CB5AF1E1EF8 /* hostel.png */ = {isa = PBXFileReference; name = "hostel.png"; path = "../src/Assets/Images/hostel.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D2257D61B2534735BE00D6BF /* no-image.png */ = {isa = PBXFileReference; name = "no-image.png"; path = "../src/Assets/Images/no-image.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C485CAC211F14B7BA224C63A /* not_found.png */ = {isa = PBXFileReference; name = "not_found.png"; path = "../src/Assets/Images/not_found.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4BCD1FBDFA32413AB04AE6C9 /* resort.png */ = {isa = PBXFileReference; name = "resort.png"; path = "../src/Assets/Images/resort.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		61BF6F325F6246EDA5162B58 /* top_destination_1.jpg */ = {isa = PBXFileReference; name = "top_destination_1.jpg"; path = "../src/Assets/Images/top_destination_1.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D8CAF47CB43A490C87BAB7AE /* top_destination_2.jpg */ = {isa = PBXFileReference; name = "top_destination_2.jpg"; path = "../src/Assets/Images/top_destination_2.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5E965C24843549C092C2BDFA /* top_destination_3.jpg */ = {isa = PBXFileReference; name = "top_destination_3.jpg"; path = "../src/Assets/Images/top_destination_3.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A417D9B3A75749FCBE59F4D4 /* top_destination_4.jpg */ = {isa = PBXFileReference; name = "top_destination_4.jpg"; path = "../src/Assets/Images/top_destination_4.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		943CC2BFE2DA47EFA6869F9A /* top_destination_5.jpg */ = {isa = PBXFileReference; name = "top_destination_5.jpg"; path = "../src/Assets/Images/top_destination_5.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A1418F8B04884402A3489020 /* travelers1.jpg */ = {isa = PBXFileReference; name = "travelers1.jpg"; path = "../src/Assets/Images/travelers1.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7498D642436A47C3B14E777F /* travelers2.jpg */ = {isa = PBXFileReference; name = "travelers2.jpg"; path = "../src/Assets/Images/travelers2.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F690A678112487B92F1378D /* travelers3.jpg */ = {isa = PBXFileReference; name = "travelers3.jpg"; path = "../src/Assets/Images/travelers3.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB4A7F64AB434BC188CDDFCA /* travelers4.jpg */ = {isa = PBXFileReference; name = "travelers4.jpg"; path = "../src/Assets/Images/travelers4.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		74A810115C2B4C98812A22EF /* travelers5.jpg */ = {isa = PBXFileReference; name = "travelers5.jpg"; path = "../src/Assets/Images/travelers5.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		43D5E1172D304AE99ADA939E /* villa.png */ = {isa = PBXFileReference; name = "villa.png"; path = "../src/Assets/Images/villa.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		49D7D57B7F8B46E397F69D9A /* RobotoBlack.ttf */ = {isa = PBXFileReference; name = "RobotoBlack.ttf"; path = "../src/Assets/Fonts/Roboto/RobotoBlack.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		39B6D074B2324B8DAEF42F54 /* RobotoBold.ttf */ = {isa = PBXFileReference; name = "RobotoBold.ttf"; path = "../src/Assets/Fonts/Roboto/RobotoBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0B875C0E2EAC4B18AF534548 /* RobotoLight.ttf */ = {isa = PBXFileReference; name = "RobotoLight.ttf"; path = "../src/Assets/Fonts/Roboto/RobotoLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4DA714A52EA64E74A46F3CA8 /* RobotoMedium.ttf */ = {isa = PBXFileReference; name = "RobotoMedium.ttf"; path = "../src/Assets/Fonts/Roboto/RobotoMedium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3FBFCF3FEC7F40318A0DAE1F /* RobotoRegular.ttf */ = {isa = PBXFileReference; name = "RobotoRegular.ttf"; path = "../src/Assets/Fonts/Roboto/RobotoRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8334FE761A9F43B790572906 /* RobotoThin.ttf */ = {isa = PBXFileReference; name = "RobotoThin.ttf"; path = "../src/Assets/Fonts/Roboto/RobotoThin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +284,39 @@
 				47D436663DB1420C87988383 /* rubicon-icon-font.ttf */,
 				08FFEF425725493CB3068D12 /* SimpleLineIcons.ttf */,
 				FEB267FE2D10445996E3BF13 /* Zocial.ttf */,
+				C02EC6A7BD5D436FB834A1C9 /* Roboto100-Thin.ttf */,
+				7F1FB4D9FEB84F0C9D9AD6AB /* Roboto300-Light.ttf */,
+				9C65A6A065CA46A896C46260 /* Roboto400-Regular.ttf */,
+				F4B04386BD4249D0B6D09C4E /* Roboto500-Medium.ttf */,
+				DF7E6851EBD34440AE1CB620 /* Roboto700-Bold.ttf */,
+				22DDA453503D4A3BAE9F32F9 /* Roboto900-Black.ttf */,
+				DB759A96520146BBB12C4917 /* pin.png */,
+				CBA004EC8BBD40A896EEED3D /* single-pin.png */,
+				4B7E456A9B4F43B089F80EBC /* apartment.png */,
+				F20B16435DAD449A846841A6 /* earth-globe.png */,
+				ECCC6F61F38F492FAE07980F /* error.png */,
+				89AE7429F2614A24BBAD936C /* globe-grid.png */,
+				B0C4EE56F2304CB5AF1E1EF8 /* hostel.png */,
+				D2257D61B2534735BE00D6BF /* no-image.png */,
+				C485CAC211F14B7BA224C63A /* not_found.png */,
+				4BCD1FBDFA32413AB04AE6C9 /* resort.png */,
+				61BF6F325F6246EDA5162B58 /* top_destination_1.jpg */,
+				D8CAF47CB43A490C87BAB7AE /* top_destination_2.jpg */,
+				5E965C24843549C092C2BDFA /* top_destination_3.jpg */,
+				A417D9B3A75749FCBE59F4D4 /* top_destination_4.jpg */,
+				943CC2BFE2DA47EFA6869F9A /* top_destination_5.jpg */,
+				A1418F8B04884402A3489020 /* travelers1.jpg */,
+				7498D642436A47C3B14E777F /* travelers2.jpg */,
+				2F690A678112487B92F1378D /* travelers3.jpg */,
+				BB4A7F64AB434BC188CDDFCA /* travelers4.jpg */,
+				74A810115C2B4C98812A22EF /* travelers5.jpg */,
+				43D5E1172D304AE99ADA939E /* villa.png */,
+				49D7D57B7F8B46E397F69D9A /* RobotoBlack.ttf */,
+				39B6D074B2324B8DAEF42F54 /* RobotoBold.ttf */,
+				0B875C0E2EAC4B18AF534548 /* RobotoLight.ttf */,
+				4DA714A52EA64E74A46F3CA8 /* RobotoMedium.ttf */,
+				3FBFCF3FEC7F40318A0DAE1F /* RobotoRegular.ttf */,
+				8334FE761A9F43B790572906 /* RobotoThin.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -380,6 +479,39 @@
 				4027A587E2184CE79EAF2E99 /* rubicon-icon-font.ttf in Resources */,
 				D331337AC766495596B6247F /* SimpleLineIcons.ttf in Resources */,
 				D31B67981B6742B88B524B3A /* Zocial.ttf in Resources */,
+				398A7813FE5A4FE1A75D9625 /* Roboto100-Thin.ttf in Resources */,
+				C6771B8CEA344FE0B46F6DCF /* Roboto300-Light.ttf in Resources */,
+				7DAF56C735794F2A8415F969 /* Roboto400-Regular.ttf in Resources */,
+				0ECB358683B549EBA652B093 /* Roboto500-Medium.ttf in Resources */,
+				16DBF5CD238C4313A647D090 /* Roboto700-Bold.ttf in Resources */,
+				9B4FC7BD89884C038357E172 /* Roboto900-Black.ttf in Resources */,
+				68BC851D17454A2AAE8E6B6C /* pin.png in Resources */,
+				2438B43B0D9547E9A2D9487D /* single-pin.png in Resources */,
+				E3E62DF4CC8B4F69AEB6BB92 /* apartment.png in Resources */,
+				070F8AEECF08433CAB8D4DA0 /* earth-globe.png in Resources */,
+				30198B9AEBF24E459EAE0B79 /* error.png in Resources */,
+				E2B9BD59FFAA491A89C027B4 /* globe-grid.png in Resources */,
+				6C8CA5065D03452CBA8F6148 /* hostel.png in Resources */,
+				93BE22874B684F5090CA10C6 /* no-image.png in Resources */,
+				F56E4205A56B4AAC9EF4B09B /* not_found.png in Resources */,
+				65E6B9FCDCCE45DF9C866CE4 /* resort.png in Resources */,
+				45E5C2A5E3F14D37A32E600F /* top_destination_1.jpg in Resources */,
+				DC2F4595B5ED49538D700116 /* top_destination_2.jpg in Resources */,
+				E2B2384473B84063BEF9899D /* top_destination_3.jpg in Resources */,
+				D91D88A31E944A92B5A33FCA /* top_destination_4.jpg in Resources */,
+				A0432908E4724C628424FD26 /* top_destination_5.jpg in Resources */,
+				9DEDCB1587BD408FB1D88F71 /* travelers1.jpg in Resources */,
+				D1E208E5C86744D795BC1BF5 /* travelers2.jpg in Resources */,
+				92F23F9B530F41EFA03CBE4C /* travelers3.jpg in Resources */,
+				A8201E97AA3F4BB7B526E293 /* travelers4.jpg in Resources */,
+				F97319B2FDFF4F8BAE46929B /* travelers5.jpg in Resources */,
+				1352B147F5CF42ED98A6E227 /* villa.png in Resources */,
+				BD1FA2863668442DA0366D35 /* RobotoBlack.ttf in Resources */,
+				FE1FC584F131483EA9584695 /* RobotoBold.ttf in Resources */,
+				9081B893421D497CA124C15B /* RobotoLight.ttf in Resources */,
+				4FE1D671E1614C3393F532AF /* RobotoMedium.ttf in Resources */,
+				D9FA3371C2B547B18B92E8EA /* RobotoRegular.ttf in Resources */,
+				AEB97846CF04415794F18FDE /* RobotoThin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

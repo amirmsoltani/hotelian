@@ -1,8 +1,9 @@
 import React from 'react';
-import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right, Title} from 'native-base';
+import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
+
 import {RoomType, RootStateInterface} from 'Typescript';
 import {RoomComponent} from 'Components';
 import {ChangeSearchData} from 'Store/Actions';
@@ -34,16 +35,14 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
         <Left>
           <Button onPress={() => props.navigation.pop()} transparent>
             <Icon
-              type={'MaterialIcons'}
-              name='keyboard-backspace'
-              style={[
-                {fontSize: 30},
-                Style.text__white,
-              ]}/>
+              type={'SimpleLineIcons'}
+              name='arrow-left'
+              style={[Style.f__18, Style.text__white,]}/>
           </Button>
         </Left>
         <Body>
-          <Title>{translate('Rooms')}</Title>
+          <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
+            {translate('rooms')}</AppText>
         </Body>
         <Right/>
       </Header>

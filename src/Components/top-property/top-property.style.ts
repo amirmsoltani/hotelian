@@ -4,14 +4,14 @@ import {BORDER_RADIUS, COLOR_PRIMARY, SHADOW_SM} from "../../../native-base-them
 export default StyleSheet.create({
     text: {
         marginTop: 10,
-        fontSize: 13,
+        fontSize: 10,
         fontWeight: "bold",
         color: COLOR_PRIMARY,
         textAlign: 'center',
     },
     image: {
-        height: 75,
-        width: 120,
+        height: 45,
+        width: 90,
         flex: 1,
         borderRadius: BORDER_RADIUS,
     },

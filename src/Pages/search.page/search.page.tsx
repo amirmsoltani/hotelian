@@ -120,13 +120,39 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
         key: '4',
       },
     ];
+    const topTravelers = [
+      {
+        source: require('../../Assets/Images/travelers1.jpg'),
+        caption: 'Dan Flying Solo',
+        key: '1',
+      },
+      {
+        source: require('../../Assets/Images/travelers2.jpg'),
+        caption: 'A Broken Backpack',
+        key: '2',
+      },
+      {
+        source: require('../../Assets/Images/travelers3.jpg'),
+        caption: 'The Blog Abroad',
+        key: '3',
+      },
+      {
+        source: require('../../Assets/Images/travelers4.jpg'),
+        caption: 'Travel Break',
+        key: '4',
+      },
+      {
+        source: require('../../Assets/Images/travelers5.jpg'),
+        caption: 'The Blonde Abroad',
+        key: '5',
+      },
+    ];
     const {navigation} = this.props;
 
     return (
       <>
         <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
-          {/*<StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>*/}
-          <StatusBar hidden={true}/>
+          {/*<StatusBar hidden={true}/>*/}
           <Left>
             <Button transparent>
               <Icon type={'Feather'} name='menu' style={Style.f__18}/>
@@ -162,9 +188,8 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
                         style={[Style.f__20, Style.text__right]}/>
                 </MenuTrigger>
                 <MenuOptions>
-                  <MenuOption
-                    style={[Style.p__2]}
-                    onSelect={() => this.onShowModal('language')}>
+                  <MenuOption style={[Style.p__2]}
+                              onSelect={() => this.onShowModal('language')}>
                     <AppText style={Style.text__black}>{t('change-language')}</AppText>
                   </MenuOption>
                   <MenuOption style={[Style.p__2]}
@@ -202,6 +227,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             <AppText style={[Style.mb__2, Style.text__bold]}>{t('recent-search')}</AppText>
             <View>
               <FlatList
+                style={[Style.flex__row]}
                 data={recentSearch}
                 renderItem={({item}) =>
                   <RecentSearch
@@ -211,6 +237,25 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
                     adult={item.adult}
                     room={item.room}
                     children={item.children}/>
+                }
+                keyExtractor={item => item.key}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
+
+          {/*top properties*/}
+          <View style={[style.wrapper]}>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-property')}</AppText>
+            <View>
+              <FlatList
+                data={topProperty}
+                renderItem={({item}) =>
+                  <TopProperty
+                    source={item.source}
+                    caption={item.caption}
+                  />
                 }
                 keyExtractor={item => item.key}
                 horizontal={true}
@@ -238,12 +283,12 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             </View>
           </View>
 
-          {/*top properties*/}
+          {/*most travelers*/}
           <View style={[style.wrapper]}>
-            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-property')}</AppText>
+            <AppText style={[Style.mb__2, Style.text__bold]}>{t('top-travelers')}</AppText>
             <View>
               <FlatList
-                data={topProperty}
+                data={topTravelers}
                 renderItem={({item}) =>
                   <TopProperty
                     source={item.source}

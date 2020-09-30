@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StatusBar, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right, Title} from 'native-base';
+import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 import style from './select-destination-page.style';
 import {ChangeSearchData, GetDestination} from 'Store/Actions';
@@ -17,7 +17,7 @@ import {
 } from 'Components';
 import {AppRow, AppText} from 'Containers';
 import {Style} from 'Styles';
-import {translate as t} from 'Lib/Languages';
+import {translate, translate as t} from 'Lib/Languages';
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -48,19 +48,18 @@ class SelectDestinationPage extends Component<Props> {
     return (
       <Container>
         <Header style={[Style.bg__primary]}>
+          <StatusBar hidden={true}/>
           <Left>
             <Button onPress={() => navigation.pop()} transparent>
               <Icon
-                type={'MaterialIcons'}
-                name='keyboard-backspace'
-                style={[
-                  {fontSize: 30},
-                  Style.text__white,
-                ]}/>
+                type={'SimpleLineIcons'}
+                name='arrow-left'
+                style={[Style.f__18, Style.text__white,]}/>
             </Button>
           </Left>
           <Body>
-            <Title>Destination</Title>
+            <AppText style={[Style.f__18, Style.text__white,Style.text__capitalize]}>
+              {translate('destination')}</AppText>
           </Body>
           <Right/>
         </Header>
@@ -103,10 +102,8 @@ class SelectDestinationPage extends Component<Props> {
                               type={des.dest_type === 'hotel' ? 'FontAwesome' : 'FontAwesome5'}
                             />
                             <View>
-                              <AppText
-                                style={style.appText}
-                              >{des.label}</AppText>
-                              <Text>{des.text}</Text>
+                              <AppText style={[style.appText, Style.f__14]}>{des.label}</AppText>
+                              <AppText style={[Style.f__14]}>{des.text}</AppText>
                             </View>
                           </AppRow>
                         </TouchableOpacity>

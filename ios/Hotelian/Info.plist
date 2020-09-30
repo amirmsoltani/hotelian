@@ -74,6 +74,18 @@
 		<string>rubicon-icon-font.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Roboto100-Thin.ttf</string>
+		<string>Roboto300-Light.ttf</string>
+		<string>Roboto400-Regular.ttf</string>
+		<string>Roboto500-Medium.ttf</string>
+		<string>Roboto700-Bold.ttf</string>
+		<string>Roboto900-Black.ttf</string>
+		<string>RobotoBlack.ttf</string>
+		<string>RobotoBold.ttf</string>
+		<string>RobotoLight.ttf</string>
+		<string>RobotoMedium.ttf</string>
+		<string>RobotoRegular.ttf</string>
+		<string>RobotoThin.ttf</string>
 	</array>
 </dict>
 </plist>
