@@ -1,9 +1,10 @@
 import React from 'react';
-import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from "native-base";
 
 import {Style} from "../../Styles";
 import {AppText} from "../../Containers";
-import {COLOR_GRAY, GRAY_LIGHT_X} from "../../../native-base-theme/variables/config";
+import {BORDER_RADIUS_SM, COLOR_GRAY} from "../../../native-base-theme/variables/config";
+import {translate} from "../../Lib/Languages";
 
 type propType = {
   onClose: () => void;
@@ -14,22 +15,15 @@ const CurrencyModal = (props: propType) => {
     <Container style={[
       Style.w__100,
       Style.bg__white,
+      {borderRadius: BORDER_RADIUS_SM},
     ]}>
-      <Header style={[Style.bg__primary]}>
+      <Header style={[Style.bg__white]}>
         <Body>
-          <Title>Currency</Title>
+          <AppText style={[Style.text__bold]}>{translate('change-currency')}</AppText>
         </Body>
         <Right>
-          <Button
-            transparent
-            onPress={props.onClose}>
-            <Icon
-              type={'AntDesign'}
-              name='close'
-              style={[
-                {fontSize: 30},
-                Style.text__white,
-              ]}/>
+          <Button transparent onPress={props.onClose}>
+            <Icon type={'AntDesign'} name='close' style={[Style.f__18, Style.text__black,]}/>
           </Button>
         </Right>
       </Header>
@@ -39,20 +33,32 @@ const CurrencyModal = (props: propType) => {
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>Iranian Rial <AppText
               style={{color: COLOR_GRAY}}>(IRR)</AppText></AppText></Left>
+            <Right>
+              <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
+            </Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>US Dollar <AppText
               style={{color: COLOR_GRAY}}>(USD)</AppText></AppText></Left>
+            <Right>
+              <Icon style={[Style.text__info]} type={'MaterialIcons'} name="radio-button-checked"/>
+            </Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>UAE Dirham <AppText
               style={{color: COLOR_GRAY}}>(AED)</AppText></AppText></Left>
+            <Right>
+              <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
+            </Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>Euro <AppText style={{color: COLOR_GRAY}}>(€)</AppText></AppText></Left>
+            <Right>
+              <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
+            </Right>
           </ListItem>
         </List>
       </Content>

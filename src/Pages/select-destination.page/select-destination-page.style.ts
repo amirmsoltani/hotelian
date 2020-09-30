@@ -16,8 +16,8 @@ const selectDestinationPageStyle = StyleSheet.create({
   inputContainer: {padding: 10, backgroundColor: COLOR_WHITE},
   input: {
     width: '100%',
-    height: 55,
-    fontSize: 18,
+    height: 45,
+    fontSize: 16,
     paddingHorizontal: 10,
     borderRadius: BORDER_RADIUS,
     backgroundColor: GRAY_LIGHT_XXX,
@@ -30,8 +30,8 @@ const selectDestinationPageStyle = StyleSheet.create({
   touchableOp: {flex: 1, paddingVertical: 10, marginVertical: 5},
   icon: {
     color: COLOR_BLACK,
-    fontSize: 30,
-    marginRight: 15,
+    fontSize: 20,
+    marginRight: 10,
     marginLeft: 0,
     alignSelf: 'center',
   },

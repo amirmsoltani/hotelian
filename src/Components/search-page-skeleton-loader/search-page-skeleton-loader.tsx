@@ -13,8 +13,8 @@ const SearchPageSkeletonLoader = () =>
         }}>
             <SkeletonLoader
                 type={'rect'}
-                width={60}
-                height={60}
+                width={45}
+                height={45}
                 backgroundColor={MUTED_LIGHT_XXX}
                 style={{
                     marginRight: 15,
@@ -24,7 +24,7 @@ const SearchPageSkeletonLoader = () =>
                 <SkeletonLoader
                     type={'rect'}
                     width={120}
-                    height={30}
+                    height={20}
                     backgroundColor={MUTED_LIGHT_XXX}
                     style={{
                         marginBottom: 10,
@@ -33,7 +33,7 @@ const SearchPageSkeletonLoader = () =>
                 <SkeletonLoader
                     type={'rect'}
                     width={240}
-                    height={20}
+                    height={15}
                     backgroundColor={MUTED_LIGHT_XXX}
                 />
             </View>
