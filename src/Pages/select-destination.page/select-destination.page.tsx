@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StatusBar, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -48,6 +48,7 @@ class SelectDestinationPage extends Component<Props> {
     return (
       <Container>
         <Header style={[Style.bg__primary]}>
+          <StatusBar hidden={true}/>
           <Left>
             <Button onPress={() => navigation.pop()} transparent>
               <Icon
