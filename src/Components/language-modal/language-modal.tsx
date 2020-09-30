@@ -7,7 +7,6 @@ import {translate} from "../../Lib/Languages";
 import {AppText} from "../../Containers";
 import {ChangeLanguage} from "../../Store/Actions";
 import {RootStateInterface} from "../../Typescript";
-import {Text} from "react-native";
 import {BORDER_RADIUS_SM} from "../../../native-base-theme/variables/config";
 
 const mapStateToProps = (state: RootStateInterface) => ({
