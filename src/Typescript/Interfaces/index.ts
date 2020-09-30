@@ -14,3 +14,6 @@ export * from './hotels-filter.interface';
 export * from './app-state.interface';
 export * from './hotel-details.interface';
 export * from './hotel-state.interface';
+export * from './hotel-option.interface';
+export * from './rooms-details.interface';
+export * from './room-filter.interface';

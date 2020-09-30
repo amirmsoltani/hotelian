@@ -1,7 +1,7 @@
 import {DateType, HotelType, NationalityType, RoomType} from '../Types';
 import {HotelOptionInterface} from './hotel-option.interface';
 
-export interface RoomsResponseInterface {
+export interface RoomsDetailsInterface {
   currency: string;
   expire: number;
   checkin: DateType;

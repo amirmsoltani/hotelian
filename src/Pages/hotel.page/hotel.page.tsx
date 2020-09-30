@@ -80,6 +80,7 @@ class HotelListPage extends PureComponent<Props> {
           <H1>{hotel.name}</H1>
           <Icon name='location' type={'Entypo'}/>
           <Text>{hotel.location}</Text>
+          <Text>{hotel.address}</Text>
           <Text>
             {nsg_descriptions.replace(/\&lt\;br(\s|'')\/\&gt\;/g, '\n')}
           </Text>

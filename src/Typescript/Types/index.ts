@@ -9,3 +9,5 @@ export * from './hotel.type';
 export * from './image.type';
 export * from './nsg-facilities.type';
 export * from './status.type';
+export * from './date.type';
+export * from './room.type';

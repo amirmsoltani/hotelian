@@ -8,3 +8,4 @@ export const HOTEL_SEARCH_URL = API_URL + '/hotel/search';
 export const HOTEL_SEARCH_RESULT_URL = API_URL + '/hotel/get-search-result';
 export const USER_TRACK_CODE_URL = API_URL + '/general/get-user-track-code';
 export const HOTEL_DETAILS = API_URL + '/hotel/get-hotel-details';
+export const HOTEL_ROOMS = API_URL + '/hotel/get-hotel-rooms';

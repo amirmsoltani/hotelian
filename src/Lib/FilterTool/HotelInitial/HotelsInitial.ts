@@ -1,5 +1,6 @@
 import {BoardTypeType, HotelInterface, HotelsFilterInterface, StarsRatingType} from '../../../Typescript';
 import Union from '../Union';
+import {translate} from '../../Languages';
 
 
 class HotelsInitial {
@@ -97,7 +98,7 @@ class HotelsInitial {
     const step = Math.floor(keys.length / 5);
     const mod = keys.length % 5;
     for (let i = 0; i < 5; i++) {
-      const stepName = `${keys[i * step]} to ${keys[(i + 1) * step]}`;
+      const stepName = `${keys[i * step]} ${translate('to')} ${keys[(i + 1) * step]}`;
       this.prices[stepName] = [];
       values.slice(i * step, (i + 1) * step + (i + 1 === 5 ? mod : 0)).forEach(value => {
         this.prices[stepName].push(...value);

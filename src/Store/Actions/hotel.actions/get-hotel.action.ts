@@ -1,5 +1,5 @@
 import {GET_HOTEL, GetHotelType} from './hotel-actions.type';
-import {HOTEL_DETAILS} from '../../../URLS';
+import {HOTEL_DETAILS} from 'URLS';
 
 export function GetHotel(id: number): GetHotelType {
   return {
