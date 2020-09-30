@@ -11,7 +11,7 @@ import {
   COLOR_PURPLE,
   COLOR_SUCCESS,
   COLOR_WARNING,
-  COLOR_WHITE,
+  COLOR_WHITE, FONT_FAMILY,
   GRAY_DARK,
   GRAY_DARK_X,
   GRAY_DARK_XX,
@@ -98,7 +98,9 @@ export const Style = StyleSheet.create({
 //=======================================
 // Font
 //=======================================
-  text__bold: {fontWeight: 'bold',},
+  text__light: {fontFamily: `${FONT_FAMILY}Light`,},
+  text__bold: {fontFamily: `${FONT_FAMILY}Bold`,},
+  text__normal: {fontFamily: `${FONT_FAMILY}Medium`,},
   f__10: {fontSize: 10,},
   f__11: {fontSize: 11,},
   f__12: {fontSize: 12,},

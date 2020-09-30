@@ -86,6 +86,16 @@
 		<string>RobotoMedium.ttf</string>
 		<string>RobotoRegular.ttf</string>
 		<string>RobotoThin.ttf</string>
+		<string>IRANSansBold.ttf</string>
+		<string>IRANSansLight.ttf</string>
+		<string>IRANSansMedium.ttf</string>
+		<string>IRANSansRegular.ttf</string>
+		<string>IRANSansUltraLight.ttf</string>
+		<string>QuicksandBold.ttf</string>
+		<string>QuicksandLight.ttf</string>
+		<string>QuicksandMedium.ttf</string>
+		<string>QuicksandRegular.ttf</string>
+		<string>QuicksandSemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

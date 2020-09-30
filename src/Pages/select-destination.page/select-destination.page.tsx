@@ -98,8 +98,8 @@ class SelectDestinationPage extends Component<Props> {
                           <AppRow>
                             <Icon
                               style={style.icon}
-                              name={des.dest_type === 'hotel' ? 'hotel' : 'city'}
-                              type={des.dest_type === 'hotel' ? 'FontAwesome' : 'FontAwesome5'}
+                              name={des.dest_type === 'hotel' ? 'bed' : 'city'}
+                              type={des.dest_type === 'hotel' ? 'Ionicons' : 'FontAwesome5'}
                             />
                             <View>
                               <AppText style={[style.appText, Style.f__14]}>{des.label}</AppText>

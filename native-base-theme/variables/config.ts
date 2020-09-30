@@ -1,3 +1,5 @@
+import {I18nManager} from 'react-native';
+
 //=======================================
 // Color
 //=======================================
@@ -47,7 +49,8 @@ export const MUTED_DARK = '#7784a9';
 //=======================================
 // Font
 //=======================================
-export const TEXT_SIZE = 14;
+export const TEXT_SIZE = I18nManager.isRTL ? 12 : 14;
+export const FONT_FAMILY = I18nManager.isRTL ? 'IRANSans' : 'Quicksand';
 
 
 //=======================================

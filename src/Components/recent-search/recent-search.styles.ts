@@ -18,7 +18,6 @@ const recentSearchStyles = StyleSheet.create({
     marginVertical: 5,
   },
   title: {
-    fontWeight: "bold",
     fontSize: 12,
     marginBottom: 5,
     textAlign: "center",

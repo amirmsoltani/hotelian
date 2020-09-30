@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {RnTextStyleProp} from "native-base";
 
-import {COLOR_BLACK, TEXT_SIZE} from "../../../native-base-theme/variables/config";
+import {COLOR_BLACK, FONT_FAMILY, TEXT_SIZE} from "../../../native-base-theme/variables/config";
 
 const AppText = (props: { style?: RnTextStyleProp, [key: string]: any }) => {
   return (
@@ -17,7 +17,7 @@ export default AppText;
 
 const styles = StyleSheet.create({
   myAppText: {
-    // fontFamily: 'RobotoRegular',
+    fontFamily: `${FONT_FAMILY}Medium`,
     fontSize: TEXT_SIZE,
     color: COLOR_BLACK,
     textAlign: 'left',

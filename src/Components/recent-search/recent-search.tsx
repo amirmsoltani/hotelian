@@ -18,7 +18,7 @@ type propType = {
 const RecentSearch = ({dest, checkin, checkout, adult, room, children}: propType) =>
   <View style={recentSearchStyles.container}>
     <View><AppText style={recentSearchStyles.title}>{dest}</AppText></View>
-    <View><AppText style={recentSearchStyles.checking}>{checkin} - {checkout}</AppText></View>
+    <View><AppText style={[recentSearchStyles.checking, Style.text__light]}>{checkin} - {checkout}</AppText></View>
     <View style={[Style.align__items_center, Style.flex__row, Style.justify__content_center,]}>
       <Icon style={[recentSearchStyles.icon, Style.f__10]} name={'bed'} type={'FontAwesome5'}/>
       <AppText style={recentSearchStyles.passenger}>x{room}</AppText>

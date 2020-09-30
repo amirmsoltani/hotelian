@@ -5,7 +5,6 @@ export default StyleSheet.create({
     text: {
         marginTop: 10,
         fontSize: 10,
-        fontWeight: "bold",
         color: COLOR_PRIMARY,
         textAlign: 'center',
     },

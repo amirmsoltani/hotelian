@@ -155,7 +155,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           {/*<StatusBar hidden={true}/>*/}
           <Left>
             <Button transparent>
-              <Icon type={'Feather'} name='menu' style={Style.f__18}/>
+              <Icon type={'Ionicons'} name='ios-menu-sharp' style={Style.f__20}/>
             </Button>
           </Left>
           <Body>
@@ -170,13 +170,13 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           </Body>
           <Right>
             <Button style={[Style.justify__content_end]} transparent>
-              <Icon type={'AntDesign'} name='message1' style={Style.f__16}/>
+              <Icon type={'Ionicons'} name='notifications-outline' style={Style.f__18}/>
               <Conditional>
                 <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
               </Conditional>
             </Button>
             <Button style={[Style.justify__content_end]} transparent>
-              <Icon type={'AntDesign'} name='notification' style={Style.f__18}/>
+              <Icon type={'Ionicons'} name='chatbubble-ellipses-outline' style={Style.f__18}/>
               <Conditional>
                 <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
               </Conditional>
@@ -184,7 +184,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
               <Menu style={[Style.justify__content_center]}>
                 <MenuTrigger>
-                  <Icon type='Feather' name='more-vertical'
+                  <Icon type='Ionicons' name='ellipsis-vertical'
                         style={[Style.f__20, Style.text__right]}/>
                 </MenuTrigger>
                 <MenuOptions>

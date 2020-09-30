@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {
   COLOR_BLACK,
-  COLOR_DANGER, COLOR_WARNING,
-  MUTED_DARK,
+  COLOR_DANGER,
+  MUTED_DARK_X,
   MUTED_LIGHT_XX,
   TEXT_SIZE,
 } from '../../../../native-base-theme/variables/config';
+import {Style} from "../../../Styles";
 
 const formRowStyles = StyleSheet.create({
   container: {
@@ -18,20 +19,22 @@ const formRowStyles = StyleSheet.create({
   },
   icon: {
     fontSize: TEXT_SIZE,
-    color: MUTED_DARK,
+    color: MUTED_DARK_X,
     width: 30,
     textAlign: 'left',
   },
   filled: {
     color: COLOR_BLACK,
+    ...Style.text__normal,
   },
   error: {
     color: COLOR_DANGER,
   },
   text: {
-    color: MUTED_DARK,
+    color: MUTED_DARK_X,
     flex: 1,
     flexWrap: 'wrap',
+    ...Style.text__light,
   },
 });
 

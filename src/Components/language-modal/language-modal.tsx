@@ -51,12 +51,12 @@ const LanguageModal = (props: propType) => {
           <ListItem
             onPress={() => props.ChangeLanguage({dir: 'rtl', lang: 'fa'})}
             style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>Persian</AppText></Left>
+            <Left><AppText>فارسی</AppText></Left>
             <Right><Icon type={'MaterialIcons'} name="radio-button-unchecked"/></Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>Arabic</AppText></Left>
+            <Left><AppText>العربية</AppText></Left>
             <Right><Icon type={'MaterialIcons'} name="radio-button-unchecked"/></Right>
           </ListItem>
         </List>
