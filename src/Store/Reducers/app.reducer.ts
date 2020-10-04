@@ -21,7 +21,7 @@ export const appInit = async (): Promise<AppStateInterface> => {
     defaultData.rtl = result.rtl;
   } catch (e) {
     try {
-      const response = await axios.get<{result: {user_track_code: string}}>(USER_TRACK_CODE_URL);
+      const response = await axios.get<{ result: { user_track_code: string } }>(USER_TRACK_CODE_URL);
       defaultData.track_code = response.data.result.user_track_code;
       const {rtl, language, track_code, currency} = defaultData;
       Storage.save({key: 'app-data', data: {rtl, language, track_code, currency}, expires: null}).then();
@@ -32,8 +32,8 @@ export const appInit = async (): Promise<AppStateInterface> => {
   try {
     const response = await axios.get<{
       result: {
-        locales: Array<{dir: 'rtl' | 'ltr', lang: string}>;
-        today: {unix: number, datetime: string};
+        locales: Array<{ dir: 'rtl' | 'ltr', lang: string, label: string }>;
+        today: { unix: number, datetime: string };
       };
     }>(INITIAL_URL);
     defaultData.locales = response.data.result.locales;

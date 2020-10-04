@@ -1,14 +1,23 @@
 import React from 'react';
+import {connect, ConnectedProps} from "react-redux";
 import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from "native-base";
 
-import {Style} from "../../Styles";
-import {AppText} from "../../Containers";
-import {BORDER_RADIUS_SM, COLOR_GRAY} from "../../../native-base-theme/variables/config";
-import {translate} from "../../Lib/Languages";
+import {Style} from "Styles";
+import {AppText} from "Containers";
+import {BORDER_RADIUS_SM} from "../../../native-base-theme/variables/config";
+import {translate} from "Lib/Languages";
+import {RootStateInterface} from "Typescript/Interfaces";
+
+const mapStateToProps = (state: RootStateInterface) => ({
+  locales: state.appReducer.locales,
+
+  activeCurrency: state.appReducer.currency,
+});
+const connector = connect(mapStateToProps);
 
 type propType = {
   onClose: () => void;
-};
+} & ConnectedProps<typeof connector>;
 
 const CurrencyModal = (props: propType) => {
   return (
@@ -29,6 +38,20 @@ const CurrencyModal = (props: propType) => {
       </Header>
       <Content>
         <List>
+          {/*{*/}
+          {/*  props.locales.map(item =>*/}
+          {/*    <ListItem*/}
+          {/*      key={item.lang}*/}
+          {/*      onPress={() => props.ChangeLanguage({dir: `${item.dir}`, lang: `${item.lang}`})}*/}
+          {/*      style={[Style.px__3, Style.mx__0,]}>*/}
+          {/*      <Left><AppText>{item.label}</AppText></Left>*/}
+          {/*      <Right>*/}
+          {/*        <Icon*/}
+          {/*          style={[props.activeLang === item.lang ? Style.text__info : null]} type={'MaterialIcons'}*/}
+          {/*          name={props.activeLang === item.lang ? 'radio-button-checked' : 'radio-button-unchecked'}/>*/}
+          {/*      </Right>*/}
+          {/*    </ListItem>)*/}
+          {/*}*/}
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
             <Left><AppText>Iranian Rial <AppText
@@ -67,4 +90,4 @@ const CurrencyModal = (props: propType) => {
   );
 };
 
-export default CurrencyModal;
+export default connect(CurrencyModal);

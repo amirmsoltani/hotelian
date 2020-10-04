@@ -2,15 +2,16 @@ import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from "native-base";
 
-import {Style} from "../../Styles";
-import {translate} from "../../Lib/Languages";
-import {AppText} from "../../Containers";
-import {ChangeLanguage} from "../../Store/Actions";
-import {RootStateInterface} from "../../Typescript";
+import {Style} from "Styles";
+import {AppText} from "Containers";
+import {translate} from "Lib/Languages";
+import {ChangeLanguage} from "Store/Actions";
+import {RootStateInterface} from "Typescript";
 import {BORDER_RADIUS_SM} from "../../../native-base-theme/variables/config";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   locales: state.appReducer.locales,
+  activeLang: state.appReducer.language,
 });
 const mapDispatchToProps = {ChangeLanguage}
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -38,26 +39,20 @@ const LanguageModal = (props: propType) => {
       </Header>
       <Content>
         <List>
-          <ListItem
-            onPress={() => props.ChangeLanguage({dir: 'ltr', lang: 'en'})}
-            style={[Style.px__3, Style.mx__0,]}
-          >
-            <Left><AppText>English</AppText></Left>
-            <Right>
-              <Icon style={[Style.text__info]} type={'MaterialIcons'} name="radio-button-checked"/>
-            </Right>
-          </ListItem>
-          <ListItem
-            onPress={() => props.ChangeLanguage({dir: 'rtl', lang: 'fa'})}
-            style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>فارسی</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name="radio-button-unchecked"/></Right>
-          </ListItem>
-          <ListItem
-            style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>العربية</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name="radio-button-unchecked"/></Right>
-          </ListItem>
+          {
+            props.locales.map(item =>
+              <ListItem
+                key={item.lang}
+                onPress={() => props.ChangeLanguage({dir: `${item.dir}`, lang: `${item.lang}`})}
+                style={[Style.px__3, Style.mx__0,]}>
+                <Left><AppText>{item.label}</AppText></Left>
+                <Right>
+                  <Icon
+                    style={[props.activeLang === item.lang ? Style.text__info : null]} type={'MaterialIcons'}
+                    name={props.activeLang === item.lang ? 'radio-button-checked' : 'radio-button-unchecked'}/>
+                </Right>
+              </ListItem>)
+          }
         </List>
       </Content>
     </Container>
