@@ -22,9 +22,9 @@ const BackNavigation = () => {
     <>
       <Button onPress={back} transparent>
         <Icon
-          type={'SimpleLineIcons'}
-          name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
-          style={[Style.f__18, Style.text__white,]}/>
+          type={'Ionicons'}
+          name={I18nManager.isRTL ? 'chevron-forward' : 'chevron-back'}
+          style={[Style.f__20, Style.text__white,]}/>
       </Button>
     </>
   );

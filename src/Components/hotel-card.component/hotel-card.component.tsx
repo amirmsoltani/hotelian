@@ -1,13 +1,14 @@
 import React from 'react';
-import {Badge, Icon, View} from 'native-base';
+import {Icon, View} from 'native-base';
 import {I18nManager, Image, TouchableNativeFeedback} from 'react-native';
 
 import {Style} from 'Styles';
 import style from './hotel-card-component.style';
 import {HotelInterface} from 'Typescript';
 import {AppText} from '../../Containers';
-import {BORDER_RADIUS_SM, SHADOW_SM_X, SHADOW_SM_XX} from '../../../native-base-theme/variables/config';
+import {BORDER_RADIUS_SM, COLOR_SUCCESS, SHADOW_SM_X} from '../../../native-base-theme/variables/config';
 import {translate} from '../../Lib/Languages';
+import AppBadge from "../../Containers/app-badge/app-badge";
 
 const hotelImage = require('../../Assets/Images/no-image.png');
 type Props = {
@@ -75,9 +76,8 @@ export default ({hotel: {hotel_id, image, name, location, address, price, star, 
             <View style={[Style.px__3, Style.mb__1, Style.flex__row, Style.mb__3, Style.flex__wrap]}>
               <View style={[Style.flex__row, Style.flex__wrap, Style.mb__1, Style.align__self_center]}>
                 {room.breakfast ?
-                  <Badge style={[Style.bg__mint,]}>
-                    <AppText style={[Style.text__white, Style.px__2]}>{translate('breakfast-included')}</AppText>
-                  </Badge> : <></>
+                  <AppBadge color={COLOR_SUCCESS}>{translate('breakfast-included')}</AppBadge>
+                  : <></>
                 }
               </View>
               <View style={[Style.justify__content_end, Style.ml__auto, Style.mb__1,
