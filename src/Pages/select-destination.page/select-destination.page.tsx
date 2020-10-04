@@ -139,8 +139,11 @@ class SelectDestinationPage extends Component<Props> {
   // Methods
   //=======================================
   selectDestination(destination: DestinationType) {
-    this.props.ChangeSearchData({destination});
-    this.props.navigation.pop();
+    if(this.props.navigation.canGoBack()){
+      this.props.ChangeSearchData({destination});
+      this.props.navigation.pop();
+
+    }
   }
 
 }

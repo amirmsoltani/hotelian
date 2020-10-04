@@ -37,8 +37,10 @@ type Props = ConnectedProps<typeof connector> & StackScreenProps<{}>;
 const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality, status, navigation}: Props) => {
 
   const selectNationality = (nationality: NationalityType) => {
-    ChangeSearchData({nationality});
-    navigation.pop();
+    if (navigation.canGoBack()) {
+      ChangeSearchData({nationality});
+      navigation.goBack();
+    }
   };
   const [inputStyle, setStyle] = useState(style.blurredInput);
 

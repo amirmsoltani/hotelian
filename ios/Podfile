@@ -78,6 +78,8 @@ target 'Hotelian' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
 
+  pod 'react-native-progress-bar-android', :path => '../node_modules/@react-native-community/progress-bar-android'
+
   target 'HotelianTests' do
     inherit! :complete
     # Pods for testing

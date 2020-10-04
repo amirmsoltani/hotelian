@@ -5,13 +5,19 @@ import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-nativ
 import {Body, Button, Container, Header, Icon, Left, Spinner, Subtitle, Title} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
-import {MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X,} from '../../../native-base-theme/variables/config';
+import {
+  COLOR_WARNING,
+  MUTED_LIGHT_XX,
+  MUTED_LIGHT_XXX,
+  SHADOW_SM_X,
+} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
 import {Conditional, HotelCard, If} from 'Components';
 
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
+import {ProgressBar} from "@react-native-community/progress-bar-android";
 
 const mapStateToProps = (
   {
@@ -88,7 +94,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             ]}>
             <View style={[Style.mr__4]}>
               <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
-              <Subtitle style={[Style.f__10,{fontWeight:"800"}]}>
+              <Subtitle style={[Style.f__10, {fontWeight: "800"}]}>
                 {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
             </View>
             <View>
@@ -97,6 +103,8 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </TouchableOpacity>
         </Header>
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
+
+          {/*actions*/}
           <View style={[
             {height: 50},
             SHADOW_SM_X,
@@ -173,6 +181,11 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             </TouchableOpacity>
 
           </View>
+          <View style={[Style.bg__mint, Style.w__100, Style.py__0]}>
+            <ProgressBar color={COLOR_WARNING} styleAttr="Horizontal"/>
+          </View>
+
+          {/*hotel list*/}
           <SafeAreaView style={[Style.w__100]}>
             {status === 'ok' ?
               <VirtualizedList<HotelInterface>
@@ -195,6 +208,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             }
 
           </SafeAreaView>
+
         </Body>
       </Container>
     );

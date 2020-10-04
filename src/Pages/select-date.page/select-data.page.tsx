@@ -3,11 +3,10 @@ import Datepicker from 'Components/DatePicker/Datepicker';
 import {connect, ConnectedProps} from 'react-redux';
 import {ChangeSearchData} from 'Store/Actions';
 import {RootStateInterface} from 'Typescript';
-import {Body, Button, Container, Header, Icon, Left, Right} from 'native-base';
+import {Body, Container, Header, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 import {Style} from '../../Styles';
-import {AppText, BackNavigation} from "../../Containers";
-import {translate} from "../../Lib/Languages";
+import {BackNavigation} from "../../Containers";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   checkIn: state.searchReducer.form_data.checkIn?.value,
@@ -19,9 +18,17 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<{}>;
 
 const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}: Props) => {
-  const datepicker: {defaultValue?: {checkIn: string, checkOut: string}} = {};
+  const datepicker: { defaultValue?: { checkIn: string, checkOut: string } } = {};
   if (checkIn && checkOut)
     datepicker['defaultValue'] = {checkIn, checkOut};
+
+  const onDone = ({checkIn, checkOut}: { checkIn: { value: string, formatted: string }, checkOut: { value: string, formatted: string } }) => {
+    if (navigation.canGoBack()) {
+      ChangeSearchData({checkIn: checkIn, checkOut: checkOut});
+      navigation.goBack();
+    }
+  }
+
   return (
     <Container>
       <Header style={[Style.bg__primary]}>
@@ -32,10 +39,7 @@ const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}
         <Right/>
       </Header>
       <Datepicker
-        onSelect={({checkIn, checkOut}) => {
-          ChangeSearchData({checkIn: checkIn, checkOut: checkOut});
-          navigation.pop();
-        }}
+        onSelect={onDone}
         today={today}
         format={'DD-MM-YYYY'}
         {...datepicker}

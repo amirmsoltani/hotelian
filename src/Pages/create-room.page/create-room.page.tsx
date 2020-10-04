@@ -1,5 +1,5 @@
 import React from 'react';
-import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
+import {Body, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -16,13 +16,15 @@ const connector = connect((state: RootStateInterface) => ({rooms: state.searchRe
 const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenProps<{}>) => {
   const [rooms, setRooms] = React.useState<RoomType[]>(props.rooms!);
   const done = () => {
-    let adultCounts = 0, childCounts = 0;
-    rooms.forEach(room => {
-      adultCounts += room.adults;
-      childCounts += room.children.length;
-    });
-    props.ChangeSearchData({rooms, adultCounts, childCounts});
-    props.navigation.pop();
+    if (props.navigation.canGoBack()) {
+      let adultCounts = 0, childCounts = 0;
+      rooms.forEach(room => {
+        adultCounts += room.adults;
+        childCounts += room.children.length;
+      });
+      props.ChangeSearchData({rooms, adultCounts, childCounts});
+      props.navigation.goBack();
+    }
   };
   const deleteRoom = (index: number) => {
     const new_rooms = [...rooms];
