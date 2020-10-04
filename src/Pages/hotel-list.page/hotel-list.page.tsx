@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
-import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
-import {Body, Button, Container, Header, Icon, Left, Spinner, Subtitle, Title} from 'native-base';
+import {I18nManager, SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
+import {Body, Button, Container, Header, Icon, Left, Right, Spinner, Subtitle, Title} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
-import {MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X,} from '../../../native-base-theme/variables/config';
+import {
+  COLOR_WARNING,
+  MUTED_LIGHT_XX,
+  MUTED_LIGHT_XXX,
+  SHADOW_SM_X,
+} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
 import {Conditional, HotelCard, If} from 'Components';
 
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
+import {ProgressBar} from "@react-native-community/progress-bar-android";
+import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = (
   {
@@ -70,33 +77,24 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           {/*<StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>*/}
           <Left>
             <Button onPress={() => this.props.replace('/')} transparent>
-              <Icon type={'SimpleLineIcons'} name='arrow-left' style={[Style.f__18, Style.text__white,]}/>
+              <Icon type={'Ionicons'} name={I18nManager.isRTL ? 'chevron-forward' : 'chevron-back'}
+                    style={[Style.f__20, Style.text__white,]}/>
             </Button>
           </Left>
-          <TouchableOpacity
-            activeOpacity={1}
-            style={[
-              SHADOW_SM_X,
-              Style.ml__2,
-              Style.px__3,
-              Style.flex__row,
-              Style.flex__grow__1,
-              Style.align__self_center,
-              Style.align__items_center,
-              Style.justify__content_between,
-              {backgroundColor: '#2047aa', borderRadius: 30, paddingVertical: 3},
-            ]}>
-            <View style={[Style.mr__4]}>
-              <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
-              <Subtitle style={[Style.f__10,{fontWeight:"800"}]}>
-                {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
-            </View>
-            <View>
-              <Icon type={'EvilIcons'} name='search' style={[Style.f__18, Style.text__white]}/>
-            </View>
-          </TouchableOpacity>
+          <Body>
+            <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
+            <Subtitle style={[Style.f__10, {fontWeight: "800"}]}>
+              {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
+          </Body>
+          <Right>
+            <TouchableOpacity>
+              <Icon type={'Ionicons'} name='search' style={[Style.f__18, Style.text__white]}/>
+            </TouchableOpacity>
+          </Right>
         </Header>
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
+
+          {/*actions*/}
           <View style={[
             {height: 50},
             SHADOW_SM_X,
@@ -117,7 +115,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 Style.align__items_center]}>
               <>
                 <Icon type="MaterialIcons" name="sort" style={[Style.f__16, Style.text__info]}/>
-                <AppText style={[Style.ml__2, Style.text__primary]}>Sort</AppText>
+                <AppText style={[Style.ml__2, Style.text__primary]}>{translate('sort')}</AppText>
                 <Conditional>
                   <If condition={!!activatedFilter}>
                     <View style={[Style.bg__danger,
@@ -143,7 +141,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               onPress={() => this.props.navigation.navigate('filter')}>
               <>
                 <Icon type="AntDesign" name="filter" style={[Style.f__16, Style.text__info]}/>
-                <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
+                <AppText style={[Style.ml__2, Style.text__primary]}>{translate('filter')}</AppText>
                 <Conditional>
                   <If condition={!!activatedFilter}>
                     <View style={[Style.bg__danger,
@@ -168,11 +166,21 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             }}>
               <>
                 <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>
-                <AppText style={[Style.ml__2, Style.text__primary]}>Map</AppText>
+                <AppText style={[Style.ml__2, Style.text__primary]}>{translate('map')}</AppText>
               </>
             </TouchableOpacity>
 
           </View>
+          <Conditional>
+            <If condition={status === 'loading'}>
+              <View style={[Style.w__100, Style.py__0,]}>
+                <ProgressBar style={{marginTop: -7, height: 20,}} color={COLOR_WARNING}
+                             styleAttr="Horizontal"/>
+              </View>
+            </If>
+          </Conditional>
+
+          {/*hotel list*/}
           <SafeAreaView style={[Style.w__100]}>
             {status === 'ok' ?
               <VirtualizedList<HotelInterface>
@@ -195,6 +203,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             }
 
           </SafeAreaView>
+
         </Body>
       </Container>
     );

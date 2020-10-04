@@ -11,7 +11,8 @@ import {
   COLOR_PURPLE,
   COLOR_SUCCESS,
   COLOR_WARNING,
-  COLOR_WHITE, FONT_FAMILY,
+  COLOR_WHITE,
+  FONT_FAMILY,
   GRAY_DARK,
   GRAY_DARK_X,
   GRAY_DARK_XX,
@@ -27,7 +28,7 @@ import {
   MUTED_LIGHT_XX,
   MUTED_LIGHT_XXX
 } from "../native-base-theme/variables/config";
-import {StyleSheet} from "react-native";
+import {I18nManager, StyleSheet} from "react-native";
 
 
 const paddingCoefficient = 5;
@@ -121,7 +122,6 @@ export const Style = StyleSheet.create({
 //=======================================
 // Padding
 //=======================================
-
   p__0: {paddingRight: 0, paddingLeft: 0, paddingTop: 0, paddingBottom: 0,},
   p__1: {padding: paddingCoefficient,},
   p__2: {padding: paddingCoefficient * 2,},
@@ -288,5 +288,11 @@ export const Style = StyleSheet.create({
   col__10: {width: '83.33%'},
   col__11: {width: '91.66%'},
   col__12: {width: '100%'},
+
+
+//=======================================
+// Input
+//=======================================
+  input__align: {textAlign: I18nManager.isRTL ? 'right' : 'left'}
 
 })

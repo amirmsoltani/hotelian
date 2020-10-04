@@ -1,5 +1,5 @@
 import React from 'react';
-import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
+import {Body, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -8,7 +8,7 @@ import {RoomType, RootStateInterface} from 'Typescript';
 import {RoomComponent} from 'Components';
 import {ChangeSearchData} from 'Store/Actions';
 import {randInt} from 'Lib/Random';
-import {AppText} from 'Containers';
+import {AppText, BackNavigation} from 'Containers';
 import {Style} from 'Styles';
 import {translate} from 'Lib/Languages';
 
@@ -16,13 +16,15 @@ const connector = connect((state: RootStateInterface) => ({rooms: state.searchRe
 const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenProps<{}>) => {
   const [rooms, setRooms] = React.useState<RoomType[]>(props.rooms!);
   const done = () => {
-    let adultCounts = 0, childCounts = 0;
-    rooms.forEach(room => {
-      adultCounts += room.adults;
-      childCounts += room.children.length;
-    });
-    props.ChangeSearchData({rooms, adultCounts, childCounts});
-    props.navigation.pop();
+    if (props.navigation.canGoBack()) {
+      let adultCounts = 0, childCounts = 0;
+      rooms.forEach(room => {
+        adultCounts += room.adults;
+        childCounts += room.children.length;
+      });
+      props.ChangeSearchData({rooms, adultCounts, childCounts});
+      props.navigation.goBack();
+    }
   };
   const deleteRoom = (index: number) => {
     const new_rooms = [...rooms];
@@ -33,12 +35,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
     <Container>
       <Header style={[Style.bg__primary]}>
         <Left>
-          <Button onPress={() => props.navigation.pop()} transparent>
-            <Icon
-              type={'SimpleLineIcons'}
-              name='arrow-left'
-              style={[Style.f__18, Style.text__white,]}/>
-          </Button>
+          <BackNavigation/>
         </Left>
         <Body>
           <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>

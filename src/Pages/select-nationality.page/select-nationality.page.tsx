@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
+import {Body, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 
 import {ChangeSearchData, GetNationality} from 'Store/Actions';
 import {NationalityType, RootStateInterface} from 'Typescript';
 import style from './../select-destination.page/select-destination-page.style';
-import {AppRow, AppText} from 'Containers';
+import {AppRow, AppText, BackNavigation} from 'Containers';
 import {
   Conditional,
   ElIf,
@@ -37,8 +37,10 @@ type Props = ConnectedProps<typeof connector> & StackScreenProps<{}>;
 const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality, status, navigation}: Props) => {
 
   const selectNationality = (nationality: NationalityType) => {
-    ChangeSearchData({nationality});
-    navigation.pop();
+    if (navigation.canGoBack()) {
+      ChangeSearchData({nationality});
+      navigation.goBack();
+    }
   };
   const [inputStyle, setStyle] = useState(style.blurredInput);
 
@@ -46,9 +48,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
     <Container>
       <Header style={[Style.bg__primary]}>
         <Left>
-          <Button onPress={() => navigation.pop()} transparent>
-            <Icon type={'SimpleLineIcons'} name='arrow-left' style={[Style.f__18, Style.text__white,]}/>
-          </Button>
+          <BackNavigation/>
         </Left>
         <Body>
           <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
@@ -62,7 +62,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
         <View style={style.inputContainer}>
           <TextInput
             autoFocus={true}
-            style={[style.input, inputStyle]}
+            style={[style.input, Style.input__align, inputStyle]}
             placeholder={translate('e.g-united-kingdom')}
             onChangeText={(text) => GetNationality(text)}
             onFocus={() => setStyle(style.focusedInput)}

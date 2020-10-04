@@ -21,8 +21,6 @@ const selectDestinationPageStyle = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: BORDER_RADIUS,
     backgroundColor: GRAY_LIGHT_XXX,
-    textAlign: 'left',
-    direction: 'ltr',
   },
   focusedInput: {borderWidth: 2, borderColor: 'rgb(132,195,245)'},
   blurredInput: {},
