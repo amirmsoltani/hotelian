@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {ScrollView, StatusBar, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Body, Button, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
+import {Body, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
+
 import style from './select-destination-page.style';
 import {ChangeSearchData, GetDestination} from 'Store/Actions';
 import {DestinationType, RootStateInterface} from 'Typescript';
@@ -15,7 +16,7 @@ import {
   SearchFormInit,
   SearchPageSkeletonLoader,
 } from 'Components';
-import {AppRow, AppText} from 'Containers';
+import {AppRow, AppText, BackNavigation} from 'Containers';
 import {Style} from 'Styles';
 import {translate, translate as t} from 'Lib/Languages';
 
@@ -50,15 +51,10 @@ class SelectDestinationPage extends Component<Props> {
         <Header style={[Style.bg__primary]}>
           <StatusBar hidden={true}/>
           <Left>
-            <Button onPress={() => navigation.pop()} transparent>
-              <Icon
-                type={'SimpleLineIcons'}
-                name='arrow-left'
-                style={[Style.f__18, Style.text__white,]}/>
-            </Button>
+            <BackNavigation/>
           </Left>
           <Body>
-            <AppText style={[Style.f__18, Style.text__white,Style.text__capitalize]}>
+            <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
               {translate('destination')}</AppText>
           </Body>
           <Right/>
@@ -68,10 +64,9 @@ class SelectDestinationPage extends Component<Props> {
           style={style.container}>
           <View style={style.inputContainer}>
             <TextInput
-              style={[style.input, this.state.inputStyle]}
-              autoFocus={true}
+              style={[style.input, Style.input__align, this.state.inputStyle]}
               placeholder={`${t('city')}, ${t('hotel')}, ${t('landmarks')}`}
-              onChangeText={(text) => GetDestination(text)}
+              onChangeText={(text) => GetDestination(text)} autoFocus={true}
               onFocus={() => this.setState({inputStyle: {...style.focusedInput}})}
               onBlur={() => this.setState({inputStyle: {...style.blurredInput}})}
             />
@@ -96,8 +91,7 @@ class SelectDestinationPage extends Component<Props> {
                                           onPress={() => this.selectDestination(des)}
                                           key={index}>
                           <AppRow>
-                            <Icon
-                              style={style.icon}
+                            <Icon style={style.icon}
                               name={des.dest_type === 'hotel' ? 'bed' : 'city'}
                               type={des.dest_type === 'hotel' ? 'Ionicons' : 'FontAwesome5'}
                             />

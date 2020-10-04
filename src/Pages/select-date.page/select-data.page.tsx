@@ -6,7 +6,7 @@ import {RootStateInterface} from 'Typescript';
 import {Body, Button, Container, Header, Icon, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 import {Style} from '../../Styles';
-import {AppText} from "../../Containers";
+import {AppText, BackNavigation} from "../../Containers";
 import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -26,12 +26,7 @@ const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}
     <Container>
       <Header style={[Style.bg__primary]}>
         <Left>
-          <Button onPress={() => navigation.pop()} transparent>
-            <Icon
-              type={'SimpleLineIcons'}
-              name='arrow-left'
-              style={[Style.f__18, Style.text__white,]}/>
-          </Button>
+          <BackNavigation/>
         </Left>
         <Body/>
         <Right/>

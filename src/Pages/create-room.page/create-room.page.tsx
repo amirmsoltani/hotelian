@@ -8,7 +8,7 @@ import {RoomType, RootStateInterface} from 'Typescript';
 import {RoomComponent} from 'Components';
 import {ChangeSearchData} from 'Store/Actions';
 import {randInt} from 'Lib/Random';
-import {AppText} from 'Containers';
+import {AppText, BackNavigation} from 'Containers';
 import {Style} from 'Styles';
 import {translate} from 'Lib/Languages';
 
@@ -33,12 +33,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
     <Container>
       <Header style={[Style.bg__primary]}>
         <Left>
-          <Button onPress={() => props.navigation.pop()} transparent>
-            <Icon
-              type={'SimpleLineIcons'}
-              name='arrow-left'
-              style={[Style.f__18, Style.text__white,]}/>
-          </Button>
+          <BackNavigation/>
         </Left>
         <Body>
           <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
