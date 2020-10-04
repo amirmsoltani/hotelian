@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
-import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
+import {I18nManager, SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Spinner, Subtitle, Title} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
@@ -18,6 +18,7 @@ import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
 import {ProgressBar} from "@react-native-community/progress-bar-android";
+import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = (
   {
@@ -76,7 +77,8 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           {/*<StatusBar barStyle="light-content" backgroundColor={COLOR_PRIMARY}/>*/}
           <Left>
             <Button onPress={() => this.props.replace('/')} transparent>
-              <Icon type={'Ionicons'} name='chevron-back' style={[Style.f__20, Style.text__white,]}/>
+              <Icon type={'Ionicons'} name={I18nManager.isRTL ? 'chevron-forward' : 'chevron-back'}
+                    style={[Style.f__20, Style.text__white,]}/>
             </Button>
           </Left>
           <Body>
@@ -113,7 +115,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                 Style.align__items_center]}>
               <>
                 <Icon type="MaterialIcons" name="sort" style={[Style.f__16, Style.text__info]}/>
-                <AppText style={[Style.ml__2, Style.text__primary]}>Sort</AppText>
+                <AppText style={[Style.ml__2, Style.text__primary]}>{translate('sort')}</AppText>
                 <Conditional>
                   <If condition={!!activatedFilter}>
                     <View style={[Style.bg__danger,
@@ -139,7 +141,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               onPress={() => this.props.navigation.navigate('filter')}>
               <>
                 <Icon type="AntDesign" name="filter" style={[Style.f__16, Style.text__info]}/>
-                <AppText style={[Style.ml__2, Style.text__primary]}>Filter</AppText>
+                <AppText style={[Style.ml__2, Style.text__primary]}>{translate('filter')}</AppText>
                 <Conditional>
                   <If condition={!!activatedFilter}>
                     <View style={[Style.bg__danger,
@@ -164,7 +166,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             }}>
               <>
                 <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>
-                <AppText style={[Style.ml__2, Style.text__primary]}>Map</AppText>
+                <AppText style={[Style.ml__2, Style.text__primary]}>{translate('map')}</AppText>
               </>
             </TouchableOpacity>
 
