@@ -102,4 +102,4 @@ const CurrencyModal = (props: propType) => {
   );
 };
 
-export default connect(CurrencyModal);
+export default connector(CurrencyModal);

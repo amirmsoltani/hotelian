@@ -30,7 +30,7 @@ class Routes extends Component<Props> {
     return (
       <>
         <Route component={SearchRoute} path='/' exact={true}/>
-        <Route component={HotelsRoute} path='/hotels' exact={true}/>
+        <Route component={HotelsRoute} path='/hotels' exact={false}/>
         <Route component={HotelRoute} path='/hotel/:id/:name/:checkIn/:checkOut' exact={true}/>
         <Route component={HotelRoute} path='/hotel/:id/:name' exact={true}/>
       </>

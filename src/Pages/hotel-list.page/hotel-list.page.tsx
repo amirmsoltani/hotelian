@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
+import {StackScreenProps} from '@react-navigation/stack';
 import {I18nManager, SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Spinner, Subtitle, Title} from 'native-base';
-import {StackScreenProps} from '@react-navigation/stack';
 
 import {
   COLOR_WARNING,
@@ -16,9 +16,10 @@ import {Conditional, HotelCard, If} from 'Components';
 
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {AppText} from 'Containers';
-import {ProgressBar} from "@react-native-community/progress-bar-android";
+import {AppModal, AppText} from 'Containers';
 import {translate} from "../../Lib/Languages";
+import {ProgressBar} from "@react-native-community/progress-bar-android";
+import SearchFrom from "../../Forms/SearchForm/SearchFrom";
 
 const mapStateToProps = (
   {
@@ -45,9 +46,15 @@ const mapDispatchToProps = {GetHotels, replace, push};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
+class HotelListPage extends Component<Props, { end: boolean, scroll: boolean, modifySearch: boolean }> {
   timeOut: any | null = null;
-  state = {end: false, scroll: false};
+  state = {
+    end: false,
+    scroll: false,
+
+    //flag for hide/show modify search modal
+    modifySearch: false,
+  };
 
   //=======================================
   // Hooks
@@ -66,6 +73,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
   }
 
   render() {
+
     //for checking number of active filters
     const activatedFilter = (this.props.filters) ? Object.keys(this.props.filters).length : 0;
 
@@ -82,16 +90,18 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             </Button>
           </Left>
           <Body>
-            <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
-            <Subtitle style={[Style.f__10, {fontWeight: "800"}]}>
-              {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
-          </Body>
-          <Right>
-            <TouchableOpacity>
-              <Icon type={'Ionicons'} name='search' style={[Style.f__18, Style.text__white]}/>
+            <TouchableOpacity
+              onPress={this.showModifySearch.bind(this)}
+              style={[Style.bg__warning, Style.align__self_stretch]}
+              activeOpacity={1}>
+              <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
+              <Subtitle style={[Style.f__10, {fontWeight: "800"}]}>
+                {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
             </TouchableOpacity>
-          </Right>
+          </Body>
+          <Right/>
         </Header>
+
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
 
           {/*actions*/}
@@ -160,10 +170,10 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
               activeOpacity={1}
               style={[
                 Style.col__4, Style.h__100, Style.flex__row,
-                Style.justify__content_center, Style.align__items_center]
-              } onPress={() => {
-              this.props.navigation.navigate('map');
-            }}>
+                Style.justify__content_center, Style.align__items_center]}
+              onPress={() => {
+                this.props.navigation.navigate('map');
+              }}>
               <>
                 <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>{translate('map')}</AppText>
@@ -171,6 +181,17 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
             </TouchableOpacity>
 
           </View>
+
+          {/*modify search*/}
+          <AppModal
+            onClose={this.hideModifySearch.bind(this)}
+            visibility={this.state.modifySearch}>
+            <View style={[Style.w__100, Style.h__100, Style.align__self_start]}>
+              <SearchFrom/>
+            </View>
+          </AppModal>
+
+          {/*loading*/}
           <Conditional>
             <If condition={status === 'loading'}>
               <View style={[Style.w__100, Style.py__0,]}>
@@ -218,6 +239,13 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     this.props.push(`/hotel/${id}/${name}/${checkin.formatted}/${checkout.formatted}`);
   }
 
+  showModifySearch() {
+    this.setState({modifySearch: true});
+  }
+
+  hideModifySearch() {
+    this.setState({modifySearch: false});
+  }
 }
 
 
