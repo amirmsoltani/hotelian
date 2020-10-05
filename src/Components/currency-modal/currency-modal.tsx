@@ -54,32 +54,44 @@ const CurrencyModal = (props: propType) => {
           {/*}*/}
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>Iranian Rial <AppText
-              style={[Style.text__gray]}>(IRR)</AppText></AppText></Left>
+            <Left>
+              <AppText>Iranian Rial
+                <AppText style={[Style.text__gray]}>(IRR)</AppText>
+              </AppText>
+            </Left>
             <Right>
               <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
             </Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>US Dollar <AppText
-              style={[Style.text__gray]}>(USD)</AppText></AppText></Left>
+            <Left>
+              <AppText>US Dollar
+                <AppText style={[Style.text__gray]}>(USD)</AppText>
+              </AppText>
+            </Left>
             <Right>
               <Icon style={[Style.text__info]} type={'MaterialIcons'} name="radio-button-checked"/>
             </Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>UAE Dirham <AppText
-              style={[Style.text__gray]}>(AED)</AppText></AppText></Left>
+            <Left>
+              <AppText>UAE Dirham
+                <AppText style={[Style.text__gray]}>(AED)</AppText>
+              </AppText>
+            </Left>
             <Right>
               <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
             </Right>
           </ListItem>
           <ListItem
             style={[Style.px__3, Style.mx__0]}>
-            <Left><AppText>Euro <AppText
-              style={[Style.text__gray]}>(€)</AppText></AppText></Left>
+            <Left>
+              <AppText>Euro
+                <AppText style={[Style.text__gray]}>(€)</AppText>
+              </AppText>
+            </Left>
             <Right>
               <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
             </Right>
