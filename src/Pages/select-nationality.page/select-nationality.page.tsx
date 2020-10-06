@@ -7,7 +7,7 @@ import {Body, Container, Header, Icon, Left, List, ListItem, Right} from 'native
 import {ChangeSearchData, GetNationality} from 'Store/Actions';
 import {NationalityType, RootStateInterface} from 'Typescript';
 import style from './../select-destination.page/select-destination-page.style';
-import {AppRow, AppText, BackNavigation} from 'Containers';
+import {AppRow, AppText, AppTitle, BackNavigation} from 'Containers';
 import {
   Conditional,
   ElIf,
@@ -18,7 +18,7 @@ import {
   SearchPageSkeletonLoader,
 } from 'Components';
 import {Style} from 'Styles';
-import {translate} from 'Lib/Languages';
+import {translate as t} from 'Lib/Languages';
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -51,8 +51,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
           <BackNavigation/>
         </Left>
         <Body>
-          <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
-            {translate('nationality')}</AppText>
+          <AppTitle>{t('nationality')}</AppTitle>
         </Body>
         <Right/>
       </Header>
@@ -63,7 +62,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
           <TextInput
             autoFocus={true}
             style={[style.input, Style.input__align, inputStyle]}
-            placeholder={translate('e.g-united-kingdom')}
+            placeholder={t('enter-your-nationality')}
             onChangeText={(text) => GetNationality(text)}
             onFocus={() => setStyle(style.focusedInput)}
             onBlur={() => setStyle(style.blurredInput)}

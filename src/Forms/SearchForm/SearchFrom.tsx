@@ -1,15 +1,15 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Button, Col, Form, Grid, Icon} from 'native-base';
+import {Button, Form} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 
 import {RootStateInterface} from 'Typescript';
 import {AcceptSearchForm} from 'Store/Actions';
 import FormRow from './form-row/form-row';
 import searchFromStyles from './searchFormStyles';
-import {COLOR_IMPORTANT, COLOR_PRIMARY, COLOR_WHITE, GRAY_LIGHT_XXX} from '../../../native-base-theme/variables/config';
-import {AppRow, AppText} from 'Containers/index';
+import {COLOR_IMPORTANT, GRAY_LIGHT_XXX} from '../../../native-base-theme/variables/config';
+import {AppText} from 'Containers/index';
 import {translate} from 'Lib/Languages';
 import {Style} from "../../Styles";
 
@@ -31,6 +31,8 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
   const navigation = useNavigation();
   return (
     <Form style={searchFromStyles.container}>
+
+      {/*inputs*/}
       <View>
         <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('destination')}>
           <FormRow
@@ -72,32 +74,29 @@ const SearchFrom = ({rooms, nationality, checkOut, checkIn, destination, adultCo
           />
         </TouchableOpacity>
       </View>
+
+      {/*buttons*/}
       <View>
-        <Grid>
-          <AppRow style={searchFromStyles.btnSection}>
-            <Col style={{paddingRight: 10, width: 120}}>
-              <Button rounded block style={{backgroundColor: GRAY_LIGHT_XXX,}}>
-                <AppRow style={{justifyContent: 'center', alignItems: 'center',}}>
-                  <Icon style={{color: COLOR_PRIMARY, fontSize: 18, marginRight: 5, marginLeft: 5,}}
-                        name='my-location'
-                        type={'MaterialIcons'}/>
-                  <AppText style={[Style.text__primary, Style.text__center, Style.text__capitalize]}>
-                    {translate('map')}</AppText>
-                </AppRow>
-              </Button>
-            </Col>
-            <Col style={{paddingLeft: 10}}>
-              <Button rounded block onPress={props.AcceptSearchForm} style={{backgroundColor: COLOR_IMPORTANT}}>
-                <AppText style={{
-                  color: COLOR_WHITE,
-                  width: '100%',
-                  textAlign: 'center',
-                  textTransform: 'uppercase',
-                }}>{translate('search')}</AppText>
-              </Button>
-            </Col>
-          </AppRow>
-        </Grid>
+        <View style={[searchFromStyles.btnSection, Style.flex__row]}>
+          <View style={{paddingRight: 10, width: 100,}}>
+            <Button rounded block style={[{backgroundColor: GRAY_LIGHT_XXX,}]}>
+              <AppText style={[
+                Style.text__primary,
+                Style.text__center,
+                Style.text__upperCase,
+              ]}>{translate('map')}</AppText>
+            </Button>
+          </View>
+          <View style={[{paddingLeft: 10,}, Style.flex__grow__1]}>
+            <Button rounded block onPress={props.AcceptSearchForm} style={{backgroundColor: COLOR_IMPORTANT}}>
+              <AppText style={[
+                Style.text__white,
+                Style.text__center,
+                Style.text__upperCase,
+              ]}>{translate('search')}</AppText>
+            </Button>
+          </View>
+        </View>
       </View>
     </Form>
   );

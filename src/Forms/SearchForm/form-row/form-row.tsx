@@ -4,7 +4,6 @@ import {Icon} from "native-base";
 
 import style from './form-row-styles';
 import {AppText} from "../../../Containers";
-import {Style} from "../../../Styles";
 
 type formRow = {
   text: string;
@@ -35,6 +34,9 @@ const FormRow = (props: formRow) => {
                    type={'Ionicons'}/>
       break;
     case'checkin-out' :
+
+
+
       icon = <Icon name='calendar'
                    style={[style.icon, [...sharedStyles]]}
                    type={'Octicons'}/>

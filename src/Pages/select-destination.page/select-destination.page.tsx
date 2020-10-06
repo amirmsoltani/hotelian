@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, StatusBar, TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {Body, Container, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -16,9 +16,9 @@ import {
   SearchFormInit,
   SearchPageSkeletonLoader,
 } from 'Components';
-import {AppRow, AppText, BackNavigation} from 'Containers';
+import {AppRow, AppText, AppTitle, BackNavigation} from 'Containers';
 import {Style} from 'Styles';
-import {translate, translate as t} from 'Lib/Languages';
+import {translate as t} from 'Lib/Languages';
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -49,14 +49,8 @@ class SelectDestinationPage extends Component<Props> {
     return (
       <Container>
         <Header style={[Style.bg__primary]}>
-          <StatusBar hidden={true}/>
-          <Left>
-            <BackNavigation/>
-          </Left>
-          <Body>
-            <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
-              {translate('destination')}</AppText>
-          </Body>
+          <Left><BackNavigation/></Left>
+          <Body><AppTitle>{t('destination')}</AppTitle></Body>
           <Right/>
         </Header>
         <ScrollView
@@ -92,8 +86,8 @@ class SelectDestinationPage extends Component<Props> {
                                           key={index}>
                           <AppRow>
                             <Icon style={style.icon}
-                              name={des.dest_type === 'hotel' ? 'bed' : 'city'}
-                              type={des.dest_type === 'hotel' ? 'Ionicons' : 'FontAwesome5'}
+                                  name={des.dest_type === 'hotel' ? 'bed' : 'city'}
+                                  type={des.dest_type === 'hotel' ? 'Ionicons' : 'FontAwesome5'}
                             />
                             <View>
                               <AppText style={[style.appText, Style.f__14]}>{des.label}</AppText>
@@ -139,7 +133,7 @@ class SelectDestinationPage extends Component<Props> {
   // Methods
   //=======================================
   selectDestination(destination: DestinationType) {
-    if(this.props.navigation.canGoBack()){
+    if (this.props.navigation.canGoBack()) {
       this.props.ChangeSearchData({destination});
       this.props.navigation.pop();
 

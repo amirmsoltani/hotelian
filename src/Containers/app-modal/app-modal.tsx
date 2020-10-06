@@ -11,7 +11,7 @@ type propType = {
 const AppModal = (props: propType) => {
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={props.visibility || false}
       onRequestClose={props.onClose}
@@ -24,7 +24,6 @@ const AppModal = (props: propType) => {
           Style.h__100,
           Style.justify__content_center,
           Style.align__items_center,
-          Style.p__3,
           {backgroundColor: 'rgba(0,0,0,0.4)'},
         ]}>
         <TouchableWithoutFeedback>

@@ -32,9 +32,7 @@ const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}
   return (
     <Container>
       <Header style={[Style.bg__primary]}>
-        <Left>
-          <BackNavigation/>
-        </Left>
+        <Left><BackNavigation/></Left>
         <Body/>
         <Right/>
       </Header>

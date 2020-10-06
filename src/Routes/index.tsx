@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
 import {Route} from 'react-router-native';
+import {connect, ConnectedProps} from 'react-redux';
 
 import {RootStateInterface} from '../Typescript';
 import Translator from '../Lib/Languages';
 import HotelRoute from './hotel.route';
 import SearchRoute from "./search.route";
 import HotelsRoute from "./hotels.route";
+import ModifySearchRoute from "./modify-search.route";
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -30,7 +31,8 @@ class Routes extends Component<Props> {
     return (
       <>
         <Route component={SearchRoute} path='/' exact={true}/>
-        <Route component={HotelsRoute} path='/hotels' exact={true}/>
+        <Route component={ModifySearchRoute} path='/modify-search' exact={true}/>
+        <Route component={HotelsRoute} path='/hotels' exact={false}/>
         <Route component={HotelRoute} path='/hotel/:id/:name/:checkIn/:checkOut' exact={true}/>
         <Route component={HotelRoute} path='/hotel/:id/:name' exact={true}/>
       </>

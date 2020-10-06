@@ -1,5 +1,5 @@
 import React from 'react';
-import {Body, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
+import {Body, Button, Container, Content, Footer, Header, Icon, Left, Right} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -8,9 +8,9 @@ import {RoomType, RootStateInterface} from 'Typescript';
 import {RoomComponent} from 'Components';
 import {ChangeSearchData} from 'Store/Actions';
 import {randInt} from 'Lib/Random';
-import {AppText, BackNavigation} from 'Containers';
+import {AppText, AppTitle, BackNavigation} from 'Containers';
 import {Style} from 'Styles';
-import {translate} from 'Lib/Languages';
+import {translate as t, translate} from 'Lib/Languages';
 
 const connector = connect((state: RootStateInterface) => ({rooms: state.searchReducer.form_data.rooms}), {ChangeSearchData});
 const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenProps<{}>) => {
@@ -38,8 +38,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
           <BackNavigation/>
         </Left>
         <Body>
-          <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
-            {translate('rooms')}</AppText>
+          <AppTitle>{t('rooms')}</AppTitle>
         </Body>
         <Right/>
       </Header>
@@ -89,14 +88,12 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
           }
         </View>
       </Content>
-      <Footer style={{paddingHorizontal: 15, backgroundColor: 'white'}}>
-        <TouchableOpacity
-          onPress={done}
-          style={{width: '100%', height: 50, backgroundColor: '#00247d', borderRadius: 3}}>
-          <AppText style={{textAlign: 'center', color: 'white', height: '100%', textAlignVertical: 'center'}}>
-            {translate('done')}
-          </AppText>
-        </TouchableOpacity>
+      <Footer style={[Style.bg__white]}>
+        <View style={[Style.w__100, Style.p__1]}>
+          <Button block onPress={done}>
+            <AppText style={[Style.text__white,]}>{translate('done')}</AppText>
+          </Button>
+        </View>
       </Footer>
     </Container>);
 };
