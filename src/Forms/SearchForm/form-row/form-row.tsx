@@ -34,6 +34,9 @@ const FormRow = (props: formRow) => {
                    type={'Ionicons'}/>
       break;
     case'checkin-out' :
+
+
+
       icon = <Icon name='calendar'
                    style={[style.icon, [...sharedStyles]]}
                    type={'Octicons'}/>
