@@ -1,7 +1,13 @@
 import {AppStateInterface} from '../../Typescript';
 import Storage from '../../Lib/Storage';
-import axios from 'axios';
-import {INITIAL_URL, LANGUAGE_URL, USER_TRACK_CODE_URL} from '../../URLS';
+import axios, {AxiosError} from 'axios';
+import {
+  INITIAL_URL,
+  INTERNET_CONNECTION_ERROR,
+  LANGUAGE_URL,
+  USER_INITIAL_ERROR_MESSAGE,
+  USER_TRACK_CODE_URL,
+} from 'URLS';
 import {AppActionsTypes, SET_LANGUAGE} from '../Actions';
 
 const defaultData: AppStateInterface = {
@@ -11,6 +17,8 @@ const defaultData: AppStateInterface = {
   rtl: false,
   currency: 'USD',
   locales: [],
+  currencies: [],
+  status: 'ok',
 };
 export const appInit = async (): Promise<AppStateInterface> => {
   try {
@@ -21,25 +29,39 @@ export const appInit = async (): Promise<AppStateInterface> => {
     defaultData.rtl = result.rtl;
   } catch (e) {
     try {
-      const response = await axios.get<{ result: { user_track_code: string } }>(USER_TRACK_CODE_URL);
+      const response = await axios.get<{result: {user_track_code: string}}>(USER_TRACK_CODE_URL);
       defaultData.track_code = response.data.result.user_track_code;
       const {rtl, language, track_code, currency} = defaultData;
       Storage.save({key: 'app-data', data: {rtl, language, track_code, currency}, expires: null}).then();
     } catch (e) {
+      defaultData.status = 'error';
+      if (e.isAxiosError && e.message === 'Network Error')
+        defaultData.message = INTERNET_CONNECTION_ERROR;
+      else
+        defaultData.message = USER_INITIAL_ERROR_MESSAGE;
     }
   }
 
   try {
     const response = await axios.get<{
       result: {
-        locales: Array<{ dir: 'rtl' | 'ltr', lang: string, label: string }>;
-        today: { unix: number, datetime: string };
+        locales: Array<{dir: 'rtl' | 'ltr', lang: string, label: string}>;
+        currencies: Array<{code: string, label: string}>;
+        today: {unix: number, datetime: string};
+        date_format: string;
       };
     }>(INITIAL_URL);
     defaultData.locales = response.data.result.locales;
+    defaultData.currencies = response.data.result.currencies;
     defaultData.today = response.data.result.today;
     defaultData.json = (await axios.get(LANGUAGE_URL + defaultData.language)).data.result;
   } catch (e) {
+    console.log(e, e.message, e.isAxiosError);
+    defaultData.status = 'error';
+    if (e.isAxiosError && e.message === 'Network Error')
+      defaultData.message = INTERNET_CONNECTION_ERROR;
+    else
+      defaultData.message = USER_INITIAL_ERROR_MESSAGE;
   }
   return defaultData;
 };

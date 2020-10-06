@@ -1,21 +1,23 @@
 import React from 'react';
+import {AppState, AppStateStatus} from 'react-native';
 import {Store} from 'redux';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router';
+import {MenuProvider} from 'react-native-popup-menu';
+import Routes from './src/Routes/index';
 import {History, MemoryHistory} from 'history';
 import Storage from './src/Lib/Storage';
 import createStore from './src/Store';
-import Routes from "./src/Routes/index";
 import axios from 'axios';
 import {LANGUAGE_URL} from './src/URLS';
-import {MenuProvider} from 'react-native-popup-menu';
-import {AppText} from "./src/Containers";
+import {AppText} from './src/Containers';
+import {StatusType} from './src/Typescript/Types';
 
-declare const global: { HermesInternal: null | {} };
+declare const global: {HermesInternal: null | {}};
 
-class App extends React.Component<any, { ok: boolean, json?: { [key: string]: string }, status?: 'error' | 'ok' }> {
-  state = {ok: false, status: undefined};
-  history!: MemoryHistory<History.UnknownFacade>;
+class App extends React.Component<any, {ok: boolean, json?: {[key: string]: string}, status: StatusType, message: string}> {
+  state = {ok: false, status: undefined, message: ''};
+  history!: MemoryHistory<History>;
   store!: Store;
 
   constructor(props: object) {
@@ -23,7 +25,11 @@ class App extends React.Component<any, { ok: boolean, json?: { [key: string]: st
     this.getHistoryEntries().then();
   }
 
-  async getTranslates(lang: string): Promise<{ [key: string]: string } | null> {
+  componentDidMount() {
+    AppState.addEventListener('change', this.moveToBackground);
+  }
+
+  async getTranslates(lang: string): Promise<{[key: string]: string} | null> {
     try {
       const response = await axios.get(LANGUAGE_URL + lang);
       return response.data.result;
@@ -34,29 +40,34 @@ class App extends React.Component<any, { ok: boolean, json?: { [key: string]: st
   }
 
   async getHistoryEntries() {
-    let data: { entries: string[], index: number };
+    let data: {entries: string[], index: number};
     try {
       data = await Storage.load({key: 'history-entries'});
     } catch (e) {
       data = {entries: ['/'], index: 0};
     }
-    const [store, history] = await createStore(data);
+    const [store, history, app] = await createStore(data);
     this.history = history;
     this.store = store;
-    await this.setState({ok: true, status: 'ok'});
+    await this.setState({ok: app.status === 'ok', status: app.status, message: app.message ? app.message : ''});
 
   }
 
-  componentWillUnmount() {
-    if (this.history) {
+  moveToBackground = ((state: AppStateStatus) => {
+    if (this.history && state === 'background') {
       const entries = this.history.entries.map(entry => entry.pathname);
       Storage.save({
         key: 'history-entries',
         data: {entries, index: entries.length - 1},
         expires: 3600000,
       }).then();
+    } else if (state === 'active') {
+      Storage.remove({key: 'history-entries'}).then();
+      Storage.clearMapForKey('history-entries').then();
+    } else if (state === 'inactive') {
+      this.moveToBackground('active');
     }
-  }
+  }).bind(this);
 
 
   render() {
@@ -68,9 +79,10 @@ class App extends React.Component<any, { ok: boolean, json?: { [key: string]: st
               <Routes/>
             </MenuProvider>
           </ConnectedRouter>
-        </Provider> :
-        <AppText>Loading goes here !!!</AppText>
-        // <></>
+        </Provider> : (this.state.status === 'error' ?
+        <AppText>{this.state.message}</AppText> :
+        <AppText>Loading goes here !!!</AppText>)
+      // <></>
     );
   }
 }
