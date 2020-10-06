@@ -30,7 +30,7 @@ const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}
   }
 
   return (
-    <Container>
+    <>
       <Header style={[Style.bg__primary]}>
         <Left><BackNavigation/></Left>
         <Body/>
@@ -42,7 +42,7 @@ const SelectDataPage = ({ChangeSearchData, checkIn, checkOut, today, navigation}
         format={'DD-MM-YYYY'}
         {...datepicker}
       />
-    </Container>
+    </>
   );
 
 };

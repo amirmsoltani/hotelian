@@ -17,11 +17,8 @@ import {Conditional, HotelCard, If} from 'Components';
 
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {AppText} from 'Containers';
-import {ProgressBar} from '@react-native-community/progress-bar-android';
 import {translate} from '../../Lib/Languages';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
-import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = (
   {
@@ -48,7 +45,7 @@ const mapDispatchToProps = {GetHotels, replace, push};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
+class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
   timeOut: any | null = null;
   state = {
     end: false,
@@ -82,7 +79,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
     const {hotels, indexes, facilities, status, form_data, currency, nights, search_status} = this.props;
 
     return (
-      <Container>
+      <>
         <Header style={[Style.bg__primary, Style.flex__row]}>
           <Left><BackNavigation/></Left>
           <Body>
@@ -213,7 +210,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
           </SafeAreaView>
 
         </Body>
-      </Container>
+      </>
     );
   }
 

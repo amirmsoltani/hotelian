@@ -1,13 +1,14 @@
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {connect, ConnectedProps} from 'react-redux';
-import {Body, Container, Header, Left} from "native-base";
+import {Body, Header, Left, Right} from "native-base";
 import {StackScreenProps} from '@react-navigation/stack';
 
 import {RootStateInterface} from '../../Typescript';
 import {AppTitle, BackNavigation} from "../../Containers";
 import {translate as t} from "../../Lib/Languages";
 import {Style} from "../../Styles";
+import {StatusBar, View} from "react-native";
 
 const mapStateToProps = ({hotelsReducer: {filter, basicData}}: RootStateInterface) => ({
   hotels: basicData!.hotels,
@@ -25,12 +26,14 @@ const HotelMapPage = ({hotels, indexes, navigation}: Props) => {
     return <></>;
   }
   return (
-    <Container>
-      <Header style={[Style.bg__primary]}>
+    <View style={{flex: 1,}}>
+      <Header style={[Style.bg__primary,]}>
+        <StatusBar hidden/>
         <Left><BackNavigation/></Left>
         <Body><AppTitle>{t('map')}</AppTitle></Body>
+        <Right/>
       </Header>
-      <Body>
+      <View style={[Style.bg__danger, Style.w__100, {flex: 1,}]}>
         <MapView
           region={{
             latitude: +hotels[indexes[0]].lat,
@@ -38,15 +41,14 @@ const HotelMapPage = ({hotels, indexes, navigation}: Props) => {
             latitudeDelta: .3,
             longitudeDelta: .3,
           }}
-          style={{width: '100%', height: '100%'}}
-        >
+          style={{width: '100%', height: '100%'}}>
           {
             indexes.map(index => <Marker coordinate={{latitude: +hotels[index].lat, longitude: +hotels[index].lng}}
-                                         icon={image} key={hotels[index].hotel_id}/>)
+                                         icon={image} key={hotels[index].hotel_id + index}/>)
           }
         </MapView>
-      </Body>
-    </Container>
+      </View>
+    </View>
   );
 };
 

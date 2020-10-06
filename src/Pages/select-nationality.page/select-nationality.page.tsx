@@ -45,7 +45,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
   const [inputStyle, setStyle] = useState(style.blurredInput);
 
   return (
-    <Container>
+    <>
       <Header style={[Style.bg__primary]}>
         <Left>
           <BackNavigation/>
@@ -120,7 +120,7 @@ const SelectNationalityPage = ({nationalities, ChangeSearchData, GetNationality,
           </Conditional>
         </View>
       </ScrollView>
-    </Container>
+    </>
   );
 };
 

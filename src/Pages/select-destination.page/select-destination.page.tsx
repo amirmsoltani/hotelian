@@ -47,7 +47,7 @@ class SelectDestinationPage extends Component<Props> {
   render() {
     const {destinations, GetDestination, navigation} = this.props;
     return (
-      <Container>
+      <>
         <Header style={[Style.bg__primary]}>
           <Left><BackNavigation/></Left>
           <Body><AppTitle>{t('destination')}</AppTitle></Body>
@@ -124,7 +124,7 @@ class SelectDestinationPage extends Component<Props> {
             </Conditional>
           </View>
         </ScrollView>
-      </Container>
+      </>
     );
   }
 
