@@ -4,7 +4,6 @@ import {Icon} from "native-base";
 
 import style from './form-row-styles';
 import {AppText} from "../../../Containers";
-import {Style} from "../../../Styles";
 
 type formRow = {
   text: string;
