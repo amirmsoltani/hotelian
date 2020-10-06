@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppState, AppStateStatus} from 'react-native';
+import {AppState, AppStateStatus, BackHandler} from 'react-native';
 import {Store} from 'redux';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router';
@@ -27,6 +27,7 @@ class App extends React.Component<any, {ok: boolean, json?: {[key: string]: stri
 
   componentDidMount() {
     AppState.addEventListener('change', this.moveToBackground);
+    BackHandler.addEventListener('hardwareBackPress', () => true);
   }
 
   async getTranslates(lang: string): Promise<{[key: string]: string} | null> {
