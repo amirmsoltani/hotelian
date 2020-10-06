@@ -90,8 +90,8 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
       </Content>
       <Footer style={[Style.bg__white]}>
         <View style={[Style.w__100, Style.p__1]}>
-          <Button block onPress={done}>
-            <AppText style={[Style.text__white,]}>{translate('done')}</AppText>
+          <Button style={[Style.bg__primary]} block onPress={done}>
+            <AppText style={[Style.text__white, Style.text__bold]}>{translate('done')}</AppText>
           </Button>
         </View>
       </Footer>

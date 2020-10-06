@@ -170,10 +170,11 @@ class Datepicker extends Component<Props, State> {
         {IF.IF(!!checkIn && checkOut !== -1, () =>
           <>
             <View style={[Style.w__100, Style.p__1]}>
-              <Button block onPress={this.doneCheck}>
+              <Button style={[Style.bg__primary]}
+                      block onPress={this.doneCheck}>
                 <AppText style={[style.doneText, Style.text__capitalize]}>
                   {translate('done')}
-                  <AppText style={style.dontNightText}>
+                  <AppText style={[Style.text__white]}>
                     {` (${this.nights} ${(`night${this.nights > 1 ? 's' : ''})`)}`}
                   </AppText>
                 </AppText>
