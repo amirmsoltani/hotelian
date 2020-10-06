@@ -17,8 +17,8 @@ import {Conditional, HotelCard, If} from 'Components';
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {AppText} from 'Containers';
-import {ProgressBar} from "@react-native-community/progress-bar-android";
-import {translate} from "../../Lib/Languages";
+import {ProgressBar} from '@react-native-community/progress-bar-android';
+import {translate} from '../../Lib/Languages';
 
 const mapStateToProps = (
   {
@@ -45,7 +45,7 @@ const mapDispatchToProps = {GetHotels, replace, push};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
+class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   timeOut: any | null = null;
   state = {end: false, scroll: false};
 
@@ -69,7 +69,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     //for checking number of active filters
     const activatedFilter = (this.props.filters) ? Object.keys(this.props.filters).length : 0;
 
-    const {hotels, indexes, facilities, status, form_data, currency, nights} = this.props;
+    const {hotels, indexes, facilities, status, form_data, currency, nights, search_status} = this.props;
 
     return (
       <Container>
@@ -78,12 +78,12 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           <Left>
             <Button onPress={() => this.props.replace('/')} transparent>
               <Icon type={'Ionicons'} name={I18nManager.isRTL ? 'chevron-forward' : 'chevron-back'}
-                    style={[Style.f__20, Style.text__white,]}/>
+                    style={[Style.f__20, Style.text__white]}/>
             </Button>
           </Left>
           <Body>
             <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
-            <Subtitle style={[Style.f__10, {fontWeight: "800"}]}>
+            <Subtitle style={[Style.f__10, {fontWeight: '800'}]}>
               {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
           </Body>
           <Right>
@@ -172,9 +172,9 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
 
           </View>
           <Conditional>
-            <If condition={status === 'loading'}>
-              <View style={[Style.w__100, Style.py__0,]}>
-                <ProgressBar style={{marginTop: -7, height: 20,}} color={COLOR_WARNING}
+            <If condition={status === 'loading' || search_status === 'loading'}>
+              <View style={[Style.w__100, Style.py__0]}>
+                <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_WARNING}
                              styleAttr="Horizontal"/>
               </View>
             </If>
@@ -182,7 +182,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
 
           {/*hotel list*/}
           <SafeAreaView style={[Style.w__100]}>
-            {status === 'ok' ?
+            {status === 'ok' && search_status === 'ok' ?
               <VirtualizedList<HotelInterface>
                 data={indexes}
                 initialNumToRender={10}
