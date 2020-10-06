@@ -1,19 +1,20 @@
 import React from 'react';
-import {connect, ConnectedProps} from "react-redux";
-import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from "native-base";
+import {connect, ConnectedProps} from 'react-redux';
+import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from 'native-base';
 
-import {Style} from "Styles";
-import {AppText} from "Containers";
-import {BORDER_RADIUS_SM} from "../../../native-base-theme/variables/config";
-import {translate} from "Lib/Languages";
-import {RootStateInterface} from "Typescript/Interfaces";
+import {Style} from 'Styles';
+import {AppText} from 'Containers';
+import {BORDER_RADIUS_SM} from '../../../native-base-theme/variables/config';
+import {translate} from 'Lib/Languages';
+import {RootStateInterface} from 'Typescript/Interfaces';
+import {ChangeCurrency} from 'Store/Actions';
 
 const mapStateToProps = (state: RootStateInterface) => ({
-  locales: state.appReducer.locales,
+  currencies: state.appReducer.currencies,
 
   activeCurrency: state.appReducer.currency,
 });
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {ChangeCurrency});
 
 type propType = {
   onClose: () => void;
@@ -32,74 +33,35 @@ const CurrencyModal = (props: propType) => {
         </Body>
         <Right>
           <Button transparent onPress={props.onClose}>
-            <Icon type={'AntDesign'} name='close' style={[Style.f__18, Style.text__black,]}/>
+            <Icon type={'AntDesign'} name='close' style={[Style.f__18, Style.text__black]}/>
           </Button>
         </Right>
       </Header>
       <Content>
         <List>
-          {/*{*/}
-          {/*  props.locales.map(item =>*/}
-          {/*    <ListItem*/}
-          {/*      key={item.lang}*/}
-          {/*      onPress={() => props.ChangeLanguage({dir: `${item.dir}`, lang: `${item.lang}`})}*/}
-          {/*      style={[Style.px__3, Style.mx__0,]}>*/}
-          {/*      <Left><AppText>{item.label}</AppText></Left>*/}
-          {/*      <Right>*/}
-          {/*        <Icon*/}
-          {/*          style={[props.activeLang === item.lang ? Style.text__info : null]} type={'MaterialIcons'}*/}
-          {/*          name={props.activeLang === item.lang ? 'radio-button-checked' : 'radio-button-unchecked'}/>*/}
-          {/*      </Right>*/}
-          {/*    </ListItem>)*/}
-          {/*}*/}
-          <ListItem
-            style={[Style.px__3, Style.mx__0]}>
-            <Left>
-              <AppText>Iranian Rial
-                <AppText style={[Style.text__gray]}>(IRR)</AppText>
-              </AppText>
-            </Left>
-            <Right>
-              <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
-            </Right>
-          </ListItem>
-          <ListItem
-            style={[Style.px__3, Style.mx__0]}>
-            <Left>
-              <AppText>US Dollar
-                <AppText style={[Style.text__gray]}>(USD)</AppText>
-              </AppText>
-            </Left>
-            <Right>
-              <Icon style={[Style.text__info]} type={'MaterialIcons'} name="radio-button-checked"/>
-            </Right>
-          </ListItem>
-          <ListItem
-            style={[Style.px__3, Style.mx__0]}>
-            <Left>
-              <AppText>UAE Dirham
-                <AppText style={[Style.text__gray]}>(AED)</AppText>
-              </AppText>
-            </Left>
-            <Right>
-              <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
-            </Right>
-          </ListItem>
-          <ListItem
-            style={[Style.px__3, Style.mx__0]}>
-            <Left>
-              <AppText>Euro
-                <AppText style={[Style.text__gray]}>(€)</AppText>
-              </AppText>
-            </Left>
-            <Right>
-              <Icon type={'MaterialIcons'} name="radio-button-unchecked"/>
-            </Right>
-          </ListItem>
+          {
+            props.currencies.map(item =>
+              <ListItem
+                style={[Style.px__3, Style.mx__0]}
+                key={item.code}
+                onPress={() => props.ChangeCurrency(item.code) && props.onClose()}
+              >
+                <Left>
+                  <AppText>{item.label}
+                    <AppText style={[Style.text__gray]}>({item.code})</AppText>
+                  </AppText>
+                </Left>
+                <Right>
+                  <Icon type={'MaterialIcons'}
+                        style={[props.activeCurrency === item.code ? Style.text__info : null]}
+                        name={`radio-button-${props.activeCurrency === item.code ? '' : 'un'}checked`}/>
+                </Right>
+              </ListItem>)
+          }
         </List>
       </Content>
     </Container>
   );
 };
 
-export default connect(CurrencyModal);
+export default connector(CurrencyModal);
