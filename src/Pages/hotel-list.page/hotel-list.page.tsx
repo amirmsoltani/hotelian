@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
-import {Body, Container, Header, Icon, Left, Right, Spinner, Subtitle, Title} from 'native-base';
+import {Body, Container, Header, Icon, Left, Right, Spinner} from 'native-base';
 import {ProgressBar} from "@react-native-community/progress-bar-android";
 
 import {
@@ -17,7 +17,7 @@ import {Conditional, HotelCard, If} from 'Components';
 
 import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {AppText, BackNavigation} from 'Containers';
+import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = (
@@ -85,11 +85,12 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean, mo
           <Body>
             <TouchableOpacity
               onPress={() => this.props.push('/modify-search')}
-              style={[Style.bg__warning, Style.align__self_stretch]}
+              style={[Style.align__self_stretch]}
               activeOpacity={1}>
-              <Title style={[Style.f__12]}>{form_data?.destination?.label}</Title>
-              <Subtitle style={[Style.f__10,]}>
-                {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</Subtitle>
+              <AppTitle hasSubtitle>
+                {form_data?.destination?.label ? form_data?.destination?.label : ''}</AppTitle>
+              <AppSubtitle>
+                {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</AppSubtitle>
             </TouchableOpacity>
           </Body>
           <Right/>

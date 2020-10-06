@@ -4,22 +4,15 @@ import {RnTextStyleProp} from "native-base";
 
 import {Style} from "Styles";
 
-type propTypes = {
-  style?: RnTextStyleProp;
-  children: string;
-  hasSubtitle?: boolean;
-  [key: string]: any;
-}
-const AppTitle: React.FC<propTypes> = (props) => {
+const AppSubtitle: React.FC<{ style?: RnTextStyleProp, [key: string]: any, children: string }> = (props) => {
   return (
     <Text
       numberOfLines={1}
       {...props}
       style={[
         Style.text__white,
-        (props.hasSubtitle) ? Style.f__14 : Style.f__18,
+        Style.f__12,
         Style.text__left,
-        Style.text__bold,
         Style.text__capitalize,
         props?.style
       ]}>
@@ -28,11 +21,7 @@ const AppTitle: React.FC<propTypes> = (props) => {
   )
 };
 
-AppTitle.defaultProps = {
-  hasSubtitle: false,
-}
-
-export default AppTitle;
+export default AppSubtitle;
 
 
 
