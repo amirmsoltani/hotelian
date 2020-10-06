@@ -22,6 +22,7 @@ export const searchInit = async (): Promise<SearchStateInterface> => {
   let search_id;
   try {
     search_id = await Storage.load({key: 'search-id'});
+    defaultData.status = 'ok';
   } catch (e) {
     search_id = undefined;
   }
@@ -48,7 +49,7 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
       return {...state, form_data: {...state.form_data, ...action.payload}};
     }
     case SET_SEARCH_ID: {
-      return {...state, search_id: action.payload};
+      return {...state, search_id: action.payload, status: 'ok'};
     }
     case SEARCH_EXPIRE: {
       return {...state, search_id: 'expire'};
