@@ -1,6 +1,6 @@
 import {AppStateInterface} from '../../Typescript';
 import Storage from '../../Lib/Storage';
-import axios, {AxiosError} from 'axios';
+import axios from 'axios';
 import {
   INITIAL_URL,
   INTERNET_CONNECTION_ERROR,
@@ -8,7 +8,7 @@ import {
   USER_INITIAL_ERROR_MESSAGE,
   USER_TRACK_CODE_URL,
 } from 'URLS';
-import {AppActionsTypes, SET_LANGUAGE} from '../Actions';
+import {AppActionsTypes, CHANGE_CURRENCY, SET_LANGUAGE} from '../Actions';
 
 const defaultData: AppStateInterface = {
   today: {unix: 0, datetime: ''},
@@ -69,6 +69,9 @@ const AppReducer = (state: AppStateInterface = defaultData, action: AppActionsTy
   switch (action.type) {
     case SET_LANGUAGE: {
       return {...state, rtl: action.payload.rtl, json: action.payload.json, language: action.payload.lang};
+    }
+    case CHANGE_CURRENCY: {
+      return {...state, currency: action.payload};
     }
     default:
       return state;

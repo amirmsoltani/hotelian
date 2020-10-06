@@ -4,6 +4,12 @@ export type ChangeLanguageType = {
   payload: {lang: string, rtl: boolean};
 }
 
+export const CHANGE_CURRENCY = '[App Reducer] Change Currency';
+export type ChangeCurrencyType = {
+  readonly type: typeof CHANGE_CURRENCY;
+  payload: string;
+}
+
 export const SET_LANGUAGE = '[App Reducer] Set Language';
 export type SetLanguageType = {
   readonly type: typeof SET_LANGUAGE;
@@ -11,4 +17,4 @@ export type SetLanguageType = {
 }
 
 
-export type AppActionsTypes = SetLanguageType | ChangeLanguageType;
+export type AppActionsTypes = SetLanguageType | ChangeLanguageType | ChangeCurrencyType;
