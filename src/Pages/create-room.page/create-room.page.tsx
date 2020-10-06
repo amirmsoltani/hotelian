@@ -8,9 +8,9 @@ import {RoomType, RootStateInterface} from 'Typescript';
 import {RoomComponent} from 'Components';
 import {ChangeSearchData} from 'Store/Actions';
 import {randInt} from 'Lib/Random';
-import {AppText, BackNavigation} from 'Containers';
+import {AppText, AppTitle, BackNavigation} from 'Containers';
 import {Style} from 'Styles';
-import {translate} from 'Lib/Languages';
+import {translate as t, translate} from 'Lib/Languages';
 
 const connector = connect((state: RootStateInterface) => ({rooms: state.searchReducer.form_data.rooms}), {ChangeSearchData});
 const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenProps<{}>) => {
@@ -38,8 +38,7 @@ const CreateRoomPage = (props: ConnectedProps<typeof connector> & StackScreenPro
           <BackNavigation/>
         </Left>
         <Body>
-          <AppText style={[Style.f__18, Style.text__white, Style.text__capitalize]}>
-            {translate('rooms')}</AppText>
+          <AppTitle>{t('rooms')}</AppTitle>
         </Body>
         <Right/>
       </Header>

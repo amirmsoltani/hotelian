@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {Body, Button, Footer, Header, Icon, Left, Right, Title} from 'native-base';
+import {Body, Button, Footer, Header, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
 import {RootStateInterface} from 'Typescript';
@@ -10,7 +10,8 @@ import {Conditional, HotelsFilters, If} from 'Components';
 import {Style} from 'Styles';
 import style from '../search.page/search-page.styles';
 import {SHADOW_LG_XX} from '../../../native-base-theme/variables/config';
-import {AppText} from 'Containers';
+import {AppText, AppTitle, BackNavigation} from 'Containers';
+import {translate as t} from "../../Lib/Languages";
 
 const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInterface) => ({
   structure: filter!.structure,
@@ -26,7 +27,7 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {indexes: number[], name: string}}}> {
+class HotelsFilterPage extends PureComponent<Props, { filters: { [key: string]: { indexes: number[], name: string } } }> {
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
   change_filter: number;
 
@@ -50,7 +51,7 @@ class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {i
     this.setState({filters: {}});
   }
 
-  setstate(filters: {[key: string]: {indexes: number[], name: string}}) {
+  setstate(filters: { [key: string]: { indexes: number[], name: string } }) {
     this.setState({filters: {...this.state.filters, ...filters}});
   }
 
@@ -60,13 +61,8 @@ class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {i
     return (
       <>
         <Header style={[Style.bg__primary]}>
-          <Left>
-            <Button transparent>
-              <Icon type={'MaterialIcons'} name='keyboard-backspace'
-                    style={[Style.f__30, Style.text__white]}/>
-            </Button>
-          </Left>
-          <Body><Title>Set your filters</Title></Body>
+          <Left><BackNavigation/></Left>
+          <Body><AppTitle>{t('set-your-filters')}</AppTitle></Body>
           <Right>
             <Conditional>
               <If condition={canReset}>
