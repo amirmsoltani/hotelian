@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {Body, Button, Footer, Header, Left, Right} from 'native-base';
+import {FlatList, ScrollView, View} from 'react-native';
+import {Body, Button, Header, Icon, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
 import {RootStateInterface} from 'Typescript';
@@ -9,9 +9,9 @@ import {ApplyHotelsFilters} from 'Store/Actions';
 import {Conditional, HotelsFilters, If} from 'Components';
 import {Style} from 'Styles';
 import style from '../search.page/search-page.styles';
-import {SHADOW_LG_XX} from '../../../native-base-theme/variables/config';
 import {AppText, AppTitle, BackNavigation} from 'Containers';
-import {translate as t} from "../../Lib/Languages";
+import {translate, translate as t} from "../../Lib/Languages";
+import {COLOR_PRIMARY, SHADOW_LG_XX} from "../../../native-base-theme/variables/config";
 
 const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInterface) => ({
   structure: filter!.structure,
@@ -19,11 +19,9 @@ const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInte
   actives: filter!.actives,
   change_filter: change_filter,
 });
-
 const mapDispatchToProps = {
   ApplyHotelsFilters,
 };
-
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
@@ -31,6 +29,9 @@ class HotelsFilterPage extends PureComponent<Props, { filters: { [key: string]: 
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
   change_filter: number;
 
+  //=======================================
+  // Hooks
+  //=======================================
   constructor(props: Props) {
     super(props);
     if (props.structure === undefined)
@@ -47,15 +48,10 @@ class HotelsFilterPage extends PureComponent<Props, { filters: { [key: string]: 
       this.props.ApplyHotelsFilters(this.state.filters, this.props.structure);
   }
 
-  reset() {
-    this.setState({filters: {}});
-  }
-
-  setstate(filters: { [key: string]: { indexes: number[], name: string } }) {
-    this.setState({filters: {...this.state.filters, ...filters}});
-  }
-
   render() {
+    const activesArray = !this.props.actives || !Object.keys(this.props.actives).length ? [] :
+      Object.keys(this.props.actives).map(item => ({key: item, value: this.props.actives![item]}));
+    console.log(activesArray);
     const {numbers, structure} = this.props;
     const canReset = Object.keys(this.state.filters).length > 0;
     return (
@@ -84,30 +80,70 @@ class HotelsFilterPage extends PureComponent<Props, { filters: { [key: string]: 
             }
           </View>
         </ScrollView>
-        <Footer style={[SHADOW_LG_XX]}>
-          <Conditional>
-            <If
-              condition={this.props.change_filter !== this.change_filter}>
-              <Footer style={{backgroundColor: 'white'}}>
-                <TouchableOpacity
-                  style={{
-                    width: '100%',
-                    backgroundColor: 'rgba(30,40,50,.6)',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  onPress={() => this.props.navigation.navigate('hotels')}>
-                  <Text>Apply</Text>
-                </TouchableOpacity>
-              </Footer>
-            </If>
-          </Conditional>
-          <AppText>Footer goes here !!!</AppText>
-        </Footer>
+        <Conditional>
+          {/*<If condition={this.props.change_filter !== this.change_filter}>*/}
+          <If condition={true}>
+            <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX]}>
+              <FlatList
+                style={[Style.mb__1,]}
+                data={activesArray}
+                horizontal={true}
+                keyExtractor={item => item.key}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item}) => {
+                  return <Button
+                    transparent style={[Style.px__2]}
+                    activeOpacity={1}>
+                    <View style={[
+                      {borderWidth: .5, borderColor: COLOR_PRIMARY, borderRadius: 25},
+                      Style.bg__white,
+                      Style.px__2,
+                      Style.py__1,
+                    ]}>
+                      <View style={[Style.flex__row, Style.align__items_center, Style.p__1, Style.align__items_center]}>
+                        <Icon style={[Style.f__12, Style.px__0, Style.ml__0, Style.mr__1]} name='close'
+                              type='Ionicons'/>
+                        {/*<Conditional>*/}
+                        {/*  <If condition={item.value.name === 'stars'}>*/}
+                        {/*    {new Array(+item.key).map(_ =>*/}
+                        {/*      <Icon type='AntDesign' name='staro'*/}
+                        {/*            style={[Style.f__16, Style.text__primary]}/>)}*/}
+                        {/*  </If>*/}
+                        {/*  <Else>*/}
+                        <AppText style={[Style.text__primary, Style.mr__1, Style.f__10]}>
+                          {item.key} {item.value.name}
+                        </AppText>
+                        {/*  </Else>*/}
+                        {/*</Conditional>*/}
+                      </View>
+                    </View>
+                  </Button>
+                }
+                }
+              />
+              <Button block style={[Style.bg__primary, Style.w__100]}
+                      onPress={() => this.props.navigation.navigate('hotels')}>
+                <AppText style={[Style.text__white, Style.text__bold]}>{translate('apply')}</AppText>
+              </Button>
+            </View>
+          </If>
+        </Conditional>
       </>
     );
   }
-}
 
+
+  //=======================================
+  // Handlers
+  //=======================================
+  reset() {
+    this.setState({filters: {}});
+  }
+
+  setstate(filters: { [key: string]: { indexes: number[], name: string } }) {
+    this.setState({filters: {...this.state.filters, ...filters}});
+  }
+
+}
 
 export default connector(HotelsFilterPage);

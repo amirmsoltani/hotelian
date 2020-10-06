@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
-import {Body, Container, Header, Icon, Left, Right, Spinner} from 'native-base';
+import {Body, Header, Icon, Left, Right, Spinner} from 'native-base';
 import {ProgressBar} from "@react-native-community/progress-bar-android";
 
 import {
@@ -84,6 +84,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           <Left><BackNavigation/></Left>
           <Body>
             <TouchableOpacity
+              disabled={status !== 'ok'}
               onPress={() => this.props.push('/modify-search')}
               style={[Style.align__self_stretch]}
               activeOpacity={1}>
@@ -109,6 +110,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
 
             {/*sort*/}
             <TouchableOpacity
+              disabled={status !== 'ok'}
               activeOpacity={1}
               style={[
                 Style.col__4,
@@ -134,6 +136,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
 
             {/*filter*/}
             <TouchableOpacity
+              disabled={status !== 'ok'}
               activeOpacity={1}
               style={[
                 Style.col__4,
@@ -160,6 +163,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
 
             {/*map*/}
             <TouchableOpacity
+              disabled={status !== 'ok'}
               activeOpacity={1}
               style={[
                 Style.col__4, Style.h__100, Style.flex__row,
