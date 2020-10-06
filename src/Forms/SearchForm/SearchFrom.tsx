@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {Switch, TouchableOpacity, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {Button, Form} from 'native-base';
+import {Button, Form, Right} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 
 import {RootStateInterface} from 'Typescript';

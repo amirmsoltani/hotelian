@@ -45,16 +45,16 @@ export default function HotelsFilter({actives, length, structure, name, ChangeFi
                   onPressFilters={() => Change(item)}/>)
             }
           </If>
-          <ElIf condition={name === 'locations'}>
-            {
-              Object.keys(structure).map((item, index) => index < 5 ?
-                <HotelsFiltersAll
-                  item={item} structure={structure} actives={actives}
-                  name={name} key={item} length={length}
-                  onPressFilters={() => Change(item)}
-                /> : null)
-            }
-          </ElIf>
+          {/*<ElIf condition={name === 'locations'}>*/}
+          {/*  {*/}
+          {/*    Object.keys(structure).map((item, index) => index < 5 ?*/}
+          {/*      <HotelsFiltersAll*/}
+          {/*        item={item} structure={structure} actives={actives}*/}
+          {/*        name={name} key={item} length={length}*/}
+          {/*        onPressFilters={() => Change(item)}*/}
+          {/*      /> : null)*/}
+          {/*  }*/}
+          {/*</ElIf>*/}
           <Else>
             {
               Object.keys(structure).map(item => {

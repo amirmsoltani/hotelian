@@ -28,7 +28,6 @@ const HotelMapPage = ({hotels, indexes, navigation}: Props) => {
   return (
     <View style={{flex: 1,}}>
       <Header style={[Style.bg__primary,]}>
-        <StatusBar hidden/>
         <Left><BackNavigation/></Left>
         <Body><AppTitle>{t('map')}</AppTitle></Body>
         <Right/>
