@@ -13,7 +13,6 @@ import {
 } from '../Pages';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import ModifySearch from "../Forms/modify-search/modify-search";
 
 const Stack = createStackNavigator();
 const HotelsRoute = (props: { match: match }) => {
