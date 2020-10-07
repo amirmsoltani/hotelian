@@ -13,6 +13,7 @@ import {Conditional, Else, If} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
 import {translate as t, translate} from 'Lib/Languages';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
 
 const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
   search_id,
@@ -101,12 +102,11 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
         <Right>
           <Button style={[Style.justify__content_end]} transparent>
             <Icon onPress={() => Toast.show({
-              text: "Wrong password!",
+              text: "Saved successfully.",
               buttonText: "OK",
               duration: 3000,
-              buttonTextStyle: {color: "#008000"},
-              buttonStyle: {color: "#61dafb"},
-              textStyle: {color: 'white'},
+              buttonTextStyle: {color: "#61dafb"},
+              textStyle: {color: COLOR_WHITE},
               position: "bottom",
             })}
                   type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
