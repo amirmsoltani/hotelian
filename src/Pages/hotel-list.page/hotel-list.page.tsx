@@ -97,7 +97,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </Body>
           <Right/>
         </Header>
-        <Body style={[{backgroundColor: MUTED_LIGHT_XXX}, Style.w__100]}>
+        <Body style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1,}, Style.w__100]}>
 
           {/*actions*/}
           <View style={[
@@ -233,7 +233,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </Conditional>
 
           {/*hotel list*/}
-          <SafeAreaView style={[Style.w__100]}>
+          <SafeAreaView style={[Style.w__100, {flex: 1}]}>
             {status === 'ok' && search_status === 'ok' ?
               <VirtualizedList<HotelInterface>
                 data={indexes}
