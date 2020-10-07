@@ -1,16 +1,18 @@
-import React, {Component, PureComponent} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {connect, ConnectedProps} from 'react-redux';
-import {Body, Button, Footer, H1, Header, Icon, Spinner} from 'native-base';
-import {HotelInterface, RootStateInterface} from '../../Typescript';
-import {replace, push, goBack} from 'connected-react-router';
-import {GetHotel} from 'Store/Actions';
-import {StackScreenProps} from '@react-navigation/stack';
-import {Conditional, If, ElIf, Else} from 'Components';
-import {Style} from 'Styles';
+import React, {PureComponent} from 'react';
 import {useParams} from 'react-router-native';
-import {ImageType} from 'Typescript';
-import {translate} from 'Lib/Languages';
+import {connect, ConnectedProps} from 'react-redux';
+import {StackScreenProps} from '@react-navigation/stack';
+import {goBack, push, replace} from 'connected-react-router';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Body, Button, Footer, H1, Header, Icon, Left, Right, Spinner, Toast} from 'native-base';
+
+import {Style} from 'Styles';
+import {GetHotel} from 'Store/Actions';
+import {RootStateInterface} from 'Typescript';
+import {Conditional, Else, If} from 'Components';
+import {AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
+import {translate as t, translate} from 'Lib/Languages';
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 
 const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
   search_id,
@@ -19,24 +21,29 @@ const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}
   hotels: basicData?.hotels,
   router,
 });
-
 const mapDispatchToProps = {
   GetHotel,
   replace,
   push,
   goBack,
 };
-
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
 type Props =
   ConnectedProps<typeof connector>
-  & StackScreenProps<{hotel: {id: string, name: string, checkIn?: string, checkOut?: string}}, 'hotel'>;
+  & StackScreenProps<{ hotel: { id: string, name: string, checkIn?: string, checkOut?: string } }, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props> {
+class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
   id?: string;
+  hasSearchID: boolean;
+  state = {isLiked: false,}
 
+  //=======================================
+  // Hooks
+  //=======================================
   constructor(props: Props) {
     super(props);
+    this.hasSearchID = false;
     this.Ok = this.Ok.bind(this);
     this.Header = this.Header.bind(this);
     this.Loading = this.Loading.bind(this);
@@ -48,19 +55,82 @@ class HotelListPage extends PureComponent<Props> {
       this.props.GetHotel(+this.id!);
   }
 
+  render() {
+    const status = this.props.status;
+    return (
+      <>
+        <this.Header/>
+        <Body style={[Style.w__100]}>
+          <Conditional>
+            <If condition={status === 'ok'}>
+              <this.Ok/>
+            </If>
+            <Else>
+              <this.Loading/>
+            </Else>
+          </Conditional>
+        </Body>
+        <Footer>
+          <TouchableOpacity>
+            <Text>{translate('show-rooms')}</Text>
+          </TouchableOpacity>
+        </Footer>
+      </>
+    );
+  }
+
+
+  //=======================================
+  // Handlers
+  //=======================================
   Header() {
     const {name, checkOut, checkIn, id} = useParams();
+    this.hasSearchID = !!checkIn && !!checkOut;
     this.id = id;
-    return (<Header>
-      <Button onPress={this.props.goBack}>
-        <Text>
-          back
-        </Text>
-      </Button>
-      <Text>{checkIn}</Text>
-      <Text>{checkOut}</Text>
-      <Text>{name}</Text>
-    </Header>);
+    return (
+      <Header style={[Style.bg__primary]}>
+        <Left><BackNavigation/></Left>
+        <Body>
+          <AppTitle hasSubtitle={this.hasSearchID}>{name}</AppTitle>
+          <Conditional>
+            <If condition={this.hasSearchID}>
+              <AppSubtitle>{`${checkIn} - ${checkOut}`}</AppSubtitle>
+            </If>
+          </Conditional>
+        </Body>
+        <Right>
+          <Button style={[Style.justify__content_end]} transparent>
+            <Icon onPress={() => Toast.show({
+              text: "Wrong password!",
+              buttonText: "OK",
+              duration: 3000,
+              buttonTextStyle: {color: "#008000"},
+              buttonStyle: {color: "#61dafb"},
+              textStyle: {color: 'white'},
+              position: "bottom",
+            })}
+                  type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
+                  style={[Style.f__20, Style.text__right, Style.text__white]}/>
+          </Button>
+          <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
+            <Menu style={[Style.justify__content_center]}>
+              <MenuTrigger>
+                <Icon type='Ionicons' name='ellipsis-vertical'
+                      style={[Style.f__20, Style.text__right]}/>
+              </MenuTrigger>
+              <MenuOptions>
+                <MenuOption style={[Style.p__2]}>
+                  <AppText style={Style.text__black}>{t('change-language')}</AppText>
+                </MenuOption>
+                <MenuOption style={[Style.p__2]}>
+                  <AppText style={Style.text__black}>{t('change-currency')}</AppText>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+          </Button>
+        </Right>
+      </Header>
+    );
   }
 
   bookIt(id: number) {
@@ -82,7 +152,7 @@ class HotelListPage extends PureComponent<Props> {
           <Text>{hotel.location}</Text>
           <Text>{hotel.address}</Text>
           <Text>
-            {nsg_descriptions.replace(/\&lt\;br(\s|'')\/\&gt\;/g, '\n')}
+            {nsg_descriptions.replace(/&lt;br(\s|'')\/&gt;/g, '\n')}
           </Text>
         </View>
         <Image source={{uri: hotel.image}} style={[Style.w__100, {height: 300}]}/>
@@ -108,31 +178,14 @@ class HotelListPage extends PureComponent<Props> {
     );
   }
 
-
-  render() {
-    const status = this.props.status;
-    return (
-      <>
-        <this.Header/>
-        <Body style={[Style.w__100]}>
-          <Conditional>
-            <If condition={status === 'ok'}>
-              <this.Ok/>
-            </If>
-            <Else>
-              <this.Loading/>
-            </Else>
-          </Conditional>
-        </Body>
-        <Footer>
-          <TouchableOpacity>
-            <Text>{translate('show-rooms')}</Text>
-          </TouchableOpacity>
-        </Footer>
-      </>
-    );
+  like() {
+    this.setState({isLiked: true});
   }
-}
 
+  disLike() {
+    this.setState({isLiked: false});
+  }
+
+}
 
 export default connector(HotelListPage);
