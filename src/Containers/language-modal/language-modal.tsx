@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {Body, Button, Container, Content, Header, Icon, Left, List, ListItem, Right} from "native-base";
 
 import {Style} from "Styles";
-import {AppText} from "Containers";
+import {AppText} from "Containers/index";
 import {translate} from "Lib/Languages";
 import {ChangeLanguage} from "Store/Actions";
 import {RootStateInterface} from "Typescript";
