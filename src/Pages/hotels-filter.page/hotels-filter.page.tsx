@@ -80,8 +80,8 @@ class HotelsFilterPage extends PureComponent<Props, { filters: { [key: string]: 
           </View>
         </ScrollView>
         <Conditional>
-          {/*<If condition={this.props.change_filter !== this.change_filter}>*/}
-          <If condition={true}>
+          <If condition={this.props.change_filter !== this.change_filter}>
+          {/*<If condition={true}>*/}
             <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX]}>
               <FlatList
                 data={activesArray}

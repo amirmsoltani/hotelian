@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
-import {Body, Header, Icon, Left, Right, Spinner} from 'native-base';
+import {Body, Header, Icon, Left, ListItem, Right, Spinner} from 'native-base';
 import {ProgressBar} from "@react-native-community/progress-bar-android";
 
 import {
@@ -19,6 +19,7 @@ import {GetHotels} from 'Store/Actions';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {translate} from '../../Lib/Languages';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 
 const mapStateToProps = (
   {
@@ -109,16 +110,24 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           ]}>
 
             {/*sort*/}
-            <TouchableOpacity
-              disabled={status !== 'ok'}
-              activeOpacity={1}
-              style={[
-                Style.col__4,
-                Style.h__100,
-                Style.flex__row,
-                Style.justify__content_center,
-                Style.align__items_center]}>
-              <>
+            <Menu style={[
+              Style.col__4,
+              Style.h__100,
+              Style.flex__row,
+              Style.justify__content_center,
+              Style.align__items_center,]}>
+              <MenuTrigger customStyles={{
+                triggerWrapper: [
+                  Style.h__100,
+                  Style.justify__content_center,
+                  Style.align__items_center,
+                  Style.flex__row,
+                ],
+                triggerOuterWrapper: [
+                  Style.w__100,
+                  Style.h__100,
+                ],
+              }}>
                 <Icon type="MaterialIcons" name="sort" style={[Style.f__16, Style.text__info]}/>
                 <AppText style={[Style.ml__2, Style.text__primary]}>{translate('sort')}</AppText>
                 <Conditional>
@@ -128,8 +137,42 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
                     </View>
                   </If>
                 </Conditional>
-              </>
-            </TouchableOpacity>
+              </MenuTrigger>
+              <MenuOptions customStyles={{
+                optionsContainer: [
+                  {width: 270,},
+                ]
+              }}>
+                {/*TODO:
+                  1- borderWidth bottom for last ListItem
+                  2- active sort (red bullet)
+                */}
+                <MenuOption>
+                  <ListItem noIndent>
+                    <Left><AppText>{translate('Stars (5 to 0)')}</AppText></Left>
+                    <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
+                  </ListItem>
+                </MenuOption>
+                <MenuOption>
+                  <ListItem noIndent>
+                    <Left><AppText>{translate('Stars (0 to 5)')}</AppText></Left>
+                    <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
+                  </ListItem>
+                </MenuOption>
+                <MenuOption>
+                  <ListItem noIndent>
+                    <Left><AppText>{translate('Price (low to high)')}</AppText></Left>
+                    <Right><Icon style={[Style.text__info]} type={'MaterialIcons'} name='radio-button-checked'/></Right>
+                  </ListItem>
+                </MenuOption>
+                <MenuOption>
+                  <ListItem noIndent style={{borderBottomWidth: 0,}}>
+                    <Left><AppText>{translate('Price (high to low)')}</AppText></Left>
+                    <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
+                  </ListItem>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
 
             {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
