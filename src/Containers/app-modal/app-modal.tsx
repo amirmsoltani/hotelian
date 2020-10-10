@@ -6,9 +6,28 @@ type propType = {
   visibility?: boolean;
   onClose?: () => void;
   children: ReactNode;
+  position?: 'left' | 'right' | 'top' | 'bottom' | 'center';
 }
 
 const AppModal = (props: propType) => {
+  let styles = [];
+  const position = props.position || 'center';
+  switch (position) {
+    case "top":
+      styles = [Style.align__items_start,];
+      break;
+    case "bottom":
+      styles = [Style.align__items_end,];
+      break;
+    case "left":
+      styles = [Style.justify__content_start,];
+      break;
+    case "right":
+      styles = [Style.justify__content_end,];
+      break;
+    default:
+      styles = [Style.justify__content_center, Style.align__items_center,]
+  }
   return (
     <Modal
       animationType="fade"
@@ -22,8 +41,7 @@ const AppModal = (props: propType) => {
         style={[
           Style.w__100,
           Style.h__100,
-          Style.justify__content_center,
-          Style.align__items_center,
+
           {backgroundColor: 'rgba(0,0,0,0.4)'},
         ]}>
         <TouchableWithoutFeedback>
