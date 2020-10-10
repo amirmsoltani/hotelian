@@ -8,10 +8,12 @@ import style from './search-page.styles';
 import {translate as t} from 'Lib/Languages';
 import {Props, State} from './search-page.types';
 import SearchFrom from 'Forms/SearchForm/SearchFrom';
-import {AppModal, AppText, CurrencyModal, LanguageModal} from 'Containers';
+import {AppModal, AppText} from 'Containers';
 import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import {Conditional, ElIf, If, RecentSearch, TopDestination, TopProperty,} from 'Components';
+import LanguageModal from "../../Containers/language-modal/language-modal";
+import CurrencyModal from "../../Containers/currency-modal/currency-modal";
 
 
 class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
@@ -30,6 +32,11 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
   //=======================================
   // Hooks
   //=======================================
+  constructor(props: Props & StackScreenProps<{}>) {
+    super(props);
+    this.Header = this.Header.bind(this);
+  }
+
   render() {
     //dummy data
     const recentSearch = [
@@ -140,7 +147,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
     return (
       <>
         {/*header*/}
-        {this.Header()}
+        <this.Header/>
 
         {/*content*/}
         <Content style={style.container}>

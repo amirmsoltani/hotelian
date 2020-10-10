@@ -17,7 +17,7 @@ import {GetHotels} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
 import {Conditional, HotelCard, If} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
-import {HotelInterface, RootStateInterface, SearchFormDataInterface} from 'Typescript';
+import {HotelInterface, RootStateInterface} from 'Typescript';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 
 const mapStateToProps = (
@@ -56,11 +56,16 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     modifySearch: false,
   };
 
+
   //=======================================
   // Hooks
   //=======================================
   constructor(props: Props) {
     super(props);
+    this.Header = this.Header.bind(this);
+    this.Sort = this.Sort.bind(this);
+    this.Filter = this.Filter.bind(this);
+    this.Map = this.Map.bind(this);
     this.bookIt = this.bookIt.bind(this);
   }
 
@@ -79,7 +84,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     return (
       <>
         {/*header*/}
-        {this.Header(status, form_data)}
+        <this.Header/>
 
         {/*content*/}
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1,}, Style.w__100]}>
@@ -95,19 +100,19 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           ]}>
 
             {/*sort*/}
-            {this.Sort(status)}
+            <this.Sort/>
 
             {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*filter*/}
-            {this.Filter(status)}
+            <this.Filter/>
 
             {/*divider*/}
             <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*map*/}
-            {this.Map(status)}
+            <this.Map/>
 
           </View>
 
@@ -146,41 +151,44 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </SafeAreaView>
 
         </Body>
-        
+
       </>
     );
   }
 
+
   //=======================================
   // Sections
   //=======================================
-  Header(status: responseStatus, form_data: SearchFormDataInterface) {
+  Header() {
     return <Header style={[Style.bg__primary, Style.flex__row]}>
       <Left><BackNavigation/></Left>
       <Body>
         <TouchableOpacity
-          disabled={status !== 'ok'}
+          disabled={this.props.status !== 'ok'}
           onPress={() => this.props.push('/modify-search')}
           style={[Style.align__self_stretch]}
           activeOpacity={1}>
           <AppTitle hasSubtitle>
-            {form_data?.destination?.label ? form_data?.destination?.label : ''}</AppTitle>
+            {this.props.form_data?.destination?.label ? this.props.form_data?.destination?.label : ''}
+          </AppTitle>
           <AppSubtitle>
-            {`${form_data?.checkIn?.formatted} - ${form_data?.checkOut?.formatted}`}</AppSubtitle>
+            {`${this.props.form_data?.checkIn?.formatted} - ${this.props.form_data?.checkOut?.formatted}`}
+          </AppSubtitle>
         </TouchableOpacity>
       </Body>
       <Right/>
     </Header>
   }
 
-  Sort(status: responseStatus) {
+  Sort() {
     return <Menu style={[
       Style.col__4,
       Style.h__100,
       Style.flex__row,
       Style.justify__content_center,
       Style.align__items_center,]}>
-      <MenuTrigger disabled={status !== 'ok'} customStyles={{
+      <MenuTrigger disabled={this.props.status !== 'ok'} customStyles={{
         triggerWrapper: [
           Style.h__100,
           Style.justify__content_center,
@@ -235,9 +243,9 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     </Menu>
   }
 
-  Filter(status: responseStatus) {
+  Filter() {
     return <TouchableOpacity
-      disabled={status !== 'ok'}
+      disabled={this.props.status !== 'ok'}
       activeOpacity={1}
       style={[
         Style.col__4,
@@ -260,9 +268,9 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
     </TouchableOpacity>
   }
 
-  Map(status: responseStatus) {
+  Map() {
     return <TouchableOpacity
-      disabled={status !== 'ok'}
+      disabled={this.props.status !== 'ok'}
       activeOpacity={1}
       style={[
         Style.col__4, Style.h__100, Style.flex__row,

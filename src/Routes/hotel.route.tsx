@@ -14,8 +14,11 @@ const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: m
     <Container style={{backgroundColor: MUTED_LIGHT_XXX,}}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="hotel">
-          <Stack.Screen name="hotel" component={HotelPage} options={{headerShown: false}}
-                        initialParams={{id, name, checkIn, checkOut}}/>
+          <Stack.Screen
+            name="hotel"
+            component={HotelPage}
+            options={{headerShown: false}}
+            initialParams={{id, name, checkIn, checkOut}}/>
 
 
           {/*
@@ -27,7 +30,6 @@ const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: m
             5. review
             6. modify search
           */}
-          {/*<Stack.Screen name="" component={} options={{headerShown: false}}/>*/}
         </Stack.Navigator>
       </NavigationContainer>
     </Container>

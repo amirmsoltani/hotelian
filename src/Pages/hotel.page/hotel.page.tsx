@@ -1,15 +1,14 @@
 import React, {PureComponent} from 'react';
-import {useParams} from 'react-router-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {goBack, push, replace} from 'connected-react-router';
+import {push, replace} from 'connected-react-router';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Spinner, Toast} from 'native-base';
+import {ActionSheet, Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Spinner, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
 import {RootStateInterface} from 'Typescript';
-import {Conditional, Else, If} from 'Components';
+import {Conditional, If} from 'Components';
 import {translate as t, translate} from 'Lib/Languages';
 import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
@@ -22,16 +21,12 @@ const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}
   hotels: basicData?.hotels,
   router,
 });
-const mapDispatchToProps = {
-  GetHotel,
-  replace,
-  push,
-};
+const mapDispatchToProps = {GetHotel, replace, push,};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type Props =
-  ConnectedProps<typeof connector>
-  & StackScreenProps<{ hotel: { id: string, name: string, checkIn?: string, checkOut?: string } }, 'hotel'>;
+  ConnectedProps<typeof connector> &
+  StackScreenProps<{ hotel: { id: string, name: string, checkIn?: string, checkOut?: string }, }, 'hotel'>;
 
 class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
   id?: string;
@@ -47,30 +42,35 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     this.hasSearchID = false;
     this.Ok = this.Ok.bind(this);
     this.Header = this.Header.bind(this);
-    this.Loading = this.Loading.bind(this);
   }
 
   componentDidMount() {
     const {result} = this.props;
     if (this.props.status === undefined || (result && result.hotel.id !== +this.id!))
       this.props.GetHotel(+this.id!);
+
   }
 
   render() {
     const status = this.props.status;
+    const {checkOut, checkIn, id} = this.props.route.params;
+    this.id = id;
+    this.hasSearchID = !!checkIn && !!checkOut;
     return (
       <>
+        {/*header*/}
         <this.Header/>
+
+        {/*content*/}
         <Content style={[Style.w__100]}>
           <Conditional>
             <If condition={status === 'ok'}>
               <this.Ok/>
             </If>
-            <Else>
-              <this.Loading/>
-            </Else>
           </Conditional>
         </Content>
+
+        {/*footer*/}
         <Footer>
           <TouchableOpacity>
             <Text>{translate('show-rooms')}</Text>
@@ -85,17 +85,14 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
   // Sections
   //=======================================
   Header() {
-    const {name, checkOut, checkIn, id} = useParams();
-    this.hasSearchID = !!checkIn && !!checkOut;
-    this.id = id;
     return (
       <Header style={[Style.bg__primary]}>
         <Left><BackNavigation/></Left>
         <Body>
-          <AppTitle hasSubtitle={this.hasSearchID}>{name}</AppTitle>
+          <AppTitle hasSubtitle={this.hasSearchID}>{this.props.route.params.name}</AppTitle>
           <Conditional>
             <If condition={this.hasSearchID}>
-              <AppSubtitle>{`${checkIn} - ${checkOut}`}</AppSubtitle>
+              <AppSubtitle>{`${this.props.route.params.checkIn} - ${this.props.route.params.checkOut}`}</AppSubtitle>
             </If>
           </Conditional>
         </Body>
@@ -105,15 +102,19 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
                   type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
+          <Button style={[Style.justify__content_end]} transparent>
+            <Icon onPress={() => this.onShare()}
+                  type='Ionicons' name={'share-social-outline'}
+                  style={[Style.f__20, Style.text__right, Style.text__white]}/>
+          </Button>
           <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
             <Menu style={[Style.justify__content_center]}>
               <MenuTrigger>
-                <Icon type='Ionicons' name='ellipsis-vertical'
-                      style={[Style.f__20, Style.text__right]}/>
+                <Icon type='Ionicons' name='ellipsis-vertical' style={[Style.f__20, Style.text__right]}/>
               </MenuTrigger>
               <MenuOptions>
                 <MenuOption style={[Style.p__2]}>
-                  <AppText style={Style.text__black}>{t('change-language')}</AppText>
+                  <AppText style={Style.text__black}>{t('wish-list')}</AppText>
                 </MenuOption>
                 <MenuOption style={[Style.p__2]}>
                   <AppText style={Style.text__black}>{t('change-currency')}</AppText>
@@ -186,6 +187,23 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     });
   }
 
+  onShare() {
+    const BUTTONS = [
+      {text: "Option 0", icon: "facebook", iconColor: "#2c8ef4"},
+      {text: "Option 1", icon: "analytics", iconColor: "#f42ced"},
+      {text: "Option 2", icon: "aperture", iconColor: "#ea943b"},
+      {text: "Delete", icon: "trash", iconColor: "#fa213b"},
+      {text: "Cancel", icon: "close", iconColor: "#25de5b"},
+    ];
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        title: "Share via"
+      },
+      buttonIndex => {
+        // this.setState({clicked: BUTTONS[buttonIndex]});
+      })
+  }
 }
 
 export default connector(HotelListPage);
