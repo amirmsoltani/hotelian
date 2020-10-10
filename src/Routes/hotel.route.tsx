@@ -5,12 +5,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {HotelPage,} from '../Pages';
+import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
 
 const Stack = createStackNavigator();
 
 const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: match<{ id: string, name: string, checkIn?: string, checkOut?: string }> }) => {
   return (
-    <Container>
+    <Container style={{backgroundColor: MUTED_LIGHT_XXX,}}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="hotel">
           <Stack.Screen name="hotel" component={HotelPage} options={{headerShown: false}}

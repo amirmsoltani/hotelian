@@ -3,17 +3,17 @@ import {useParams} from 'react-router-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
 import {goBack, push, replace} from 'connected-react-router';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {Body, Button, Footer, H1, Header, Icon, Left, Right, Spinner, Toast} from 'native-base';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Spinner, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
 import {RootStateInterface} from 'Typescript';
 import {Conditional, Else, If} from 'Components';
-import {AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
 import {translate as t, translate} from 'Lib/Languages';
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
+import {AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 
 const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
   search_id,
@@ -26,7 +26,6 @@ const mapDispatchToProps = {
   GetHotel,
   replace,
   push,
-  goBack,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
@@ -38,6 +37,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
   id?: string;
   hasSearchID: boolean;
   state = {isLiked: false,}
+
 
   //=======================================
   // Hooks
@@ -61,7 +61,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     return (
       <>
         <this.Header/>
-        <Body style={[Style.w__100]}>
+        <Content style={[Style.w__100]}>
           <Conditional>
             <If condition={status === 'ok'}>
               <this.Ok/>
@@ -70,7 +70,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
               <this.Loading/>
             </Else>
           </Conditional>
-        </Body>
+        </Content>
         <Footer>
           <TouchableOpacity>
             <Text>{translate('show-rooms')}</Text>
@@ -82,7 +82,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
 
 
   //=======================================
-  // Handlers
+  // Sections
   //=======================================
   Header() {
     const {name, checkOut, checkIn, id} = useParams();
@@ -101,14 +101,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
         </Body>
         <Right>
           <Button style={[Style.justify__content_end]} transparent>
-            <Icon onPress={() => Toast.show({
-              text: "Saved successfully.",
-              buttonText: "OK",
-              duration: 3000,
-              buttonTextStyle: {color: "#61dafb"},
-              textStyle: {color: COLOR_WHITE},
-              position: "bottom",
-            })}
+            <Icon onPress={() => this.onLike()}
                   type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
@@ -133,15 +126,11 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     );
   }
 
-  bookIt(id: number) {
-    this.props.push(`/passengers/${id}`);
-  }
-
   Ok() {
     const {hotel, nsg_images, nsg_descriptions, nsg_facilities} = this.props.result!;
     return (
-      <ScrollView>
-        <View style={[Style.bg__info, Style.w__100]}>
+      <>
+        <View style={[Style.bg__info,]}>
           <View>
             {
               [...(new Array(+hotel.star)).keys()].map((name) => <Icon key={name} type={'Entypo'} name='star'/>)
@@ -168,7 +157,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
             </View>
           ))
         }
-      </ScrollView>
+      </>
     );
   }
 
@@ -178,12 +167,23 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     );
   }
 
-  like() {
-    this.setState({isLiked: true});
+
+  //=======================================
+  // Handlers
+  //=======================================
+  bookIt(id: number) {
+    this.props.push(`/passengers/${id}`);
   }
 
-  disLike() {
-    this.setState({isLiked: false});
+  onLike() {
+    this.setState({isLiked: !this.state.isLiked}, () => {
+      Toast.show({
+        text: `${this.state.isLiked ? 'Saved' : 'Removed'} successfully.`,
+        duration: 3000,
+        textStyle: {color: COLOR_WHITE},
+        position: "bottom",
+      })
+    });
   }
 
 }
