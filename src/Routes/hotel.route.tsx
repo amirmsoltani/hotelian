@@ -26,9 +26,10 @@ const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: m
             1. *select room
             2. *filter
             3. *map
-            4. slider
-            5. review
-            6. modify search
+            4. slider flat list
+            5. slider carousel
+            6. review modal
+            7. modify search
           */}
         </Stack.Navigator>
       </NavigationContainer>

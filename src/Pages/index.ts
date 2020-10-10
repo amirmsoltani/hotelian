@@ -8,3 +8,4 @@ export {default as HotelsFilterPage} from './hotels-filter.page/hotels-filter.pa
 export {default as HotelsMapPage} from './hotels-map.page/hotel-map.page';
 export {default as HotelPage} from './hotel.page/hotel.page';
 export {default as TestPage} from './test/test.page';
+export {default as ShareModal} from './share-modal/share-modal';

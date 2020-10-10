@@ -1,18 +1,20 @@
 import React, {PureComponent} from 'react';
+import {Image, Text, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
-import {StackScreenProps} from '@react-navigation/stack';
 import {push, replace} from 'connected-react-router';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {ActionSheet, Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Spinner, Toast} from 'native-base';
+import {StackScreenProps} from '@react-navigation/stack';
+import {ProgressBar} from "@react-native-community/progress-bar-android";
+import {Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
+import {Conditional, ElIf, If} from 'Components';
 import {RootStateInterface} from 'Typescript';
-import {Conditional, If} from 'Components';
 import {translate as t, translate} from 'Lib/Languages';
-import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
-import {AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
+import {COLOR_WARNING, COLOR_WHITE} from "../../../native-base-theme/variables/config";
+import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {ShareModal} from "../index";
 
 const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
   search_id,
@@ -23,15 +25,22 @@ const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}
 });
 const mapDispatchToProps = {GetHotel, replace, push,};
 const connector = connect(mapStateToProps, mapDispatchToProps);
+const styles = {
+  container: [Style.mx__1, Style.mb__1, Style.bg__white, Style.py__2]
+}
+
 
 type Props =
   ConnectedProps<typeof connector> &
   StackScreenProps<{ hotel: { id: string, name: string, checkIn?: string, checkOut?: string }, }, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
+class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
   id?: string;
   hasSearchID: boolean;
-  state = {isLiked: false,}
+  state = {
+    isLiked: false,
+    shareModal: false,
+  }
 
 
   //=======================================
@@ -42,6 +51,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     this.hasSearchID = false;
     this.Ok = this.Ok.bind(this);
     this.Header = this.Header.bind(this);
+    this.HotelDetails = this.HotelDetails.bind(this);
   }
 
   componentDidMount() {
@@ -62,20 +72,44 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
         <this.Header/>
 
         {/*content*/}
-        <Content style={[Style.w__100]}>
+        <Content style={[Style.w__100, Style.py__1]}>
           <Conditional>
-            <If condition={status === 'ok'}>
-              <this.Ok/>
+            <If condition={status === 'loading'}>
+              <View style={[Style.w__100, Style.py__0]}>
+                <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_WARNING} styleAttr="Horizontal"/>
+              </View>
             </If>
+            <ElIf condition={status === 'ok'}>
+              <this.HotelDetails/>
+            </ElIf>
+            <ElIf condition={status === 'error'}>
+              <AppText>Some thing went wrong</AppText>
+            </ElIf>
           </Conditional>
         </Content>
 
+        {/*share modal*/}
+        <AppModal
+          visibility={this.state.shareModal}
+          position={'bottom'} animation={'slide'}
+          onClose={() => this.setState({shareModal: false})}>
+          <ShareModal/>
+        </AppModal>
+
         {/*footer*/}
-        <Footer>
-          <TouchableOpacity>
-            <Text>{translate('show-rooms')}</Text>
-          </TouchableOpacity>
-        </Footer>
+        <Conditional>
+          <If condition={this.hasSearchID}>
+            <Footer style={[Style.bg__white]}>
+              <View style={[Style.w__100, Style.p__1]}>
+                <Button block style={[Style.bg__primary]}>
+                  <AppText style={[Style.text__white, Style.text__bold]}>
+                    {translate('select-room')}</AppText>
+                </Button>
+              </View>
+            </Footer>
+          </If>
+        </Conditional>
+
       </>
     );
   }
@@ -97,14 +131,14 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
           </Conditional>
         </Body>
         <Right>
-          <Button style={[Style.justify__content_end]} transparent>
-            <Icon onPress={() => this.onLike()}
-                  type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
+          <Button onPress={() => this.onLike()}
+                  style={[Style.justify__content_end]} transparent>
+            <Icon type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
-          <Button style={[Style.justify__content_end]} transparent>
-            <Icon onPress={() => this.onShare()}
-                  type='Ionicons' name={'share-social-outline'}
+          <Button onPress={() => this.onShare()}
+                  style={[Style.justify__content_end]} transparent>
+            <Icon type='Ionicons' name={'share-social-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
           <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
@@ -131,7 +165,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     const {hotel, nsg_images, nsg_descriptions, nsg_facilities} = this.props.result!;
     return (
       <>
-        <View style={[Style.bg__info,]}>
+        <View>
           <View>
             {
               [...(new Array(+hotel.star)).keys()].map((name) => <Icon key={name} type={'Entypo'} name='star'/>)
@@ -146,15 +180,11 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
           </Text>
         </View>
         <Image source={{uri: hotel.image}} style={[Style.w__100, {height: 300}]}/>
-        {/*  TODO add Carousel after create component*/}
         {
           Object.values(nsg_facilities).map(item => (
             <View key={item.name}>
-
               <H1 style={[Style.w__100]}>{item.name}</H1>
-              {
-                item.values.map(data => <Text key={data}>{data}</Text>)
-              }
+              {item.values.map(data => <Text key={data}>{data}</Text>)}
             </View>
           ))
         }
@@ -162,12 +192,59 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
     );
   }
 
-  Loading() {
-    return (
-      <Spinner style={[Style.mb__auto, Style.mt__auto, Style.ml__auto, Style.mr__auto]}/>
-    );
+  HotelDetails() {
+    const {hotel} = this.props.result!;
+    return <View style={styles.container}>
+
+      {/*name*/}
+      <View style={[Style.px__3,]}>
+        <AppText style={[Style.text__bold, Style.f__14]}>{hotel.name}</AppText>
+      </View>
+
+      {/*star*/}
+      <View style={[Style.px__3, Style.flex__row, Style.mb__2]}>
+        {[...(new Array(hotel.star).keys())].map(index =>
+          <Icon type={'AntDesign'} name="star" key={index} style={[Style.f__10, Style.text__warning]}/>)}
+      </View>
+
+      {/*location and address*/}
+      <View style={[Style.px__3, Style.mb__1]}>
+        <View style={[Style.flex__row, Style.align__items_center]}>
+          <Icon type='SimpleLineIcons' name='location-pin'
+                style={[Style.text__black, Style.ml__0, Style.mr__1, Style.f__12]}/>
+          <AppText style={[Style.f__12]}>{hotel.location}</AppText>
+        </View>
+        <View style={[Style.mb__1]}>
+          <AppText style={[Style.f__10, Style.text__wrap, Style.text__gray_d_X]}>{hotel.address}</AppText>
+        </View>
+      </View>
+
+    </View>;
   }
 
+  HotelImages() {
+    // return <View style={[styles.container]}>
+    //   <View>
+    //     <View>
+    //       <Image source={}/>
+    //     </View>
+    //     <View>
+    //       <Image source={}/>
+    //     </View>
+    //   </View>
+    //   <View>
+    //     <View>
+    //       <Image source={}/>
+    //     </View>
+    //     <View>
+    //       <Image source={}/>
+    //     </View>
+    //     <View>
+    //       <Image source={}/>
+    //     </View>
+    //   </View>
+    // </View>
+  }
 
   //=======================================
   // Handlers
@@ -188,21 +265,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean }> {
   }
 
   onShare() {
-    const BUTTONS = [
-      {text: "Option 0", icon: "facebook", iconColor: "#2c8ef4"},
-      {text: "Option 1", icon: "analytics", iconColor: "#f42ced"},
-      {text: "Option 2", icon: "aperture", iconColor: "#ea943b"},
-      {text: "Delete", icon: "trash", iconColor: "#fa213b"},
-      {text: "Cancel", icon: "close", iconColor: "#25de5b"},
-    ];
-    ActionSheet.show(
-      {
-        options: BUTTONS,
-        title: "Share via"
-      },
-      buttonIndex => {
-        // this.setState({clicked: BUTTONS[buttonIndex]});
-      })
+    this.setState({shareModal: true});
   }
 }
 

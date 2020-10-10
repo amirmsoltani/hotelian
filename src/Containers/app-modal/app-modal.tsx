@@ -7,6 +7,7 @@ type propType = {
   onClose?: () => void;
   children: ReactNode;
   position?: 'left' | 'right' | 'top' | 'bottom' | 'center';
+  animation?: 'none' | 'fade' | 'slide';
 }
 
 const AppModal = (props: propType) => {
@@ -14,23 +15,23 @@ const AppModal = (props: propType) => {
   const position = props.position || 'center';
   switch (position) {
     case "top":
-      styles = [Style.align__items_start,];
+      styles = [Style.justify__content_start, Style.align__items_center];
       break;
     case "bottom":
-      styles = [Style.align__items_end,];
+      styles = [Style.justify__content_end, Style.align__items_center];
       break;
     case "left":
-      styles = [Style.justify__content_start,];
+      styles = [Style.justify__content_center, Style.align__items_start];
       break;
     case "right":
-      styles = [Style.justify__content_end,];
+      styles = [Style.justify__content_center, Style.align__items_end];
       break;
     default:
       styles = [Style.justify__content_center, Style.align__items_center,]
   }
   return (
     <Modal
-      animationType="fade"
+      animationType={props.animation || 'fade'}
       transparent={true}
       visible={props.visibility || false}
       onRequestClose={props.onClose}
@@ -39,12 +40,12 @@ const AppModal = (props: propType) => {
         activeOpacity={1}
         onPress={props.onClose}
         style={[
+          ...styles,
           Style.w__100,
           Style.h__100,
-
           {backgroundColor: 'rgba(0,0,0,0.4)'},
         ]}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback style={[Style.bg__warning]}>
           {props.children}
         </TouchableWithoutFeedback>
       </TouchableOpacity>
