@@ -26,14 +26,13 @@ const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsA
     case SEARCH_EXPIRE: {
       return {...state, status: 'expire'};
     }
-    case SET_HOTELS_AFTER_FILTERS:
-    case APPLY_HOTELS_FILTER: {
+    case SET_HOTELS_AFTER_FILTERS: {
       return {
         ...state,
         change_filter: state.change_filter + 1,
         filter: {
           ...state.filter!,
-          hotels: action.payload.actives ? action.payload.hotels : state.basicData!.hotels!.map((_, index) => index),
+          hotels: action.payload.hotels,
           numbers: action.payload.structure,
           actives: action.payload.actives,
         },

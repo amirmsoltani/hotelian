@@ -66,7 +66,7 @@ class App extends React.Component<any, {ok: boolean, json?: {[key: string]: stri
       Storage.remove({key: 'history-entries'}).then();
       Storage.clearMapForKey('history-entries').then();
     } else if (state === 'inactive') {
-      this.moveToBackground('active');
+      this.moveToBackground('background');
     }
   }).bind(this);
 

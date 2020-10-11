@@ -1,7 +1,7 @@
 import {SearchDetailsInterface} from './search-details.interface';
 import {HotelsFilterInterface} from './hotels-filter.interface';
 import {HotelInterface} from './hotel.interface';
-import {FacilityType} from '../Types';
+import {FacilityType, HotelsActivesFilterType, SortType} from '../Types';
 
 export interface HotelsStateInterface {
   status: 'ok' | 'loading' | 'expire' | 'error' | null;
@@ -9,8 +9,9 @@ export interface HotelsStateInterface {
   filter?: {
     hotels: number[];
     structure: HotelsFilterInterface;
-    actives?: {[key: string]: {indexes: number[], name: string}};
-    numbers?: HotelsFilterInterface<number[]>;
+    actives?: HotelsActivesFilterType;
+    numbers?: HotelsFilterInterface;
+    sortBy: keyof SortType;
   }
   basicData?: {
     search_id: string;
