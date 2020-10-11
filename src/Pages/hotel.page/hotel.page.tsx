@@ -1,20 +1,20 @@
 import React, {PureComponent} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ProgressBar} from "@react-native-community/progress-bar-android";
 import {Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
-import {Conditional, ElIf, If} from 'Components';
+import {Conditional, ElIf, HotelFacilities, If, ScreenLoading} from 'Components';
 import {RootStateInterface} from 'Typescript';
 import {translate as t, translate} from 'Lib/Languages';
-import {COLOR_WARNING, COLOR_WHITE} from "../../../native-base-theme/variables/config";
+import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
 import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import {ShareModal} from "../index";
+import HotelImages from "../../Components/hotel-images/hotel-images";
 
 const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
   search_id,
@@ -26,7 +26,7 @@ const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}
 const mapDispatchToProps = {GetHotel, replace, push,};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 const styles = {
-  container: [Style.mx__1, Style.mb__1, Style.bg__white, Style.py__2]
+  container: [Style.mb__1, Style.bg__white, Style.py__2]
 }
 
 
@@ -49,9 +49,9 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
   constructor(props: Props) {
     super(props);
     this.hasSearchID = false;
-    this.Ok = this.Ok.bind(this);
     this.Header = this.Header.bind(this);
     this.HotelDetails = this.HotelDetails.bind(this);
+    this.HotelDescription = this.HotelDescription.bind(this);
   }
 
   componentDidMount() {
@@ -72,15 +72,17 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
         <this.Header/>
 
         {/*content*/}
-        <Content style={[Style.w__100, Style.py__1]}>
+        <Content style={[Style.w__100]}>
           <Conditional>
-            <If condition={status === 'loading'}>
-              <View style={[Style.w__100, Style.py__0]}>
-                <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_WARNING} styleAttr="Horizontal"/>
-              </View>
-            </If>
+            <If condition={status === 'loading'}><ScreenLoading/></If>
             <ElIf condition={status === 'ok'}>
+              <HotelImages image={this.props.result?.nsg_images.map(item => item.original)}/>
               <this.HotelDetails/>
+              <this.HotelDescription/>
+              {
+                Object.values(this.props.result?.nsg_facilities ?? []).map(item =>
+                  <HotelFacilities key={item.name} name={item.name} values={item.values}/>)
+              }
             </ElIf>
             <ElIf condition={status === 'error'}>
               <AppText>Some thing went wrong</AppText>
@@ -161,37 +163,6 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
     );
   }
 
-  Ok() {
-    const {hotel, nsg_images, nsg_descriptions, nsg_facilities} = this.props.result!;
-    return (
-      <>
-        <View>
-          <View>
-            {
-              [...(new Array(+hotel.star)).keys()].map((name) => <Icon key={name} type={'Entypo'} name='star'/>)
-            }
-          </View>
-          <H1>{hotel.name}</H1>
-          <Icon name='location' type={'Entypo'}/>
-          <Text>{hotel.location}</Text>
-          <Text>{hotel.address}</Text>
-          <Text>
-            {nsg_descriptions.replace(/&lt;br(\s|'')\/&gt;/g, '\n')}
-          </Text>
-        </View>
-        <Image source={{uri: hotel.image}} style={[Style.w__100, {height: 300}]}/>
-        {
-          Object.values(nsg_facilities).map(item => (
-            <View key={item.name}>
-              <H1 style={[Style.w__100]}>{item.name}</H1>
-              {item.values.map(data => <Text key={data}>{data}</Text>)}
-            </View>
-          ))
-        }
-      </>
-    );
-  }
-
   HotelDetails() {
     const {hotel} = this.props.result!;
     return <View style={styles.container}>
@@ -222,29 +193,21 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
     </View>;
   }
 
-  HotelImages() {
-    // return <View style={[styles.container]}>
-    //   <View>
-    //     <View>
-    //       <Image source={}/>
-    //     </View>
-    //     <View>
-    //       <Image source={}/>
-    //     </View>
-    //   </View>
-    //   <View>
-    //     <View>
-    //       <Image source={}/>
-    //     </View>
-    //     <View>
-    //       <Image source={}/>
-    //     </View>
-    //     <View>
-    //       <Image source={}/>
-    //     </View>
-    //   </View>
-    // </View>
+  HotelDescription() {
+    const descriptions = this.props.result?.nsg_descriptions;
+    return descriptions ? <View style={[styles.container, Style.px__3]}>
+      <View style={[Style.flex__row, Style.align__items_center, Style.mb__2]}>
+        <Icon style={[Style.f__16, Style.mr__1]}
+              name='md-information-circle-outline' type='Ionicons'/>
+        <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize]}>
+          {translate('hotel-description')}</AppText>
+      </View>
+      <AppText style={[Style.f__12]}>
+        {descriptions.replace(/&lt;br(\s|'')\/&gt;/g, '\n')}
+      </AppText>
+    </View> : null;
   }
+
 
   //=======================================
   // Handlers
@@ -267,6 +230,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
   onShare() {
     this.setState({shareModal: true});
   }
+
 }
 
 export default connector(HotelListPage);

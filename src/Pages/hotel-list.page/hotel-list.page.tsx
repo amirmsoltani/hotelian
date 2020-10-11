@@ -6,12 +6,7 @@ import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-nativ
 import {Body, Header, Icon, Left, ListItem, Right, Spinner} from 'native-base';
 import {ProgressBar} from "@react-native-community/progress-bar-android";
 
-import {
-  COLOR_WARNING,
-  MUTED_LIGHT_XX,
-  MUTED_LIGHT_XXX,
-  SHADOW_SM_X,
-} from '../../../native-base-theme/variables/config';
+import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X,} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
 import {GetHotels} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
@@ -120,7 +115,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           <Conditional>
             <If condition={status === 'loading' || search_status === 'loading'}>
               <View style={[Style.w__100, Style.py__0]}>
-                <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_WARNING}
+                <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_INFO}
                              styleAttr="Horizontal"/>
               </View>
             </If>

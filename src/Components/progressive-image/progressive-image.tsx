@@ -1,10 +1,12 @@
 import React from 'react';
+import {Image, ImageProps, View} from "react-native";
+import {MUTED_LIGHT_XXX} from "../../../native-base-theme/variables/config";
 
-const ProgressiveImage = () => {
+const ProgressiveImage = (props: ImageProps) => {
   return (
-    <div>
-      
-      </div>
+    <View style={{backgroundColor: MUTED_LIGHT_XXX}}>
+      <Image {...props} />
+    </View>
   );
 };
 
