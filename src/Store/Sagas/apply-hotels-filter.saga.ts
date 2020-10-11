@@ -1,11 +1,10 @@
 import {put, select, takeLatest} from 'redux-saga/effects';
 import {APPLY_HOTELS_FILTER, ApplyHotelsFilterType, SetHotelsAfterFilters} from '../Actions';
-import {HotelInterface, HotelsActivesFilterType, HotelsFilterInterface, RootStateInterface, SortType} from 'Typescript';
+import {HotelsActivesFilterType, HotelsFilterInterface, RootStateInterface, SortType} from 'Typescript';
 import {Unity, Union} from 'Lib/FilterTool';
-import {ObjectForEtch, ObjectKeys, ObjectLen} from 'Lib/ObjectTool';
+import {ObjectForEtch, ObjectLen} from 'Lib/ObjectTool';
 
 function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
-  console.log(payload);
   const {structure, activeFilters, sortBy}: {activeFilters: HotelsActivesFilterType, structure: HotelsFilterInterface, sortBy: keyof SortType} = yield select((state: RootStateInterface) => (
     {
       activeFilters: state.hotelsReducer.filter!.actives!,
@@ -14,15 +13,15 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
     }
   ));
   const activeLength = ObjectLen(payload);
-  let sort = activeFilters[sortBy].indexes;
+  let sort = [...activeFilters[sortBy].indexes];
   delete activeFilters[sortBy];
   if (!activeLength) {
-    yield put(SetHotelsAfterFilters(undefined, structure, sort));
+    yield put(SetHotelsAfterFilters({[sortBy]: {name: 'sort', indexes: sort}}, structure, sort));
     return;
   }
   const unionFilters: {[key: string]: number[]} = {};
-  const newActiveFilter: HotelsActivesFilterType = {};
-  const structure2: any = {};
+  const newActiveFilter: HotelsActivesFilterType = {[sortBy]: {name: 'sort', indexes: sort}};
+  let structure2: any = {};
   ObjectForEtch({...activeFilters, ...payload!}, (key, value) => {
     if (key in activeFilters && key in payload!)
       return;
@@ -32,14 +31,21 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
       unionFilters[value.name] = [...value.indexes];
     newActiveFilter[key] = value;
   });
-  const unityFilters = Unity({unity: sort, args: Object.values(unionFilters)});
-  ObjectForEtch(structure, ((key, value) => {
-    if (key === 'sort')
-      return;
-    ObjectForEtch(value, ((key1, value1) => {
-      structure2[key][key1] = Unity({unity: unityFilters, args: [value1]});
+  let unityFilters: typeof sort;
+  if (ObjectLen(newActiveFilter) > 1) {
+    unityFilters = Unity({unity: sort, args: Object.values(unionFilters)});
+    ObjectForEtch(structure, ((key, value) => {
+      if (key === 'sort')
+        return;
+      structure2[key] = {};
+      ObjectForEtch(value, ((key1, value1) => {
+        structure2[key][key1] = Unity({unity: unityFilters, args: [value1]});
+      }));
     }));
-  }));
+  } else {
+    structure2 = {...structure};
+    unityFilters = sort;
+  }
   yield put(SetHotelsAfterFilters(newActiveFilter, structure2, unityFilters));
 
 }

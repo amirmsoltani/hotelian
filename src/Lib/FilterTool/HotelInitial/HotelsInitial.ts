@@ -8,7 +8,7 @@ class HotelsInitial {
   protected stars: StarsRatingType;
   protected locations: {[key: string]: number[]};
   protected prices: {[key: string]: number[]};
-  protected sorting: SortType;
+  public sorting: SortType;
   public hotelsIndex: number[] = [];
   static readonly boardType_regex = /all\sinclusive|half\sboard|full\sboard|breakfast|room\sonly/g;
   static readonly convertToBoardType: { [key in string]: keyof BoardTypeType } = {

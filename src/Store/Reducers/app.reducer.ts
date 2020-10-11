@@ -56,7 +56,7 @@ export const appInit = async (): Promise<AppStateInterface> => {
     defaultData.today = response.data.result.today;
     defaultData.json = (await axios.get(LANGUAGE_URL + defaultData.language)).data.result;
   } catch (e) {
-    console.log(e, e.message, e.isAxiosError);
+    console.log(e.request, e.message, e.isAxiosError);
     defaultData.status = 'error';
     if (e.isAxiosError && e.message === 'Network Error')
       defaultData.message = INTERNET_CONNECTION_ERROR;
