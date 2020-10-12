@@ -1,138 +1,238 @@
-import React, {Component, PureComponent} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
+import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {Body, Button, Footer, H1, Header, Icon, Spinner} from 'native-base';
-import {HotelInterface, RootStateInterface} from '../../Typescript';
-import {replace, push, goBack} from 'connected-react-router';
-import {GetHotel} from 'Store/Actions';
+import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Conditional, If, ElIf, Else} from 'Components';
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {Body, Button, Content, Footer, Header, Icon, Left, Right, Toast} from 'native-base';
+
 import {Style} from 'Styles';
-import {useParams} from 'react-router-native';
-import {ImageType} from 'Typescript';
-import {translate} from 'Lib/Languages';
+import {GetHotel} from 'Store/Actions';
+import {RootStateInterface} from 'Typescript';
+import {translate as t, translate} from 'Lib/Languages';
+import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
+import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
+import {Conditional, ElIf, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
 
-const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
-  search_id,
-  status,
-  result,
-  hotels: basicData?.hotels,
-  router,
-});
-
-const mapDispatchToProps = {
-  GetHotel,
-  replace,
-  push,
-  goBack,
-};
-
+const mapStateToProps = (
+  {
+    hotelsReducer: {basicData},
+    searchReducer: {search_id},
+    hotelReducer: {hotel: {status, result}}, router
+  }: RootStateInterface) => (
+  {
+    search_id,
+    status,
+    result,
+    hotels: basicData?.hotels,
+    router,
+  });
+const mapDispatchToProps = {GetHotel, replace, push,};
 const connector = connect(mapStateToProps, mapDispatchToProps);
+const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]}
+
+
 type Props =
-  ConnectedProps<typeof connector>
-  & StackScreenProps<{hotel: {id: string, name: string, checkIn?: string, checkOut?: string}}, 'hotel'>;
+  ConnectedProps<typeof connector> &
+  StackScreenProps<{ hotel: { id: string, name: string, checkIn?: string, checkOut?: string }, }, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props> {
+class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
   id?: string;
+  hasSearchID: boolean;
+  state = {
+    isLiked: false,
+    shareModal: false,
+  }
 
+
+  //=======================================
+  // Hooks
+  //=======================================
   constructor(props: Props) {
     super(props);
-    this.Ok = this.Ok.bind(this);
+    this.hasSearchID = false;
     this.Header = this.Header.bind(this);
-    this.Loading = this.Loading.bind(this);
+    this.HotelDetails = this.HotelDetails.bind(this);
+    this.HotelDescription = this.HotelDescription.bind(this);
   }
 
   componentDidMount() {
     const {result} = this.props;
     if (this.props.status === undefined || (result && result.hotel.id !== +this.id!))
       this.props.GetHotel(+this.id!);
+
   }
 
-  Header() {
-    const {name, checkOut, checkIn, id} = useParams();
+  render() {
+    const status = this.props.status;
+    const {checkOut, checkIn, id} = this.props.route.params;
     this.id = id;
-    return (<Header>
-      <Button onPress={this.props.goBack}>
-        <Text>
-          back
-        </Text>
-      </Button>
-      <Text>{checkIn}</Text>
-      <Text>{checkOut}</Text>
-      <Text>{name}</Text>
-    </Header>);
+    this.hasSearchID = !!checkIn && !!checkOut;
+    return (
+      <>
+        {/*header*/}
+        <this.Header/>
+
+        {/*content*/}
+        <Content style={[Style.w__100]}>
+          <Conditional>
+            <If condition={status === 'loading'}><ScreenLoading/></If>
+            <ElIf condition={status === 'ok'}>
+              <HotelImages image={this.props.result?.nsg_images.map(item => item.original)}/>
+              <this.HotelDetails/>
+              <this.HotelDescription/>
+              {
+                Object.values(this.props.result?.nsg_facilities ?? []).map(item =>
+                  <HotelFacilities key={item.name} name={item.name} values={item.values}/>)
+              }
+            </ElIf>
+            <ElIf condition={status === 'error'}>
+              <AppText>Some thing went wrong</AppText>
+            </ElIf>
+          </Conditional>
+        </Content>
+
+        {/*share modal*/}
+        <AppModal
+          visibility={this.state.shareModal}
+          position={'bottom'} animation={'slide'}
+          onClose={() => this.setState({shareModal: false})}>
+          <ShareModal/>
+        </AppModal>
+
+        {/*footer*/}
+        <Conditional>
+          <If condition={this.hasSearchID}>
+            <Footer style={[Style.bg__white]}>
+              <View style={[Style.w__100, Style.p__1]}>
+                <Button block style={[Style.bg__primary]}>
+                  <AppText style={[Style.text__white, Style.text__bold]}>
+                    {translate('select-room')}</AppText>
+                </Button>
+              </View>
+            </Footer>
+          </If>
+        </Conditional>
+
+      </>
+    );
   }
 
+
+  //=======================================
+  // Sections
+  //=======================================
+  Header() {
+    return (
+      <Header style={[Style.bg__primary]}>
+        <Left><BackNavigation/></Left>
+        <Body>
+          <AppTitle hasSubtitle={this.hasSearchID}>{this.props.route.params.name}</AppTitle>
+          <Conditional>
+            <If condition={this.hasSearchID}>
+              <AppSubtitle>{`${this.props.route.params.checkIn} - ${this.props.route.params.checkOut}`}</AppSubtitle>
+            </If>
+          </Conditional>
+        </Body>
+        <Right>
+          <Button onPress={() => this.onLike()}
+                  style={[Style.justify__content_end]} transparent>
+            <Icon type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
+                  style={[Style.f__20, Style.text__right, Style.text__white]}/>
+          </Button>
+          <Button onPress={() => this.onShare()}
+                  style={[Style.justify__content_end]} transparent>
+            <Icon type='Ionicons' name={'share-social-outline'}
+                  style={[Style.f__20, Style.text__right, Style.text__white]}/>
+          </Button>
+          <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
+            <Menu style={[Style.justify__content_center]}>
+              <MenuTrigger>
+                <Icon type='Ionicons' name='ellipsis-vertical' style={[Style.f__20, Style.text__right]}/>
+              </MenuTrigger>
+              <MenuOptions>
+                <MenuOption style={[Style.p__2]}>
+                  <AppText style={Style.text__black}>{t('wish-list')}</AppText>
+                </MenuOption>
+                <MenuOption style={[Style.p__2]}>
+                  <AppText style={Style.text__black}>{t('change-currency')}</AppText>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+          </Button>
+        </Right>
+      </Header>
+    );
+  }
+
+  HotelDetails() {
+    const {hotel} = this.props.result!;
+    return <View style={styles.container}>
+
+      {/*name*/}
+      <View style={[Style.px__3,]}>
+        <AppText style={[Style.text__bold, Style.f__14]}>{hotel.name}</AppText>
+      </View>
+
+      {/*star*/}
+      <View style={[Style.px__3, Style.flex__row, Style.mb__2]}>
+        {[...(new Array(hotel.star).keys())].map(index =>
+          <Icon type={'AntDesign'} name="star" key={index} style={[Style.f__10, Style.text__warning]}/>)}
+      </View>
+
+      {/*location and address*/}
+      <View style={[Style.px__3, Style.mb__1]}>
+        <View style={[Style.flex__row, Style.align__items_center]}>
+          <Icon type='SimpleLineIcons' name='location-pin'
+                style={[Style.text__black, Style.ml__0, Style.mr__1, Style.f__12]}/>
+          <AppText style={[Style.f__12]}>{hotel.location}</AppText>
+        </View>
+        <View style={[Style.mb__1]}>
+          <AppText style={[Style.f__10, Style.text__wrap, Style.text__gray_d_X]}>{hotel.address}</AppText>
+        </View>
+      </View>
+
+    </View>;
+  }
+
+  HotelDescription() {
+    const descriptions = this.props.result?.nsg_descriptions;
+    return descriptions ? <View style={[styles.container, Style.px__3]}>
+      <View style={[Style.flex__row, Style.align__items_center, Style.mb__2]}>
+        <Icon style={[Style.f__16, Style.mr__1]}
+              name='md-information-circle-outline' type='Ionicons'/>
+        <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize]}>
+          {translate('hotel-description')}</AppText>
+      </View>
+      <AppText style={[Style.f__12]}>
+        {descriptions.replace(/&lt;br(\s|'')\/&gt;/g, '\n')}
+      </AppText>
+    </View> : null;
+  }
+
+
+  //=======================================
+  // Handlers
+  //=======================================
   bookIt(id: number) {
     this.props.push(`/passengers/${id}`);
   }
 
-  Ok() {
-    const {hotel, nsg_images, nsg_descriptions, nsg_facilities} = this.props.result!;
-    return (
-      <ScrollView>
-        <View style={[Style.bg__info, Style.w__100]}>
-          <View>
-            {
-              [...(new Array(+hotel.star)).keys()].map((name) => <Icon key={name} type={'Entypo'} name='star'/>)
-            }
-          </View>
-          <H1>{hotel.name}</H1>
-          <Icon name='location' type={'Entypo'}/>
-          <Text>{hotel.location}</Text>
-          <Text>{hotel.address}</Text>
-          <Text>
-            {nsg_descriptions.replace(/\&lt\;br(\s|'')\/\&gt\;/g, '\n')}
-          </Text>
-        </View>
-        <Image source={{uri: hotel.image}} style={[Style.w__100, {height: 300}]}/>
-        {/*  TODO add Carousel after create component*/}
-        {
-          Object.values(nsg_facilities).map(item => (
-            <View key={item.name}>
-
-              <H1 style={[Style.w__100]}>{item.name}</H1>
-              {
-                item.values.map(data => <Text key={data}>{data}</Text>)
-              }
-            </View>
-          ))
-        }
-      </ScrollView>
-    );
+  onLike() {
+    this.setState({isLiked: !this.state.isLiked}, () => {
+      Toast.show({
+        text: `${this.state.isLiked ? 'Saved' : 'Removed'} successfully.`,
+        duration: 3000,
+        textStyle: {color: COLOR_WHITE},
+        position: "bottom",
+      })
+    });
   }
 
-  Loading() {
-    return (
-      <Spinner style={[Style.mb__auto, Style.mt__auto, Style.ml__auto, Style.mr__auto]}/>
-    );
+  onShare() {
+    this.setState({shareModal: true});
   }
 
-
-  render() {
-    const status = this.props.status;
-    return (
-      <>
-        <this.Header/>
-        <Body style={[Style.w__100]}>
-          <Conditional>
-            <If condition={status === 'ok'}>
-              <this.Ok/>
-            </If>
-            <Else>
-              <this.Loading/>
-            </Else>
-          </Conditional>
-        </Body>
-        <Footer>
-          <TouchableOpacity>
-            <Text>{translate('show-rooms')}</Text>
-          </TouchableOpacity>
-        </Footer>
-      </>
-    );
-  }
 }
-
 
 export default connector(HotelListPage);

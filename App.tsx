@@ -12,10 +12,11 @@ import axios from 'axios';
 import {LANGUAGE_URL} from './src/URLS';
 import {AppText} from './src/Containers';
 import {StatusType} from './src/Typescript/Types';
+import {Root} from "native-base";
 
-declare const global: {HermesInternal: null | {}};
+declare const global: { HermesInternal: null | {} };
 
-class App extends React.Component<any, {ok: boolean, json?: {[key: string]: string}, status: StatusType, message: string}> {
+class App extends React.Component<any, { ok: boolean, json?: { [key: string]: string }, status: StatusType, message: string }> {
   state = {ok: false, status: undefined, message: ''};
   history!: MemoryHistory<History>;
   store!: Store;
@@ -30,7 +31,7 @@ class App extends React.Component<any, {ok: boolean, json?: {[key: string]: stri
     BackHandler.addEventListener('hardwareBackPress', () => true);
   }
 
-  async getTranslates(lang: string): Promise<{[key: string]: string} | null> {
+  async getTranslates(lang: string): Promise<{ [key: string]: string } | null> {
     try {
       const response = await axios.get(LANGUAGE_URL + lang);
       return response.data.result;
@@ -41,7 +42,7 @@ class App extends React.Component<any, {ok: boolean, json?: {[key: string]: stri
   }
 
   async getHistoryEntries() {
-    let data: {entries: string[], index: number};
+    let data: { entries: string[], index: number };
     try {
       data = await Storage.load({key: 'history-entries'});
     } catch (e) {
@@ -76,9 +77,11 @@ class App extends React.Component<any, {ok: boolean, json?: {[key: string]: stri
       this.state.ok && this.state.status === 'ok' ?
         <Provider store={this.store}>
           <ConnectedRouter history={this.history}>
-            <MenuProvider>
-              <Routes/>
-            </MenuProvider>
+            <Root>
+              <MenuProvider>
+                <Routes/>
+              </MenuProvider>
+            </Root>
           </ConnectedRouter>
         </Provider> : (this.state.status === 'error' ?
         <AppText>{this.state.message}</AppText> :

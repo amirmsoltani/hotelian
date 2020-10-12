@@ -1,27 +1,36 @@
 import React from 'react';
-import {
-  SearchPage,
-  SelectDestinationPage,
-  SelectNationalityPage, SelectDatePage, CreateRoomPage, HotelPage,
-} from '../Pages';
-import {match} from 'react-router-native';
 import {Container} from 'native-base';
+import {match} from 'react-router-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import {HotelPage,} from '../Pages';
+import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
+
 const Stack = createStackNavigator();
 
-const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: {match: match<{id: string, name: string, checkIn?: string, checkOut?: string}>}) => {
+const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: match<{ id: string, name: string, checkIn?: string, checkOut?: string }> }) => {
   return (
-    <Container>
+    <Container style={{backgroundColor: MUTED_LIGHT_XXX,}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="form">
-          <Stack.Screen name="hotel" component={HotelPage} options={{headerShown: false}}
-                        initialParams={{id, name, checkIn, checkOut}}/>
-          <Stack.Screen name="hotelRooms" component={SelectDestinationPage} options={{headerShown: false}}/>
-          <Stack.Screen name="roomsFilter" component={SelectNationalityPage} options={{headerShown: false}}/>
-          <Stack.Screen name="roomsSort" component={SelectDatePage} options={{headerShown: false}}/>
-          <Stack.Screen name="map" component={CreateRoomPage} options={{headerShown: false}}/>
+        <Stack.Navigator initialRouteName="hotel">
+          <Stack.Screen
+            name="hotel"
+            component={HotelPage}
+            options={{headerShown: false}}
+            initialParams={{id, name, checkIn, checkOut}}/>
+
+
+          {/*
+          TODO: These screens should place in this route
+            1. *select room
+            2. *filter
+            3. *map
+            4. slider flat list
+            5. slider carousel
+            6. review modal
+            7. modify search
+          */}
         </Stack.Navigator>
       </NavigationContainer>
     </Container>
