@@ -16,13 +16,21 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
   let sort = [...activeFilters[sortBy].indexes];
   delete activeFilters[sortBy];
   if (!activeLength) {
-    yield put(SetHotelsAfterFilters({[sortBy]: {name: 'sort', indexes: sort}}, structure, sort));
+    yield put(SetHotelsAfterFilters({[sortBy]: {name: 'sort', indexes: sort}}, sort));//, structure, sort));
     return;
   }
   const unionFilters: {[key: string]: number[]} = {};
   const newActiveFilter: HotelsActivesFilterType = {[sortBy]: {name: 'sort', indexes: sort}};
-  let structure2: any = {};
-  ObjectForEtch({...activeFilters, ...payload!}, (key, value) => {
+  // let structure2: any = {};
+  let sorting: undefined | keyof SortType;
+  ObjectForEtch({...payload!, ...activeFilters}, (key, value) => {
+    if (value.name === 'sort') {
+      delete newActiveFilter[sortBy];
+      newActiveFilter[key] = {...value};
+      sort = [...value.indexes];
+      sorting =<keyof SortType> key;
+      return;
+    }
     if (key in activeFilters && key in payload!)
       return;
     else if (value.name in unionFilters)
@@ -32,21 +40,23 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
     newActiveFilter[key] = value;
   });
   let unityFilters: typeof sort;
-  if (ObjectLen(newActiveFilter) > 1) {
+  if (ObjectLen(newActiveFilter) > 1)
     unityFilters = Unity({unity: sort, args: Object.values(unionFilters)});
-    ObjectForEtch(structure, ((key, value) => {
-      if (key === 'sort')
-        return;
-      structure2[key] = {};
-      ObjectForEtch(value, ((key1, value1) => {
-        structure2[key][key1] = Unity({unity: unityFilters, args: [value1]});
-      }));
-    }));
-  } else {
-    structure2 = {...structure};
+    //   ObjectForEtch(structure, ((key, value) => {
+    //     if (key === 'sort')
+    //       return;
+    //     structure2[key] = {};
+    //     ObjectForEtch(value, ((key1, value1) => {
+    //       structure2[key][key1] = Unity({unity: unityFilters, args: [value1]});
+    //     }));
+    //   }));
+    // } else {
+    //   structure2 = {...structure};
+    //   unityFilters = sort;
+  // }
+  else
     unityFilters = sort;
-  }
-  yield put(SetHotelsAfterFilters(newActiveFilter, structure2, unityFilters));
+  yield put(SetHotelsAfterFilters(newActiveFilter, unityFilters,sorting));//, structure2, unityFilters));
 
 }
 

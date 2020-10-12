@@ -33,8 +33,9 @@ const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsA
         filter: {
           ...state.filter!,
           hotels: action.payload.hotels,
-          numbers: action.payload.structure,
+          // numbers: action.payload.structure,
           actives: action.payload.actives,
+          sortBy: action.payload.sorting ? action.payload.sorting : state.filter!.sortBy!,
         },
       };
     }

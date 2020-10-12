@@ -4,16 +4,16 @@ import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
 import {Body, Header, Icon, Left, ListItem, Right, Spinner} from 'native-base';
-import {ProgressBar} from "@react-native-community/progress-bar-android";
+import {ProgressBar} from '@react-native-community/progress-bar-android';
 
-import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X,} from '../../../native-base-theme/variables/config';
+import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
-import {GetHotels} from 'Store/Actions';
+import {GetHotels, ApplyHotelsFilters} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
 import {Conditional, HotelCard, If} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 
 const mapStateToProps = (
   {
@@ -33,14 +33,16 @@ const mapStateToProps = (
   hotels_search_id: basicData?.search_id,
   nights: basicData?.search_details.nights_count,
   details: basicData?.search_details,
+  sortBy: filter?.sortBy,
+  structure: filter?.structure,
 });
 
 type responseStatus = 'ok' | 'loading' | 'expire' | 'error' | null;
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
-const mapDispatchToProps = {GetHotels, replace, push};
+const mapDispatchToProps = {GetHotels, replace, push, ApplyHotelsFilters};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
+class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
   timeOut: any | null = null;
   activatedFilter = 0;
   state = {
@@ -82,7 +84,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
         <this.Header/>
 
         {/*content*/}
-        <Body style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1,}, Style.w__100]}>
+        <Body style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1}, Style.w__100]}>
 
           {/*actions*/}
           <View style={[
@@ -173,16 +175,17 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
         </TouchableOpacity>
       </Body>
       <Right/>
-    </Header>
+    </Header>;
   }
 
   Sort() {
+    const {sortBy} = this.props;
     return <Menu style={[
       Style.col__4,
       Style.h__100,
       Style.flex__row,
       Style.justify__content_center,
-      Style.align__items_center,]}>
+      Style.align__items_center]}>
       <MenuTrigger disabled={this.props.status !== 'ok'} customStyles={{
         triggerWrapper: [
           Style.h__100,
@@ -205,37 +208,62 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </If>
         </Conditional>
       </MenuTrigger>
-      <MenuOptions customStyles={{optionsContainer: [{width: 270,},]}}>
+      <MenuOptions customStyles={{optionsContainer: [{width: 270}]}}>
         {/*TODO:
             1- borderWidth bottom for last ListItem
             2- active sort (red bullet)}
         */}
-        <MenuOption>
-          <ListItem noIndent>
+        <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+          'starUp': {
+            name: 'sort',
+            indexes: this.props.structure!.sort.starUp,
+          },
+        })}>
+          <View>
             <Left><AppText>{translate('Stars (5 to 0)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
-          </ListItem>
+            <Right><Icon type={'MaterialIcons'} style={[sortBy === 'starUp' ? Style.text__info : null]}
+                         name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}/></Right>
+          </View>
         </MenuOption>
-        <MenuOption>
-          <ListItem noIndent>
+        <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+          'starDown': {
+            name: 'sort',
+            indexes: this.props.structure!.sort.starDown,
+          },
+        })}>
+          <View >
             <Left><AppText>{translate('Stars (0 to 5)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
-          </ListItem>
+            <Right><Icon type={'MaterialIcons'}
+                         style={[sortBy === 'starDown' ? Style.text__info : null]}
+                         name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}/></Right>
+          </View>
         </MenuOption>
-        <MenuOption>
+        <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+          'priceDown': {
+            name: 'sort',
+            indexes: this.props.structure!.sort.priceDown,
+          },
+        })}>
           <ListItem noIndent>
             <Left><AppText>{translate('Price (low to high)')}</AppText></Left>
-            <Right><Icon style={[Style.text__info]} type={'MaterialIcons'} name='radio-button-checked'/></Right>
+            <Right><Icon type={'MaterialIcons'} style={[sortBy === 'priceDown' ? Style.text__info : null]}
+                         name={`radio-button-${sortBy === 'priceDown' ? '' : 'un'}checked`}/></Right>
           </ListItem>
         </MenuOption>
-        <MenuOption>
-          <ListItem noIndent style={{borderBottomWidth: 0,}}>
+        <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+          'priceUp': {
+            name: 'sort',
+            indexes: this.props.structure!.sort.starUp,
+          },
+        })}>
+          <ListItem noIndent style={{borderBottomWidth: 0}}>
             <Left><AppText>{translate('Price (high to low)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
+            <Right><Icon type={'MaterialIcons'} style={[sortBy === 'priceUp' ? Style.text__info : null]}
+                         name={`radio-button-${sortBy === 'priceUp' ? '' : 'un'}checked`}/></Right>
           </ListItem>
         </MenuOption>
       </MenuOptions>
-    </Menu>
+    </Menu>;
   }
 
   Filter() {
@@ -260,7 +288,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
           </If>
         </Conditional>
       </>
-    </TouchableOpacity>
+    </TouchableOpacity>;
   }
 
   Map() {
@@ -276,7 +304,7 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
         <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>
         <AppText style={[Style.ml__2, Style.text__primary]}>{translate('map')}</AppText>
       </>
-    </TouchableOpacity>
+    </TouchableOpacity>;
   }
 
 

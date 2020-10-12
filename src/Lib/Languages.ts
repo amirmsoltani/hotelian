@@ -17,6 +17,7 @@ const setI18nConfig = (lang: string, rtl: boolean, json: {[key: string]: string}
   I18nManager.forceRTL(rtl);
   i18n.translations = {[lang]: json};
   i18n.locale = lang;
+  i18n.fallbacks = true;
 };
 
 export default setI18nConfig;

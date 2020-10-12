@@ -152,7 +152,6 @@ class HotelsInitial {
     });
     this.rangePrice();
     this.sort();
-    // TODO test here
   }
 
   /**

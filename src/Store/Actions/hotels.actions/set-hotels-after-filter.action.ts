@@ -1,13 +1,13 @@
 import {SET_HOTELS_AFTER_FILTERS, SetHotelsAfterFiltersType} from './hotels.actions.types';
-import {HotelsFilterInterface, HotelsActivesFilterType} from 'Typescript';
+import {HotelsFilterInterface, HotelsActivesFilterType, SortType} from 'Typescript';
 
 
-export const SetHotelsAfterFilters = (actives: HotelsActivesFilterType | undefined, structure: HotelsFilterInterface | undefined, hotels: number[]): SetHotelsAfterFiltersType => ({
+export const SetHotelsAfterFilters = (actives: HotelsActivesFilterType | undefined, hotels: number[], sorting?: keyof SortType): SetHotelsAfterFiltersType => ({//, structure: HotelsFilterInterface | undefined, hotels: number[]): SetHotelsAfterFiltersType => ({
     type: SET_HOTELS_AFTER_FILTERS,
     payload: {
       actives,
-      structure,
       hotels,
+      sorting,
     },
   }
 );

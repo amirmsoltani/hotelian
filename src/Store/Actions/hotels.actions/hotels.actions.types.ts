@@ -1,4 +1,4 @@
-import {HotelsActivesFilterType, HotelsFilterInterface, HotelsStateInterface} from '../../../Typescript';
+import {HotelsActivesFilterType, HotelsFilterInterface, HotelsStateInterface, SortType} from '../../../Typescript';
 import {SearchExpireType, SetSearchIdType} from '../search.actions';
 
 export const GET_HOTELS = '[Hotels Reducer] Get Hotels';
@@ -18,9 +18,10 @@ export const SET_HOTELS_AFTER_FILTERS = '[Hotels Reducer] Set Hotels Filters';
 export type SetHotelsAfterFiltersType = {
   type: typeof SET_HOTELS_AFTER_FILTERS,
   payload: {
-    structure?: HotelsFilterInterface,
-    actives: HotelsActivesFilterType | undefined,
-    hotels: number[]
+    // structure?: HotelsFilterInterface,
+    actives: HotelsActivesFilterType | undefined;
+    hotels: number[];
+    sorting: keyof SortType;
   }
 }
 
