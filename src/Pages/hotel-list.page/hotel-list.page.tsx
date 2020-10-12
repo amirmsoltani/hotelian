@@ -212,25 +212,25 @@ class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> 
         */}
         <MenuOption>
           <ListItem noIndent>
-            <Left><AppText>{translate('Stars (5 to 0)')}</AppText></Left>
+            <Left><AppText>{translate('stars-5-0')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
           </ListItem>
         </MenuOption>
         <MenuOption>
           <ListItem noIndent>
-            <Left><AppText>{translate('Stars (0 to 5)')}</AppText></Left>
+            <Left><AppText>{translate('stars-0-5')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
           </ListItem>
         </MenuOption>
         <MenuOption>
           <ListItem noIndent>
-            <Left><AppText>{translate('Price (low to high)')}</AppText></Left>
+            <Left><AppText>{translate('price-low-to-high')}</AppText></Left>
             <Right><Icon style={[Style.text__info]} type={'MaterialIcons'} name='radio-button-checked'/></Right>
           </ListItem>
         </MenuOption>
         <MenuOption>
           <ListItem noIndent style={{borderBottomWidth: 0,}}>
-            <Left><AppText>{translate('Price (high to low)')}</AppText></Left>
+            <Left><AppText>{translate('price-high-to-low')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'} name='radio-button-unchecked'/></Right>
           </ListItem>
         </MenuOption>
