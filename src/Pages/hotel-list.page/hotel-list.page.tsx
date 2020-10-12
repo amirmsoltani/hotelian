@@ -3,12 +3,12 @@ import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
 import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
-import {Body, Header, Icon, Left, ListItem, Right, Spinner} from 'native-base';
+import {Body, Header, Icon, Left, Right, Spinner} from 'native-base';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 
 import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
-import {GetHotels, ApplyHotelsFilters} from 'Store/Actions';
+import {ApplyHotelsFilters, GetHotels} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
 import {Conditional, HotelCard, If} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
@@ -42,7 +42,7 @@ type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 const mapDispatchToProps = {GetHotels, replace, push, ApplyHotelsFilters};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
+class HotelListPage extends Component<Props, { end: boolean, scroll: boolean }> {
   timeOut: any | null = null;
   activatedFilter = 0;
   state = {
@@ -219,10 +219,12 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
             indexes: this.props.structure!.sort.starUp,
           },
         })}>
-          <View>
-            <Left><AppText>{translate('stars-5-0)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} style={[sortBy === 'starUp' ? Style.text__info : null]}
-                         name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}/></Right>
+          <View
+            style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <AppText>{translate('stars-5-0')}</AppText>
+            <Icon type={'MaterialIcons'} style={[sortBy === 'starUp' ? Style.text__info : null,
+              Style.f__18, Style.text__gray_l]}
+                  name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}/>
           </View>
         </MenuOption>
         <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
@@ -231,11 +233,13 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
             indexes: this.props.structure!.sort.starDown,
           },
         })}>
-          <View >
-            <Left><AppText>{translate('stars-0-5)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'}
-                         style={[sortBy === 'starDown' ? Style.text__info : null]}
-                         name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}/></Right>
+          <View
+            style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <AppText>{translate('stars-0-5')}</AppText>
+            <Icon type={'MaterialIcons'}
+                  style={[sortBy === 'starDown' ? Style.text__info : null, sortBy === 'starUp' ? Style.text__info : null,
+                    Style.f__18, Style.text__gray_l]}
+                  name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}/>
           </View>
         </MenuOption>
         <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
@@ -244,11 +248,13 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
             indexes: this.props.structure!.sort.priceDown,
           },
         })}>
-          <ListItem noIndent>
-            <Left><AppText>{translate('price-low-to-high)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} style={[sortBy === 'priceDown' ? Style.text__info : null]}
-                         name={`radio-button-${sortBy === 'priceDown' ? '' : 'un'}checked`}/></Right>
-          </ListItem>
+          <View
+            style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <AppText>{translate('price-low-to-high')}</AppText>
+            <Icon type={'MaterialIcons'} style={[sortBy === 'starDown' ? Style.text__info : null,
+              sortBy === 'starUp' ? Style.text__info : null, Style.f__18, Style.text__gray_l]}
+                  name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}/>
+          </View>
         </MenuOption>
         <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
           'priceUp': {
@@ -256,11 +262,13 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
             indexes: this.props.structure!.sort.starUp,
           },
         })}>
-          <ListItem noIndent style={{borderBottomWidth: 0}}>
-            <Left><AppText>{translate('price-high-to-low)')}</AppText></Left>
-            <Right><Icon type={'MaterialIcons'} style={[sortBy === 'priceUp' ? Style.text__info : null]}
-                         name={`radio-button-${sortBy === 'priceUp' ? '' : 'un'}checked`}/></Right>
-          </ListItem>
+          <View
+            style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <AppText>{translate('price-high-to-low')}</AppText>
+            <Icon type={'MaterialIcons'} style={[sortBy === 'starDown' ? Style.text__info : null,
+              sortBy === 'starUp' ? Style.text__info : null, Style.f__18, Style.text__gray_l]}
+                  name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}/>
+          </View>
         </MenuOption>
       </MenuOptions>
     </Menu>;
