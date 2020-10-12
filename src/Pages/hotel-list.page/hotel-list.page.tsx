@@ -220,7 +220,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
           },
         })}>
           <View>
-            <Left><AppText>{translate('Stars (5 to 0)')}</AppText></Left>
+            <Left><AppText>{translate('stars-5-0)')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'} style={[sortBy === 'starUp' ? Style.text__info : null]}
                          name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}/></Right>
           </View>
@@ -232,7 +232,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
           },
         })}>
           <View >
-            <Left><AppText>{translate('Stars (0 to 5)')}</AppText></Left>
+            <Left><AppText>{translate('stars-0-5)')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'}
                          style={[sortBy === 'starDown' ? Style.text__info : null]}
                          name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}/></Right>
@@ -245,7 +245,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
           },
         })}>
           <ListItem noIndent>
-            <Left><AppText>{translate('Price (low to high)')}</AppText></Left>
+            <Left><AppText>{translate('price-low-to-high)')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'} style={[sortBy === 'priceDown' ? Style.text__info : null]}
                          name={`radio-button-${sortBy === 'priceDown' ? '' : 'un'}checked`}/></Right>
           </ListItem>
@@ -257,7 +257,7 @@ class HotelListPage extends Component<Props, {end: boolean, scroll: boolean}> {
           },
         })}>
           <ListItem noIndent style={{borderBottomWidth: 0}}>
-            <Left><AppText>{translate('Price (high to low)')}</AppText></Left>
+            <Left><AppText>{translate('price-high-to-low)')}</AppText></Left>
             <Right><Icon type={'MaterialIcons'} style={[sortBy === 'priceUp' ? Style.text__info : null]}
                          name={`radio-button-${sortBy === 'priceUp' ? '' : 'un'}checked`}/></Right>
           </ListItem>
