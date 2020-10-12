@@ -1,5 +1,11 @@
-import {BoardTypeType, HotelInterface, HotelsFilterInterface, SortType, StarsRatingType} from 'Typescript';
-import Union from '../Union';
+import {
+  BoardTypeType,
+  HotelInterface,
+  HotelsFilterInterface,
+  OtherFilterType,
+  SortType,
+  StarsRatingType,
+} from 'Typescript';
 import {translate} from '../../Languages';
 
 
@@ -8,6 +14,7 @@ class HotelsInitial {
   protected stars: StarsRatingType;
   protected locations: {[key: string]: number[]};
   protected prices: {[key: string]: number[]};
+  protected other: OtherFilterType;
   public sorting: SortType;
   public hotelsIndex: number[] = [];
   static readonly boardType_regex = /all\sinclusive|half\sboard|full\sboard|breakfast|room\sonly/g;
@@ -25,6 +32,7 @@ class HotelsInitial {
     this.locations = {};
     this.prices = {};
     this.sorting = {'priceUp': [], 'priceDown': [], 'starUp': [], 'starDown': []};
+    this.other = {};
   }
 
   /**
@@ -92,6 +100,21 @@ class HotelsInitial {
       this.prices[total.toString()] = [index];
   }
 
+  protected setOtherFilters(name: keyof OtherFilterType, index: number) {
+    if (this.other[name])
+      this.other[name]!.push(index);
+    else
+      this.other[name] = [index];
+  }
+
+  protected otherFilters(hotel: HotelInterface, index: number) {
+    if (hotel.room.breakfast)
+      this.setOtherFilters('breakfast', index);
+    if (hotel.discount)
+      this.setOtherFilters('discount', index);
+
+  }
+
   protected rangePrice() {
     const prices = {...this.prices};
     this.prices = {};
@@ -110,9 +133,9 @@ class HotelsInitial {
 
   protected sort() {
     this.sorting.priceUp = [...this.hotelsIndex].sort((a, b) => (this.hotels[b].price.total ? this.hotels[b].price.total : 0) - (this.hotels[a].price.total ? this.hotels[a].price.total : 0));
-    this.sorting.priceDown = this.sorting.priceUp.reverse();
+    this.sorting.priceDown = [...this.sorting.priceUp].reverse();
     this.sorting.starUp = [...this.hotelsIndex].sort((a, b) => this.hotels[b].star - this.hotels[a].star);
-    this.sorting.starDown = this.sorting.starUp.reverse();
+    this.sorting.starDown = [...this.sorting.starUp].reverse();
   }
 
   /**
@@ -124,6 +147,7 @@ class HotelsInitial {
       this.star(hotel, index);
       this.location(hotel, index);
       this.price(hotel, index);
+      this.otherFilters(hotel, index);
       this.hotelsIndex.push(index);
     });
     this.rangePrice();
@@ -141,6 +165,7 @@ class HotelsInitial {
       locations: this.locations,
       rangePrice: this.prices,
       sort: this.sorting,
+      other: this.other,
     }
       ;
   }

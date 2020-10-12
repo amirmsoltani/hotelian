@@ -12,11 +12,12 @@ import style from '../search.page/search-page.styles';
 import {AppText, AppTitle, BackNavigation} from 'Containers';
 import {translate, translate as t} from 'Lib/Languages';
 import {BORDER_RADIUS_SM, COLOR_PRIMARY, SHADOW_LG_XX} from '../../../native-base-theme/variables/config';
-import {ObjectKeys, ObjectLen, ObjectMapToArray} from 'Lib/ObjectTool';
+import {ObjectLen, ObjectMapToArray} from 'Lib/ObjectTool';
 
-const mapStateToProps = ({hotelsReducer: {filter}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {filter, basicData}}: RootStateInterface) => ({
   structure: filter!.structure,
   actives: filter!.actives,
+  len: filter!.hotels.length,
 });
 const mapDispatchToProps = {
   ApplyHotelsFilters,
@@ -42,7 +43,7 @@ class HotelsFilterPage extends PureComponent<Props> {
 
 
   render() {
-    const {structure} = this.props;
+    const {structure, len} = this.props;
     const al = ObjectLen(this.props.actives);
     const activesArray = al > 1 ? ObjectMapToArray(this.props.actives!, (key, value) => (value.name === 'sort' ? 'jump' : {
       key: key,
@@ -63,8 +64,9 @@ class HotelsFilterPage extends PureComponent<Props> {
             </Conditional>
           </Right>
         </Header>
-        <View style={[style.wrapper, Style.mb__0]}>
-          <ScrollView style={[Style.bg__white]}>
+
+        <ScrollView style={[Style.bg__white]}>
+          <View style={[style.wrapper, Style.mb__0]}>
             {
               ObjectMapToArray(structure, (key) => {
                 if (!HotelsFilterPage.filters.includes(key))
@@ -74,8 +76,9 @@ class HotelsFilterPage extends PureComponent<Props> {
                   key={key}/>;
               })
             }
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
+
         <Conditional>
           <If condition={al > 1}>
             <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX]}>
@@ -100,7 +103,8 @@ class HotelsFilterPage extends PureComponent<Props> {
                 }}/>
               <Button block style={[Style.bg__primary, Style.w__100]}
                       onPress={() => this.props.navigation.navigate('hotels')}>
-                <AppText style={[Style.text__white, Style.text__bold]}>{translate('show-results')}</AppText>
+                <AppText
+                  style={[Style.text__white, Style.text__bold]}>{translate('show-results') + ` (${len})`}</AppText>
               </Button>
             </View>
           </If>
@@ -108,9 +112,6 @@ class HotelsFilterPage extends PureComponent<Props> {
       </>
     );
   }
-
-
-
 
 
 }

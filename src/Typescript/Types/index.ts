@@ -13,3 +13,4 @@ export * from './date.type';
 export * from './room.type';
 export * from './sort.type';
 export * from './hotels-actives-filter.type';
+export * from './other-filter.type';

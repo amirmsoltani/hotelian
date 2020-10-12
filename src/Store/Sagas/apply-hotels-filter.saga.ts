@@ -25,7 +25,7 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
   ObjectForEtch({...activeFilters, ...payload!}, (key, value) => {
     if (key in activeFilters && key in payload!)
       return;
-    else if (key in unionFilters)
+    else if (value.name in unionFilters)
       unionFilters[value.name] = Union({union: unionFilters[value.name], args: [value.indexes]});
     else
       unionFilters[value.name] = [...value.indexes];
