@@ -12,3 +12,5 @@ export {default as SearchFormError} from './search-form-error/search-form-error'
 export {default as SearchFormInit} from './search-form-init/search-form-init';
 export {default as ScreenLoading} from './screen-loading/screen-loading';
 export {default as HotelFacilities} from './hotel-facilities/hotel-facilities';
+export {default as HotelImages} from './hotel-images/hotel-images';
+export {default as ShareModal} from './share-modal/share-modal';

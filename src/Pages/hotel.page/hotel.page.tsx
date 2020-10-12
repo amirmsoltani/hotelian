@@ -1,33 +1,35 @@
+import {View} from 'react-native';
 import React, {PureComponent} from 'react';
-import {Text, View} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Body, Button, Content, Footer, H1, Header, Icon, Left, Right, Toast} from 'native-base';
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {Body, Button, Content, Footer, Header, Icon, Left, Right, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
-import {Conditional, ElIf, HotelFacilities, If, ScreenLoading} from 'Components';
 import {RootStateInterface} from 'Typescript';
 import {translate as t, translate} from 'Lib/Languages';
 import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
 import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
-import {ShareModal} from "../index";
-import HotelImages from "../../Components/hotel-images/hotel-images";
+import {Conditional, ElIf, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
 
-const mapStateToProps = ({hotelsReducer: {basicData}, searchReducer: {search_id}, hotelReducer: {hotel: {status, result}}, router}: RootStateInterface) => ({
-  search_id,
-  status,
-  result,
-  hotels: basicData?.hotels,
-  router,
-});
+const mapStateToProps = (
+  {
+    hotelsReducer: {basicData},
+    searchReducer: {search_id},
+    hotelReducer: {hotel: {status, result}}, router
+  }: RootStateInterface) => (
+  {
+    search_id,
+    status,
+    result,
+    hotels: basicData?.hotels,
+    router,
+  });
 const mapDispatchToProps = {GetHotel, replace, push,};
 const connector = connect(mapStateToProps, mapDispatchToProps);
-const styles = {
-  container: [Style.mb__1, Style.bg__white, Style.py__2]
-}
+const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]}
 
 
 type Props =

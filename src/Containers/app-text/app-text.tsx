@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     fontSize: TEXT_SIZE,
     color: COLOR_BLACK,
     textAlign: 'left',
-    lineHeight: TEXT_SIZE + 2,
+    lineHeight: TEXT_SIZE + 4,
   },
 });
 
