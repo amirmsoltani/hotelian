@@ -35,10 +35,10 @@ const HotelsFiltersAll = ({item, length, structure, name, actives, onPressFilter
         <AppText
           style={[isActivated ? Style.text__white : Style.text__primary, Style.mr__1, Style.f__10]}>
           {item === '' ? 'Unknown' : (name === 'boardTypes' ? boardNames[item] : item)}</AppText>
-        <AppText
-          style={[isActivated ? Style.text__muted_l_X : Style.text__muted_d_X, Style.f__10]}>
-          {`(${length ? length.length : structure.length})`}
-        </AppText>
+        {/*<AppText*/}
+        {/*  style={[isActivated ? Style.text__muted_l_X : Style.text__muted_d_X, Style.f__10]}>*/}
+        {/*  {`(${length ? length.length : structure.length})`}*/}
+        {/*</AppText>*/}
       </View>
     </View>
   </TouchableOpacity>

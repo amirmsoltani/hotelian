@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
+import React, {Component, PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {FlatList, ScrollView, View} from 'react-native';
 import {Body, Button, Header, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
-import {HotelsFilterInterface, RootStateInterface} from 'Typescript';
+import {RootStateInterface} from 'Typescript';
 import {ApplyHotelsFilters} from 'Store/Actions';
 import {Conditional, HotelsFilters, If} from 'Components';
 import {Style} from 'Styles';
@@ -14,11 +14,9 @@ import {translate, translate as t} from 'Lib/Languages';
 import {BORDER_RADIUS_SM, COLOR_PRIMARY, SHADOW_LG_XX} from '../../../native-base-theme/variables/config';
 import {ObjectKeys, ObjectLen, ObjectMapToArray} from 'Lib/ObjectTool';
 
-const mapStateToProps = ({hotelsReducer: {filter, change_filter}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelsReducer: {filter}}: RootStateInterface) => ({
   structure: filter!.structure,
-  numbers: filter!.numbers,
   actives: filter!.actives,
-  change_filter: change_filter,
 });
 const mapDispatchToProps = {
   ApplyHotelsFilters,
@@ -26,9 +24,8 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {indexes: number[], name: string}}}> {
+class HotelsFilterPage extends PureComponent<Props> {
   static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
-
   //=======================================
   // Hooks
   //=======================================
@@ -43,10 +40,14 @@ class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {i
     this.props.ApplyHotelsFilters({});
   }
 
+
   render() {
-    const activesArray = !this.props.actives || !Object.keys(this.props.actives).length ? [] :
-      ObjectMapToArray(this.props.actives, (key, value) => ({key: key, value: value}));
     const {structure} = this.props;
+    const al = ObjectLen(this.props.actives);
+    const activesArray = al > 1 ? ObjectMapToArray(this.props.actives!, (key, value) => (value.name === 'sort' ? 'jump' : {
+      key: key,
+      value: value,
+    })) : [];
     return (
       <>
         <Header style={[Style.bg__primary]}>
@@ -54,7 +55,7 @@ class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {i
           <Body><AppTitle>{t('set-your-filters')}</AppTitle></Body>
           <Right>
             <Conditional>
-              <If condition={ObjectLen(ac)}>
+              <If condition={al > 1}>
                 <Button transparent onPress={this.reset}>
                   <AppText style={[Style.text__white]}>{t('RESET')}</AppText>
                 </Button>
@@ -62,24 +63,26 @@ class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {i
             </Conditional>
           </Right>
         </Header>
-        <ScrollView style={[Style.bg__white]}>
-          <View style={[style.wrapper, Style.mb__0]}>
-
-            {ObjectKeys(structure).filter(name => HotelsFilterPage.filters.includes(name)).map(name =>
-              <HotelsFilters
-                name={name as keyof HotelsFilterInterface}
-                key={name}/>)
+        <View style={[style.wrapper, Style.mb__0]}>
+          <ScrollView style={[Style.bg__white]}>
+            {
+              ObjectMapToArray(structure, (key) => {
+                if (!HotelsFilterPage.filters.includes(key))
+                  return 'jump';
+                return <HotelsFilters
+                  name={key}
+                  key={key}/>;
+              })
             }
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
         <Conditional>
-          <If condition={ObjectLen(this.props.actives) > 1}>
-            {/*<If condition={true}>*/}
+          <If condition={al > 1}>
             <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX]}>
               <FlatList
                 data={activesArray}
                 horizontal={true}
-                keyExtractor={item => item.key}
+                keyExtractor={item => item.key.toString()}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item}) => {
                   return <Button
@@ -107,13 +110,8 @@ class HotelsFilterPage extends PureComponent<Props, {filters: {[key: string]: {i
   }
 
 
-  //=======================================
-  // Handlers
-  //=======================================
 
-  setstate(filters: {[key: string]: {indexes: number[], name: string}}) {
-    this.setState({filters: {...this.state.filters, ...filters}});
-  }
+
 
 }
 

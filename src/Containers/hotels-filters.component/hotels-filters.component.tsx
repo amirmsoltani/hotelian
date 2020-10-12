@@ -32,12 +32,6 @@ const filterNames: any = {
 };
 
 function HotelsFilter({actives, length, structure, name, ApplyHotelsFilters}: Props) {
-  const Change = (item: keyof HotelsFilterInterface) => {
-    if (actives[item]) {
-      delete actives[item];
-
-    }
-  };
   return (
     <View
       style={[(name !== 'rangePrice' ? {borderBottomColor: GRAY_LIGHT_XX, borderBottomWidth: .5} : {}), Style.py__2]}>
@@ -52,7 +46,9 @@ function HotelsFilter({actives, length, structure, name, ApplyHotelsFilters}: Pr
                                       structure={value!}
                                       actives={actives}
                                       onPressFilters={() => ApplyHotelsFilters({[key]: {name, indexes: value!}})}
-                                      length={length?.stars[key]}/>
+                                      length={length?.stars[key]}
+                                      key={key}
+                  />
                 ),
               )
             }

@@ -39,10 +39,10 @@ const HotelsFiltersStars = ({item, length, structure, actives, onPressFilters}: 
             </Else>
           </Conditional>
         </AppText>
-        <AppText
-          style={[isActivated ? Style.text__muted_l_X : Style.text__muted_d_X, Style.f__10]}>
-          {`(${length ? length.length : structure.length})`}
-        </AppText>
+        {/*<AppText*/}
+        {/*  style={[isActivated ? Style.text__muted_l_X : Style.text__muted_d_X, Style.f__10]}>*/}
+        {/*  {`(${length ? length.length : structure.length})`}*/}
+        {/*</AppText>*/}
       </View>
     </View>
   </TouchableOpacity>;

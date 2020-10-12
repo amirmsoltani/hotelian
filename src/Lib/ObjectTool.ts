@@ -9,10 +9,12 @@ export function ObjectMap<T = {[key: string]: any}, O = {[key: string]: any}>
 }
 
 export function ObjectMapToArray<T = {[key: string]: any}, R = any>
-(ob: T, callbackFn: (key: keyof T, value: T[keyof T], index: number) => R): R[] {
+(ob: T, callbackFn: (key: keyof T, value: T[keyof T], index: number) => R | 'jump'): R[] {
   const result: R[] = [];
   Object.entries(ob).forEach((array, index) => {
-    result.push(callbackFn(array[0] as keyof T, array[1], index));
+    const response = callbackFn(array[0] as keyof T, array[1], index);
+    if (response !== 'jump')
+      result.push(response);
   });
   return result;
 }
