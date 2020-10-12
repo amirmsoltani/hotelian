@@ -1,4 +1,4 @@
-import {BoardTypeType, HotelInterface, HotelsFilterInterface, StarsRatingType} from '../../../Typescript';
+import {BoardTypeType, HotelInterface, HotelsFilterInterface, SortType, StarsRatingType} from 'Typescript';
 import Union from '../Union';
 import {translate} from '../../Languages';
 
@@ -8,6 +8,7 @@ class HotelsInitial {
   protected stars: StarsRatingType;
   protected locations: {[key: string]: number[]};
   protected prices: {[key: string]: number[]};
+  public sorting: SortType;
   public hotelsIndex: number[] = [];
   static readonly boardType_regex = /all\sinclusive|half\sboard|full\sboard|breakfast|room\sonly/g;
   static readonly convertToBoardType: { [key in string]: keyof BoardTypeType } = {
@@ -23,6 +24,7 @@ class HotelsInitial {
     this.stars = {};
     this.locations = {};
     this.prices = {};
+    this.sorting = {'priceUp': [], 'priceDown': [], 'starUp': [], 'starDown': []};
   }
 
   /**
@@ -106,6 +108,13 @@ class HotelsInitial {
     }
   }
 
+  protected sort() {
+    this.sorting.priceUp = [...this.hotelsIndex].sort((a, b) => (this.hotels[b].price.total ? this.hotels[b].price.total : 0) - (this.hotels[a].price.total ? this.hotels[a].price.total : 0));
+    this.sorting.priceDown = this.sorting.priceUp.reverse();
+    this.sorting.starUp = [...this.hotelsIndex].sort((a, b) => this.hotels[b].star - this.hotels[a].star);
+    this.sorting.starDown = this.sorting.starUp.reverse();
+  }
+
   /**
    * process all hotels for create filter structure
    */
@@ -118,6 +127,7 @@ class HotelsInitial {
       this.hotelsIndex.push(index);
     });
     this.rangePrice();
+    this.sort();
     // TODO test here
   }
 
@@ -130,7 +140,9 @@ class HotelsInitial {
       stars: this.stars,
       locations: this.locations,
       rangePrice: this.prices,
-    };
+      sort: this.sorting,
+    }
+      ;
   }
 }
 

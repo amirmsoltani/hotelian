@@ -11,3 +11,5 @@ export * from './nsg-facilities.type';
 export * from './status.type';
 export * from './date.type';
 export * from './room.type';
+export * from './sort.type';
+export * from './hotels-actives-filter.type';

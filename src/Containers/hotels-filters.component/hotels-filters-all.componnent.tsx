@@ -3,14 +3,15 @@ import {TouchableOpacity, View} from 'react-native';
 
 import {BORDER_RADIUS_SM, COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
 import {Style} from "../../Styles";
-import {AppText} from "../../Containers";
+import {AppText} from "../index";
+import {HotelsFilterInterface} from '../../Typescript/Interfaces';
 
 type Props = {
-  item: string;
-  structure: { [key: string]: number[] };
-  length?: any;
+  item: keyof HotelsFilterInterface[keyof HotelsFilterInterface];
+  structure: number[];
+  length?: number[];
   actives: { [key: string]: { indexes: number[], name: string } } | undefined,
-  name: string;
+  name: keyof HotelsFilterInterface;
   onPressFilters: () => void
 };
 
@@ -34,10 +35,10 @@ const HotelsFiltersAll = ({item, length, structure, name, actives, onPressFilter
         <AppText
           style={[isActivated ? Style.text__white : Style.text__primary, Style.mr__1, Style.f__10]}>
           {item === '' ? 'Unknown' : (name === 'boardTypes' ? boardNames[item] : item)}</AppText>
-        <AppText
-          style={[isActivated ? Style.text__muted_l_X : Style.text__muted_d_X, Style.f__10]}>
-          {`(${length ? length[name][item].length : structure[item].length})`}
-        </AppText>
+        {/*<AppText*/}
+        {/*  style={[isActivated ? Style.text__muted_l_X : Style.text__muted_d_X, Style.f__10]}>*/}
+        {/*  {`(${length ? length.length : structure.length})`}*/}
+        {/*</AppText>*/}
       </View>
     </View>
   </TouchableOpacity>

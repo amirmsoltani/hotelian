@@ -1,31 +1,53 @@
 import {put, select, takeLatest} from 'redux-saga/effects';
 import {APPLY_HOTELS_FILTER, ApplyHotelsFilterType, SetHotelsAfterFilters} from '../Actions';
-import {HotelInterface, RootStateInterface} from '../../Typescript';
-import {Unity} from '../../Lib/FilterTool';
+import {HotelsActivesFilterType, HotelsFilterInterface, RootStateInterface, SortType} from 'Typescript';
+import {Unity, Union} from 'Lib/FilterTool';
+import {ObjectForEtch, ObjectLen} from 'Lib/ObjectTool';
 
-function* ApplyHotelsFilter({payload: {actives, union}}: ApplyHotelsFilterType) {
-  const structure: any = yield select((state: RootStateInterface) => state.hotelsReducer.filter!.structure);
-  if (union.length === 0) {
-    const hotels: HotelInterface[] = yield select((state: RootStateInterface) => state.hotelsReducer.basicData?.hotels);
-    const list = [...(hotels.keys())];
-    yield put(SetHotelsAfterFilters(undefined, undefined, list));
+function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
+  const {structure, activeFilters, sortBy}: {activeFilters: HotelsActivesFilterType, structure: HotelsFilterInterface, sortBy: keyof SortType} = yield select((state: RootStateInterface) => (
+    {
+      activeFilters: state.hotelsReducer.filter!.actives!,
+      structure: state.hotelsReducer.filter!.structure!,
+      sortBy: state.hotelsReducer.filter!.sortBy,
+    }
+  ));
+  const activeLength = ObjectLen(payload);
+  let sort = [...activeFilters[sortBy].indexes];
+  delete activeFilters[sortBy];
+  if (!activeLength) {
+    yield put(SetHotelsAfterFilters({[sortBy]: {name: 'sort', indexes: sort}}, structure, sort));
     return;
   }
-  const unity = union.length > 1 ? Unity(...union) : union[0];
-  const length: any = {};
-  Object.keys(structure).forEach((key => {
-    const parent = structure[key];
-    if (Array.isArray(parent))
-      length[key] = Unity(unity, parent);
-    else {
-      length[key] = {};
-      Object.keys(parent).forEach(key1 => {
-        length[key][key1] = Unity<number>(unity, parent[key1]);
-      });
-    }
-  }));
-  yield put(SetHotelsAfterFilters(actives, length, unity));
-  console.log('update', new Date().getTime());
+  const unionFilters: {[key: string]: number[]} = {};
+  const newActiveFilter: HotelsActivesFilterType = {[sortBy]: {name: 'sort', indexes: sort}};
+  let structure2: any = {};
+  ObjectForEtch({...activeFilters, ...payload!}, (key, value) => {
+    if (key in activeFilters && key in payload!)
+      return;
+    else if (key in unionFilters)
+      unionFilters[value.name] = Union({union: unionFilters[value.name], args: [value.indexes]});
+    else
+      unionFilters[value.name] = [...value.indexes];
+    newActiveFilter[key] = value;
+  });
+  let unityFilters: typeof sort;
+  if (ObjectLen(newActiveFilter) > 1) {
+    unityFilters = Unity({unity: sort, args: Object.values(unionFilters)});
+    ObjectForEtch(structure, ((key, value) => {
+      if (key === 'sort')
+        return;
+      structure2[key] = {};
+      ObjectForEtch(value, ((key1, value1) => {
+        structure2[key][key1] = Unity({unity: unityFilters, args: [value1]});
+      }));
+    }));
+  } else {
+    structure2 = {...structure};
+    unityFilters = sort;
+  }
+  yield put(SetHotelsAfterFilters(newActiveFilter, structure2, unityFilters));
+
 }
 
 
