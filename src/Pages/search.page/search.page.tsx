@@ -1,26 +1,19 @@
 import React, {Component} from 'react';
-import {FlatList, ScrollView, StatusBar} from 'react-native';
-import {Body, Button, Header, Icon, Left, Right, View} from 'native-base';
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
+import {FlatList} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {Body, Button, Content, Header, Icon, Left, Right, View} from 'native-base';
 
-import {Props, State} from './search-page.types';
-import style from './search-page.styles';
-import SearchFrom from 'Forms/SearchForm/SearchFrom';
-import {
-  Conditional,
-  CurrencyModal,
-  ElIf,
-  If,
-  LanguageModal,
-  RecentSearch,
-  TopDestination,
-  TopProperty,
-} from 'Components';
-import {COLOR_PRIMARY} from '../../../native-base-theme/variables/config';
-import {AppModal, AppText} from 'Containers';
 import {Style} from 'Styles';
+import style from './search-page.styles';
 import {translate as t} from 'Lib/Languages';
+import {Props, State} from './search-page.types';
+import SearchFrom from 'Forms/SearchForm/SearchFrom';
+import {AppModal, AppText} from 'Containers';
+import {COLOR_PRIMARY} from "../../../native-base-theme/variables/config";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {Conditional, ElIf, If, RecentSearch, TopDestination, TopProperty,} from 'Components';
+import LanguageModal from "../../Containers/language-modal/language-modal";
+import CurrencyModal from "../../Containers/currency-modal/currency-modal";
 
 
 class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
@@ -28,19 +21,23 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
     //To hide the ActionBar/NavigationBar
     header: null,
   };
+
   state = {
     modalVisibility: false,
 
-    //'language' , 'currency
+    //'language' , 'currency'
     modalName: null,
-
-  };
+  }
 
   //=======================================
   // Hooks
   //=======================================
-  render() {
+  constructor(props: Props & StackScreenProps<{}>) {
+    super(props);
+    this.Header = this.Header.bind(this);
+  }
 
+  render() {
     //dummy data
     const recentSearch = [
       {
@@ -147,73 +144,13 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
         key: '5',
       },
     ];
-    const {navigation} = this.props;
-
     return (
       <>
-        <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
-          {/*<StatusBar hidden={true}/>*/}
-          <Left>
-            <Button transparent>
-              <Icon type={'Ionicons'} name='ios-menu-sharp' style={Style.f__20}/>
-            </Button>
-          </Left>
-          <Body>
-            <AppText style={[
-              Style.text__white,
-              Style.text__left,
-              Style.w__100,
-              Style.text__bold,
-              Style.f__18
-            ]}>Hotelian<AppText style={[Style.f__18, Style.text__important]}>.com</AppText>
-            </AppText>
-          </Body>
-          <Right>
-            <Button style={[Style.justify__content_end]} transparent>
-              <Icon type={'Ionicons'} name='notifications-outline' style={Style.f__18}/>
-              <Conditional>
-                <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
-              </Conditional>
-            </Button>
-            <Button style={[Style.justify__content_end]} transparent>
-              <Icon type={'Ionicons'} name='chatbubble-ellipses-outline' style={Style.f__18}/>
-              <Conditional>
-                <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
-              </Conditional>
-            </Button>
-            <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
-              <Menu style={[Style.justify__content_center]}>
-                <MenuTrigger>
-                  <Icon type='Ionicons' name='ellipsis-vertical'
-                        style={[Style.f__20, Style.text__right]}/>
-                </MenuTrigger>
-                <MenuOptions>
-                  <MenuOption style={[Style.p__2]}
-                              onSelect={() => this.onShowModal('language')}>
-                    <AppText style={Style.text__black}>{t('change-language')}</AppText>
-                  </MenuOption>
-                  <MenuOption style={[Style.p__2]}
-                              onSelect={() => this.onShowModal('currency')}>
-                    <AppText style={Style.text__black}>{t('change-currency')}</AppText>
-                  </MenuOption>
-                </MenuOptions>
-              </Menu>
-              <AppModal
-                visibility={this.state.modalVisibility}
-                onClose={() => this.onCloseModal()}>
-                <Conditional>
-                  <If condition={this.state.modalName === 'language'}>
-                    <LanguageModal onClose={() => this.onCloseModal()}/>
-                  </If>
-                  <ElIf condition={this.state.modalName === 'currency'}>
-                    <CurrencyModal onClose={() => this.onCloseModal()}/>
-                  </ElIf>
-                </Conditional>
-              </AppModal>
-            </Button>
-          </Right>
-        </Header>
-        <ScrollView style={style.container}>
+        {/*header*/}
+        <this.Header/>
+
+        {/*content*/}
+        <Content style={style.container}>
 
           {/*background shapes*/}
           <View style={style.bg_rect}/>
@@ -302,10 +239,78 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             </View>
           </View>
 
-        </ScrollView>
+        </Content>
       </>
     );
   }
+
+  //=======================================
+  // Sections
+  //=======================================
+  Header() {
+    return <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
+      <Left>
+        <Button transparent>
+          <Icon type={'Ionicons'} name='ios-menu-sharp' style={Style.f__20}/>
+        </Button>
+      </Left>
+      <Body>
+        <AppText style={[
+          Style.text__white,
+          Style.text__left,
+          Style.w__100,
+          Style.text__bold,
+          Style.f__18
+        ]}>Hotelian<AppText style={[Style.f__18, Style.text__important]}>.com</AppText>
+        </AppText>
+      </Body>
+      <Right>
+        <Button style={[Style.justify__content_end]} transparent>
+          <Icon type={'Ionicons'} name='notifications-outline' style={Style.f__18}/>
+          <Conditional>
+            <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
+          </Conditional>
+        </Button>
+        <Button style={[Style.justify__content_end]} transparent>
+          <Icon type={'Ionicons'} name='chatbubble-ellipses-outline' style={Style.f__18}/>
+          <Conditional>
+            <If condition={true}><View style={[Style.bg__important, style.redBullet,]}/></If>
+          </Conditional>
+        </Button>
+        <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
+          <Menu style={[Style.justify__content_center]}>
+            <MenuTrigger>
+              <Icon type='Ionicons' name='ellipsis-vertical'
+                    style={[Style.f__20, Style.text__right]}/>
+            </MenuTrigger>
+            <MenuOptions>
+              <MenuOption style={[Style.p__2]}
+                          onSelect={() => this.onShowModal('language')}>
+                <AppText style={Style.text__black}>{t('change-language')}</AppText>
+              </MenuOption>
+              <MenuOption style={[Style.p__2]}
+                          onSelect={() => this.onShowModal('currency')}>
+                <AppText style={Style.text__black}>{t('change-currency')}</AppText>
+              </MenuOption>
+            </MenuOptions>
+          </Menu>
+          <AppModal
+            visibility={this.state.modalVisibility}
+            onClose={() => this.onCloseModal()}>
+            <Conditional>
+              <If condition={this.state.modalName === 'language'}>
+                <LanguageModal onClose={() => this.onCloseModal()}/>
+              </If>
+              <ElIf condition={this.state.modalName === 'currency'}>
+                <CurrencyModal onClose={() => this.onCloseModal()}/>
+              </ElIf>
+            </Conditional>
+          </AppModal>
+        </Button>
+      </Right>
+    </Header>
+  }
+
 
   //=======================================
   // Handlers

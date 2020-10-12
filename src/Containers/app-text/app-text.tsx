@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TextProps} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {RnTextStyleProp} from "native-base";
 
 import {COLOR_BLACK, FONT_FAMILY, TEXT_SIZE} from "../../../native-base-theme/variables/config";
@@ -16,7 +16,6 @@ const AppText: React.FC<propTypes> = (props) => {
     </Text>
   )
 };
-
 export default AppText;
 
 const styles = StyleSheet.create({
@@ -25,6 +24,7 @@ const styles = StyleSheet.create({
     fontSize: TEXT_SIZE,
     color: COLOR_BLACK,
     textAlign: 'left',
+    lineHeight: TEXT_SIZE + 4,
   },
 });
 
