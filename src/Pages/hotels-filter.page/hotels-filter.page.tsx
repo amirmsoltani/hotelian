@@ -90,7 +90,7 @@ class HotelsFilterPage extends PureComponent<Props> {
                 renderItem={({item}) => {
                   return <Button
                     transparent style={[Style.pr__1]}
-                    activeOpacity={1}>
+                    activeOpacity={1} onPress={() => this.props.ApplyHotelsFilters({[item.key]: item.value})}>
                     <View style={[{borderWidth: .5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM},
                       Style.mr__1, Style.p__1, Style.bg__white]}>
                       <View style={[Style.flex__row, Style.align__items_center]}>

@@ -36,7 +36,7 @@ export const appInit = async (): Promise<AppStateInterface> => {
     } catch (e) {
       defaultData.status = 'error';
       if (e.isAxiosError && e.message === 'Network Error')
-        defaultData.message = INTERNET_CONNECTION_ERROR;
+        defaultData.message = INTERNET_CONNECTION_ERROR + '\n' + JSON.stringify(e.toJSON());
       else
         defaultData.message = USER_INITIAL_ERROR_MESSAGE;
     }
@@ -56,10 +56,9 @@ export const appInit = async (): Promise<AppStateInterface> => {
     defaultData.today = response.data.result.today;
     defaultData.json = (await axios.get(LANGUAGE_URL + defaultData.language)).data.result;
   } catch (e) {
-    console.log(e.request, e.message, e.isAxiosError);
     defaultData.status = 'error';
     if (e.isAxiosError && e.message === 'Network Error')
-      defaultData.message = INTERNET_CONNECTION_ERROR;
+      defaultData.message = INTERNET_CONNECTION_ERROR + '\n' + JSON.stringify(e.toJSON());
     else
       defaultData.message = USER_INITIAL_ERROR_MESSAGE;
   }
