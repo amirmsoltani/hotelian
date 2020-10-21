@@ -5,7 +5,9 @@ import {Body, Header, Left, Right} from "native-base";
 import {Style} from "Styles";
 import {RootStateInterface} from "Typescript/Interfaces";
 import {AppTitle, BackNavigation} from "Containers";
-import {FlatList, Image, View} from "react-native";
+import {FlatList, View} from "react-native";
+import {ProgressiveImage} from "../../Components";
+import {BLACK_LIGHT} from "../../../native-base-theme/variables/config";
 
 const mapStateToProps = ({hotelReducer: {hotel: {result}}}: RootStateInterface) => ({
   name: result!.hotel.name,
@@ -27,9 +29,12 @@ const HotelImageFlatList = (props: propsType) => {
         <FlatList
           data={props.images}
           keyExtractor={(_, index) => index + ''}
-          renderItem={({item, index}) => <Image
-            style={[{width: undefined, height: 180,}, Style.mb__3]}
-            resizeMode="cover" source={{uri: item.original}}/>}
+          renderItem={({item, index}) => <View style={[Style.py__1]}>
+            <ProgressiveImage
+              bgColor={BLACK_LIGHT}
+              style={[{width: undefined, height: 180}]}
+              resizeMode="cover" source={{uri: item.original}}/>
+          </View>}
         />
       </View>
     </>
