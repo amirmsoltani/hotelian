@@ -1,48 +1,47 @@
 import {View} from 'react-native';
 import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {push, replace} from 'connected-react-router';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 import {Body, Button, Content, Footer, Header, Icon, Left, Right, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
 import {RootStateInterface} from 'Typescript';
-import {translate as t, translate} from 'Lib/Languages';
-import {COLOR_WHITE} from "../../../native-base-theme/variables/config";
-import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from "Containers";
+import {translate as t} from 'Lib/Languages';
+import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
+import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {Conditional, ElIf, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
 
 const mapStateToProps = (
   {
     hotelsReducer: {basicData},
     searchReducer: {search_id},
-    hotelReducer: {hotel: {status, result}}, router
+    hotelReducer: {hotel: {status, result}},
+
   }: RootStateInterface) => (
   {
     search_id,
     status,
     result,
     hotels: basicData?.hotels,
-    router,
   });
-const mapDispatchToProps = {GetHotel, replace, push,};
+const mapDispatchToProps = {GetHotel};
 const connector = connect(mapStateToProps, mapDispatchToProps);
-const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]}
+const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]};
 
 
 type Props =
   ConnectedProps<typeof connector> &
-  StackScreenProps<{ hotel: { id: string, name: string, checkIn?: string, checkOut?: string }, }, 'hotel'>;
+  StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string},}, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
+class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: boolean}> {
   id?: string;
   hasSearchID: boolean;
   state = {
     isLiked: false,
     shareModal: false,
-  }
+  };
 
 
   //=======================================
@@ -65,9 +64,9 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
 
   render() {
     const status = this.props.status;
-    const {checkOut, checkIn, id} = this.props.route.params;
+    const {checkin, checkout, id} = this.props.route.params;
     this.id = id;
-    this.hasSearchID = !!checkIn && !!checkOut;
+    this.hasSearchID = !!checkin && !!checkout;
     return (
       <>
         {/*header*/}
@@ -107,7 +106,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
               <View style={[Style.w__100, Style.p__1]}>
                 <Button block style={[Style.bg__primary]}>
                   <AppText style={[Style.text__white, Style.text__bold]}>
-                    {translate('select-room')}</AppText>
+                    {t('select-room')}</AppText>
                 </Button>
               </View>
             </Footer>
@@ -130,7 +129,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
           <AppTitle hasSubtitle={this.hasSearchID}>{this.props.route.params.name}</AppTitle>
           <Conditional>
             <If condition={this.hasSearchID}>
-              <AppSubtitle>{`${this.props.route.params.checkIn} - ${this.props.route.params.checkOut}`}</AppSubtitle>
+              <AppSubtitle>{`${this.props.route.params.checkin} - ${this.props.route.params.checkout}`}</AppSubtitle>
             </If>
           </Conditional>
         </Body>
@@ -170,7 +169,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
     return <View style={styles.container}>
 
       {/*name*/}
-      <View style={[Style.px__3,]}>
+      <View style={[Style.px__3]}>
         <AppText style={[Style.text__bold, Style.f__14]}>{hotel.name}</AppText>
       </View>
 
@@ -202,7 +201,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
         <Icon style={[Style.f__16, Style.mr__1]}
               name='md-information-circle-outline' type='Ionicons'/>
         <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize]}>
-          {translate('hotel-description')}</AppText>
+          {t('hotel-description')}</AppText>
       </View>
       <AppText style={[Style.f__12]}>
         {descriptions.replace(/&lt;br(\s|'')\/&gt;/g, '\n')}
@@ -215,7 +214,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
   // Handlers
   //=======================================
   bookIt(id: number) {
-    this.props.push(`/passengers/${id}`);
+    // this.props.push(`/passengers/${id}`);
   }
 
   onLike() {
@@ -224,8 +223,8 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
         text: `${this.state.isLiked ? 'Saved' : 'Removed'} successfully.`,
         duration: 3000,
         textStyle: {color: COLOR_WHITE},
-        position: "bottom",
-      })
+        position: 'bottom',
+      });
     });
   }
 
