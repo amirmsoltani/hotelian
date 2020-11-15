@@ -1,28 +1,38 @@
 import React from 'react';
 import {Container} from 'native-base';
-import {match} from 'react-router-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+  TransitionPresets, StackNavigationProp, StackScreenProps,
+} from '@react-navigation/stack';
 
-import {HotelImageFlatList, HotelPage,} from '../Pages';
-import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
+import {HotelImageFlatList, HotelPage} from '../Pages';
+import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
 
 const Stack = createStackNavigator();
 
-const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: match<{ id: string, name: string, checkIn?: string, checkOut?: string }> }) => {
+const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string}}, 'hotel'>) => {
+
   return (
-    <Container style={{backgroundColor: MUTED_LIGHT_XXX,}}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="hotel"  screenOptions={{
+    <Container style={{backgroundColor: MUTED_LIGHT_XXX}}>
+      <Stack.Navigator
+        initialRouteName="hotel"
+        screenOptions={{
           ...TransitionPresets.SlideFromRightIOS,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
-        }}>
-          <Stack.Screen name="hotel" component={HotelPage} initialParams={{id, name, checkIn, checkOut}}/>
-          <Stack.Screen name={'hotel-image-flat-list'} component={HotelImageFlatList}/>
+        }}
+      >
+        <Stack.Screen
+          name="hotel"
+          component={HotelPage}
+        />
+        <Stack.Screen
+          name={'hotel-image-flat-list'}
+          component={HotelImageFlatList}
+        />
 
-
-          {/*
+        {/*
           TODO: These screens should place in this route
             1. *select room
             2. *filter
@@ -32,8 +42,7 @@ const HotelRoute = ({match: {params: {id, name, checkOut, checkIn}}}: { match: m
             6. review modal
             7. modify search
           */}
-        </Stack.Navigator>
-      </NavigationContainer>
+      </Stack.Navigator>
     </Container>
   );
 };

@@ -3,15 +3,15 @@ import SearchReducer, {searchInit} from './search.reducer';
 import AppReducer, {appInit} from './app.reducer';
 import HotelsReducer, {hotelsInit} from './hotels.reducer';
 import HotelReducer, {hotelInit} from './hotel.reducer';
+import NavigationReducer from './navigation.reducer';
 import {MemoryHistory} from 'history';
 
-const {connectRouter} = require('connected-react-router');
 const rootReducer = (history: MemoryHistory) => combineReducers({
   searchReducer: SearchReducer,
   appReducer: AppReducer,
   hotelsReducer: HotelsReducer,
   hotelReducer: HotelReducer,
-  router: connectRouter(history),
+  navigation: NavigationReducer,
 });
 export const Initial = {
   searchInit,
