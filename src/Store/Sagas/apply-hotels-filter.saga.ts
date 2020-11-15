@@ -2,7 +2,7 @@ import {put, select, takeLatest} from 'redux-saga/effects';
 import {APPLY_HOTELS_FILTER, ApplyHotelsFilterType, SetHotelsAfterFilters} from '../Actions';
 import {HotelsActivesFilterType, HotelsFilterInterface, RootStateInterface, SortType} from 'Typescript';
 import {Unity, Union} from 'Lib/FilterTool';
-import {ObjectForEtch, ObjectLen} from 'Lib/ObjectTool';
+import ot from 'object-tool';
 
 function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
   const {structure, activeFilters, sortBy}: {activeFilters: HotelsActivesFilterType, structure: HotelsFilterInterface, sortBy: keyof SortType} = yield select((state: RootStateInterface) => (
@@ -12,7 +12,7 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
       sortBy: state.hotelsReducer.filter!.sortBy,
     }
   ));
-  const activeLength = ObjectLen(payload);
+  const activeLength = ot.len(payload);
   let sort = [...activeFilters[sortBy].indexes];
   delete activeFilters[sortBy];
   if (!activeLength) {
@@ -22,13 +22,13 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
   const unionFilters: {[key: string]: number[]} = {};
   const newActiveFilter: HotelsActivesFilterType = {[sortBy]: {name: 'sort', indexes: sort}};
   // let structure2: any = {};
-  let sorting: undefined | keyof SortType;
-  ObjectForEtch({...payload!, ...activeFilters}, (key, value) => {
+  let sorting: undefined | keyof SortType = undefined;
+  ot.etch({...payload!, ...activeFilters}, (key, value) => {
     if (value.name === 'sort') {
       delete newActiveFilter[sortBy];
       newActiveFilter[key] = {...value};
       sort = [...value.indexes];
-      sorting =<keyof SortType> key;
+      sorting = <keyof SortType>key;
       return;
     }
     if (key in activeFilters && key in payload!)
@@ -40,7 +40,7 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
     newActiveFilter[key] = value;
   });
   let unityFilters: typeof sort;
-  if (ObjectLen(newActiveFilter) > 1)
+  if (ot.len(newActiveFilter) > 1)
     unityFilters = Unity({unity: sort, args: Object.values(unionFilters)});
     //   ObjectForEtch(structure, ((key, value) => {
     //     if (key === 'sort')
@@ -56,7 +56,7 @@ function* ApplyHotelsFilter({payload}: ApplyHotelsFilterType) {
   // }
   else
     unityFilters = sort;
-  yield put(SetHotelsAfterFilters(newActiveFilter, unityFilters,sorting));//, structure2, unityFilters));
+  yield put(SetHotelsAfterFilters(newActiveFilter, unityFilters, sorting));//, structure2, unityFilters));
 
 }
 
