@@ -1,14 +1,14 @@
 import {delay, takeLatest, put} from 'redux-saga/effects';
-import {push, replace} from 'connected-react-router';
-import Http from '../../Lib/Http';
+import Http from 'Lib/Http';
+import {stackActions} from 'Lib/navigation';
 import {SET_SEARCH_ID, SetSearchIdType, SetHotels, GET_HOTELS, SearchExpire} from '../Actions';
 import {
   HotelsResultInterface,
   HttpResponseInterface,
-} from '../../Typescript';
-import {HOTEL_SEARCH_RESULT_URL} from '../../URLS';
-import {HotelsInitial} from '../../Lib/FilterTool';
-import Storage from '../../Lib/Storage';
+} from 'Typescript';
+import {HOTEL_SEARCH_RESULT_URL} from 'URLS';
+import {HotelsInitial} from 'Lib/FilterTool';
+import Storage from 'Lib/Storage';
 
 export function* GetHotels(action: SetSearchIdType) {
 
@@ -36,7 +36,7 @@ export function* GetHotels(action: SetSearchIdType) {
       yield delay(10000);
     yield put(SearchExpire());
   } catch (e) {
-    yield put(replace({pathname: '/'}));
+    yield stackActions.replace('home');
     // TODO after create expire put expire
     console.log(e.response);
     // TODO add error handler after create

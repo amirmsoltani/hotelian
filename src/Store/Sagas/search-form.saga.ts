@@ -1,9 +1,9 @@
 import {cancel, fork, delay, takeLatest, put, select} from 'redux-saga/effects';
-import {push} from 'connected-react-router';
 import Http from '../../Lib/Http';
 import {ACCEPT_SEARCH_FORM, SetSearchId} from '../Actions';
 import {HttpResponseInterface, RootStateInterface, SearchFormDataInterface} from '../../Typescript';
 import {HOTEL_SEARCH_URL} from '../../URLS';
+import {commonActions} from 'Lib/navigation';
 
 export function* AcceptSearchFrom() {
   const searchFormData: SearchFormDataInterface = yield select((state: RootStateInterface) => state.searchReducer.form_data);
@@ -17,7 +17,7 @@ export function* AcceptSearchFrom() {
   };
   const loader = yield fork(function* () {
     yield delay(1000);
-    yield put(push('/hotels'));
+    yield commonActions.navigate('hotels', 'hotels');
   });
   try {
     const response: HttpResponseInterface<{search_id: string}> = yield Http.request({
