@@ -1,33 +1,18 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  View,
-  VirtualizedList,
-} from 'react-native';
+import {SafeAreaView, TouchableOpacity, View, VirtualizedList,} from 'react-native';
 import {Body, Header, Icon, Left, Right, Spinner} from 'native-base';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 
-import {
-  COLOR_INFO,
-  MUTED_LIGHT_XX,
-  MUTED_LIGHT_XXX,
-  SHADOW_SM_X,
-} from '../../../native-base-theme/variables/config';
+import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X,} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
 import {ApplyHotelsFilters, GetHotels} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
 import {Conditional, HotelCard, If} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {HotelInterface, RootStateInterface} from 'Typescript';
-import {
-  Menu,
-  MenuOption,
-  MenuOptions,
-  MenuTrigger,
-} from 'react-native-popup-menu';
+import {Menu, MenuOption, MenuOptions, MenuTrigger,} from 'react-native-popup-menu';
 
 const mapStateToProps = ({
                            hotelsReducer: {basicData, status, filter},
@@ -58,7 +43,7 @@ const mapDispatchToProps = {GetHotels, ApplyHotelsFilters};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 class HotelListPage extends Component<Props,
-  {end: boolean; scroll: boolean}> {
+  { end: boolean; scroll: boolean }> {
   timeOut: any | null = null;
   activatedFilter = 0;
   state = {
@@ -103,10 +88,8 @@ class HotelListPage extends Component<Props,
   }
 
   shouldComponentUpdate(nextProps: Readonly<Props>): boolean {
-    if (nextProps.current === 'hotels') {
-      return true;
-    }
-    return false;
+    return (nextProps.current === 'hotels' && nextProps.hotels !== this.props.hotels);
+
   }
 
   render() {

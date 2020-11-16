@@ -8,3 +8,6 @@ export {default as HotelsFilterPage} from './hotels-filter.page/hotels-filter.pa
 export {default as HotelsMapPage} from './hotels-map.page/hotel-map.page';
 export {default as HotelPage} from './hotel.page/hotel.page';
 export {default as HotelImageFlatList} from './hotel-image-flat-list/hotel-image-flat-list';
+export {default as TestPage} from './test-page/test-page';
+export {default as ScoreBar} from './hotel.page/review-section/score-bar/score-bar';
+export {default as ScoreSummary} from './hotel.page/review-section/score-summary/score-summary';

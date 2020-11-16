@@ -1,6 +1,6 @@
-export const API_URL = 'http://hotelian.api';
+// export const API_URL = 'http://hotelian.api';
 // export const API_URL = 'http://app.hotelian.com';
-// export const API_URL = 'http://192.168.100.24:9091';
+export const API_URL = 'http://192.168.100.24:9091';
 // export const LANGUAGE_URL = 'http://b2c.hotelian/api/get-translates?lang=';
 // export const LANGUAGE_URL = 'https://hotelian.com/api/get-translates?lang=';
 export const LANGUAGE_URL =

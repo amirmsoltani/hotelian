@@ -76,6 +76,7 @@ export const Style = StyleSheet.create({
   text__lowerCase: {textTransform: 'lowercase'},
   text__upperCase: {textTransform: 'uppercase'},
   text__capitalize: {textTransform: 'capitalize'},
+  text__justify: {textAlign: 'justify'},
 //=======================================
   text__wrap: {flex: 1, flexWrap: 'wrap'},
   text__underline: {textDecorationLine: 'underline'},

@@ -11,7 +11,7 @@ import {
   SearchPage,
   SelectDatePage,
   SelectDestinationPage,
-  SelectNationalityPage,
+  SelectNationalityPage, TestPage,
 } from '../Pages';
 
 const Stack = createStackNavigator();
@@ -26,6 +26,7 @@ const SearchRoute = () => {
         }}
         initialRouteName="form"
       >
+        <Stack.Screen name="test" component={TestPage} />
         <Stack.Screen name="form" component={SearchPage} />
         <Stack.Screen name="destination" component={SelectDestinationPage} />
         <Stack.Screen name="nationality" component={SelectNationalityPage} />
