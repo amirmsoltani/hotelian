@@ -1,9 +1,9 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, View} from "react-native";
-import CommentModel from "../../../Typescript/Interfaces/comment.model";
-import {Style} from "../../../Styles";
-import {AppText} from "../../../Containers";
-import {Conditional, Else, If} from "../../../Components";
+import CommentModel from "../../../../Typescript/Interfaces/comment.model";
+import {Style} from "../../../../Styles";
+import {AppText} from "../../../../Containers";
+import {Conditional, Else, If} from "../../../../Components";
 import {Icon} from "native-base";
 
 const ReviewCard: FunctionComponent<{ data: CommentModel }> = (props) => {

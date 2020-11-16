@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, View} from "react-native";
-import {Style} from "../../../Styles";
-import {AppText} from "../../../Containers";
-import {COLOR_MUTED} from "../../../../native-base-theme/variables/config";
+import {Style} from "../../../../Styles";
+import {AppText} from "../../../../Containers";
+import {COLOR_MUTED} from "../../../../../native-base-theme/variables/config";
 
 type propsType = { label: string, score: number }
 const ScoreBar: FunctionComponent<propsType> = (props) => {

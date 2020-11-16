@@ -12,6 +12,7 @@ import {translate as t} from 'Lib/Languages';
 import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {Conditional, ElIf, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
+import ReviewSection from "./review-section/review-section";
 
 const mapStateToProps = (
   {
@@ -33,9 +34,9 @@ const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]};
 
 type Props =
   ConnectedProps<typeof connector> &
-  StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string},}, 'hotel'>;
+  StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string }, }, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: boolean}> {
+class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
   id?: string;
   hasSearchID: boolean;
   state = {
@@ -77,13 +78,23 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
           <Conditional>
             <If condition={status === 'loading'}><ScreenLoading/></If>
             <ElIf condition={status === 'ok'}>
+
+              {/*hotel images*/}
               <HotelImages image={this.props.result?.nsg_images.map(item => item.original)}/>
+
+              {/*hotel details*/}
               <this.HotelDetails/>
+
+              {/*hotel description*/}
               <this.HotelDescription/>
-              {
-                Object.values(this.props.result?.nsg_facilities ?? []).map(item =>
-                  <HotelFacilities key={item.name} name={item.name} values={item.values}/>)
-              }
+
+              {/*hotel facilities*/}
+              {Object.values(this.props.result?.nsg_facilities ?? []).map(item =>
+                <HotelFacilities key={item.name} name={item.name} values={item.values}/>)}
+
+              {/*reviews*/}
+              <ReviewSection/>
+
             </ElIf>
             <ElIf condition={status === 'error'}>
               <AppText>Some thing went wrong</AppText>

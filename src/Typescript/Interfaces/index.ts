@@ -18,3 +18,4 @@ export * from './hotel-option.interface';
 export * from './rooms-details.interface';
 export * from './room-filter.interface';
 export * from './navigation-state.interface';
+export * from './comment.model';

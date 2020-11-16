@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View} from "react-native";
-import {AppText} from "../../../Containers";
-import {Style} from "../../../Styles";
+import {AppText} from "../../../../Containers";
+import {Style} from "../../../../Styles";
 
 type propsType = {
   scoreAverage: number;
