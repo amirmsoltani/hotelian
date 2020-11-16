@@ -2,11 +2,12 @@ import React, {FunctionComponent} from 'react';
 import {StyleSheet, View} from "react-native";
 import {Style} from "../../../Styles";
 import {AppText} from "../../../Containers";
+import {COLOR_MUTED} from "../../../../native-base-theme/variables/config";
 
 type propsType = { label: string, score: number }
 const ScoreBar: FunctionComponent<propsType> = (props) => {
   return (
-    <View style={Style.p__1}>
+    <View style={[Style.p__1,]}>
       <View>
         <AppText style={[Style.text__capitalize, Style.f__12]}>{props.label}</AppText>
       </View>
@@ -25,7 +26,7 @@ export default ScoreBar;
 const styles = StyleSheet.create({
   barContainer: {
     height: 10,
-    borderColor: '#c1c1c1',
+    borderColor: COLOR_MUTED,
     borderWidth: .5,
     borderRadius: 2,
     overflow: "hidden",
