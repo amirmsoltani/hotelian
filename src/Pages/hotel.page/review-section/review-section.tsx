@@ -117,13 +117,13 @@ const ReviewSection = () => {
             <View style={[Style.mb__1,]}>
               <ReviewCard data={comment} key={'review_card_' + index}/>
               <Conditional>
-                <If condition={index === 3 - 1}>
+                <If condition={index + 1 === 3}>
                   <TouchableNativeFeedback>
                     <View
                       style={[Style.flex__row, Style.align__items_center, Style.bg__white, Style.py__2, Style.justify__content_center]}>
                       <Icon style={[Style.f__14, Style.text__info]} name={'chevron-down'} type={'Feather'}/>
                       <AppText
-                        style={[Style.text__center, Style.text__info, Style.text__capitalize, Style.f__12,{lineHeight:16}]}>show
+                        style={[Style.text__center, Style.text__info, Style.text__capitalize, Style.f__12, {lineHeight: 16}]}>show
                         more</AppText>
                     </View>
                   </TouchableNativeFeedback>
