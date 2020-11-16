@@ -1,14 +1,14 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, View} from "react-native";
-import CommentModel from "../../../../Typescript/Interfaces/comment.model";
 import {Style} from "../../../../Styles";
 import {AppText} from "../../../../Containers";
 import {Conditional, Else, If} from "../../../../Components";
 import {Icon} from "native-base";
+import {CommentModel} from "../../../../Typescript/Interfaces";
 
 const ReviewCard: FunctionComponent<{ data: CommentModel }> = (props) => {
   return (
-    <View style={[Style.p__3,]}>
+    <View style={[Style.p__3,Style.bg__white]}>
 
       {/*header*/}
       <View style={[Style.mb__2]}>
