@@ -121,9 +121,7 @@ const ReviewSection = () => {
                   <TouchableNativeFeedback>
                     <View
                       style={[Style.flex__row, Style.align__items_center, Style.bg__white, Style.py__2, Style.justify__content_center]}>
-                      <Icon style={[Style.f__14, Style.text__info]}
-                            name={'chevron-down'}
-                            type={'Feather'}/>
+                      <Icon style={[Style.f__14, Style.text__info]} name={'chevron-down'} type={'Feather'}/>
                       <AppText
                         style={[Style.text__center, Style.text__info, Style.text__capitalize, Style.f__12,{lineHeight:16}]}>show
                         more</AppText>
