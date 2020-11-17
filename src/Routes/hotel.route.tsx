@@ -34,7 +34,7 @@ const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScree
             2. filter
             3. map
             4. * slider flat list
-            5. slider carousel
+            5. * slider carousel
             6. * review modal
             7. modify search
           */}

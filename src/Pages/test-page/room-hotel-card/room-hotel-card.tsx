@@ -14,7 +14,7 @@ type propsType = {
   reviews_count?: number;
   image_source?: ImageSourcePropType | null;
 };
-const hotelImage = require('../../../Assets/Images/no-image.png');
+const hotelImage = require('Assets/Images/no-image.png');
 
 const RoomHotelCard: FunctionComponent<{ data: propsType }> = (props) => {
   return (

@@ -86,7 +86,7 @@ class HotelSelectRoom extends Component {
 
     return (
       <>
-        <Header>
+        <Header style={[Style.bg__primary, Style.flex__row]}>
           <Left><BackNavigation/></Left>
           <Body>
             <AppTitle>hotel names goes here!!!</AppTitle>

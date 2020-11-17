@@ -34,7 +34,7 @@ const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]};
 
 type Props =
   ConnectedProps<typeof connector> &
-  StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string }, }, 'hotel'>;
+  StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string }, 'select-room': any }, 'hotel'>;
 
 class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
   id?: string;
@@ -115,7 +115,8 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
           <If condition={this.hasSearchID}>
             <Footer style={[Style.bg__white]}>
               <View style={[Style.w__100, Style.p__1]}>
-                <Button block style={[Style.bg__primary]}>
+                <Button onPress={() => this.props.navigation.navigate('select-room')}
+                        block style={[Style.bg__primary]}>
                   <AppText style={[Style.text__white, Style.text__bold]}>
                     {t('select-room')}</AppText>
                 </Button>
