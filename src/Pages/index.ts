@@ -11,3 +11,7 @@ export {default as HotelImageFlatList} from './hotel-image-flat-list/hotel-image
 export {default as TestPage} from './test-page/test-page';
 export {default as ScoreBar} from './hotel.page/review-section/score-bar/score-bar';
 export {default as ScoreSummary} from './hotel.page/review-section/score-summary/score-summary';
+export {default as RoomsAction} from './test-page/rooms-action/rooms-action';
+export {default as RoomHotelCard} from './test-page/room-hotel-card/room-hotel-card';
+export {default as RoomSearchDetails} from './test-page/room-search-details/room-search-details';
+export {default as HotelSelectRoom} from './hotel-select-room/hotel-select-room';
