@@ -1,34 +1,13 @@
-import React, {Component} from 'react';
-import {Content, Header} from "native-base";
-import {RoomHotelCard, RoomsAction} from "../index";
+import React from 'react';
+import {View} from "react-native";
+import {AppText} from "../../Containers";
 
-class TestPage extends Component {
-
-  constructor(props: any) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <>
-        <Header/>
-        <Content>
-
-          {/*actions*/}
-          <RoomsAction/>
-
-          {/*hotel details*/}
-          <RoomHotelCard/>
-
-          {/*search details*/}
-
-          {/*hotel list*/}
-
-
-        </Content>
-      </>
-    );
-  }
-}
+const TestPage = () => {
+  return (
+    <View>
+      <AppText>Test screen</AppText>
+    </View>
+  );
+};
 
 export default TestPage;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import {Text} from 'react-native';
 import {RnTextStyleProp} from "native-base";
 
@@ -10,7 +10,7 @@ type propTypes = {
   hasSubtitle?: boolean;
   [key: string]: any;
 }
-const AppTitle: React.FC<propTypes> = (props) => {
+const AppTitle: FunctionComponent<propTypes> = (props) => {
   return (
     <Text
       numberOfLines={1}
