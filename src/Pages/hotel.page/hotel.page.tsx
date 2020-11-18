@@ -33,7 +33,7 @@ const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]};
 
 type Props =
   ConnectedProps<typeof connector> &
-  StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string},}, 'hotel'>;
+  StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string}, [key: string]: any}, 'hotel'>;
 
 class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: boolean}> {
   id?: string;
@@ -57,8 +57,9 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
 
   componentDidMount() {
     const {result} = this.props;
-    if (this.props.status === undefined || (result && result.hotel.id !== +this.id!))
+    if (this.props.status === undefined || (result && result.hotel.id !== +this.id!)) {
       this.props.GetHotel(+this.id!);
+    }
 
   }
 
@@ -104,7 +105,14 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
           <If condition={this.hasSearchID}>
             <Footer style={[Style.bg__white]}>
               <View style={[Style.w__100, Style.p__1]}>
-                <Button block style={[Style.bg__primary]}>
+                <Button block style={[Style.bg__primary]}
+                        onPress={() => this.props.navigation.navigate('rooms', {
+                          hotel_id: this.props.result?.hotel.id,
+                          search_id: this.props.search_id,
+                          checkin,
+                          checkout,
+                          name: this.props.result?.hotel.name,
+                        })}>
                   <AppText style={[Style.text__white, Style.text__bold]}>
                     {t('select-room')}</AppText>
                 </Button>
@@ -136,18 +144,18 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
         <Right>
           <Button onPress={() => this.onLike()}
                   style={[Style.justify__content_end]} transparent>
-            <Icon type='Ionicons' name={this.state.isLiked ? 'heart' : 'heart-outline'}
+            <Icon type="Ionicons" name={this.state.isLiked ? 'heart' : 'heart-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
           <Button onPress={() => this.onShare()}
                   style={[Style.justify__content_end]} transparent>
-            <Icon type='Ionicons' name={'share-social-outline'}
+            <Icon type="Ionicons" name={'share-social-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
           <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
             <Menu style={[Style.justify__content_center]}>
               <MenuTrigger>
-                <Icon type='Ionicons' name='ellipsis-vertical' style={[Style.f__20, Style.text__right]}/>
+                <Icon type="Ionicons" name="ellipsis-vertical" style={[Style.f__20, Style.text__right]}/>
               </MenuTrigger>
               <MenuOptions>
                 <MenuOption style={[Style.p__2]}>
@@ -182,7 +190,7 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
       {/*location and address*/}
       <View style={[Style.px__3, Style.mb__1]}>
         <View style={[Style.flex__row, Style.align__items_center]}>
-          <Icon type='SimpleLineIcons' name='location-pin'
+          <Icon type="SimpleLineIcons" name="location-pin"
                 style={[Style.text__black, Style.ml__0, Style.mr__1, Style.f__12]}/>
           <AppText style={[Style.f__12]}>{hotel.location}</AppText>
         </View>
@@ -199,7 +207,7 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
     return descriptions ? <View style={[styles.container, Style.px__3]}>
       <View style={[Style.flex__row, Style.align__items_center, Style.mb__2]}>
         <Icon style={[Style.f__16, Style.mr__1]}
-              name='md-information-circle-outline' type='Ionicons'/>
+              name="md-information-circle-outline" type="Ionicons"/>
         <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize]}>
           {t('hotel-description')}</AppText>
       </View>
@@ -213,9 +221,6 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
   //=======================================
   // Handlers
   //=======================================
-  bookIt(id: number) {
-    // this.props.push(`/passengers/${id}`);
-  }
 
   onLike() {
     this.setState({isLiked: !this.state.isLiked}, () => {

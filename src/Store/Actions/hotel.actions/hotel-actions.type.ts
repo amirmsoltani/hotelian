@@ -1,17 +1,30 @@
-import {HotelDetailsInterface, HttpRequestActionInterface, RoomsDetailsInterface} from 'Typescript';
+import {
+  HotelDetailsInterface, OptionFilterInterface, OptionsActiveFiltersType,
+  RoomsDetailsInterface,
+} from 'Typescript';
 
 export const GET_HOTEL = '[Hotel Reducer] Get Hotel';
-export type GetHotelType = HttpRequestActionInterface<typeof GET_HOTEL, 'hotel', 'GET', HotelDetailsInterface>
+export type GetHotelType = {type: typeof GET_HOTEL, url: string};
 
-export const GET_HOTELS_ROOMS = '[Hotel Reducers] Get Hotels Rooms';
-export type GetHotelRoomsType = HttpRequestActionInterface<typeof GET_HOTELS_ROOMS, 'rooms', 'GET', RoomsDetailsInterface>
-
-
-export type HotelHttpActionsType = GetHotelType | GetHotelRoomsType;
-
+export const GET_HOTELS_ROOMS = '[Hotel Reducer] Get Hotels Rooms';
+export type GetHotelRoomsType = {url: string, type: typeof GET_HOTELS_ROOMS, hotel_id: number, search_id: string}
 
 export const SET_HOTEL_DATA = '[Hotel Reducer] Set Hotel Data';
-export type SetHotelDataType = {type: typeof SET_HOTEL_DATA, payload: HotelHttpActionsType};
+
+export type SetHotelDataType = {type: typeof SET_HOTEL_DATA, payload: HotelDetailsInterface};
 
 
-export type HotelActionsType = HotelHttpActionsType | SetHotelDataType;
+export const SET_HOTELS_ROOMS = '[Hotel Reducer] Set Hotel Rooms';
+export type SetHotelRoomType = {
+  type: typeof SET_HOTELS_ROOMS,
+  payload: RoomsDetailsInterface & {
+    filter: {
+      structure: OptionFilterInterface,
+      actives?: OptionsActiveFiltersType,
+      hotels: number[]
+    }
+  }
+}
+
+
+export type HotelActionsType = SetHotelDataType | SetHotelRoomType | GetHotelType | GetHotelRoomsType;
