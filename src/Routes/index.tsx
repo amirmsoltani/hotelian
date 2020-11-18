@@ -9,8 +9,8 @@ import HotelsRoute from './hotels.route';
 import ModifySearchRoute from './modify-search.route';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer, NavigationProp} from '@react-navigation/native';
-import {setNavigation, navigationConfig} from 'Lib/navigation';
+import {NavigationContainer} from '@react-navigation/native';
+import {navigationConfig, setNavigation} from 'Lib/navigation';
 import {SetNavigationState} from '../Store/Actions';
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -37,7 +37,7 @@ class Routes extends Component<Props> {
           screenOptions={({navigation}) => {
             if (!navigationConfig)
               setNavigation(navigation);
-            return {headerShown: false, gestureEnabled: false};
+            return {headerShown: false, gestureEnabled: true};
           }}
 
         >

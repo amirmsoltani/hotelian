@@ -3,7 +3,7 @@ import {Alert, View} from "react-native";
 import {Body, Content, Header, Left, Right} from "native-base";
 import {RoomHotelCard, RoomsAction, RoomSearchDetails} from "../index";
 import {Style} from "../../Styles";
-import RoomCard from "../test-page/room-card/room-card";
+import RoomCard from "./room-card/room-card";
 import {AppTitle, BackNavigation} from "../../Containers";
 
 class HotelSelectRoom extends Component {
