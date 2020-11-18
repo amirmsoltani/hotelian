@@ -1,15 +1,15 @@
 import {put, takeEvery} from 'redux-saga/effects';
 import {GET_HOTEL, GetHotelType, SetHotelData} from 'Store/Actions';
 import Http from 'Lib/Http';
-import {HttpResponseInterface} from 'Typescript';
+import {HttpResponseInterface, HotelDetailsInterface} from 'Typescript';
 
 function* HotelHttpRequestSaga(action: GetHotelType) {
   try {
-    const response: HttpResponseInterface<typeof action.response> = yield Http.request({
+    const response: HttpResponseInterface<HotelDetailsInterface> = yield Http.request({
       url: action.url,
-      method: action.method,
+      method: 'GET',
     });
-    yield put(SetHotelData(action, response.data.result));
+    yield put(SetHotelData(response.data.result));
   } catch (e) {
     console.log(e.response);
   }

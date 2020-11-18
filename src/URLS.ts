@@ -13,6 +13,7 @@ export const HOTEL_SEARCH_RESULT_URL = API_URL + '/hotel/get-search-result';
 export const USER_TRACK_CODE_URL = API_URL + '/general/get-user-track-code';
 export const HOTEL_DETAILS = API_URL + '/hotel/get-hotel-details';
 export const HOTEL_ROOMS = API_URL + '/hotel/get-hotel-rooms';
-// TODO hotel_id hotel_id
+export const CANCELLATION_POLICY = API_URL + '/hotel/get-cancellation-policy';
+// TODO hotel_id search_id
 export const USER_INITIAL_ERROR_MESSAGE = 'something wrong please try again';
 export const INTERNET_CONNECTION_ERROR = 'internet connection';

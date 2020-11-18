@@ -14,3 +14,5 @@ export * from './room.type';
 export * from './sort.type';
 export * from './hotels-actives-filter.type';
 export * from './other-filter.type';
+export * from './policies.type';
+export * from './options-active-filters.type';

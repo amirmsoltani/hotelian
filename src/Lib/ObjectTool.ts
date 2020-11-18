@@ -13,8 +13,9 @@ export function ObjectMapToArray<T = {[key: string]: any}, R = any>
   const result: R[] = [];
   Object.entries(ob).forEach((array, index) => {
     const response = callbackFn(array[0] as keyof T, array[1], index);
-    if (response !== 'jump')
+    if (response !== 'jump') {
       result.push(response);
+    }
   });
   return result;
 }
@@ -30,8 +31,9 @@ export function ObjectKeys<T = {[key: string]: any}>(ob: T): Array<keyof T> {
   return <Array<keyof T>>Object.keys(ob);
 }
 
-export function ObjectLen<T = {[key: string]: any}>(ob: T): number {
-  if (!ob)
+export function ObjectLen<T = {[key: string]: any}>(ob: T): Array<keyof T>['length'] {
+  if (!ob) {
     return 0;
+  }
   return Object.entries(ob).length;
 }
