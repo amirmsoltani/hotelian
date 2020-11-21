@@ -1,15 +1,15 @@
 import React, {FunctionComponent} from 'react';
-import {StyleSheet, TouchableHighlight, TouchableNativeFeedback, View} from "react-native";
-import {AppText} from "../../../Containers";
-import {Style} from "../../../Styles";
-import {Conditional, If} from "../../../Components";
+import {StyleSheet, TouchableHighlight, TouchableNativeFeedback, View} from 'react-native';
+import {AppText} from '../../../Containers';
+import {Style} from '../../../Styles';
+import {Conditional, If} from '../../../Components';
 import {
   BORDER_RADIUS_SM,
   COLOR_MINT,
   COLOR_PURPLE,
-  MUTED_LIGHT_XX
-} from "../../../../native-base-theme/variables/config";
-import {Button, Icon} from "native-base";
+  MUTED_LIGHT_XX,
+} from '../../../../native-base-theme/variables/config';
+import {Button, Icon} from 'native-base';
 
 type propsType = {
   room_name: string,
@@ -97,7 +97,7 @@ const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
         </View>
 
         {/*rules and copy*/}
-        <View style={[Style.flex__row, Style.px__2,]}>
+        <View style={[Style.flex__row, Style.px__2]}>
           <View style={[Style.col__6]}>
             <TouchableNativeFeedback onPress={() => props.data.onRules()}>
               <View style={[Style.m__1, {backgroundColor: MUTED_LIGHT_XX}, Style.p__2]}>
@@ -123,14 +123,14 @@ export default RoomCard;
 const styles = StyleSheet.create({
   badge: {
     borderColor: COLOR_MINT,
-    borderWidth: .5,
+    borderWidth: 0.5,
     borderRadius: BORDER_RADIUS_SM,
     color: COLOR_MINT,
   },
   nonRefundable: {
     borderColor: COLOR_PURPLE,
-    borderWidth: .5,
+    borderWidth: 0.5,
     borderRadius: BORDER_RADIUS_SM,
     color: COLOR_PURPLE,
-  }
+  },
 });

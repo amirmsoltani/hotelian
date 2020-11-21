@@ -26,7 +26,6 @@ export default async function(): Promise<[Store, {message?: string, status: Stat
   );
   saga.run(appSaga);
   globalStore = store;
-  globalStore.getState();
   return [store, {message: appInit.message, status: appInit.status}];
 }
 

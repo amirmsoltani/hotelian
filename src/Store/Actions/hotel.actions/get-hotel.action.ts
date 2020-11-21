@@ -1,11 +1,19 @@
-import {GET_HOTEL, GetHotelType} from './hotel-actions.type';
 import {HOTEL_DETAILS} from 'URLS';
+import Http from 'Lib/Http';
+import {Dispatch} from 'redux';
+import {SetHotelData} from './set-hotel-data.action';
 
-export function GetHotel(id: number): GetHotelType {
-  return {
-    type: GET_HOTEL,
-    target: 'hotel',
-    url: HOTEL_DETAILS + '?hotel_id=' + id,
-    method: 'GET',
+export function GetHotel(id: number) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await Http.request({
+        method: 'GET',
+        url: `${HOTEL_DETAILS}?hotel_id=${id}`,
+      });
+      dispatch(SetHotelData(response.data.result));
+    } catch (e) {
+      console.log(e);
+    }
+
   };
 }

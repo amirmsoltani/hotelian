@@ -1,12 +1,27 @@
 import React, {Component} from 'react';
-import {Alert, View} from "react-native";
-import {Body, Content, Header, Left, Right} from "native-base";
-import {RoomHotelCard, RoomsAction, RoomSearchDetails} from "../index";
-import {Style} from "../../Styles";
-import RoomCard from "../test-page/room-card/room-card";
-import {AppTitle, BackNavigation} from "../../Containers";
+import {Alert, View} from 'react-native';
+import {Body, Content, Header, Left, Right} from 'native-base';
+import {RoomHotelCard, RoomsAction, RoomSearchDetails} from '../index';
+import {Style} from 'Styles';
+import RoomCard from '../test-page/room-card/room-card';
+import {AppTitle, BackNavigation} from 'Containers';
+import {connect, ConnectedProps} from 'react-redux';
+import {RootStateInterface} from 'Typescript/Interfaces';
+import {GetHotelRooms} from 'Store/Actions';
 
-class HotelSelectRoom extends Component {
+const mapStateToProps = ({hotelReducer: {hotel: {result}}, searchReducer: {search_id}}: RootStateInterface) => ({
+  hotel_id: result?.hotel.id,
+  search_id,
+});
+const connector = connect(mapStateToProps, {GetHotelRooms});
+
+type Props = ConnectedProps<typeof connector>
+
+class HotelSelectRoom extends Component<Props> {
+  componentDidMount() {
+    this.props.GetHotelRooms({hotel_id: this.props.hotel_id!, search_id: this.props.search_id!});
+  }
+
   render() {
 
     //dummy data
@@ -105,8 +120,8 @@ class HotelSelectRoom extends Component {
           <View style={[Style.mb__1]}><RoomSearchDetails data={search_details}/></View>
 
           {/*hotel list*/}
-          <View style={[Style.mb__1,]}>
-            {hotel_rooms.map((item, index) =>
+          <View style={[Style.mb__1]}>
+            {hotel_rooms.map((item) =>
               <View key={item.option_id} style={[Style.mb__1]}>
                 <RoomCard data={item}/>
               </View>)}
@@ -118,4 +133,4 @@ class HotelSelectRoom extends Component {
   }
 }
 
-export default HotelSelectRoom;
+export default connector(HotelSelectRoom);
