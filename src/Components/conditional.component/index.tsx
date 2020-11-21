@@ -1,19 +1,22 @@
 import React, {FunctionComponentElement, ReactNodeArray, ReactElement} from 'react';
 import {Text} from 'react-native';
 
-export function If({children}: {children: any, condition: boolean | (() => boolean)}) {
+export function If<C extends boolean>({children}: {children: any, condition: C | (() => C)}): C extends true ? typeof children : never {
   return children;
-};
+}
+
 If.displayName = 'If';
 
-export function ElIf({children}: {children: any, condition: boolean | (() => boolean)}) {
+export function ElIf({children}: {children: any, condition: boolean | (() => boolean)}): typeof children {
   return children;
-};
+}
+
 ElIf.displayName = 'ElIf';
 
 export function Else(children: any) {
   return children;
-};
+}
+
 Else.displayName = 'Else';
 
 type Children = FunctionComponentElement<{
@@ -36,8 +39,9 @@ const Conditional: React.FC<{
         } else if (typeof child.props.condition !== 'boolean' && child.props.condition()) {
           Child.push(child.props.children);
           con = true;
-        } else if (con)
+        } else if (con) {
           break;
+        }
 
       }
       case 'ElIf': {
@@ -51,8 +55,9 @@ const Conditional: React.FC<{
         break;
       }
       case 'Else': {
-        if (!con)
+        if (!con) {
           Child.push(child.props.children);
+        }
         break;
       }
       default:

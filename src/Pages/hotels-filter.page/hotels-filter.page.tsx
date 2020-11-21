@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {FlatList, ScrollView, View} from 'react-native';
 import {Body, Button, Header, Left, Right} from 'native-base';
@@ -11,10 +11,16 @@ import {Style} from 'Styles';
 import style from '../search.page/search-page.styles';
 import {AppText, AppTitle, BackNavigation} from 'Containers';
 import {translate, translate as t} from 'Lib/Languages';
-import {BORDER_RADIUS_SM, COLOR_PRIMARY, SHADOW_LG_XX} from '../../../native-base-theme/variables/config';
+import {
+  BORDER_RADIUS_SM,
+  COLOR_PRIMARY,
+  SHADOW_LG_XX,
+} from '../../../native-base-theme/variables/config';
 import {ObjectLen, ObjectMapToArray} from 'Lib/ObjectTool';
 
-const mapStateToProps = ({hotelsReducer: {filter, basicData}}: RootStateInterface) => ({
+const mapStateToProps = ({
+                           hotelsReducer: {filter},
+                         }: RootStateInterface) => ({
   structure: filter!.structure,
   actives: filter!.actives,
   len: filter!.hotels.length,
@@ -32,8 +38,9 @@ class HotelsFilterPage extends PureComponent<Props> {
   //=======================================
   constructor(props: Props) {
     super(props);
-    if (props.structure === undefined)
+    if (props.structure === undefined) {
       props.navigation.replace('hotels');
+    }
     this.reset = this.reset.bind(this);
   }
 
@@ -41,19 +48,27 @@ class HotelsFilterPage extends PureComponent<Props> {
     this.props.ApplyHotelsFilters({});
   }
 
-
   render() {
     const {structure, len} = this.props;
     const al = ObjectLen(this.props.actives);
-    const activesArray = al > 1 ? ObjectMapToArray(this.props.actives!, (key, value) => (value.name === 'sort' ? 'jump' : {
-      key: key,
-      value: value,
-    })) : [];
+    const activesArray =
+      al > 1
+        ? ObjectMapToArray(this.props.actives!, (key, value) => {
+          if (key === 'sort') {
+            return 'jump';
+          }
+          return {key: key, value: value};
+        })
+        : [];
     return (
       <>
         <Header style={[Style.bg__primary]}>
-          <Left><BackNavigation/></Left>
-          <Body><AppTitle>{t('set-your-filters')}</AppTitle></Body>
+          <Left>
+            <BackNavigation/>
+          </Left>
+          <Body>
+            <AppTitle>{t('set-your-filters')}</AppTitle>
+          </Body>
           <Right>
             <Conditional>
               <If condition={al > 1}>
@@ -67,44 +82,85 @@ class HotelsFilterPage extends PureComponent<Props> {
 
         <ScrollView style={[Style.bg__white]}>
           <View style={[style.wrapper, Style.mb__0]}>
-            {
-              ObjectMapToArray(structure, (key) => {
-                if (!HotelsFilterPage.filters.includes(key))
-                  return 'jump';
-                return <HotelsFilters
-                  name={key}
-                  key={key}/>;
-              })
-            }
+            {ObjectMapToArray(structure, (key) => {
+              if (!HotelsFilterPage.filters.includes(key)) {
+                return 'jump';
+              }
+              return <HotelsFilters name={key} key={key}/>;
+            })}
           </View>
         </ScrollView>
 
         <Conditional>
           <If condition={al > 1}>
-            <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX]}>
+            <View
+              style={[
+                Style.p__1,
+                Style.bg__white,
+                Style.flex__column,
+                SHADOW_LG_XX,
+              ]}
+            >
               <FlatList
                 data={activesArray}
                 horizontal={true}
-                keyExtractor={item => item.key.toString()}
+                keyExtractor={(item) => item.key.toString()}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item}) => {
-                  return <Button
-                    transparent style={[Style.pr__1]}
-                    activeOpacity={1} onPress={() => this.props.ApplyHotelsFilters({[item.key]: item.value})}>
-                    <View style={[{borderWidth: .5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM},
-                      Style.mr__1, Style.p__1, Style.bg__white]}>
-                      <View style={[Style.flex__row, Style.align__items_center]}>
-                        <AppText style={[Style.text__primary, Style.mr__1, Style.f__10]}>
-                          {item.key} {item.value.name === 'stars' ? (+item.key > 1 ? 'stars' : 'star') : ''}
-                        </AppText>
+                  return (
+                    <Button
+                      transparent
+                      style={[Style.pr__1]}
+                      activeOpacity={1}
+                      onPress={() =>
+                        this.props.ApplyHotelsFilters({
+                          [item.key]: item.value,
+                        })
+                      }
+                    >
+                      <View
+                        style={[
+                          {
+                            borderWidth: 0.5,
+                            borderColor: COLOR_PRIMARY,
+                            borderRadius: BORDER_RADIUS_SM,
+                          },
+                          Style.mr__1,
+                          Style.p__1,
+                          Style.bg__white,
+                        ]}
+                      >
+                        <View
+                          style={[Style.flex__row, Style.align__items_center]}
+                        >
+                          <AppText
+                            style={[
+                              Style.text__primary,
+                              Style.mr__1,
+                              Style.f__10,
+                            ]}
+                          >
+                            {item.key}{' '}
+                            {item.value.name === 'stars'
+                              ? +item.key > 1
+                                ? 'stars'
+                                : 'star'
+                              : ''}
+                          </AppText>
+                        </View>
                       </View>
-                    </View>
-                  </Button>;
-                }}/>
-              <Button block style={[Style.bg__primary, Style.w__100]}
-                      onPress={() => this.props.navigation.navigate('hotels')}>
-                <AppText
-                  style={[Style.text__white, Style.text__bold]}>{translate('show-results') + ` (${len})`}</AppText>
+                    </Button>
+                  );
+                }}
+              />
+              <Button
+                block
+                style={[Style.bg__primary, Style.w__100]}
+                onPress={() => this.props.navigation.navigate('hotels')}
+              >
+                <AppText style={[Style.text__white, Style.text__bold]}>
+                  {translate('show-results') + ` (${len})`}
+                </AppText>
               </Button>
             </View>
           </If>
@@ -112,8 +168,6 @@ class HotelsFilterPage extends PureComponent<Props> {
       </>
     );
   }
-
-
 }
 
 export default connector(HotelsFilterPage);
