@@ -77,13 +77,13 @@ class TestPage extends Component {
             <ElIf condition={status === 'ok'}>
 
               {/*hotel details*/}
-              {/*{this.cancellationPolicies(cancellationPolicies)}*/}
+              {this.cancellationPolicies(cancellationPolicies)}
 
               {/*alerts*/}
-              {/*{this.cancellationPolicies(restrictions)}*/}
+              {this.cancellationPolicies(restrictions)}
 
               {/*restrictions*/}
-              {/*{this.cancellationPolicies(alerts)}*/}
+              {this.cancellationPolicies(alerts)}
 
               {/*guest form*/}
               <View><GuestForm data={rooms}/></View>
@@ -104,9 +104,9 @@ class TestPage extends Component {
   cancellationPolicies(cpt: cpt) {
     return cpt.text ? <View style={[Style.mb__1, Style.bg__white, Style.py__2, Style.px__3]}>
       <View style={[Style.flex__row, Style.align__items_center, Style.mb__2]}>
-        <Icon style={[Style.f__16, Style.mr__1]}
+        <Icon style={[Style.f__16, Style.mr__1, Style.text__amaranth]}
               name={cpt.icon_name} type={cpt.icon_type}/>
-        <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize]}>
+        <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize, Style.text__amaranth]}>
           {t(cpt.title)}</AppText>
       </View>
       <AppText style={[Style.f__12]}>
