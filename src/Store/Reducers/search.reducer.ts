@@ -9,8 +9,8 @@ import {
   SET_SEARCH_ID,
   SET_SEARCH_RESPONSE,
 } from '../Actions/search.actions';
-import {randInt} from '../../Lib/Random';
-import Storage from '../../Lib/Storage';
+import {randInt} from 'Lib/Random';
+import Storage from 'Lib/Storage';
 
 const defaultData: SearchStateInterface = {
   destination: {GET: 'idle', list: []},
