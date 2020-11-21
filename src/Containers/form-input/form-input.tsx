@@ -64,7 +64,7 @@ const FormInput: FunctionComponent<{ data: propsType } & TextInputProps> = (prop
   }
 
   return (
-    <View style={[Style.p__1, {
+    <View style={[Style.py__1, {
       borderRadius: BORDER_RADIUS_SM,
       borderBottomWidth: config.border_width,
       borderBottomColor: config.border_color,
@@ -90,6 +90,7 @@ const FormInput: FunctionComponent<{ data: propsType } & TextInputProps> = (prop
             Style.f__14, Style.align__self_center, {color: config.icon_color}]}
                 type={(config.icon_type as IconType)} name={config.icon_name}/> : null}
       </View>
+
     </View>
   );
 };
