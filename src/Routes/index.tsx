@@ -9,9 +9,10 @@ import HotelsRoute from './hotels.route';
 import ModifySearchRoute from './modify-search.route';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer, NavigationProp} from '@react-navigation/native';
-import {setNavigation, navigationConfig} from 'Lib/navigation';
+import {NavigationContainer} from '@react-navigation/native';
+import {navigationConfig, setNavigation} from 'Lib/navigation';
 import {SetNavigationState} from '../Store/Actions';
+import ReserveRoute from "./reserve.route";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   language: state.appReducer.language,
@@ -37,14 +38,14 @@ class Routes extends Component<Props> {
           screenOptions={({navigation}) => {
             if (!navigationConfig)
               setNavigation(navigation);
-            return {headerShown: false, gestureEnabled: false};
+            return {headerShown: false, gestureEnabled: true};
           }}
-
         >
           <Stack.Screen component={SearchRoute} name="search"/>
           <Stack.Screen component={ModifySearchRoute} name="modify-search"/>
           <Stack.Screen component={HotelsRoute} name="hotels"/>
           <Stack.Screen component={HotelRoute} name="hotel"/>
+          <Stack.Screen component={ReserveRoute} name="reserve"/>
         </Stack.Navigator>
       </NavigationContainer>
     );

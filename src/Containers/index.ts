@@ -6,3 +6,4 @@ export {default as AppTitle} from './app-title/app-title';
 export {default as AppSubtitle} from './app-subtitle/app-subtitle';
 export {default as LanguageModal} from './language-modal/language-modal';
 export {default as CurrencyModal} from './currency-modal/currency-modal';
+export {default as FormInput} from './form-input/form-input';

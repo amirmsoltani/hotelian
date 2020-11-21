@@ -1,17 +1,14 @@
 import React from 'react';
-import { Container } from 'native-base';
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-  TransitionPresets,
-} from '@react-navigation/stack';
+import {Container} from 'native-base';
+import {CardStyleInterpolators, createStackNavigator, TransitionPresets,} from '@react-navigation/stack';
 
 import {
   CreateRoomPage,
   SearchPage,
   SelectDatePage,
   SelectDestinationPage,
-  SelectNationalityPage, TestPage,
+  SelectNationalityPage,
+  TestPage,
 } from '../Pages';
 
 const Stack = createStackNavigator();
@@ -24,14 +21,13 @@ const SearchRoute = () => {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
         }}
-        initialRouteName="form"
-      >
-        <Stack.Screen name="test" component={TestPage} />
-        <Stack.Screen name="form" component={SearchPage} />
-        <Stack.Screen name="destination" component={SelectDestinationPage} />
-        <Stack.Screen name="nationality" component={SelectNationalityPage} />
-        <Stack.Screen name="datepicker" component={SelectDatePage} />
-        <Stack.Screen name="rooms" component={CreateRoomPage} />
+        initialRouteName="test">
+        <Stack.Screen name="test" component={TestPage}/>
+        <Stack.Screen name="form" component={SearchPage}/>
+        <Stack.Screen name="destination" component={SelectDestinationPage}/>
+        <Stack.Screen name="nationality" component={SelectNationalityPage}/>
+        <Stack.Screen name="datepicker" component={SelectDatePage}/>
+        <Stack.Screen name="rooms" component={CreateRoomPage}/>
       </Stack.Navigator>
     </Container>
   );
