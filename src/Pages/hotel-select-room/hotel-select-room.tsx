@@ -5,8 +5,9 @@ import {RoomHotelCard, RoomsAction, RoomSearchDetails} from "../index";
 import {Style} from "../../Styles";
 import RoomCard from "./room-card/room-card";
 import {AppTitle, BackNavigation} from "../../Containers";
+import {StackScreenProps} from "@react-navigation/stack";
 
-class HotelSelectRoom extends Component {
+class HotelSelectRoom extends Component<StackScreenProps<any>, {}> {
   render() {
 
     //dummy data
@@ -44,7 +45,7 @@ class HotelSelectRoom extends Component {
         currency: 'AED',
         onCopy: () => Alert.alert('onCopy'),
         onRules: () => Alert.alert('onRules'),
-        onReserve: () => Alert.alert('onReserve'),
+        onReserve: this.onReserve,
       },
       {
         option_id: 2,
@@ -62,7 +63,7 @@ class HotelSelectRoom extends Component {
         currency: 'USD',
         onCopy: () => Alert.alert('onCopy'),
         onRules: () => Alert.alert('onRules'),
-        onReserve: () => Alert.alert('onReserve'),
+        onReserve: this.onReserve,
       },
       {
         option_id: 3,
@@ -80,7 +81,7 @@ class HotelSelectRoom extends Component {
         currency: 'WWW',
         onCopy: () => Alert.alert('onCopy'),
         onRules: () => Alert.alert('onRules'),
-        onReserve: () => Alert.alert('onReserve'),
+        onReserve: this.onReserve,
       },
     ];
 
@@ -115,6 +116,12 @@ class HotelSelectRoom extends Component {
         </Content>
       </>
     );
+  }
+
+  onReserve = () => {
+    this.props.navigation.push('reserve', {
+      screen: 'passengers',
+    });
   }
 }
 
