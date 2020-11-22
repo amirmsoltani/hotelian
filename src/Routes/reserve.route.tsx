@@ -17,6 +17,8 @@ const ReserveRoute = () => {
         }}>
         <Stack.Screen name="passenger" component={PassengerPage}/>
         <Stack.Screen name="confirm" component={ConfirmPage}/>
+        {/*<Stack.Screen name="invoice" component={ConfirmPage}/>*/}
+        {/*<Stack.Screen name="callback" component={ConfirmPage}/>*/}
       </Stack.Navigator>
     </Container>
   );
