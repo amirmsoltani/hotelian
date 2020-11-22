@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, TouchableHighlight, TouchableNativeFeedback, View} from 'react-native';
-import {AppText} from '../../../Containers';
-import {Style} from '../../../Styles';
-import {Conditional, If} from '../../../Components';
+import {AppText} from 'Containers';
+import {Style} from 'Styles';
+import {Conditional, If} from 'Components';
 import {
   BORDER_RADIUS_SM,
   COLOR_MINT,
@@ -12,7 +12,7 @@ import {
 import {Button, Icon} from 'native-base';
 
 type propsType = {
-  room_name: string,
+  room_name: string[],
   board_type: string,
   nonrefundable: boolean,
   cancellation_policies: string[] | null,
@@ -25,15 +25,17 @@ type propsType = {
   onReserve: () => void;
 };
 
-const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
+const RoomCard: FunctionComponent<{data: propsType}> = (props) => {
   return (
     <TouchableHighlight>
       <View style={[Style.bg__white]}>
 
         {/*room name*/}
         <View style={[Style.mb__3, Style.px__3, Style.pt__3]}>
-          <AppText style={[Style.text__bold, Style.f__16, Style.text__primary]}>
-            {props.data.room_name}</AppText>
+          {props.data.room_name.map((item, index) => (
+            <AppText style={[Style.text__bold, Style.f__16, Style.text__primary]} key={item + index}>
+              {index + 1} - {item}</AppText>
+          ))}
         </View>
 
         {/*outlined badges*/}
@@ -60,7 +62,7 @@ const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
           <If condition={!!props.data.cancellation_policies?.length}>
             <View style={[Style.mb__3, Style.px__3]}>
               {props.data.cancellation_policies?.map((item, index) =>
-                <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]} key={index}>
+                <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]} key={item + index}>
                   <Icon style={[Style.f__12, Style.mr__1]} name={'check'} type={'Feather'}/>
                   <AppText firstLetter style={[Style.f__14, Style.text__light]}>{item}</AppText>
                 </View>)}
