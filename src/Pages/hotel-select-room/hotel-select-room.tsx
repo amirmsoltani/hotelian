@@ -8,9 +8,9 @@ import {connect, ConnectedProps} from 'react-redux';
 import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
 import {GetHotelRooms} from 'Store/Actions';
 import SearchDetails from './search-details/search-details';
-import {RoomsAction} from '../index';
 import {LoadingAndError} from './loading-and-error/loading-and-error';
-import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
+import {HotelRoomAction} from "../index";
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -57,7 +57,7 @@ class HotelSelectRoom extends Component<Props> {
           <Right/>
         </Header>
         {/*actions*/}
-        <View><RoomsAction/></View>
+        <View><HotelRoomAction/></View>
         <View style={[Style.flex__shrink__1]}>
           {/*hotel list*/}
           <FlatList<HotelOptionInterface>
