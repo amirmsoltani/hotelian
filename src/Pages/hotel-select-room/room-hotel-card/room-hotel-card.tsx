@@ -1,10 +1,10 @@
 import React, {FunctionComponent} from 'react';
-import {ImageSourcePropType, StyleSheet, View} from "react-native";
-import {AppText} from "../../../Containers";
-import {BORDER_RADIUS} from "../../../../native-base-theme/variables/config";
-import {Conditional, If, ProgressiveImage} from "../../../Components";
-import {Style} from "../../../Styles";
-import {Icon} from "native-base";
+import {ImageSourcePropType, StyleSheet, View} from 'react-native';
+import {AppText} from '../../../Containers';
+import {BORDER_RADIUS} from '../../../../native-base-theme/variables/config';
+import {Conditional, If, ProgressiveImage} from '../../../Components';
+import {Style} from '../../../Styles';
+import {Icon} from 'native-base';
 
 type propsType = {
   star?: number;
@@ -12,11 +12,11 @@ type propsType = {
   address?: string;
   hotel_name: string;
   reviews_count?: number;
-  image_source?: ImageSourcePropType | null;
+  image_source?: ImageSourcePropType | null | string;
 };
 const hotelImage = require('Assets/Images/no-image.png');
 
-const RoomHotelCard: FunctionComponent<{ data: propsType }> = (props) => {
+const RoomHotelCard: FunctionComponent<{data: propsType}> = (props) => {
   return (
     <View>
 
@@ -24,7 +24,7 @@ const RoomHotelCard: FunctionComponent<{ data: propsType }> = (props) => {
       <View>
         <View><ProgressiveImage
           source={props.data.image_source ? {uri: props.data.image_source} : hotelImage}
-          resizeMode='cover' style={styles.image}/></View>
+          resizeMode="cover" style={styles.image}/></View>
       </View>
 
       {/*details*/}
@@ -46,7 +46,7 @@ const RoomHotelCard: FunctionComponent<{ data: propsType }> = (props) => {
           <Icon style={[Style.f__12, Style.mr__1, Style.text__gray_d_XXX]}
                 name={'md-location-outline'}
                 type={'Ionicons'}/>
-          <AppText style={[Style.text__gray_d_XXX, Style.text__light, Style.f__12,]}>
+          <AppText style={[Style.text__gray_d_XXX, Style.text__light, Style.f__12]}>
             {props.data.address}
           </AppText>
         </View>
@@ -54,11 +54,11 @@ const RoomHotelCard: FunctionComponent<{ data: propsType }> = (props) => {
         {/*review*/}
         <Conditional>
           <If condition={!!(props.data.score && props.data.reviews_count)}>
-            <View style={[Style.flex__row,]}>
+            <View style={[Style.flex__row]}>
               <AppText style={[Style.f__12, Style.text__light]}>Score </AppText>
-              <AppText style={[Style.f__12,]}>{props.data.score} </AppText>
+              <AppText style={[Style.f__12]}>{props.data.score} </AppText>
               <AppText style={[Style.f__12, Style.text__light]}>from </AppText>
-              <AppText style={[Style.f__12,]}>{props.data.reviews_count} </AppText>
+              <AppText style={[Style.f__12]}>{props.data.reviews_count} </AppText>
               <AppText style={[Style.f__12, Style.text__light]}>reviews.</AppText>
             </View>
           </If>
@@ -77,5 +77,5 @@ const styles = StyleSheet.create({
     minWidth: 240,
     flex: 1,
     borderRadius: BORDER_RADIUS,
-  }
+  },
 });

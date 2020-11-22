@@ -24,7 +24,11 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
     }
     case SET_HOTEL_DATA:
     case SET_HOTELS_ROOMS: {
-      return {...state, [action.type.includes('rooms') ? 'rooms' : 'hotel']: {status: 'ok', result: action.payload}};
+      const type = action.type.toLowerCase().includes('rooms') ? 'rooms' : 'hotel';
+      return {
+        ...state,
+        [type]: {status: 'ok', result: {...state[type].result, ...action.payload}},
+      };
     }
     default:
       return state;
