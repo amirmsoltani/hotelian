@@ -1,18 +1,18 @@
 import React, {FunctionComponent} from 'react';
-import {StyleSheet, TouchableHighlight, TouchableNativeFeedback, View} from "react-native";
-import {AppText} from "../../../Containers";
-import {Style} from "../../../Styles";
-import {Conditional, If} from "../../../Components";
+import {StyleSheet, TouchableHighlight, TouchableNativeFeedback, View} from 'react-native';
+import {AppText} from 'Containers';
+import {Style} from 'Styles';
+import {Conditional, If} from 'Components';
 import {
   BORDER_RADIUS_SM,
   COLOR_MINT,
   COLOR_PURPLE,
-  MUTED_LIGHT_XX
-} from "../../../../native-base-theme/variables/config";
-import {Button, Icon} from "native-base";
+  MUTED_LIGHT_XX,
+} from '../../../../native-base-theme/variables/config';
+import {Button, Icon} from 'native-base';
 
 type propsType = {
-  room_name: string,
+  room_name: string[],
   board_type: string,
   nonrefundable: boolean,
   cancellation_policies: string[] | null,
@@ -25,15 +25,17 @@ type propsType = {
   onReserve: () => void;
 };
 
-const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
+const RoomCard: FunctionComponent<{data: propsType}> = (props) => {
   return (
     <TouchableHighlight>
       <View style={[Style.bg__white]}>
 
         {/*room name*/}
         <View style={[Style.mb__3, Style.px__3, Style.pt__3]}>
-          <AppText style={[Style.text__bold, Style.f__16, Style.text__primary]}>
-            {props.data.room_name}</AppText>
+          {props.data.room_name.map((item, index) => (
+            <AppText style={[Style.text__bold, Style.f__16, Style.text__primary]} key={item + index}>
+              {index + 1} - {item}</AppText>
+          ))}
         </View>
 
         {/*outlined badges*/}
@@ -60,7 +62,7 @@ const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
           <If condition={!!props.data.cancellation_policies?.length}>
             <View style={[Style.mb__3, Style.px__3]}>
               {props.data.cancellation_policies?.map((item, index) =>
-                <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]} key={index}>
+                <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]} key={item + index}>
                   <Icon style={[Style.f__12, Style.mr__1]} name={'check'} type={'Feather'}/>
                   <AppText firstLetter style={[Style.f__14, Style.text__light]}>{item}</AppText>
                 </View>)}
@@ -97,7 +99,7 @@ const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
         </View>
 
         {/*rules and copy*/}
-        <View style={[Style.flex__row, Style.px__2,]}>
+        <View style={[Style.flex__row, Style.px__2]}>
           <View style={[Style.col__6]}>
             <TouchableNativeFeedback onPress={() => props.data.onRules()}>
               <View style={[Style.m__1, {backgroundColor: MUTED_LIGHT_XX}, Style.p__2]}>
@@ -123,14 +125,14 @@ export default RoomCard;
 const styles = StyleSheet.create({
   badge: {
     borderColor: COLOR_MINT,
-    borderWidth: .5,
+    borderWidth: 0.5,
     borderRadius: BORDER_RADIUS_SM,
     color: COLOR_MINT,
   },
   nonRefundable: {
     borderColor: COLOR_PURPLE,
-    borderWidth: .5,
+    borderWidth: 0.5,
     borderRadius: BORDER_RADIUS_SM,
     color: COLOR_PURPLE,
-  }
+  },
 });

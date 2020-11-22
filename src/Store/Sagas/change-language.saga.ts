@@ -1,10 +1,10 @@
 import {put, takeLatest, call, select} from 'redux-saga/effects';
 import {CHANGE_LANGUAGE, ChangeLanguageType, SetLanguage} from '../Actions';
 import axios, {AxiosResponse} from 'axios';
-import {LANGUAGE_URL} from '../../URLS';
-import Storage from '../../Lib/Storage';
-import {RootStateInterface} from '../../Typescript';
-import Translator from '../../Lib/Languages';
+import {LANGUAGE_URL} from 'URLS';
+import Storage from 'Lib/Storage';
+import {RootStateInterface} from 'Typescript';
+import Translator from 'Lib/Languages';
 import RNRestart from 'react-native-restart';
 
 function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {

@@ -1,5 +1,5 @@
 import {BoardTypeType, HotelOptionInterface, OptionFilterInterface} from 'Typescript';
-import {translate} from '../../Languages';
+import {translate} from 'Lib/Languages';
 
 class OptionInitial {
   protected boardTypes: BoardTypeType;
@@ -52,7 +52,7 @@ class OptionInitial {
 
   /**
    * hotels price split with length / 5
-   * @param hotel:HotelInterface hotel process
+   * @param option:HotelInterface hotel process
    * @param index:number index hotel in original array
    */
   protected price(option: HotelOptionInterface, index: number) {

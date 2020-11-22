@@ -18,7 +18,7 @@ export const SET_HOTELS_ROOMS = '[Hotel Reducer] Set Hotel Rooms';
 export type SetHotelRoomType = {
   type: typeof SET_HOTELS_ROOMS,
   payload: RoomsDetailsInterface & {
-    filter: {
+    filter?: {
       structure: OptionFilterInterface,
       actives?: OptionsActiveFiltersType,
       hotels: number[]

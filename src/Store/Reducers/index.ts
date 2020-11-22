@@ -4,9 +4,8 @@ import AppReducer, {appInit} from './app.reducer';
 import HotelsReducer, {hotelsInit} from './hotels.reducer';
 import HotelReducer, {hotelInit} from './hotel.reducer';
 import NavigationReducer from './navigation.reducer';
-import {MemoryHistory} from 'history';
 
-const rootReducer = (history: MemoryHistory) => combineReducers({
+const rootReducer = () => combineReducers({
   searchReducer: SearchReducer,
   appReducer: AppReducer,
   hotelsReducer: HotelsReducer,

@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
-import {View} from "react-native";
-import {Style} from "../../../Styles";
-import {AppText} from "../../../Containers";
+import {View} from 'react-native';
+import {Style} from '../../../Styles';
+import {AppText} from '../../../Containers';
 
 type propsType = {
   checkIn: string;
@@ -35,6 +35,10 @@ const RoomSearchDetails: FunctionComponent<{ data: propsType }> = (props) => {
             Your group
             : {props.data.adults_count} {props.data.adults_count > 1 ? 'adults' : 'adult'}, {props.data.children_count} children
             {props.data.children_count > 0 ? ` (${props.data.children_ages.sort().join(', ')} years old)` : null}
+          </AppText>
+          </View>
+          <View><AppText style={[Style.f__12]}>
+           3 rooms /  3 nights (hard-coded)
           </AppText>
           </View>
         </View>
