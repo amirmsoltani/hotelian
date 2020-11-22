@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {FlatList, View} from 'react-native';
-import {Body, Header, Left, Right} from 'native-base';
+import {Header} from 'native-base';
 import {Style} from 'Styles';
 import RoomCard from './room-card/room-card';
-import {AppTitle, BackNavigation} from 'Containers';
+import {AppSubtitle, AppTitle, BackNavigation} from 'Containers';
 import {connect, ConnectedProps} from 'react-redux';
 import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
 import {GetHotelRooms} from 'Store/Actions';
@@ -11,6 +11,7 @@ import SearchDetails from './search-details/search-details';
 import {LoadingAndError} from './loading-and-error/loading-and-error';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HotelRoomAction} from "../index";
+import {translate} from "../../Lib/Languages";
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -49,12 +50,15 @@ class HotelSelectRoom extends Component<Props> {
 
     return (
       <>
-        <Header style={[Style.bg__primary, Style.flex__row]}>
-          <Left><BackNavigation/></Left>
-          <Body>
-            <AppTitle>{hotel!.name}</AppTitle>
-          </Body>
-          <Right/>
+        <Header style={[Style.flex__row, Style.bg__primary, Style.align__items_center, Style.px__0]}>
+          <View>
+            <BackNavigation/>
+          </View>
+          <View style={[Style.flex__grow__1]}>
+            <AppTitle style={[Style.text__capitalize]} hasSubtitle>
+              {translate('choose-your-stay')}</AppTitle>
+            <AppSubtitle hasSubtitle>Dec 99 - Feb 99</AppSubtitle>
+          </View>
         </Header>
         {/*actions*/}
         <View><HotelRoomAction/></View>
@@ -81,6 +85,7 @@ class HotelSelectRoom extends Component<Props> {
                   onCopy() {
                   },
                   onReserve() {
+                    this.onReserve
                   },
                   onRules() {
                   },
