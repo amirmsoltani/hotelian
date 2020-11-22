@@ -2,7 +2,7 @@ import React from 'react';
 import {Container} from "native-base";
 import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
 import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from "@react-navigation/stack";
-import {PassengerPage} from "../Pages";
+import {ConfirmPage, PassengerPage} from "../Pages";
 
 const Stack = createStackNavigator();
 const ReserveRoute = () => {
@@ -16,6 +16,7 @@ const ReserveRoute = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="passenger" component={PassengerPage}/>
+        <Stack.Screen name="confirm" component={ConfirmPage}/>
       </Stack.Navigator>
     </Container>
   );
