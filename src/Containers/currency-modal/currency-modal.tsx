@@ -8,6 +8,7 @@ import {BORDER_RADIUS_SM} from '../../../native-base-theme/variables/config';
 import {translate} from 'Lib/Languages';
 import {RootStateInterface} from 'Typescript/Interfaces';
 import {ChangeCurrency} from 'Store/Actions';
+import {View} from 'react-native';
 
 const mapStateToProps = (state: RootStateInterface) => ({
   currencies: state.appReducer.currencies,
@@ -22,22 +23,22 @@ type propType = {
 
 const CurrencyModal = (props: propType) => {
   return (
-    <Container style={[
+    <View style={[
       Style.w__100,
-      Style.bg__white,
+      Style.h__100,
       {borderRadius: BORDER_RADIUS_SM},
     ]}>
-      <Header style={[Style.bg__white]}>
-        <Body>
-          <AppText style={[Style.text__bold]}>{translate('change-currency')}</AppText>
-        </Body>
-        <Right>
-          <Button transparent onPress={props.onClose}>
-            <Icon type={'AntDesign'} name='close' style={[Style.f__18, Style.text__black]}/>
-          </Button>
-        </Right>
-      </Header>
-      <Content>
+      {/*<Header style={[Style.bg__white]}>*/}
+      {/*  <Body>*/}
+      {/*    <AppText style={[Style.text__bold]}>{translate('change-currency')}</AppText>*/}
+      {/*  </Body>*/}
+      {/*  <Right>*/}
+      {/*    <Button transparent onPress={props.onClose}>*/}
+      {/*      <Icon type={'AntDesign'} name='close' style={[Style.f__18, Style.text__black]}/>*/}
+      {/*    </Button>*/}
+      {/*  </Right>*/}
+      {/*</Header>*/}
+      <View style={[Style.bg__white, Style.mt__auto]}>
         <List>
           {
             props.currencies.map(item =>
@@ -59,8 +60,8 @@ const CurrencyModal = (props: propType) => {
               </ListItem>)
           }
         </List>
-      </Content>
-    </Container>
+      </View>
+    </View>
   );
 };
 
