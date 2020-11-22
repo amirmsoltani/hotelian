@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {View} from "react-native";
 import {Icon, Item, Picker} from "native-base";
 
@@ -13,6 +13,9 @@ type propsType = {
 }
 
 const AdultForm: FunctionComponent<{ data: propsType }> = (props) => {
+
+  //for changing guest's title
+  const [title, changeTitle] = useState('male');
 
   return (
     <View style={[Style.p__3, Style.bg__white, {borderRadius: BORDER_RADIUS_SM,}]}>
@@ -49,12 +52,14 @@ const AdultForm: FunctionComponent<{ data: propsType }> = (props) => {
             placeholder={translate('title')}
             placeholderStyle={{color: "blue"}}
             placeholderIconColor="red"
-            // selectedValue={}
-            // onValueChange={}
+            selectedValue={title}
+            onValueChange={(itemValue: any, itemPosition: number) => {
+              changeTitle(itemValue);
+            }}
           >
-            <Picker.Item label={translate('male')} value="0"/>
-            <Picker.Item label={translate('female')} value="1"/>
-            <Picker.Item label={translate('other')} value="2"/>
+            <Picker.Item label={translate('male')} value="male"/>
+            <Picker.Item label={translate('female')} value="female"/>
+            <Picker.Item label={translate('other')} value="other"/>
           </Picker>
         </Item>
       </View>

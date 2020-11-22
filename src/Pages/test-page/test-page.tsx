@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Body, Content, Header, Icon, Left, Right} from "native-base";
+import {Body, Button, Content, Footer, Header, Icon, Left, Right} from "native-base";
 import {Style} from "../../Styles";
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from "../../Containers";
 import {View} from "react-native";
 import {translate as t} from "../../Lib/Languages";
 import {Conditional, ElIf, If, ScreenLoading} from "../../Components";
 import {IconType, RoomType} from "../../Typescript/Types";
+import {LateCheckin} from "../index";
 import GuestForm from "../../Forms/guest-form/guest-form";
 
 //status of receiving data
@@ -76,6 +77,7 @@ class TestPage extends Component {
             <If condition={status === 'loading'}><ScreenLoading/></If>
             <ElIf condition={status === 'ok'}>
 
+
               {/*hotel details*/}
               {this.cancellationPolicies(cancellationPolicies)}
 
@@ -88,6 +90,10 @@ class TestPage extends Component {
               {/*guest form*/}
               <View><GuestForm data={rooms}/></View>
 
+              {/*late checkin*/}
+              <View><LateCheckin/></View>
+
+
             </ElIf>
             <ElIf condition={status === 'error'}>
               <AppText>Some thing went wrong</AppText>
@@ -96,6 +102,15 @@ class TestPage extends Component {
         </Content>
 
         {/*footer*/}
+        <Footer style={[Style.bg__white]}>
+          <View style={[Style.w__100, Style.p__1]}>
+            <Button disabled block style={[Style.bg__primary]}>
+              <AppText firstLetter style={[Style.text__white, Style.text__bold]}>
+                {t('next-step')}</AppText>
+            </Button>
+          </View>
+        </Footer>
+
 
       </>
     );
@@ -104,9 +119,9 @@ class TestPage extends Component {
   cancellationPolicies(cpt: cpt) {
     return cpt.text ? <View style={[Style.mb__1, Style.bg__white, Style.py__2, Style.px__3]}>
       <View style={[Style.flex__row, Style.align__items_center, Style.mb__2]}>
-        <Icon style={[Style.f__16, Style.mr__1, Style.text__amaranth]}
+        <Icon style={[Style.f__16, Style.mr__1,]}
               name={cpt.icon_name} type={cpt.icon_type}/>
-        <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize, Style.text__amaranth]}>
+        <AppText style={[Style.text__bold, Style.f__14, Style.text__capitalize,]}>
           {t(cpt.title)}</AppText>
       </View>
       <AppText style={[Style.f__12]}>

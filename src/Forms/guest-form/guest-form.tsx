@@ -12,16 +12,16 @@ const GuestForm: FunctionComponent<{ data: RoomType[] }> = (props) => {
 
   return (
     <View>
-      {props.data.map((item, index) =>
-        (<View key={index} style={[Style.p__3, Style.mb__1]}>
+      {props.data.map((item, index) => (
+        <View key={index} style={[Style.pt__3,]}>
 
           {/*room name*/}
-          <View style={[Style.mb__1,]}>
+          <View style={[Style.mb__1, Style.px__3]}>
             <AppText firstLetter style={[Style.text__bold, Style.f__14]}>#{index + 1} {item.room_name}</AppText>
           </View>
 
           {/*room board type*/}
-          <View style={[Style.flex__row, Style.mb__3,]}>
+          <View style={[Style.flex__row, Style.mb__3, Style.px__3]}>
             <Badge size={"sm"} text={'number of guests here'} type={'info'}/>
             <Badge size={"sm"} text={'room type here'} type={'info'}/>
           </View>
@@ -30,19 +30,17 @@ const GuestForm: FunctionComponent<{ data: RoomType[] }> = (props) => {
           <View>
 
             {/*adults input*/}
-            {[...Array(item.adults)].map(_ => <View style={[Style.mb__2]}><AdultForm
+            {[...Array(item.adults)].map((_, index) => <View key={index} style={[Style.mb__1]}><AdultForm
               data={{room_number: index}}/></View>)}
 
             {/*child input*/}
-            {item.children.map(item => <View style={[Style.mb__2]}><ChildForm
+            {item.children.map((item, index) => <View key={index} style={[Style.mb__1]}><ChildForm
               data={{room_number: index, child_age: item}}/></View>)}
 
-            {/*submit*/}
-            {/*<View>*/}
-            {/*  <Button onPress={handleSubmit(onSubmit)}/>*/}
-            {/*</View>*/}
           </View>
-        </View>))}
+
+        </View>))
+      }
     </View>
   );
 };
