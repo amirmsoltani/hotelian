@@ -21,7 +21,7 @@ const SearchRoute = () => {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
         }}
-        initialRouteName="form">
+        initialRouteName="test">
         <Stack.Screen name="test" component={TestPage}/>
         <Stack.Screen name="form" component={SearchPage}/>
         <Stack.Screen name="destination" component={SelectDestinationPage}/>
