@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from "react-native";
 import {AppText} from "../../Containers";
 
-const ConfirmPage = () => {
+const BookingOverview = () => {
   return (
     <View>
       <AppText>Confirm page</AppText>
@@ -10,4 +10,4 @@ const ConfirmPage = () => {
   );
 };
 
-export default ConfirmPage;
+export default BookingOverview;

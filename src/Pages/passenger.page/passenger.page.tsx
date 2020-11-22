@@ -138,7 +138,7 @@ class PassengerPage extends Component<propsType, any> {
   }
 
   onNextStep = () => {
-    this.props.navigation.navigate('confirm');
+    this.props.navigation.navigate('overview');
   }
 }
 
