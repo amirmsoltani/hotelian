@@ -14,7 +14,8 @@ type navigation_params = {
   // change this types
   // bg muted for tab content
   // dynamic props to tab content
-  
+  // remove search-route screen (BoMore)
+
   guest_information: any;
   cancellation_policies: any,
   facilities: any,
