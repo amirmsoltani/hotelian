@@ -10,12 +10,13 @@ import {
   MUTED_LIGHT_XX,
 } from '../../../../native-base-theme/variables/config';
 import {Button, Icon} from 'native-base';
+import {PoliciesType} from '../../../Typescript/Types';
 
 type propsType = {
   room_name: string[],
   board_type: string,
   nonrefundable: boolean,
-  cancellation_policies: string[] | null,
+  cancellation_policies: PoliciesType[] | null,
   nights_count: number;
   discount: boolean;
   price: number;
@@ -23,6 +24,7 @@ type propsType = {
   onCopy: () => void;
   onRules: () => void;
   onReserve: () => void;
+  [key: string]: any
 };
 
 const RoomCard: FunctionComponent<{data: propsType}> = (props) => {
@@ -62,9 +64,10 @@ const RoomCard: FunctionComponent<{data: propsType}> = (props) => {
           <If condition={!!props.data.cancellation_policies?.length}>
             <View style={[Style.mb__3, Style.px__3]}>
               {props.data.cancellation_policies?.map((item, index) =>
-                <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]} key={item + index}>
+                <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]}
+                      key={item.from + item.type + item.from + index}>
                   <Icon style={[Style.f__12, Style.mr__1]} name={'check'} type={'Feather'}/>
-                  <AppText firstLetter style={[Style.f__14, Style.text__light]}>{item}</AppText>
+                  <AppText firstLetter style={[Style.f__14, Style.text__light]}>{item.from + 'test test'}</AppText>
                 </View>)}
             </View>
           </If>

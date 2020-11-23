@@ -10,7 +10,7 @@ export interface HotelStateInterface {
       filter: {
         structure: OptionFilterInterface,
         actives?: OptionsActiveFiltersType,
-        hotels: number[]
+        rooms: number[]
       }
     }
   };

@@ -1,7 +1,7 @@
-import {SET_HOTELS_ROOMS, SetRoomsPoliticsType} from './hotel-actions.type';
+import {SET_OPTIONS_POLITICS, SetOptionPoliticsType} from './hotel-actions.type';
 import {HotelOptionInterface} from 'Typescript/Interfaces';
 
-export const SetRoomPolitics = (options: HotelOptionInterface): SetRoomsPoliticsType => ({
-  type: SET_HOTELS_ROOMS,
+export const SetOptionsPolitics = (options: HotelOptionInterface[]): SetOptionPoliticsType => ({
+  type: SET_OPTIONS_POLITICS,
   payload: options,
 });

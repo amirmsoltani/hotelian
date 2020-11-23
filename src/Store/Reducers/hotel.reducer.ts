@@ -5,6 +5,7 @@ import {
   HotelActionsType,
   SET_HOTEL_DATA,
   SET_HOTELS_ROOMS,
+  SET_OPTIONS_POLITICS,
 } from '../Actions/hotel.actions';
 
 export const hotelInit: HotelStateInterface = {
@@ -29,6 +30,9 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
         ...state,
         [type]: {status: 'ok', result: {...state[type].result, ...action.payload}},
       };
+    }
+    case SET_OPTIONS_POLITICS: {
+      return {...state, rooms: {...state, result: {...state.rooms.result, options: action.payload}}};
     }
     default:
       return state;

@@ -4,3 +4,4 @@ export * from './get-hotel.action';
 export * from './get-rooms.action';
 export * from './set-rooms.action';
 export * from './get-politics.action';
+export * from './set-options-politics.action';
