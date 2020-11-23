@@ -31,17 +31,22 @@ const RoomSearchDetails: FunctionComponent<{ data: propsType }> = (props) => {
 
       {/*passengers*/}
       <View>
-        <View>
-          <View><AppText style={[Style.f__12]}>
-            {translate('your-group')}
-            : {props.data.adults_count} {props.data.adults_count > 1 ? 'adults' : 'adult'}, {props.data.children_count} {translate('children')}
-            {props.data.children_count > 0 ? ` (${props.data.children_ages.sort().join(', ')} years old)` : null}
+
+        {/*for */}
+        <View style={[Style.flex__row, Style.mb__1]}>
+          <AppText firstLetter style={[Style.f__12]}>{translate('for')} : </AppText>
+          <AppText style={[Style.f__12, Style.text__light]}>
+            {props.data.nights_count} {translate('night_s')} / {props.data.rooms_count} {translate('room_s')}
           </AppText>
-          </View>
-          <View><AppText style={[Style.f__12]}>
-           3 {translate('room_s')} /  3 {translate('night_s')} (hard-coded)
+        </View>
+
+        {/*your group*/}
+        <View style={[Style.flex__row, Style.mb__1]}>
+          <AppText firstLetter style={[Style.f__12]}>{translate('your-group')} : </AppText>
+          <AppText style={[Style.f__12, Style.text__light]}>
+            {props.data.adults_count} {props.data.adults_count > 1 ? 'adults' : 'adult'}, {props.data.children_count} {translate('children')}
+            {props.data.children_count > 0 ? ` (${props.data.children_ages.sort().join(', ')} ${translate('years-old')})` : null}
           </AppText>
-          </View>
         </View>
       </View>
 
