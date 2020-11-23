@@ -10,7 +10,7 @@ type propsType = {
   facilities: string[];
   show_more?: () => void;
 }
-const BoFacilities: FunctionComponent<propsType> = (props) => {
+const BoFacilities: FunctionComponent<{ data: propsType }> = (props) => {
   const item_to_preview = 6;
   return (
     <View style={[Style.bg__white, Style.p__3]}>
@@ -21,7 +21,7 @@ const BoFacilities: FunctionComponent<propsType> = (props) => {
 
       {/*list*/}
       <View style={[Style.flex__row, Style.flex__wrap, Style.mb__3]}>
-        {props.facilities.slice(0, item_to_preview).map(facility => (
+        {props.data.facilities.slice(0, item_to_preview).map(facility => (
           <View key={facility}
                 style={[Style.mb__1, Style.pr__1, Style.col__6, Style.flex__row, Style.align__items_center]}>
             <Icon style={[Style.f__10, Style.mr__1]} name={'dot-single'} type={'Entypo'}/>
@@ -32,8 +32,8 @@ const BoFacilities: FunctionComponent<propsType> = (props) => {
 
       {/*show more*/}
       <Conditional>
-        <If condition={props.facilities.length > item_to_preview}>
-          <TouchableNativeFeedback onPress={props.show_more}>
+        <If condition={props.data.facilities.length > item_to_preview}>
+          <TouchableNativeFeedback onPress={props.data.show_more}>
             <AppText style={[Style.text__capitalize, Style.f__12, Style.text__info, Style.py__1]}>
               {translate('more-facilities')}</AppText>
           </TouchableNativeFeedback>

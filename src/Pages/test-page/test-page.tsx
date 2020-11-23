@@ -1,34 +1,34 @@
 import React, {Component} from 'react';
-import {Button, Content, Footer, Header} from "native-base";
+import {Content, Footer, Header} from "native-base";
+import {TouchableNativeFeedback, View} from "react-native";
 
 import {Style} from "../../Styles";
 import {AppText, AppTitle, BackNavigation} from "../../Containers";
 import {ElIf, If} from "../../Components/conditional.component";
 import {Conditional, ScreenLoading} from "../../Components";
-import {TouchableNativeFeedback, View} from "react-native";
-import {translate, translate as t} from "../../Lib/Languages";
+import {translate as t} from "../../Lib/Languages";
 import BoRoomDetails from "./bo-room-details/bo-room-details";
 import BoHotelDetails from "./bo-hotel-details/bo-hotel-details";
 import {RoomSearchDetails} from "../index";
 import BoFacilities from "./bo-facilities/bo-facilities";
 import BoLateCheckIn from "./bo-late-check-in/bo-late-check-in";
+import BoFooter from "./bo-footer/bo-footer";
+import {StackScreenProps} from "@react-navigation/stack";
 
 
 //status of receiving data
 const status: 'ok' | 'loading' | 'error' = 'ok';
 
-class TestPage extends Component {
-  render() {
-
-    //dummy data
-    const hotel_details = {
+class TestPage extends Component<StackScreenProps<any>> {
+  state = {
+    hotel_details: {
       hotel_name: 'Hotel darvishi new york',
       hotel_star: 3,
       hotel_address: 'meydoon shohada, nareside be abmive reza',
       hotel_location: 'NY City',
       hotel_image: null,
-    };
-    const search_details = {
+    },
+    search_details: {
       checkIn: '99 December 9999',
       checkout: '99 December 9999',
       adults_count: 4,
@@ -36,23 +36,23 @@ class TestPage extends Component {
       children_ages: [1, 3, 5, 7, 9],
       children_count: 3,
       rooms_count: 6,
-    }
-    const facilities: string[] = [
+    },
+    facilities: [
       'parking', 'wifi', 'dog', 'sandis', 'pool', 'door',
       'bedroom', 'windows', 'photoshop', 'alignItems', 'kotlet', 'boom boom',
-    ];
-    const room_details = {
+    ],
+    room_details: {
       room_names: ['kings and queen bed', 'ECMA 2016', 'eslint Vs tslint'],
       cancellation_policies: ['az 99/99/99 ta 99/99/99 zelzele miyad', 'drum dum dum umuddmdudm d'],
       alerts: 'aaaa llllll eeeeee rrrrrr tttttt sssssss',
       restrictions: 'rrr eee sss tttt rrr iii cccc ttt iii ooo nnn ssss',
       boardType: 'bed and breakfast',
-    };
-    const late_check_in = {
+    },
+    late_check_in: {
       late_check_in: '99:99 - 99:99',
       request_message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-    }
-    const guest_information = [
+    },
+    guest_information: [
       [
         {first_name: 'ali', last_name: 'alizade', title: 'MR', age: null},
         {first_name: 'sanaz', last_name: 'sanaz zade', title: 'MS', age: null},
@@ -67,7 +67,10 @@ class TestPage extends Component {
         {first_name: 'darkmoon', last_name: 'faire', title: 'MR', age: null},
         {first_name: 'spectrum', last_name: 'coordination', title: 'MS', age: null},
       ]
-    ];
+    ],
+  }
+
+  render() {
 
     return (
       <>
@@ -88,27 +91,29 @@ class TestPage extends Component {
             <ElIf condition={status === 'ok'}>
 
               {/*hotel details*/}
-              <View style={[Style.mb__1]}><BoHotelDetails data={hotel_details}/></View>
+              <View style={[Style.mb__1]}><BoHotelDetails data={this.state.hotel_details}/></View>
 
               {/*search details*/}
               <View style={[Style.mb__1]}>
-                <RoomSearchDetails data={search_details}/>
+                <RoomSearchDetails data={this.state.search_details}/>
                 <View style={[Style.px__3, Style.pb__3, Style.bg__white]}>
-                  <TouchableNativeFeedback>
+                  <TouchableNativeFeedback onPress={() => this.onShowMore('guests_information')}>
                     <AppText style={[Style.text__capitalize, Style.f__12, Style.text__info, Style.py__1]}>
-                      {translate('guests-information')}</AppText>
+                      {t('guests-information')}</AppText>
                   </TouchableNativeFeedback>
                 </View>
               </View>
 
               {/*facilities*/}
-              <View style={Style.mb__1}><BoFacilities facilities={facilities}/></View>
+              <View style={Style.mb__1}><BoFacilities
+                data={{facilities: this.state.facilities, show_more: () => this.onShowMore('facilities')}}/></View>
 
               {/*room details*/}
-              <View style={[Style.mb__1]}><BoRoomDetails data={room_details}/></View>
+              <View style={[Style.mb__1]}><BoRoomDetails
+                data={{...this.state.room_details, show_more_policy: () => this.onShowMore('cancellations_policies')}}/></View>
 
               {/*late checkin*/}
-              <View style={[Style.mb__1]}><BoLateCheckIn data={late_check_in}/></View>
+              <View style={[Style.mb__1]}><BoLateCheckIn data={this.state.late_check_in}/></View>
 
             </ElIf>
             <ElIf condition={status === 'error'}>
@@ -119,25 +124,27 @@ class TestPage extends Component {
 
         {/*footer*/}
         <Footer style={[Style.bg__white]}>
-          <View style={[Style.w__100, Style.p__1, Style.flex__row]}>
-            <View style={[Style.col__6]}>
-              <AppText style={[Style.f__14,]}>{t('total')}:</AppText>
-              <View style={[Style.flex__row]}>
-                <AppText style={[Style.f__14, Style.text__bold]}>999,999,999,999</AppText>
-                <AppText style={[Style.f__14, Style.text__bold]}> IRR</AppText>
-              </View>
-            </View>
-            <View style={[Style.col__6, Style.pl__1
-            ]}>
-              <Button block style={[Style.bg__primary]}>
-                <AppText firstLetter style={[Style.text__white, Style.text__bold]}>{t('final-step')}</AppText>
-              </Button>
-            </View>
-          </View>
+          <BoFooter data={{button_label: t('final-step'), total_currency: 'IRR', total_price: '999,999,999,999'}}/>
         </Footer>
 
       </>
     );
+  }
+
+  onShowMore(tab_name: string) {
+
+    const tab_map: { [key: string]: number } = {
+      'guests_information': 0,
+      'facilities': 1,
+      'cancellations_policies': 2,
+    }
+    this.props.navigation.navigate('bo-more', {
+      tab_number: (tab_map[tab_name] || 0),
+      hotel_name: this.state.hotel_details.hotel_name,
+      guest_information: this.state.guest_information,
+      cancellation_policies: this.state.room_details.cancellation_policies,
+      facilities: this.state.facilities,
+    });
   }
 }
 
