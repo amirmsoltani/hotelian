@@ -9,8 +9,11 @@ import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
 import {GetHotelRooms} from 'Store/Actions';
 import SearchDetails from './search-details/search-details';
 import {LoadingAndError} from './loading-and-error/loading-and-error';
-import {StackScreenProps} from '@react-navigation/stack';
 import {HotelRoomAction} from "../index";
+
+
+import { StackScreenProps} from '@react-navigation/stack';
+import Clipboard from '@react-native-community/clipboard';
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -45,7 +48,11 @@ class HotelSelectRoom extends Component<Props> {
       currency,
       status,
     } = this.props;
-
+    function onCopy(){
+      Clipboard.setString(`
+      
+      `);
+    }
 
     return (
       <>
