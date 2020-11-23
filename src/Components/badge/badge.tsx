@@ -3,17 +3,20 @@ import {Style} from "../../Styles";
 import {AppText} from "../../Containers";
 import {
   BORDER_RADIUS_SM,
+  COLOR_BLACK,
   COLOR_DANGER,
   COLOR_INFO,
   COLOR_PRIMARY,
   COLOR_SUCCESS,
   COLOR_WARNING
 } from "../../../native-base-theme/variables/config";
+import {RnTextStyleProp} from "native-base";
 
 type propsType = {
   type?: 'success' | 'danger' | 'warning' | 'primary' | 'info';
   size?: 'sm' | 'md' | 'lg';
   text: string;
+  style?: RnTextStyleProp;
 };
 
 const color_map = {
@@ -22,6 +25,7 @@ const color_map = {
   warning: COLOR_WARNING,
   info: COLOR_INFO,
   primary: COLOR_PRIMARY,
+  black: COLOR_BLACK,
 }
 
 const size_map = {
@@ -33,14 +37,14 @@ const size_map = {
 const Badge: FunctionComponent<propsType> = (props) => {
   const styles = {
     badge: {
-      borderColor: color_map[props?.type || 'primary'],
+      borderColor: color_map[props?.type || 'black'],
       borderWidth: .5,
       borderRadius: BORDER_RADIUS_SM,
-      color: color_map[props?.type || 'primary'],
+      color: color_map[props?.type || 'black'],
     },
   };
   return (
-    <AppText style={[styles.badge, size_map[props?.size || 'md'], Style.mr__1, Style.mb__1]}
+    <AppText style={[styles.badge, size_map[props?.size || 'md'], props?.style]}
              firstLetter>{props.text}</AppText>
   );
 };
