@@ -82,10 +82,8 @@ class HotelSelectRoom extends Component<Props> {
                   nights_count: nights_count!,
                   currency,
                   discount: item.discount > 0,
+                  onReserve: this.onReserve,
                   onCopy() {
-                  },
-                  onReserve() {
-                    this.onReserve
                   },
                   onRules() {
                   },
