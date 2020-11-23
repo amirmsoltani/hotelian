@@ -5,6 +5,7 @@ import {BORDER_RADIUS} from '../../../../native-base-theme/variables/config';
 import {Conditional, If, ProgressiveImage} from '../../../Components';
 import {Style} from '../../../Styles';
 import {Icon} from 'native-base';
+import {translate} from "../../../Lib/Languages";
 
 type propsType = {
   star?: number;
@@ -55,11 +56,11 @@ const RoomHotelCard: FunctionComponent<{data: propsType}> = (props) => {
         <Conditional>
           <If condition={!!(props.data.score && props.data.reviews_count)}>
             <View style={[Style.flex__row]}>
-              <AppText style={[Style.f__12, Style.text__light]}>Score </AppText>
+              <AppText style={[Style.f__12, Style.text__light]} firstLetter>{translate('score')} </AppText>
               <AppText style={[Style.f__12]}>{props.data.score} </AppText>
-              <AppText style={[Style.f__12, Style.text__light]}>from </AppText>
+              <AppText style={[Style.f__12, Style.text__light]}>{translate('from')} </AppText>
               <AppText style={[Style.f__12]}>{props.data.reviews_count} </AppText>
-              <AppText style={[Style.f__12, Style.text__light]}>reviews.</AppText>
+              <AppText style={[Style.f__12, Style.text__light]}>{translate('reviews')}.</AppText>
             </View>
           </If>
         </Conditional>
