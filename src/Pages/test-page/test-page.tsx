@@ -90,7 +90,7 @@ class TestPage extends Component<StackScreenProps<any>> {
             <If condition={status === 'loading'}><ScreenLoading/></If>
             <ElIf condition={status === 'ok'}>
 
-              {/*hotel details*/}
+              {/*/!*hotel details*!/*/}
               <View style={[Style.mb__1]}><BoHotelDetails data={this.state.hotel_details}/></View>
 
               {/*search details*/}
@@ -140,10 +140,6 @@ class TestPage extends Component<StackScreenProps<any>> {
     }
     this.props.navigation.navigate('bo-more', {
       tab_number: (tab_map[tab_name] || 0),
-      hotel_name: this.state.hotel_details.hotel_name,
-      guest_information: this.state.guest_information,
-      cancellation_policies: this.state.room_details.cancellation_policies,
-      facilities: this.state.facilities,
     });
   }
 }

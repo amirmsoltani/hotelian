@@ -21,7 +21,7 @@ const BoRoomDetails: FunctionComponent<{ data: propsType }> = (props) => {
       {/*room name*/}
       <View style={[Style.mb__1, Style.flex__row, Style.flex__wrap]}>
         {props.data.room_names.map((name, index) => (
-          <View style={[Style.mb__1,]}>
+          <View key={index} style={[Style.mb__1,]}>
             <AppText firstLetter style={[Style.text__bold, Style.f__14]}>
               {name}{index < props.data.room_names.length - 1 ? ', ' : ''}</AppText>
           </View>
@@ -43,8 +43,8 @@ const BoRoomDetails: FunctionComponent<{ data: propsType }> = (props) => {
       <Conditional>
         <If condition={!!(props.data.cancellation_policies && props.data.cancellation_policies.length)}>
           <View>
-            {props.data.cancellation_policies!.map(cp => (
-              <View style={[Style.flex__row, Style.align__items_center, Style.mb__3]}>
+            {props.data.cancellation_policies!.map((cp,index) => (
+              <View key={index} style={[Style.flex__row, Style.align__items_center, Style.mb__3]}>
                 <Icon style={[Style.f__12, Style.mr__1]}
                       name={'alert-triangle'} type={'Feather'}/>
                 <AppText firstLetter
