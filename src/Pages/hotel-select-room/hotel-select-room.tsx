@@ -93,12 +93,15 @@ class HotelSelectRoom extends Component<Props> {
 
     return (
       <>
-        <Header style={[Style.bg__primary, Style.flex__row]}>
-          <Left><BackNavigation/></Left>
-          <Body>
-            <AppTitle>{hotel!.name}</AppTitle>
-          </Body>
-          <Right/>
+        <Header style={[Style.flex__row, Style.bg__primary, Style.align__items_center, Style.px__0]}>
+          <View>
+            <BackNavigation/>
+          </View>
+          <View style={[Style.flex__grow__1]}>
+            <AppTitle style={[Style.text__capitalize]} hasSubtitle>
+              {translate('choose-your-stay')}</AppTitle>
+            <AppSubtitle hasSubtitle>Dec 99 - Feb 99</AppSubtitle>
+          </View>
         </Header>
         {/*actions*/}
         <View><HotelRoomAction/></View>

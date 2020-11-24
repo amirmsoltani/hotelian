@@ -10,6 +10,7 @@ import {
   SelectNationalityPage,
   TestPage,
 } from '../Pages';
+import BoMore from "../Pages/booking-overview/bo-more/bo-more";
 
 const Stack = createStackNavigator();
 const SearchRoute = () => {

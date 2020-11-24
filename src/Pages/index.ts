@@ -16,5 +16,5 @@ export {default as RoomSearchDetails} from './hotel-select-room/room-search-deta
 export {default as HotelSelectRoom} from './hotel-select-room/hotel-select-room';
 export {default as PassengerPage} from './passenger.page/passenger.page';
 export {default as LateCheckin} from './passenger.page/late-checkin/late-checkin';
-export {default as ConfirmPage} from './confirm-page/confirm-page';
+export {default as BookingOverview} from './booking-overview/booking-overview';
 export {default as HotelRoomAction} from './hotel-select-room/hotel-room-action/hotel-room-action';
