@@ -138,7 +138,7 @@ class PassengerPage extends Component<propsType, any> {
   }
 
   onNextStep = () => {
-    this.props.navigation.navigate('overview');
+    this.props.navigation.navigate('booking-overview');
   }
 }
 

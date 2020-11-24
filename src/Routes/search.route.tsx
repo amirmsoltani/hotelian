@@ -10,7 +10,7 @@ import {
   SelectNationalityPage,
   TestPage,
 } from '../Pages';
-import BoMore from "../Pages/test-page/bo-more/bo-more";
+import BoMore from "../Pages/booking-overview/bo-more/bo-more";
 
 const Stack = createStackNavigator();
 const SearchRoute = () => {
@@ -22,9 +22,8 @@ const SearchRoute = () => {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
         }}
-        initialRouteName="test">
+        initialRouteName="form">
         <Stack.Screen name="test" component={TestPage}/>
-        <Stack.Screen name="bo-more" component={BoMore}/>
         <Stack.Screen name="form" component={SearchPage}/>
         <Stack.Screen name="destination" component={SelectDestinationPage}/>
         <Stack.Screen name="nationality" component={SelectNationalityPage}/>

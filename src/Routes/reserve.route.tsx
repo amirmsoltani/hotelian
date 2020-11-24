@@ -3,7 +3,7 @@ import {Container} from "native-base";
 import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
 import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from "@react-navigation/stack";
 import {BookingOverview, PassengerPage} from "../Pages";
-import BoMore from "../Pages/test-page/bo-more/bo-more";
+import BoMore from "../Pages/booking-overview/bo-more/bo-more";
 
 const Stack = createStackNavigator();
 const ReserveRoute = () => {
