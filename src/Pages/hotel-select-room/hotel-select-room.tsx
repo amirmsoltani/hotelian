@@ -4,7 +4,7 @@ import {Body, Header, Left, Right, Toast} from 'native-base';
 import {Style} from 'Styles';
 import RoomCard from './room-card/room-card';
 import {translate as t} from 'Lib/Languages';
-import {AppTitle, BackNavigation} from 'Containers';
+import {AppSubtitle, AppTitle, BackNavigation} from 'Containers';
 import {connect, ConnectedProps} from 'react-redux';
 import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
 import {GetHotelRooms, get_politics as GetPolitics} from 'Store/Actions';
@@ -99,7 +99,7 @@ class HotelSelectRoom extends Component<Props> {
           </View>
           <View style={[Style.flex__grow__1]}>
             <AppTitle style={[Style.text__capitalize]} hasSubtitle>
-              {translate('choose-your-stay')}</AppTitle>
+              {t('choose-your-stay')}</AppTitle>
             <AppSubtitle hasSubtitle>Dec 99 - Feb 99</AppSubtitle>
           </View>
         </Header>
