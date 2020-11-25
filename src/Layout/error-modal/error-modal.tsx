@@ -1,9 +1,9 @@
 import React, {FunctionComponent} from 'react';
 import {Icon} from "native-base";
-import {ScrollView, TouchableHighlight, TouchableNativeFeedback, View} from "react-native";
+import {TouchableOpacity, View} from "react-native";
 
 import {Style} from "../../Styles";
-import {AppText} from "../../Containers";
+import {AppModal, AppText} from "../../Containers";
 import {
   COLOR_BLACK,
   COLOR_DANGER,
@@ -24,13 +24,14 @@ import {colorMap} from '../../Lib/chen'
 type propsType = {
   theme?: ThemeType;
   hasDismiss?: boolean;
-  hasBackdrop?: boolean;
   icon?: { name: string, type: IconType };
   title: string;
+  caption?: string;
   message?: string | string[] | { [key: string]: string } | undefined;
-  action?: { label: string, theme: ThemeType, click: () => void }[]
+  action?: { label: string, theme: ThemeType, click: () => void }[];
+  onClose: () => void;
 }
-const ErrorModal: FunctionComponent<{ config: propsType }> = (props) => {
+const ErrorModal: FunctionComponent<{ config: propsType, visibility: boolean }> = (props) => {
   const styles = {
     border: {
       borderBottomWidth: .5,
@@ -45,58 +46,68 @@ const ErrorModal: FunctionComponent<{ config: propsType }> = (props) => {
   }
 
   return (
-    <ScrollView style={[Style.m__3, SHADOW_SM_X,
-      {backgroundColor: props.config.theme ? colorMap(props.config.theme)! : COLOR_WHITE}]}>
+    <AppModal
+      visibility={props.visibility}
+      position={"top"}
+      onClose={props.config.onClose}>
+      <View style={[SHADOW_SM_X, Style.bg__mint, Style.my__3,
+        {width: '90%', backgroundColor: props.config.theme ? colorMap(props.config.theme)! : COLOR_WHITE}]}>
 
-      {/*header*/}
-      <View style={[Style.flex__row, Style.align__items_center, styles.border]}>
+        {/*header*/}
+        <View style={[Style.flex__row, Style.align__items_center, styles.border]}>
 
-        {/*title*/}
-        <View style={[Style.flex__row, Style.align__items_center, Style.p__3,
-          Style.flex__grow__1, Style.flex__shrink__1]}>
-          <Icon style={[Style.f__14, Style.mr__1, styles.text_color]}
-                name={props.config.icon?.name || 'alert-triangle'}
-                type={props.config.icon?.type || 'Feather'}/>
-          <AppText firstLetter style={[Style.text__bold, Style.f__14, styles.text_color]}>
-            {props.config.title}</AppText>
+          {/*title*/}
+          <View style={[Style.flex__row, Style.align__items_center, Style.p__3,
+            Style.flex__grow__1, Style.flex__shrink__1]}>
+            <Icon style={[Style.f__14, Style.mr__1, styles.text_color]}
+                  name={props.config.icon?.name || 'alert-triangle'}
+                  type={props.config.icon?.type || 'Feather'}/>
+            <AppText firstLetter style={[Style.text__bold, Style.f__14, styles.text_color]}>
+              {props.config.title}</AppText>
+          </View>
+
+          {/*dismiss*/}
+          <Conditional>
+            <If condition={props.config.hasDismiss ?? true}>
+              <View style={[Style.flex__shrink__0, Style.flex__shrink__0,]}>
+                <TouchableOpacity
+                  onPress={props.config.onClose}
+                  style={[{backgroundColor: 'transparent'}, Style.p__3]}>
+                  <Icon style={[Style.f__14, styles.text_color]} name={'close'} type={'AntDesign'}/>
+                </TouchableOpacity>
+              </View>
+            </If>
+          </Conditional>
+
         </View>
 
-        {/*dismiss*/}
+        {/*content*/}
+        <View style={[Style.px__3, Style.py__5, Style.bg__white,]}>
+          <AppText style={[Style.f__14, Style.mb__3]} firstLetter>
+            {props.config.caption ?? translate('following-errors-are-reported')}:
+          </AppText>
+          {messages_generator(props.config.message)}
+        </View>
+
+        {/*footer*/}
         <Conditional>
-          <If condition={props.config.hasDismiss ?? true}>
-            <View style={[Style.flex__shrink__0, Style.flex__shrink__0,]}>
-              <TouchableHighlight style={[{backgroundColor: 'transparent'}, Style.p__3]}>
-                <Icon style={[Style.f__14, styles.text_color]} name={'close'} type={'AntDesign'}/>
-              </TouchableHighlight>
+          <If condition={!!(props.config.action?.length)}>
+            <View style={{borderTopWidth: .5, borderTopColor: GRAY_LIGHT_XX}}>
+              <View style={[Style.bg__white, Style.px__3, Style.py__2, Style.flex__row, Style.flex__wrap]}>
+                {props.config.action && props.config.action!.map((act, index) => (
+                  <TouchableOpacity key={index + ''} onPress={act.click}
+                                    style={[{backgroundColor: colorMap(act.theme) || COLOR_DANGER}, Style.mr__1, Style.mb__1, Style.p__2]}>
+                    <AppText style={[Style.text__white]}>{act.label}</AppText>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
           </If>
         </Conditional>
 
       </View>
+    </AppModal>
 
-      {/*content*/}
-      <View style={[Style.px__3, Style.py__5, Style.bg__white,]}>
-        {messages_generator(props.config.message)}</View>
-
-      {/*footer*/}
-      <Conditional>
-        <If condition={!!(props.config.action?.length)}>
-          <View style={{borderTopWidth: .5, borderTopColor: GRAY_LIGHT_XX}}>
-            <View style={[Style.bg__white, Style.px__3, Style.py__2, Style.flex__row, Style.flex__wrap]}>
-              {props.config.action!.map((act, index) => (
-                <View style={[{backgroundColor: colorMap(act.theme) || COLOR_DANGER},
-                  Style.mr__1, Style.mb__1, Style.p__2]}>
-                  <TouchableNativeFeedback key={index} onPress={act.click}>
-                    <AppText style={[Style.text__white]}>{act.label}</AppText>
-                  </TouchableNativeFeedback>
-                </View>
-              ))}
-            </View>
-          </View>
-        </If>
-      </Conditional>
-
-    </ScrollView>
   );
 
   function messages_generator(param: any) {
