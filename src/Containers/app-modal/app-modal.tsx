@@ -33,21 +33,12 @@ const AppModal = (props: propType) => {
     <Modal
       animationType={props.animation || 'fade'}
       transparent={true}
-      visible={props.visibility || false}
-      onRequestClose={props.onClose}
-    >
+      visible={props.visibility ?? false}
+      onRequestClose={props.onClose}>
       <TouchableOpacity
-        activeOpacity={1}
-        onPress={props.onClose}
-        style={[
-          ...styles,
-          Style.w__100,
-          Style.h__100,
-          {backgroundColor: 'rgba(0,0,0,0.4)'},
-        ]}>
-        <TouchableWithoutFeedback style={[Style.bg__warning]}>
-          {props.children}
-        </TouchableWithoutFeedback>
+        activeOpacity={1} onPress={props.onClose}
+        style={[...styles, Style.w__100, Style.h__100, {backgroundColor: 'rgba(0,0,0,0.4)'},]}>
+        <TouchableWithoutFeedback>{props.children}</TouchableWithoutFeedback>
       </TouchableOpacity>
     </Modal>
   );
