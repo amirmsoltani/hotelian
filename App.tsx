@@ -9,16 +9,16 @@ import Storage from './src/Lib/Storage';
 import createStore from './src/Store';
 import axios from 'axios';
 import {LANGUAGE_URL} from './src/URLS';
-import {AppText} from './src/Containers';
 import {StatusType} from './src/Typescript/Types';
 import {Root} from 'native-base';
+import {InitError, InitLoading} from "./src/Pages";
 
-declare const global: {HermesInternal: null | {}};
+declare const global: { HermesInternal: null | {} };
 
 class App extends React.Component<any,
   {
     ok: boolean;
-    json?: {[key: string]: string};
+    json?: { [key: string]: string };
     status: StatusType;
     message: string;
   }> {
@@ -36,7 +36,7 @@ class App extends React.Component<any,
     BackHandler.addEventListener('hardwareBackPress', () => true);
   }
 
-  async getTranslates(lang: string): Promise<{[key: string]: string} | null> {
+  async getTranslates(lang: string): Promise<{ [key: string]: string } | null> {
     try {
       const response = await axios.get(LANGUAGE_URL + lang);
       return response.data.result;
@@ -83,11 +83,8 @@ class App extends React.Component<any,
         </Root>
       </Provider>
     ) : this.state.status === 'error' ? (
-      <AppText>{this.state.message}</AppText>
-    ) : (
-      <AppText>Loading goes here !!!</AppText>
-    );
-    // <></>
+      <InitError/>
+    ) : <InitLoading/>;
   }
 }
 
