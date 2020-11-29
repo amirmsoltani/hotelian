@@ -5,7 +5,6 @@ import {FacilityType, HotelsActivesFilterType, SortType} from '../Types';
 
 export interface HotelsStateInterface {
   status: 'ok' | 'loading' | 'expire' | 'error' | null;
-  change_filter: number;
   filter?: {
     hotels: number[];
     structure: HotelsFilterInterface;

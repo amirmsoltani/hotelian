@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
-import {Switch, View} from "react-native";
-import {Icon, Item, Picker, Textarea} from "native-base";
+import React from 'react';
+import {Switch, View} from 'react-native';
+import {Icon, Item, Picker, Textarea} from 'native-base';
 
-import {Style} from "../../../Styles";
-import {AppText} from "../../../Containers";
-import {translate} from "../../../Lib/Languages";
-import {Conditional, If} from "../../../Components";
+import {Style} from '../../../Styles';
+import {AppText} from '../../../Containers';
+import {translate} from '../../../Lib/Languages';
+import {Conditional, If} from '../../../Components';
+import {FormContext} from '../../../Forms/guest-form/form-context';
 
 type stateType = {
   switch: boolean;
@@ -14,8 +15,8 @@ type stateType = {
 const LateCheckin = () => {
 
   //for activating / inactivating late checking
-  const [state, setState] = useState<stateType>({switch: false, late_checkin: 0});
-
+  // const [state, setState] = useState<stateType>({switch: false, late_checkin: 0});
+  const {state: {lateCheckin: {active, date_time, description}}, methods} = React.useContext(FormContext);
   return (
     <View style={[Style.bg__white, Style.p__3]}>
 
@@ -24,14 +25,14 @@ const LateCheckin = () => {
         <AppText firstLetter style={[Style.text__bold, Style.f__14]}>
           {translate('late-checking')}</AppText>
         <Switch
-          value={state.switch}
-          onValueChange={(value: boolean) => setState({...state, switch: value})}
+          value={active}
+          onValueChange={(value: boolean) => methods!.switch(value)}
         />
       </View>
 
       {/*picker*/}
       <Conditional>
-        <If condition={state.switch}>
+        <If condition={active}>
           <View style={[Style.mb__2]}>
             <Item disabled picker>
               <Picker
@@ -39,15 +40,16 @@ const LateCheckin = () => {
                 iosIcon={<Icon name="arrow-down"/>}
                 style={{width: undefined}}
                 placeholder={translate('title')}
-                placeholderStyle={{color: "blue"}}
+                placeholderStyle={{color: 'blue'}}
                 placeholderIconColor="red"
-                selectedValue={state.late_checkin}
-                onValueChange={(itemValue: any, itemPosition: number) =>
-                  setState({...state, late_checkin: itemValue})}
+                selectedValue={date_time}
+                onValueChange={(itemValue: string) =>
+                  methods!.late_change('date_time', itemValue)
+                }
               >
-                <Picker.Item label='14:00 - 18:00' value={0}/>
-                <Picker.Item label='18:00 - 21:00' value={1}/>
-                <Picker.Item label='21:00 - 00:00' value={2}/>
+                <Picker.Item label="14:00 - 18:00" value={'1'}/>
+                <Picker.Item label="18:00 - 21:00" value={'2'}/>
+                <Picker.Item label="21:00 - 00:00" value={'3'}/>
               </Picker>
             </Item>
           </View>
@@ -58,7 +60,12 @@ const LateCheckin = () => {
       <View>
         <Textarea
           underline={false} rowSpan={5} bordered
-          placeholder={translate('enter-request-about-your-booking')}/>
+          placeholder={translate('enter-request-about-your-booking')}
+          defaultValue={description}
+          onEndEditing={(e) => {
+            methods?.late_change('description', e.nativeEvent.text);
+          }}
+        />
       </View>
 
     </View>
