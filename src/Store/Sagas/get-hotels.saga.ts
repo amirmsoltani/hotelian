@@ -1,6 +1,6 @@
-import {takeLatest, put} from 'redux-saga/effects';
+import {takeLatest, put, select} from 'redux-saga/effects';
 import Http from 'Lib/Http';
-import {SET_SEARCH_ID, SetSearchIdType, SetHotels, GET_HOTELS} from '../Actions';
+import {SetSearchIdType, SetHotels, GET_HOTELS} from '../Actions';
 import {
   HotelsResultInterface,
   HttpResponseInterface,
@@ -9,7 +9,6 @@ import {HOTEL_SEARCH_RESULT_URL} from 'URLS';
 import {HotelsInitial} from 'Lib/FilterTool';
 
 export function* GetHotels(action: SetSearchIdType) {
-
   try {
     const url = HOTEL_SEARCH_RESULT_URL + `?search_id=${typeof action.payload === 'string' ? action.payload : action.payload.search_id}`;
     const response: HttpResponseInterface<HotelsResultInterface> = yield Http.request({url: url, method: 'GET'});
@@ -26,7 +25,6 @@ export function* GetHotels(action: SetSearchIdType) {
         actives: {priceDown: {name: 'sort', indexes: structureCreator.sorting.priceDown}},
       },
     }));
-    // yield Storage.save({key: 'search-id', data: action.payload});
   } catch (e) {
     // TODO after create expire put expire
     console.log(e.response);
@@ -35,5 +33,5 @@ export function* GetHotels(action: SetSearchIdType) {
   }
 }
 
-export default [takeLatest(SET_SEARCH_ID, GetHotels), takeLatest(GET_HOTELS, GetHotels)];
+export default [takeLatest(GET_HOTELS, GetHotels)];
 

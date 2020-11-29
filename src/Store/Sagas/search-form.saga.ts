@@ -1,9 +1,10 @@
 import {cancel, fork, delay, takeLatest, put, select} from 'redux-saga/effects';
-import Http from '../../Lib/Http';
+import Http from 'Lib/Http';
 import {ACCEPT_SEARCH_FORM, SearchExpire, SetSearchId} from '../Actions';
-import {HttpResponseInterface, RootStateInterface, SearchFormDataInterface} from '../../Typescript';
-import {HOTEL_SEARCH_URL} from '../../URLS';
+import {HttpResponseInterface, RootStateInterface, SearchFormDataInterface} from 'Typescript';
+import {HOTEL_SEARCH_URL} from 'URLS';
 import {commonActions} from 'Lib/navigation';
+import {GetHotels} from '../Actions';
 
 export function* AcceptSearchFrom() {
   const searchFormData: SearchFormDataInterface = yield select((state: RootStateInterface) => state.searchReducer.form_data);
@@ -35,6 +36,9 @@ export function* AcceptSearchFrom() {
       method: 'POST',
     });
     yield put(SetSearchId(response.data.result.search_id, response.data.result.expire));
+    if (searchData.dest_type === 'city') {
+      yield put(GetHotels(response.data.result.search_id));
+    }
     let now = Math.floor(new Date().getTime() / 1000);
     while (response.data.result.expire > now++) {
       yield delay(1000);
