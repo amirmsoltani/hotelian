@@ -18,3 +18,5 @@ export {default as PassengerPage} from './passenger.page/passenger.page';
 export {default as LateCheckin} from './passenger.page/late-checkin/late-checkin';
 export {default as BookingOverview} from './booking-overview/booking-overview';
 export {default as HotelRoomAction} from './hotel-select-room/hotel-room-action/hotel-room-action';
+export {default as InitLoading} from './init-loading/init-loading';
+export {default as InitError} from './init-error/init-error';
