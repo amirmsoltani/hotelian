@@ -1,17 +1,19 @@
 import React from 'react';
-import {AppState, AppStateStatus, BackHandler} from 'react-native';
+import axios from 'axios';
 import {Store} from 'redux';
-import {Provider} from 'react-redux';
+import {Root} from "native-base";
+import {Provider} from "react-redux";
 import {MenuProvider} from 'react-native-popup-menu';
-import Routes from './src/Routes/index';
+import {AppState, AppStateStatus, BackHandler} from 'react-native';
+
 import {History, MemoryHistory} from 'history';
 import Storage from './src/Lib/Storage';
 import createStore from './src/Store';
-import axios from 'axios';
-import {LANGUAGE_URL} from './src/URLS';
+import {LANGUAGE_URL, USER_INITIAL_ERROR_MESSAGE} from './src/URLS';
 import {StatusType} from './src/Typescript/Types';
-import {Root} from 'native-base';
 import {InitError, InitLoading} from "./src/Pages";
+import Routes from "./src/Routes";
+
 
 declare const global: { HermesInternal: null | {} };
 
@@ -83,7 +85,7 @@ class App extends React.Component<any,
         </Root>
       </Provider>
     ) : this.state.status === 'error' ? (
-      <InitError/>
+      <InitError message={this.state.message}/>
     ) : <InitLoading/>;
   }
 }
