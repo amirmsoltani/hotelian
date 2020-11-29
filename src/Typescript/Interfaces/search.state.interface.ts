@@ -8,5 +8,6 @@ export interface SearchStateInterface {
   nationality: ReducerListInterface<NationalityType[] | undefined>;
   form_data: SearchFormDataInterface;
   search_id?: string;
+  expire?: number;
   status: undefined | 'loading' | 'error' | 'ok' | 'expire'
 }

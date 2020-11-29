@@ -49,10 +49,10 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
       return {...state, form_data: {...state.form_data, ...action.payload}};
     }
     case SET_SEARCH_ID: {
-      return {...state, search_id: action.payload, status: 'ok'};
+      return {...state, search_id: action.payload.search_id, expire: action.payload.expire, status: 'ok'};
     }
     case SEARCH_EXPIRE: {
-      return {...state, search_id: 'expire'};
+      return {...state, search_id: 'expire', status: 'expire'};
     }
     case ACCEPT_SEARCH_FORM: {
       return {...state, status: 'loading'};
