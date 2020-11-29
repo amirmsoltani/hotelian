@@ -14,6 +14,7 @@ import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-men
 import {Conditional, ElIf, If, RecentSearch, TopDestination, TopProperty,} from 'Components';
 import LanguageModal from "../../Containers/language-modal/language-modal";
 import CurrencyModal from "../../Containers/currency-modal/currency-modal";
+import {drawerActions} from "../../Lib/navigation";
 
 
 class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
@@ -250,7 +251,9 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
   Header() {
     return <Header style={[{backgroundColor: COLOR_PRIMARY}]}>
       <Left>
-        <Button transparent>
+        <Button
+          onPress={() => drawerActions.openDrawer()}
+          transparent>
           <Icon type={'Ionicons'} name='ios-menu-sharp' style={Style.f__20}/>
         </Button>
       </Left>
