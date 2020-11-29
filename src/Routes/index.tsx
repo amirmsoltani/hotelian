@@ -13,8 +13,7 @@ import ModifySearchRoute from './modify-search.route';
 import {navigationConfig, setNavigation} from 'Lib/navigation';
 import {SetNavigationState} from '../Store/Actions';
 import ReserveRoute from "./reserve.route";
-import {ErrorModal} from "../Layout";
-import AppDrawerContent from "../Layout/app=drawer/app-drawer-content/app-drawer-content";
+import {AppDrawerContent, ErrorModal} from "../Layout";
 
 const mapStateToProps = (state: RootStateInterface) => ({
   language: state.appReducer.language,
