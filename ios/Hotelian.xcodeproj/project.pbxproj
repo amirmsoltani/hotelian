@@ -80,6 +80,9 @@
 		ED616306D90142E5B1E146A9 /* QuicksandSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72F1CBB82B52480FBF484EB0 /* QuicksandSemiBold.ttf */; };
 		5B1192CCF54B42BAA54C6224 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A17994984E1240149B07A19C /* Feather.ttf */; };
 		06CC544F86E74139A3093B24 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 164CB3EA0A534695A20F9167 /* Ionicons.ttf */; };
+		22AE033C72344590A488DC66 /* ic_img.png.png in Resources */ = {isa = PBXBuildFile; fileRef = E19CDFE7DBA2471D9FB92BCC /* ic_img.png.png */; };
+		C3C719BF81C14AE6A859FA15 /* ie_img.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA881CA972E4180A94B2C56 /* ie_img.png */; };
+		330D0D76142A410FB63AA382 /* ic_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 0203D50A28CD4C78B4FE9598 /* ic_img.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +182,9 @@
 		72F1CBB82B52480FBF484EB0 /* QuicksandSemiBold.ttf */ = {isa = PBXFileReference; name = "QuicksandSemiBold.ttf"; path = "../src/Assets/Fonts/Quicksand/QuicksandSemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A17994984E1240149B07A19C /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../src/Assets/Fonts/VectorIcons/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		164CB3EA0A534695A20F9167 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../src/Assets/Fonts/VectorIcons/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E19CDFE7DBA2471D9FB92BCC /* ic_img.png.png */ = {isa = PBXFileReference; name = "ic_img.png.png"; path = "../src/Assets/Images/ic_img.png.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CDA881CA972E4180A94B2C56 /* ie_img.png */ = {isa = PBXFileReference; name = "ie_img.png"; path = "../src/Assets/Images/ie_img.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0203D50A28CD4C78B4FE9598 /* ic_img.png */ = {isa = PBXFileReference; name = "ic_img.png"; path = "../src/Assets/Images/ic_img.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +359,9 @@
 				72F1CBB82B52480FBF484EB0 /* QuicksandSemiBold.ttf */,
 				A17994984E1240149B07A19C /* Feather.ttf */,
 				164CB3EA0A534695A20F9167 /* Ionicons.ttf */,
+				E19CDFE7DBA2471D9FB92BCC /* ic_img.png.png */,
+				CDA881CA972E4180A94B2C56 /* ie_img.png */,
+				0203D50A28CD4C78B4FE9598 /* ic_img.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -560,6 +569,9 @@
 				ED616306D90142E5B1E146A9 /* QuicksandSemiBold.ttf in Resources */,
 				5B1192CCF54B42BAA54C6224 /* Feather.ttf in Resources */,
 				06CC544F86E74139A3093B24 /* Ionicons.ttf in Resources */,
+				22AE033C72344590A488DC66 /* ic_img.png.png in Resources */,
+				C3C719BF81C14AE6A859FA15 /* ie_img.png in Resources */,
+				330D0D76142A410FB63AA382 /* ic_img.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
