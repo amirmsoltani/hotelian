@@ -93,7 +93,8 @@ const RoomCard: FunctionComponent<{data: propsType}> = (props) => {
             </View>
           </View>
           <View style={[Style.flex__shrink__0, Style.flex__grow__0]}>
-            <Button onPress={() => props.data.onReserve()}
+            {/*TODO disable if after fix loading*/}
+            <Button onPress={() => props.data.onReserve()} disabled={!props.data.cancellation_policies}
                     style={[Style.bg__important, Style.px__3, Style.mt__auto]}>
               <AppText style={[Style.text__white, Style.text__upperCase, Style.f__14, Style.text__bold]}>
                 reserve</AppText>

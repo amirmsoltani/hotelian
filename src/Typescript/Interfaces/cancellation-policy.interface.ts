@@ -5,4 +5,5 @@ export interface CancellationPolicyInterface {
   has_deadline: boolean;
   policies: PoliciesType[];
   alerts: string[];
+  restrictions: string[];
 }

@@ -23,3 +23,4 @@ export * from './comment.model';
 export * from './cancellation-policy.interface';
 export * from './option-filter.interface';
 export * from './http-result.interface';
+export * from './book-state.interface';

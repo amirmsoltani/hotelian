@@ -68,7 +68,7 @@ class HotelSelectRoom extends Component<Props> {
       status,
       form_data,
     } = this.props;
-
+    const {navigation} = this.props;
     const onCopy = function(this: {room_name: string[], board_type: string, price: string, per_night: string}) {
       Clipboard.setString(`
          ${t('hotel-name')}: ${hotel.name}
@@ -89,6 +89,9 @@ class HotelSelectRoom extends Component<Props> {
         textStyle: {color: COLOR_SUCCESS},
         position: 'bottom',
       });
+    };
+    const onReserve = function(this: {option: HotelOptionInterface}) {
+      navigation.push('reserve', {screen: 'passenger', params: this.option});
     };
 
     return (
@@ -128,8 +131,9 @@ class HotelSelectRoom extends Component<Props> {
                     nights_count: nights_count!,
                     currency,
                     discount: item.discount > 0,
+                    option: item,
                     onCopy,
-                    onReserve: this.onReserve,
+                    onReserve: onReserve,
                     onRules() {
                     },
                   }}/>
@@ -144,11 +148,7 @@ class HotelSelectRoom extends Component<Props> {
     );
   }
 
-  onReserve = () => {
-    this.props.navigation.push('reserve', {
-      screen: 'passengers',
-    });
-  };
+
 }
 
 export default connector(HotelSelectRoom);
