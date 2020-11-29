@@ -1,9 +1,7 @@
 import {HotelsStateInterface} from '../../Typescript';
 import {
-  APPLY_HOTELS_FILTER,
   GET_HOTELS,
   HotelsActionTypes,
-  SEARCH_EXPIRE,
   SET_HOTELS,
   SET_HOTELS_AFTER_FILTERS,
   SET_SEARCH_ID,
@@ -11,7 +9,6 @@ import {
 
 export const hotelsInit: HotelsStateInterface = {
     status: null,
-    change_filter: 0,
   }
 ;
 const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsActionTypes): HotelsStateInterface => {
@@ -23,17 +20,12 @@ const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsA
     case SET_HOTELS: {
       return {...state, ...action.payload, status: 'ok'};
     }
-    case SEARCH_EXPIRE: {
-      return {...state, status: 'expire'};
-    }
     case SET_HOTELS_AFTER_FILTERS: {
       return {
         ...state,
-        change_filter: state.change_filter + 1,
         filter: {
           ...state.filter!,
           hotels: action.payload.hotels,
-          // numbers: action.payload.structure,
           actives: action.payload.actives,
           sortBy: action.payload.sorting ? action.payload.sorting : state.filter!.sortBy!,
         },

@@ -21,7 +21,7 @@ export const ACCEPT_SEARCH_FORM = '[Search Reducer] Accept Search From';
 export type AcceptSearchFormType = ActionInterface<typeof ACCEPT_SEARCH_FORM, undefined>
 
 export const SET_SEARCH_ID = '[Search Reducer] Set Search ID';
-export type SetSearchIdType = {readonly type: typeof SET_SEARCH_ID, payload: string};
+export type SetSearchIdType = {readonly type: typeof SET_SEARCH_ID, payload: {search_id: string, expire: number}};
 
 export const SEARCH_EXPIRE = '[Search Reducer] Expire Search ID';
 export type SearchExpireType = {readonly type: typeof SEARCH_EXPIRE};
