@@ -5,7 +5,7 @@ import {BORDER_RADIUS} from '../../../../native-base-theme/variables/config';
 import {Conditional, If, ProgressiveImage} from '../../../Components';
 import {Style} from '../../../Styles';
 import {Icon} from 'native-base';
-import {translate} from "../../../Lib/Languages";
+import {translate} from '../../../Lib/Languages';
 
 type propsType = {
   star?: number;
@@ -38,7 +38,7 @@ const RoomHotelCard: FunctionComponent<{data: propsType}> = (props) => {
 
         {/*star*/}
         <View style={[Style.flex__row, Style.mb__2]}>
-          {[...Array(props.data.star)].map(_ => <Icon style={[Style.f__12, Style.text__warning]}
+          {[...Array(props.data.star)].map(_ => <Icon key={'star' + _} style={[Style.f__12, Style.text__warning]}
                                                       name={'star'} type={'AntDesign'}/>)}
         </View>
 
