@@ -89,7 +89,7 @@ class HotelListPage extends Component<Props,
   }
 
   shouldComponentUpdate(nextProps: Readonly<Props>): boolean {
-    return (nextProps.current === 'hotels' && nextProps.hotels !== this.props.hotels);
+    return (nextProps.current === 'hotels' && nextProps.indexes !== this.props.indexes);
 
   }
 
@@ -238,6 +238,7 @@ class HotelListPage extends Component<Props,
 
   Sort() {
     const {sortBy} = this.props;
+    console.log(sortBy);
     return (
       <Menu
         style={[
@@ -344,7 +345,6 @@ class HotelListPage extends Component<Props,
                 type={'MaterialIcons'}
                 style={[
                   sortBy === 'starDown' ? Style.text__info : null,
-                  sortBy === 'starUp' ? Style.text__info : null,
                   Style.f__18,
                   Style.text__gray_l,
                 ]}
@@ -409,7 +409,6 @@ class HotelListPage extends Component<Props,
                 type={'MaterialIcons'}
                 style={[
                   sortBy === 'priceUp' ? Style.text__info : null,
-                  sortBy === 'starUp' ? Style.text__info : null,
                   Style.f__18,
                   Style.text__gray_l,
                 ]}
