@@ -25,7 +25,7 @@ const HotelsReducer = (state: HotelsStateInterface = hotelsInit, action: HotelsA
         ...state,
         filter: {
           ...state.filter!,
-          hotels: action.payload.hotels,
+          hotels: [...action.payload.hotels],
           actives: action.payload.actives,
           sortBy: action.payload.sorting ? action.payload.sorting : state.filter!.sortBy!,
         },

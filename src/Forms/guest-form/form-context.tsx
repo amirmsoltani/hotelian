@@ -62,7 +62,6 @@ class GuestFromController extends React.Component<PropTypes, StateType> {
   constructor(props: PropTypes) {
     super(props);
     this.rooms = props.rooms;
-    console.log(this.rooms);
     this.state = {
       rooms: this.rooms.map(room => {
         const child_count = room.children ? room.children.length : 0;

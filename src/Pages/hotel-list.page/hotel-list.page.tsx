@@ -38,7 +38,6 @@ const mapStateToProps = (
   current: state.navigation?.current.name,
 });
 
-type responseStatus = 'ok' | 'loading' | 'expire' | 'error' | null;
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 const mapDispatchToProps = {GetHotels, ApplyHotelsFilters};
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -46,15 +45,13 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 class HotelListPage extends Component<Props,
   {end: boolean; scroll: boolean}> {
   timeOut: any | null = null;
-  activatedFilter = 0;
   state = {
     end: false,
     scroll: false,
-
     //flag for hide/show modify search modal
     modifySearch: false,
   };
-
+  activatedFilter = 1;
   //=======================================
   // Hooks
   //=======================================
@@ -89,14 +86,12 @@ class HotelListPage extends Component<Props,
   }
 
   shouldComponentUpdate(nextProps: Readonly<Props>): boolean {
-    return (nextProps.current === 'hotels' && nextProps.indexes !== this.props.indexes);
+    return (nextProps.current === 'hotels' && (nextProps.indexes !== this.props.indexes || (this.props.current === 'filter')));
 
   }
 
   render() {
-    this.activatedFilter = this.props.filters
-      ? Object.keys(this.props.filters).length
-      : 0;
+    this.activatedFilter = this.props.filters ? Object.keys(this.props.filters).length : 0;
     const {
       hotels,
       indexes,
@@ -177,7 +172,7 @@ class HotelListPage extends Component<Props,
                 getItemCount={() => indexes!.length}
                 keyExtractor={(item) => item.hotel_id.toString()}
                 ListFooterComponent={
-                  this.state.end ? <></> : <Spinner color={'blue'}/>
+                  this.state.end ? null : <Spinner color={'blue'}/>
                 }
                 onEndReached={() => this.setState({end: true})}
                 renderItem={({item}) => {
@@ -238,7 +233,6 @@ class HotelListPage extends Component<Props,
 
   Sort() {
     const {sortBy} = this.props;
-    console.log(sortBy);
     return (
       <Menu
         style={[
@@ -445,7 +439,7 @@ class HotelListPage extends Component<Props,
             {translate('filter')}
           </AppText>
           <Conditional>
-            <If condition={!!this.activatedFilter}>
+            <If condition={this.activatedFilter > 1}>
               <View
                 style={[
                   Style.bg__danger,

@@ -3,7 +3,7 @@ import Http from 'Lib/Http';
 import {ACCEPT_SEARCH_FORM, SearchExpire, SetSearchId} from '../Actions';
 import {HttpResponseInterface, RootStateInterface, SearchFormDataInterface} from 'Typescript';
 import {HOTEL_SEARCH_URL} from 'URLS';
-import {commonActions} from 'Lib/navigation';
+import {stackActions} from 'Lib/navigation';
 import {GetHotels} from '../Actions';
 import {error_handler} from 'Lib/error-handler';
 
@@ -20,14 +20,17 @@ export function* AcceptSearchFrom() {
   const loader = yield fork(function* () {
     yield delay(1000);
     if (searchData.dest_type === 'hotel') {
-      yield commonActions.navigate('hotel', 'hotel', {
-        checkin: searchFormData.checkIn!.formatted,
-        checkout: searchFormData.checkOut!.formatted,
-        id: searchData.dest_code,
-        name: searchFormData.destination!.label!,
+      yield stackActions.push('hotel', {
+        params: {
+          checkin: searchFormData.checkIn!.formatted,
+          checkout: searchFormData.checkOut!.formatted,
+          id: searchData.dest_code,
+          name: searchFormData.destination!.label!,
+        },
+        screen: 'hotel',
       });
     } else {
-      yield commonActions.navigate('hotels', 'hotels');
+      yield stackActions.push('hotels', {screen: 'hotels'});
     }
   });
   try {

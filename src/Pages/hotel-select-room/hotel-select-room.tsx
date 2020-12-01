@@ -109,7 +109,7 @@ class HotelSelectRoom extends Component<Props> {
           </View>
         </Header>
         {/*actions*/}
-        <View><HotelRoomAction/></View>
+        <View><HotelRoomAction hotel={hotel}/></View>
         <View style={[Style.flex__shrink__1]}>
           {/*hotel list*/}
           <FlatList<HotelOptionInterface>
