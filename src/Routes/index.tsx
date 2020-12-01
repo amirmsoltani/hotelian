@@ -13,7 +13,7 @@ import ModifySearchRoute from './modify-search.route';
 import {navigationConfig, setNavigation} from 'Lib/navigation';
 import {SetNavigationState} from '../Store/Actions';
 import ReserveRoute from './reserve.route';
-import {ErrorModal} from '../Layout';
+import {AppDrawerContent, ErrorModal} from 'Layout';
 import {buttonGenerator} from '../Lib/button-generator';
 
 
@@ -75,26 +75,15 @@ class Routes extends Component<Props, States> {
 
 
   //=======================================
-  // Handlers
-  //=======================================
-  showErrorModal = () => {
-    this.setState({visibility: true});
-  }
-
-  hideErrorModal = () => {
-    this.setState({visibility: false});
-  }
-
-
-  //=======================================
   // Sections
   //=======================================
-  SearchStack: FunctionComponent<any & DrawerContentComponentProps> = (props) => {
+  SearchStack: FunctionComponent<any & DrawerContentComponentProps> = () => {
     return <Stack.Navigator
       initialRouteName="search"
       screenOptions={({navigation}) => {
-        if (!navigationConfig)
+        if (!navigationConfig) {
           setNavigation(navigation);
+        }
         return {headerShown: false, gestureEnabled: true};
       }}>
       <Stack.Screen component={SearchRoute} name="search"/>
@@ -102,8 +91,8 @@ class Routes extends Component<Props, States> {
       <Stack.Screen component={HotelsRoute} name="hotels"/>
       <Stack.Screen component={HotelRoute} name="hotel"/>
       <Stack.Screen component={ReserveRoute} name="reserve"/>
-    </Stack.Navigator>
-  }
+    </Stack.Navigator>;
+  };
 
 }
 
