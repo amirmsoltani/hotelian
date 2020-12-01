@@ -3,10 +3,12 @@ import Http from 'Lib/Http';
 import {Dispatch} from 'redux';
 import {SetHotelData} from './set-hotel-data.action';
 import {error_handler} from '../../../Lib/error-handler';
+import {setStatus} from '../global.actions/set-status.action';
 
 export function GetHotel(id: number) {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch(setStatus('hotel', 'loading'));
       const response = await Http.request({
         method: 'GET',
         url: `${HOTEL_DETAILS}?hotel_id=${id}`,
