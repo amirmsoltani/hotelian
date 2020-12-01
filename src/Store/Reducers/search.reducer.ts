@@ -1,6 +1,7 @@
 import {SearchStateInterface} from '../../Typescript';
 import {
   ACCEPT_SEARCH_FORM,
+  AUTO_COMPLETE_ERROR,
   CHANGE_SEARCH_FORM_DATA,
   GET_DESTINATION,
   GET_NATIONALITY,
@@ -56,6 +57,9 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
     }
     case ACCEPT_SEARCH_FORM: {
       return {...state, status: 'loading'};
+    }
+    case AUTO_COMPLETE_ERROR: {
+      return {...state, [action.target]: {...state[action.target], GET: 'error'}};
     }
     default:
       return state;

@@ -1,11 +1,11 @@
-import {cancel, fork, delay, takeLatest, put, select} from 'redux-saga/effects';
+import {cancel, fork, delay, takeLatest, put, select, call} from 'redux-saga/effects';
 import Http from 'Lib/Http';
-import {ACCEPT_SEARCH_FORM, AppError, SearchExpire, SetSearchId} from '../Actions';
-import {ErrorMessageType, HttpResponseInterface, RootStateInterface, SearchFormDataInterface} from 'Typescript';
+import {ACCEPT_SEARCH_FORM, SearchExpire, SetSearchId} from '../Actions';
+import {HttpResponseInterface, RootStateInterface, SearchFormDataInterface} from 'Typescript';
 import {HOTEL_SEARCH_URL} from 'URLS';
 import {commonActions} from 'Lib/navigation';
 import {GetHotels} from '../Actions';
-import {translate} from '../../Lib/Languages';
+import {error_handler} from 'Lib/error-handler';
 
 export function* AcceptSearchFrom() {
   const searchFormData: SearchFormDataInterface = yield select((state: RootStateInterface) => state.searchReducer.form_data);
@@ -46,19 +46,8 @@ export function* AcceptSearchFrom() {
     }
     yield put(SearchExpire());
   } catch (e) {
-    let code: number;
-    let message: ErrorMessageType;
-    if (e.isAxiosError) {
-      code = e.response?.status as number;
-      message = e.response?.data.result.message as ErrorMessageType;
-    } else {
-      message = translate('something-wrong-please-try-again');
-      code = 400;
-    }
-    yield put(AppError({code, messages: message}));
     yield cancel(loader);
-    console.log(e.response);
-    // TODO add error handler after create
+    yield put(yield call(error_handler, e));
   }
 }
 

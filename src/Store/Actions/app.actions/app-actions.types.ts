@@ -1,4 +1,4 @@
-import {AppErrorInterface} from '../../../Typescript/Interfaces';
+import {AppErrorInterface} from 'Typescript/Interfaces';
 
 export const CHANGE_LANGUAGE = '[App Reducer] Change Language';
 export type ChangeLanguageType = {

@@ -12,13 +12,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationConfig, setNavigation} from 'Lib/navigation';
 import {SetNavigationState} from '../Store/Actions';
-import ReserveRoute from "./reserve.route";
-import {ErrorModal} from "../Layout";
+import ReserveRoute from './reserve.route';
+import {ErrorModal} from '../Layout';
+import {buttonGenerator} from '../Lib/button-generator';
 
 const mapStateToProps = (state: RootStateInterface) => ({
   language: state.appReducer.language,
   rtl: state.appReducer.rtl,
   json: state.appReducer.json,
+  error: state.appReducer.errors,
 });
 const connector = connect(mapStateToProps, {SetNavigationState});
 type Props = ConnectedProps<typeof connector>;
@@ -32,7 +34,7 @@ class Routes extends Component<Props, States> {
 
   state = {
     visibility: false,
-  }
+  };
 
   constructor(props: Props) {
     super(props);
@@ -44,17 +46,24 @@ class Routes extends Component<Props, States> {
     return (
       <>
         <ErrorModal
-          visibility={this.state.visibility}
+          visibility={!!this.props.error}
           config={{
-            title: 'title',
-            onClose: this.hideErrorModal,
+            title: this.props.error?.title || '',
+            onClose() {
+            },
+            hasDismiss: false,
+            theme: 'danger',
+            message: this.props.error?.messages,
+            action: buttonGenerator(),
+            caption: this.props.error?.code === 502 ? '' : undefined,
           }}/>
         <NavigationContainer onStateChange={(state) => this.props.SetNavigationState(state)}>
           <Stack.Navigator
             initialRouteName="search"
             screenOptions={({navigation}) => {
-              if (!navigationConfig)
+              if (!navigationConfig) {
                 setNavigation(navigation);
+              }
               return {headerShown: false, gestureEnabled: true};
             }}
           >
@@ -67,14 +76,6 @@ class Routes extends Component<Props, States> {
         </NavigationContainer>
       </>
     );
-  }
-
-  showErrorModal = () => {
-    this.setState({visibility: true});
-  }
-
-  hideErrorModal = () => {
-    this.setState({visibility: false});
   }
 }
 

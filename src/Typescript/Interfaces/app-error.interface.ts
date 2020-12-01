@@ -6,4 +6,5 @@ export interface AppErrorInterface {
   code: number;
   close?: boolean;
   button?: React.ReactElement[];
+  title: string;
 }

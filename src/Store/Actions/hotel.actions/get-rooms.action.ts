@@ -3,6 +3,7 @@ import {Dispatch} from 'redux';
 import {HttpResultInterface, RoomsDetailsInterface} from 'Typescript';
 import Http from 'Lib/Http';
 import {SetHotelRooms} from './set-rooms.action';
+import {error_handler} from '../../../Lib/error-handler';
 
 export const GetHotelRooms = ({search_id, hotel_id}: {hotel_id: number, search_id: string}) =>
   async (dispatch: Dispatch) => {
@@ -14,7 +15,7 @@ export const GetHotelRooms = ({search_id, hotel_id}: {hotel_id: number, search_i
       const rooms = response.data.result;
       dispatch(SetHotelRooms(rooms));
     } catch (e) {
-      console.log(e);
+      dispatch(await error_handler(e));
     }
   };
 
