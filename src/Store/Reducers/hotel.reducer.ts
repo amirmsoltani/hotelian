@@ -32,7 +32,7 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
       };
     }
     case SET_OPTIONS_POLITICS: {
-      return {...state, rooms: {...state, result: {...state.rooms.result, options: action.payload}}};
+      return {...state, rooms: {...state.rooms, result: {...state.rooms.result, options: action.payload}}};
     }
     default:
       return state;
