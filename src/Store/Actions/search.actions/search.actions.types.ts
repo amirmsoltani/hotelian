@@ -26,6 +26,9 @@ export type SetSearchIdType = {readonly type: typeof SET_SEARCH_ID, payload: {se
 export const SEARCH_EXPIRE = '[Search Reducer] Expire Search ID';
 export type SearchExpireType = {readonly type: typeof SEARCH_EXPIRE};
 
+export const AUTO_COMPLETE_ERROR = '[Search Reducer] Auto Complete Error';
+export type AutoCompleteErrorType = {type: typeof AUTO_COMPLETE_ERROR, target: 'destination' | 'nationality'}
+
 export type SearchActionTypes =
   GetDestinationType
   | GetNationalityType
@@ -34,4 +37,5 @@ export type SearchActionTypes =
   | SetSearchIdType
   | SearchExpireType
   | AcceptSearchFormType
+  | AutoCompleteErrorType
   ;

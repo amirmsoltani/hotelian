@@ -1,4 +1,5 @@
 import {StatusType} from '../Types';
+import {AppErrorInterface} from './app-error.interface';
 
 export interface AppStateInterface {
   currency: string;
@@ -12,4 +13,5 @@ export interface AppStateInterface {
   token?: string;
   status: StatusType;
   message?: string;
+  errors?: AppErrorInterface;
 }

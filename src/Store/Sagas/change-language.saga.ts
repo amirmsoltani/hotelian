@@ -6,6 +6,7 @@ import Storage from 'Lib/Storage';
 import {RootStateInterface} from 'Typescript';
 import Translator from 'Lib/Languages';
 import RNRestart from 'react-native-restart';
+import {error_handler} from '../../Lib/error-handler';
 
 function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
   try {
@@ -19,6 +20,7 @@ function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
     yield put(SetLanguage({lang, rtl, json: response.data.result}));
     RNRestart.Restart();
   } catch (e) {
+    yield put(yield error_handler(e));
   }
 }
 

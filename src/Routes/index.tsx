@@ -12,13 +12,16 @@ import HotelsRoute from './hotels.route';
 import ModifySearchRoute from './modify-search.route';
 import {navigationConfig, setNavigation} from 'Lib/navigation';
 import {SetNavigationState} from '../Store/Actions';
-import ReserveRoute from "./reserve.route";
-import {AppDrawerContent, ErrorModal} from "../Layout";
+import ReserveRoute from './reserve.route';
+import {ErrorModal} from '../Layout';
+import {buttonGenerator} from '../Lib/button-generator';
+
 
 const mapStateToProps = (state: RootStateInterface) => ({
   language: state.appReducer.language,
   rtl: state.appReducer.rtl,
   json: state.appReducer.json,
+  error: state.appReducer.errors,
 });
 const connector = connect(mapStateToProps, {SetNavigationState});
 type Props = ConnectedProps<typeof connector>;
@@ -33,7 +36,7 @@ class Routes extends Component<Props, States> {
 
   state = {
     visibility: false,
-  }
+  };
 
   //=======================================
   // Hooks
@@ -48,8 +51,17 @@ class Routes extends Component<Props, States> {
     return (
       <>
         <ErrorModal
-          visibility={this.state.visibility}
-          config={{title: 'title', onClose: this.hideErrorModal,}}/>
+          visibility={!!this.props.error}
+          config={{
+            title: this.props.error?.title || '',
+            onClose() {
+            },
+            hasDismiss: false,
+            theme: 'danger',
+            message: this.props.error?.messages,
+            action: buttonGenerator(),
+            caption: this.props.error?.code === 502 ? '' : undefined,
+          }}/>
         <NavigationContainer onStateChange={(state) => this.props.SetNavigationState(state)}>
           <Drawer.Navigator
             initialRouteName="routes"

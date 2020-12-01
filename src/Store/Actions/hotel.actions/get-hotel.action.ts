@@ -2,6 +2,7 @@ import {HOTEL_DETAILS} from 'URLS';
 import Http from 'Lib/Http';
 import {Dispatch} from 'redux';
 import {SetHotelData} from './set-hotel-data.action';
+import {error_handler} from '../../../Lib/error-handler';
 
 export function GetHotel(id: number) {
   return async (dispatch: Dispatch) => {
@@ -12,7 +13,7 @@ export function GetHotel(id: number) {
       });
       dispatch(SetHotelData(response.data.result));
     } catch (e) {
-      console.log(e);
+      dispatch(await error_handler(e));
     }
 
   };
