@@ -1,8 +1,7 @@
-import React, {Component, FunctionComponent} from 'react';
+import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator, DrawerContentComponentProps} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {RootStateInterface} from '../Typescript';
 import Translator from '../Lib/Languages';
@@ -29,7 +28,6 @@ type States = {
   visibility: boolean;
 }
 
-const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 class Routes extends Component<Props, States> {
@@ -43,7 +41,6 @@ class Routes extends Component<Props, States> {
   //=======================================
   constructor(props: Props) {
     super(props);
-    this.SearchStack = this.SearchStack.bind(this);
     Translator(props.language, props.rtl, props.json!);
   }
 
@@ -64,35 +61,24 @@ class Routes extends Component<Props, States> {
           }}/>
         <NavigationContainer onStateChange={(state) => this.props.SetNavigationState(state)}>
           <Drawer.Navigator
-            initialRouteName="routes"
+            initialRouteName="search"
+            screenOptions={({navigation}) => {
+              if (!navigationConfig) {
+                setNavigation(navigation);
+              }
+              return {headerShown: false, gestureEnabled: true};
+            }}
             drawerContent={props => <AppDrawerContent {...props}/>}>
-            <Drawer.Screen name={'routes'} component={this.SearchStack}/>
+            <Drawer.Screen component={SearchRoute} name="search"/>
+            <Drawer.Screen component={ModifySearchRoute} name="modify-search"/>
+            <Drawer.Screen component={HotelsRoute} name="hotels"/>
+            <Drawer.Screen component={HotelRoute} name="hotel"/>
+            <Drawer.Screen component={ReserveRoute} name="reserve"/>
           </Drawer.Navigator>
         </NavigationContainer>
       </>
     );
   }
-
-
-  //=======================================
-  // Sections
-  //=======================================
-  SearchStack: FunctionComponent<any & DrawerContentComponentProps> = () => {
-    return <Stack.Navigator
-      initialRouteName="search"
-      screenOptions={({navigation}) => {
-        if (!navigationConfig) {
-          setNavigation(navigation);
-        }
-        return {headerShown: false, gestureEnabled: true};
-      }}>
-      <Stack.Screen component={SearchRoute} name="search"/>
-      <Stack.Screen component={ModifySearchRoute} name="modify-search"/>
-      <Stack.Screen component={HotelsRoute} name="hotels"/>
-      <Stack.Screen component={HotelRoute} name="hotel"/>
-      <Stack.Screen component={ReserveRoute} name="reserve"/>
-    </Stack.Navigator>;
-  };
 
 }
 
