@@ -2,8 +2,7 @@ import React from 'react';
 import {Container} from 'native-base';
 import {match} from 'react-router-native';
 
-import {CreateRoomPage, HotelsMapPage, SelectDatePage, SelectDestinationPage, SelectNationalityPage} from '../Pages';
-import {NavigationContainer} from '@react-navigation/native';
+import {CreateRoomPage, SelectDatePage, SelectDestinationPage, SelectNationalityPage} from '../Pages';
 import {createStackNavigator} from '@react-navigation/stack';
 import ModifySearch from '../Forms/modify-search/modify-search';
 

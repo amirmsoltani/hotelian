@@ -1,13 +1,11 @@
 import {APPLY_HOTELS_FILTER, ApplyHotelsFilterType} from './hotels.actions.types';
-import {Union, Unity} from 'Lib/FilterTool';
-import {HotelsActivesFilterType, HotelsFilterInterface} from 'Typescript';
-import {ObjectKeys} from 'Lib/ObjectTool';
+import {HotelsActivesFilterType} from 'Typescript';
 
 export const ApplyHotelsFilters = (actives: HotelsActivesFilterType): ApplyHotelsFilterType => {
   return {
-    type:APPLY_HOTELS_FILTER,
-    payload:actives,
-  }
+    type: APPLY_HOTELS_FILTER,
+    payload: actives,
+  };
   // let union: {[key: string]: number[]} = {};
   // if (Object.entries(actives).length === 0)
   //   return {

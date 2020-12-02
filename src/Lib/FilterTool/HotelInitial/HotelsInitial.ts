@@ -43,9 +43,9 @@ class HotelsInitial {
   protected setBoardType(index: number, name: keyof BoardTypeType) {
     if (name in this.boardTypes) {
       if (!this.boardTypes[name]!.includes(index))
-        this.boardTypes[name]!.push(index);
+        {this.boardTypes[name]!.push(index);}
     } else
-      this.boardTypes[name] = [index];
+      {this.boardTypes[name] = [index];}
   }
 
   /**
@@ -60,7 +60,7 @@ class HotelsInitial {
       this.setBoardType(index, HotelsInitial.convertToBoardType[boardType]);
     });
     if ((boardTypes.length === 0 && hotel.board_types.length) || boardTypes.length < hotel.board_types.length)
-      this.setBoardType(index, 'other');
+      {this.setBoardType(index, 'other');}
   }
 
   /**
@@ -70,9 +70,9 @@ class HotelsInitial {
    */
   protected star(hotel: HotelInterface, index: number) {
     if (hotel.star in this.stars)
-      this.stars[hotel.star]!.push(index);
+      {this.stars[hotel.star]!.push(index);}
     else
-      this.stars[hotel.star] = [index];
+      {this.stars[hotel.star] = [index];}
   }
 
   /**
@@ -82,9 +82,9 @@ class HotelsInitial {
    */
   protected location(hotel: HotelInterface, index: number) {
     if (hotel.location in this.locations)
-      this.locations[hotel.location].push(index);
+      {this.locations[hotel.location].push(index);}
     else
-      this.locations[hotel.location] = [index];
+      {this.locations[hotel.location] = [index];}
   }
 
   /**
@@ -95,23 +95,23 @@ class HotelsInitial {
   protected price(hotel: HotelInterface, index: number) {
     const total = Math.floor(hotel.price.total);
     if (total.toString() in this.prices)
-      this.prices[total.toString()].push(index);
+      {this.prices[total.toString()].push(index);}
     else
-      this.prices[total.toString()] = [index];
+      {this.prices[total.toString()] = [index];}
   }
 
   protected setOtherFilters(name: keyof OtherFilterType, index: number) {
     if (this.other[name])
-      this.other[name]!.push(index);
+      {this.other[name]!.push(index);}
     else
-      this.other[name] = [index];
+      {this.other[name] = [index];}
   }
 
   protected otherFilters(hotel: HotelInterface, index: number) {
     if (hotel.room.breakfast)
-      this.setOtherFilters('breakfast', index);
+      {this.setOtherFilters('breakfast included', index);}
     if (hotel.discount)
-      this.setOtherFilters('discount', index);
+      {this.setOtherFilters('discount', index);}
 
   }
 
@@ -159,12 +159,12 @@ class HotelsInitial {
    */
   get structure(): HotelsFilterInterface {
     return {
+      other: this.other,
       boardTypes: this.boardTypes,
       stars: this.stars,
       locations: this.locations,
       rangePrice: this.prices,
       sort: this.sorting,
-      other: this.other,
     }
       ;
   }

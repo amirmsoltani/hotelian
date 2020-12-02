@@ -7,6 +7,9 @@ export interface HotelsFilterInterface<T = number[]> {
   stars: StarsRatingType<T>;
   sort: SortType<T>;
   other: OtherFilterType<T>;
+
+  [key: string]: any;
+
   // sorting: object;
   // other: object;
 }

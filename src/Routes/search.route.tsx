@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container} from 'native-base';
-import {CardStyleInterpolators, createStackNavigator, TransitionPresets,} from '@react-navigation/stack';
+import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 
 import {
   CreateRoomPage,
@@ -8,7 +8,6 @@ import {
   SelectDatePage,
   SelectDestinationPage,
   SelectNationalityPage,
-  TestPage,
 } from '../Pages';
 
 const Stack = createStackNavigator();
@@ -20,8 +19,7 @@ const SearchRoute = () => {
           ...TransitionPresets.SlideFromRightIOS,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
-        }} initialRouteName="test">
-        <Stack.Screen name="test" component={TestPage}/>
+        }} initialRouteName="from">
         <Stack.Screen name="form" component={SearchPage}/>
         <Stack.Screen name="destination" component={SelectDestinationPage}/>
         <Stack.Screen name="nationality" component={SelectNationalityPage}/>

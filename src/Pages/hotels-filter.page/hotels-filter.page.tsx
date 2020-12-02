@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {FlatList, ScrollView, View} from 'react-native';
+import {FlatList, ScrollView, TextInput, View} from 'react-native';
 import {Body, Button, Header, Left, Right} from 'native-base';
 import {StackScreenProps} from '@react-navigation/stack';
 
@@ -19,11 +19,12 @@ import {
 import {ObjectLen, ObjectMapToArray} from 'Lib/ObjectTool';
 
 const mapStateToProps = ({
-                           hotelsReducer: {filter},
+                           hotelsReducer: {filter, basicData},
                          }: RootStateInterface) => ({
   structure: filter!.structure,
   actives: filter!.actives,
   len: filter!.hotels.length,
+  hotels: basicData!.hotels,
 });
 const mapDispatchToProps = {
   ApplyHotelsFilters,
@@ -31,8 +32,8 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelsFilterPage extends PureComponent<Props> {
-  static readonly filters = ['stars', 'boardTypes', 'locations', 'rangePrice'];
+class HotelsFilterPage extends PureComponent<Props, {text: string}> {
+  static readonly filters = ['other', 'stars', 'boardTypes', 'locations', 'rangePrice'];
   //=======================================
   // Hooks
   //=======================================
@@ -42,10 +43,13 @@ class HotelsFilterPage extends PureComponent<Props> {
       props.navigation.replace('hotels');
     }
     this.reset = this.reset.bind(this);
+    this.getHotels = this.getHotels.bind(this);
+    this.state = {text: props.actives?.search?.name as string || ''};
   }
 
   reset() {
     this.props.ApplyHotelsFilters({});
+    this.setState({text: ''});
   }
 
   render() {
@@ -54,7 +58,7 @@ class HotelsFilterPage extends PureComponent<Props> {
     const activesArray =
       al > 1
         ? ObjectMapToArray(this.props.actives!, (key, value) => {
-          if (key === 'sort') {
+          if (value.name === 'sort') {
             return 'jump';
           }
           return {key: key, value: value};
@@ -82,8 +86,13 @@ class HotelsFilterPage extends PureComponent<Props> {
 
         <ScrollView style={[Style.bg__white]}>
           <View style={[style.wrapper, Style.mb__0]}>
+            {/*TODO fix input style*/}
+            <TextInput style={{width: '100%', borderBottomColor: 'red', borderBottomWidth: 1}}
+                       onChangeText={this.getHotels}
+                       value={this.state.text}
+                       placeholder={translate('search-hotel-name')}/>
             {ObjectMapToArray(structure, (key) => {
-              if (!HotelsFilterPage.filters.includes(key)) {
+              if (!HotelsFilterPage.filters.includes(key as string)) {
                 return 'jump';
               }
               return <HotelsFilters name={key} key={key}/>;
@@ -112,10 +121,16 @@ class HotelsFilterPage extends PureComponent<Props> {
                       transparent
                       style={[Style.pr__1]}
                       activeOpacity={1}
-                      onPress={() =>
+                      onPress={() => {
+                        if (item.key === 'search') {
+                          this.props.ApplyHotelsFilters({search: {name: '', indexes: []}});
+                          this.setState({text: ''});
+                          return;
+                        }
                         this.props.ApplyHotelsFilters({
                           [item.key]: item.value,
-                        })
+                        });
+                      }
                       }
                     >
                       <View
@@ -156,7 +171,9 @@ class HotelsFilterPage extends PureComponent<Props> {
               <Button
                 block
                 style={[Style.bg__primary, Style.w__100]}
-                onPress={() => this.props.navigation.navigate('hotels')}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
               >
                 <AppText style={[Style.text__white, Style.text__bold]}>
                   {translate('show-results') + ` (${len})`}
@@ -167,6 +184,17 @@ class HotelsFilterPage extends PureComponent<Props> {
         </Conditional>
       </>
     );
+  }
+
+  getHotels(name: string): void {
+    const hotels: number[] = [];
+    this.props.hotels.forEach((hotel, index) => {
+      if (hotel.name.toLowerCase().includes(name)) {
+        hotels.push(index);
+      }
+    });
+    this.setState({text: name});
+    this.props.ApplyHotelsFilters({search: {name, indexes: hotels}});
   }
 }
 

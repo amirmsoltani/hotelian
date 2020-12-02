@@ -6,7 +6,9 @@ export type HotelsActivesFilterType = {
     keyof HotelsFilterInterface['boardTypes'] |
     keyof HotelsFilterInterface['locations'] |
     keyof HotelsFilterInterface['rangePrice'] |
-    keyof HotelsFilterInterface['sort']
+    keyof HotelsFilterInterface['sort'] |
+    keyof HotelsFilterInterface['other'] |
+    'search'
     )]
   : {name: keyof HotelsFilterInterface, indexes: number[]}
 }
