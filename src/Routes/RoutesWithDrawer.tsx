@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 export const RouteWithDrawer = () => {
   return (
     <Stack.Navigator screenOptions={({navigation}) => {
-      if (!navigationConfig) {
+      if (navigationConfig !== navigation) {
         setNavigation(navigation);
       }
       return {headerShown: false, gestureEnabled: true};
