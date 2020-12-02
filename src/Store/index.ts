@@ -4,8 +4,9 @@ import thunk from 'redux-thunk';
 import rootReducer, {Initial} from './Reducers';
 import appSaga from './Sagas';
 import {StatusType} from '../Typescript/Types';
+import {RootStateInterface} from '../Typescript/Interfaces';
 
-export let globalStore: Store;
+export let globalStore: Store<RootStateInterface>;
 
 export default async function(): Promise<[Store, {message?: string, status: StatusType}]> {
   const middleware = [];
@@ -25,7 +26,7 @@ export default async function(): Promise<[Store, {message?: string, status: Stat
     __DEV__ ? require('redux-devtools-extension').composeWithDevTools(apply) : compose(apply),
   );
   saga.run(appSaga);
-  globalStore = store;
+  globalStore = <Store<RootStateInterface>>store;
   return [store, {message: appInit.message, status: appInit.status}];
 }
 

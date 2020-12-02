@@ -1,6 +1,7 @@
 import {SearchStateInterface} from '../../Typescript';
 import {
   ACCEPT_SEARCH_FORM,
+  AUTO_COMPLETE_ERROR,
   CHANGE_SEARCH_FORM_DATA,
   GET_DESTINATION,
   GET_NATIONALITY,
@@ -15,7 +16,7 @@ import Storage from 'Lib/Storage';
 const defaultData: SearchStateInterface = {
   destination: {GET: 'idle', list: []},
   nationality: {GET: 'idle', list: []},
-  form_data: {rooms: [{adults: 1, children: [], key: randInt(0xff)}], adultCounts: 1, childCounts: 0},
+  form_data: {rooms: [{adults: 2, children: [], key: randInt(0xff)}], adultCounts: 2, childCounts: 0},
   status: undefined,
 };
 export const searchInit = async (): Promise<SearchStateInterface> => {
@@ -56,6 +57,9 @@ const SearchReducer = (state: SearchStateInterface = defaultData, action: Search
     }
     case ACCEPT_SEARCH_FORM: {
       return {...state, status: 'loading'};
+    }
+    case AUTO_COMPLETE_ERROR: {
+      return {...state, [action.target]: {...state[action.target], GET: 'error'}};
     }
     default:
       return state;

@@ -2,6 +2,7 @@ import {
   HotelDetailsInterface, HotelOptionInterface, OptionFilterInterface, OptionsActiveFiltersType,
   RoomsDetailsInterface,
 } from 'Typescript';
+import {SetStatusType} from '../global.actions/set-status.action';
 
 export const GET_HOTEL = '[Hotel Reducer] Get Hotel';
 export type GetHotelType = {type: typeof GET_HOTEL, url: string};
@@ -36,4 +37,5 @@ export type HotelActionsType =
   | SetHotelRoomType
   | GetHotelType
   | GetHotelRoomsType
-  | SetOptionPoliticsType;
+  | SetOptionPoliticsType
+  | SetStatusType;

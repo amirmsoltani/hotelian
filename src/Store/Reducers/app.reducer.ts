@@ -1,5 +1,5 @@
-import {AppStateInterface} from '../../Typescript';
-import Storage from '../../Lib/Storage';
+import {AppStateInterface} from 'Typescript';
+import Storage from 'Lib/Storage';
 import axios from 'axios';
 import {
   INITIAL_URL,
@@ -8,7 +8,8 @@ import {
   USER_INITIAL_ERROR_MESSAGE,
   USER_TRACK_CODE_URL,
 } from 'URLS';
-import {AppActionsTypes, CHANGE_CURRENCY, SET_LANGUAGE} from '../Actions';
+import {APP_CLEAR_ERROR, APP_ERROR, AppActionsTypes, CHANGE_CURRENCY, SET_LANGUAGE} from '../Actions';
+import {except} from 'object-tool';
 
 const defaultData: AppStateInterface = {
   today: {unix: 0, datetime: ''},
@@ -35,10 +36,11 @@ export const appInit = async (): Promise<AppStateInterface> => {
       Storage.save({key: 'app-data', data: {rtl, language, track_code, currency}, expires: null}).then();
     } catch (e) {
       defaultData.status = 'error';
-      if (e.isAxiosError && e.message === 'Network Error')
+      if (e.isAxiosError && e.message === 'Network Error') {
         defaultData.message = INTERNET_CONNECTION_ERROR + '\n' + JSON.stringify(e.toJSON());
-      else
+      } else {
         defaultData.message = USER_INITIAL_ERROR_MESSAGE;
+      }
     }
   }
 
@@ -57,10 +59,11 @@ export const appInit = async (): Promise<AppStateInterface> => {
     defaultData.json = (await axios.get(LANGUAGE_URL + defaultData.language)).data.result;
   } catch (e) {
     defaultData.status = 'error';
-    if (e.isAxiosError && e.message === 'Network Error')
+    if (e.isAxiosError && e.message === 'Network Error') {
       defaultData.message = INTERNET_CONNECTION_ERROR + '\n' + JSON.stringify(e.toJSON());
-    else
+    } else {
       defaultData.message = USER_INITIAL_ERROR_MESSAGE;
+    }
   }
   return defaultData;
 };
@@ -71,6 +74,12 @@ const AppReducer = (state: AppStateInterface = defaultData, action: AppActionsTy
     }
     case CHANGE_CURRENCY: {
       return {...state, currency: action.payload};
+    }
+    case APP_ERROR: {
+      return {...state, errors: action.payload};
+    }
+    case APP_CLEAR_ERROR: {
+      return except(state, 'errors');
     }
     default:
       return state;

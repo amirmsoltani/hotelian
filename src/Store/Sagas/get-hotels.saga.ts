@@ -1,4 +1,4 @@
-import {takeLatest, put, select} from 'redux-saga/effects';
+import {takeLatest, put} from 'redux-saga/effects';
 import Http from 'Lib/Http';
 import {SetSearchIdType, SetHotels, GET_HOTELS} from '../Actions';
 import {
@@ -7,6 +7,7 @@ import {
 } from 'Typescript';
 import {HOTEL_SEARCH_RESULT_URL} from 'URLS';
 import {HotelsInitial} from 'Lib/FilterTool';
+import {error_handler} from '../../Lib/error-handler';
 
 export function* GetHotels(action: SetSearchIdType) {
   try {
@@ -26,10 +27,7 @@ export function* GetHotels(action: SetSearchIdType) {
       },
     }));
   } catch (e) {
-    // TODO after create expire put expire
-    console.log(e.response);
-    // TODO add error handler after create
-
+    yield put(yield error_handler(e));
   }
 }
 

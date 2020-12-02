@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, View} from 'react-native';
-import {Body, Header, Left, Right, Toast} from 'native-base';
+import {Header, Toast} from 'native-base';
 import {Style} from 'Styles';
 import RoomCard from './room-card/room-card';
 import {translate as t} from 'Lib/Languages';
@@ -103,11 +103,13 @@ class HotelSelectRoom extends Component<Props> {
           <View style={[Style.flex__grow__1]}>
             <AppTitle style={[Style.text__capitalize]} hasSubtitle>
               {t('choose-your-stay')}</AppTitle>
-            <AppSubtitle hasSubtitle>Dec 99 - Feb 99</AppSubtitle>
+            <AppSubtitle hasSubtitle>
+              {`${this.props.form_data.checkIn!.formatted} - ${this.props.form_data.checkOut!.formatted}`}
+            </AppSubtitle>
           </View>
         </Header>
         {/*actions*/}
-        <View><HotelRoomAction/></View>
+        <View><HotelRoomAction hotel={hotel}/></View>
         <View style={[Style.flex__shrink__1]}>
           {/*hotel list*/}
           <FlatList<HotelOptionInterface>

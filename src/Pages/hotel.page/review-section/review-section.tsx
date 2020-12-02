@@ -1,12 +1,12 @@
 import React from 'react';
-import {Content, Icon} from "native-base";
-import {TouchableNativeFeedback, View} from "react-native";
-import {Style} from "../../../Styles";
-import {ScoreBar, ScoreSummary} from "../../index";
-import {CommentModel} from "../../../Typescript/Interfaces";
-import ReviewCard from "./review-card/review-card";
-import {AppText} from "../../../Containers";
-import {Conditional, If} from "../../../Components";
+import {Content, Icon} from 'native-base';
+import {TouchableNativeFeedback, View} from 'react-native';
+import {Style} from '../../../Styles';
+import {ScoreBar, ScoreSummary} from '../../index';
+import {CommentModel} from '../../../Typescript/Interfaces';
+import ReviewCard from './review-card/review-card';
+import {AppText} from '../../../Containers';
+import {Conditional, If} from '../../../Components';
 
 const ReviewSection = () => {
 
@@ -90,7 +90,7 @@ const ReviewSection = () => {
     scoreAverage: 4,
     scoreAverageDescription: 'wonderful',
     reviewNumber: 999,
-  }
+  };
 
   return (
     <>
@@ -105,7 +105,7 @@ const ReviewSection = () => {
           </View>
           <View style={[Style.px__2, Style.flex__row, Style.flex__wrap, Style.pb__2]}>
             {scores.map((item, index) =>
-              <View key={index} style={[Style.w__50]}>
+              <View key={index + 'review'} style={[Style.w__50]}>
                 <ScoreBar label={item.label} score={item.score}/>
               </View>)}
           </View>
@@ -114,8 +114,8 @@ const ReviewSection = () => {
         {/*comments*/}
         <View>
           {comments.map((comment, index) => index < 3 ?
-            <View style={[Style.mb__1,]}>
-              <ReviewCard data={comment} key={'review_card_' + index}/>
+            <View style={[Style.mb__1]} key={'review_card_' + index}>
+              <ReviewCard data={comment}/>
               <Conditional>
                 <If condition={index + 1 === 3}>
                   <TouchableNativeFeedback>

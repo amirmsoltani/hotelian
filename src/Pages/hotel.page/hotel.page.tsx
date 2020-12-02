@@ -12,7 +12,7 @@ import {translate as t} from 'Lib/Languages';
 import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {Conditional, ElIf, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
-import ReviewSection from "./review-section/review-section";
+import ReviewSection from './review-section/review-section';
 
 const mapStateToProps = (
   {
@@ -34,9 +34,9 @@ const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]};
 
 type Props =
   ConnectedProps<typeof connector> &
-  StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string }, 'select-room': any }, 'hotel'>;
+  StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string}, 'select-room': any}, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
+class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: boolean}> {
   id?: string;
   hasSearchID: boolean;
   state = {
@@ -90,8 +90,8 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
               <this.HotelDescription/>
 
               {/*hotel facilities*/}
-              {Object.values(this.props.result?.nsg_facilities ?? []).map(item =>
-                <HotelFacilities key={item.name} name={item.name} values={item.values}/>)}
+              {Object.values(this.props.result?.nsg_facilities ?? []).map((item, index) =>
+                <HotelFacilities key={item.name + index} name={item.name} values={item.values}/>)}
 
               {/*reviews*/}
               <ReviewSection/>
@@ -189,7 +189,7 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
       {/*star*/}
       <View style={[Style.px__3, Style.flex__row, Style.mb__2]}>
         {[...(new Array(hotel.star).keys())].map(index =>
-          <Icon type={'AntDesign'} name="star" key={index} style={[Style.f__10, Style.text__warning]}/>)}
+          <Icon type={'AntDesign'} name="star" key={'star-' + index} style={[Style.f__10, Style.text__warning]}/>)}
       </View>
 
       {/*location and address*/}

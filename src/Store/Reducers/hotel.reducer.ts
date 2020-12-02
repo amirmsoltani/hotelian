@@ -7,6 +7,7 @@ import {
   SET_HOTELS_ROOMS,
   SET_OPTIONS_POLITICS,
 } from '../Actions/hotel.actions';
+import {SET_STATUS} from '../Actions/global.actions/set-status.action';
 
 export const hotelInit: HotelStateInterface = {
   hotel: {status: undefined},
@@ -32,7 +33,12 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
       };
     }
     case SET_OPTIONS_POLITICS: {
-      return {...state, rooms: {...state, result: {...state.rooms.result, options: action.payload}}};
+      return {...state, rooms: {...state.rooms, result: {...state.rooms.result, options: action.payload}}};
+    }
+    case SET_STATUS: {
+      if (action.target in state) {
+        return {...state, [action.target]: {...state[<keyof HotelStateInterface>action.target], status: action.status}};
+      }
     }
     default:
       return state;

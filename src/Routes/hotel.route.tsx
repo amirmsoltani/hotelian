@@ -7,12 +7,12 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 
-import {HotelImageFlatList, HotelPage, HotelSelectRoom} from '../Pages';
+import {HotelImageFlatList, HotelPage, HotelSelectRoom, HotelsMapPage} from '../Pages';
 import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
 
 const Stack = createStackNavigator();
 
-const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string } }, 'hotel'>) => {
+const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string}}, 'hotel'>) => {
 
   return (
     <Container style={{backgroundColor: MUTED_LIGHT_XXX}}>
@@ -26,8 +26,8 @@ const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScree
       >
         <Stack.Screen name="hotel" component={HotelPage}/>
         <Stack.Screen name="select-room" component={HotelSelectRoom}/>
-        <Stack.Screen name={'hotel-image-flat-list'} component={HotelImageFlatList}/>
-
+        <Stack.Screen name="hotel-image-flat-list" component={HotelImageFlatList}/>
+        <Stack.Screen name="map" component={HotelsMapPage}/>
         {/*
           TODO: These screens should place in this route
             1. * select room

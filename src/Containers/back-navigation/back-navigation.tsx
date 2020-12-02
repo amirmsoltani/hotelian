@@ -2,21 +2,18 @@ import React from 'react';
 import {Button, Icon} from 'native-base';
 import {I18nManager, BackHandler} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useHistory} from 'react-router-native';
+import {stackActions} from 'Lib/navigation';
 
 import {Style} from 'Styles';
 
 class BackNavigation extends React.Component {
-  navigation?: ReturnType<typeof useNavigation>;
-  history?: ReturnType<typeof useHistory>;
+  navigation?: ReturnType<typeof useNavigation> & Partial<typeof stackActions>;
   back = ((): boolean => {
-    if (this.navigation!.canGoBack()) {
-      this.navigation!.goBack();
-    } else if (this.history!.location.pathname !== '/') {
-      this.history!.goBack();
+    if (this.navigation && this.navigation!.canGoBack()) {
+      this.navigation.goBack();
     }
     return true;
-  }).bind(this);
+  });
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.back);
@@ -30,7 +27,6 @@ class BackNavigation extends React.Component {
   Button = (() => {
     if (!this.navigation) {
       this.navigation = useNavigation();
-      this.history = useHistory();
     }
     return (
       <Button onPress={this.back} transparent>
@@ -40,7 +36,7 @@ class BackNavigation extends React.Component {
           style={[Style.f__20, Style.text__white]}/>
       </Button>
     );
-  }).bind(this);
+  });
 
   render() {
     return (
