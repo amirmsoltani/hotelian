@@ -7,7 +7,7 @@ import {RootStateInterface} from '../Typescript';
 import Translator from '../Lib/Languages';
 import {SetNavigationState} from '../Store/Actions';
 import {AppDrawerContent, ErrorModal} from 'Layout';
-import {buttonGenerator} from '../Lib/button-generator';
+import closeModal, {buttonGenerator} from '../Lib/button-generator';
 import {RouteWithDrawer} from './RoutesWithDrawer';
 
 
@@ -46,9 +46,9 @@ class Routes extends Component<Props, States> {
           visibility={!!this.props.error}
           config={{
             title: this.props.error?.title || '',
-            onClose() {
-            },
-            hasDismiss: false,
+            onClose: () => closeModal(),
+            hasDismiss: true,
+            hasBackdrop: false,
             theme: 'danger',
             message: this.props.error?.messages,
             action: buttonGenerator(),
