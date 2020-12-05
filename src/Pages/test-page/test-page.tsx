@@ -10,6 +10,3 @@ const TestPage = () => {
 };
 
 export default TestPage;
-
-
-// <ExpireTimer styles={[Style.text__danger, Style.f__19]} start_time={1000}/>
