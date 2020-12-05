@@ -9,7 +9,7 @@ import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X} from '../../..
 import {Style} from 'Styles';
 import {ApplyHotelsFilters, GetHotels} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
-import {Conditional, HotelCard, If} from 'Components';
+import {Conditional, ExpireTimer, HotelCard, If} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
@@ -17,13 +17,14 @@ import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-men
 const mapStateToProps = (
   {
     hotelsReducer: {basicData, status, filter},
-    searchReducer: {search_id, form_data, ...search},
+    searchReducer: {search_id, form_data, expire, ...search},
     appReducer: {currency},
     ...state
   }: RootStateInterface) => ({
   search_id,
   form_data,
   currency,
+  expire,
   status: status,
   search_status: search.status,
   indexes: filter?.hotels,
@@ -43,7 +44,7 @@ const mapDispatchToProps = {GetHotels, ApplyHotelsFilters};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 class HotelListPage extends Component<Props,
-  {end: boolean; scroll: boolean}> {
+  { end: boolean; scroll: boolean }> {
   timeOut: any | null = null;
   state = {
     end: false,
@@ -107,43 +108,21 @@ class HotelListPage extends Component<Props,
         <this.Header/>
 
         {/*content*/}
-        <Body
-          style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1}, Style.w__100]}
-        >
+        <Body style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1}, Style.w__100]}>
           {/*actions*/}
           <View
-            style={[
-              {height: 50},
-              SHADOW_SM_X,
-              Style.bg__white,
-              Style.flex__row,
-              Style.justify__content_between,
-              Style.align__items_center,
-            ]}
-          >
+            style={[{height: 50}, SHADOW_SM_X, Style.bg__white, Style.flex__row, Style.justify__content_between, Style.align__items_center,]}>
             {/*sort*/}
             <this.Sort/>
 
             {/*divider*/}
-            <View
-              style={{
-                width: 1,
-                height: '70%',
-                backgroundColor: MUTED_LIGHT_XX,
-              }}
-            />
+            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
 
             {/*filter*/}
             <this.Filter/>
 
             {/*divider*/}
-            <View
-              style={{
-                width: 1,
-                height: '70%',
-                backgroundColor: MUTED_LIGHT_XX,
-              }}
-            />
+            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
 
             {/*map*/}
             <this.Map/>
@@ -153,11 +132,7 @@ class HotelListPage extends Component<Props,
           <Conditional>
             <If condition={status === 'loading' || search_status === 'loading'}>
               <View style={[Style.w__100, Style.py__0]}>
-                <ProgressBar
-                  style={{marginTop: -7, height: 20}}
-                  color={COLOR_INFO}
-                  styleAttr="Horizontal"
-                />
+                <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_INFO} styleAttr="Horizontal"/>
               </View>
             </If>
           </Conditional>
@@ -206,16 +181,13 @@ class HotelListPage extends Component<Props,
   Header() {
     return (
       <Header style={[Style.bg__primary, Style.flex__row]}>
-        <Left>
-          <BackNavigation/>
-        </Left>
+        <Left><BackNavigation/></Left>
         <Body>
           <TouchableOpacity
             disabled={this.props.status !== 'ok'}
             onPress={() => this.props.navigation.push('modify-search')}
             style={[Style.align__self_stretch]}
-            activeOpacity={1}
-          >
+            activeOpacity={1}>
             <AppTitle hasSubtitle>
               {this.props.form_data?.destination?.label
                 ? this.props.form_data?.destination?.label
@@ -226,7 +198,10 @@ class HotelListPage extends Component<Props,
             </AppSubtitle>
           </TouchableOpacity>
         </Body>
-        <Right/>
+        <Right>
+          {this.props.expire !== undefined ?
+            <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
+        </Right>
       </Header>
     );
   }
@@ -235,75 +210,38 @@ class HotelListPage extends Component<Props,
     const {sortBy} = this.props;
     return (
       <Menu
-        style={[
-          Style.col__4,
-          Style.h__100,
-          Style.flex__row,
-          Style.justify__content_center,
-          Style.align__items_center,
-        ]}
-      >
+        style={[Style.col__4, Style.h__100, Style.flex__row, Style.justify__content_center, Style.align__items_center,]}>
         <MenuTrigger
           disabled={this.props.status !== 'ok'}
           customStyles={{
-            triggerWrapper: [
-              Style.h__100,
-              Style.justify__content_center,
-              Style.align__items_center,
-              Style.flex__row,
-            ],
+            triggerWrapper: [Style.h__100, Style.justify__content_center, Style.align__items_center, Style.flex__row,],
             triggerOuterWrapper: [Style.w__100, Style.h__100],
-          }}
-        >
-          <Icon
-            type="MaterialIcons"
-            name="sort"
-            style={[Style.f__16, Style.text__info]}
-          />
+          }}>
+          <Icon type="MaterialIcons" name="sort" style={[Style.f__16, Style.text__info]}/>
           <AppText style={[Style.ml__2, Style.text__primary]}>
             {translate('sort')}
           </AppText>
           <Conditional>
             <If condition={!!this.activatedFilter}>
-              <View
-                style={[
-                  Style.bg__danger,
-                  {
-                    width: 6,
-                    height: 6,
-                    borderRadius: 3,
-                    position: 'absolute',
-                    top: 15,
-                    right: 15,
-                  },
-                ]}
-              />
+              <View style={[Style.bg__danger, {
+                width: 6,
+                height: 6,
+                borderRadius: 3,
+                position: 'absolute',
+                top: 15,
+                right: 15
+              }]}/>
             </If>
           </Conditional>
         </MenuTrigger>
         <MenuOptions customStyles={{optionsContainer: [{width: 270}]}}>
-          {/*TODO:
-            1- borderWidth bottom for last ListItem
-            2- active sort (red bullet)}
-        */}
-          <MenuOption
-            onSelect={() =>
-              this.props.ApplyHotelsFilters({
-                starUp: {
-                  name: 'sort',
-                  indexes: this.props.structure!.sort.starUp,
-                },
-              })
-            }
-          >
-            <View
-              style={[
-                Style.align__items_center,
-                Style.justify__content_between,
-                Style.flex__row,
-                Style.p__2,
-              ]}
-            >
+          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+            starUp: {
+              name: 'sort',
+              indexes: this.props.structure!.sort.starUp,
+            },
+          })}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('stars-5-0')}</AppText>
               <Icon
                 type={'MaterialIcons'}
@@ -316,24 +254,13 @@ class HotelListPage extends Component<Props,
               />
             </View>
           </MenuOption>
-          <MenuOption
-            onSelect={() =>
-              this.props.ApplyHotelsFilters({
-                starDown: {
-                  name: 'sort',
-                  indexes: this.props.structure!.sort.starDown,
-                },
-              })
-            }
-          >
-            <View
-              style={[
-                Style.align__items_center,
-                Style.justify__content_between,
-                Style.flex__row,
-                Style.p__2,
-              ]}
-            >
+          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+            starDown: {
+              name: 'sort',
+              indexes: this.props.structure!.sort.starDown,
+            },
+          })}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('stars-0-5')}</AppText>
               <Icon
                 type={'MaterialIcons'}
@@ -348,24 +275,13 @@ class HotelListPage extends Component<Props,
               />
             </View>
           </MenuOption>
-          <MenuOption
-            onSelect={() =>
-              this.props.ApplyHotelsFilters({
-                priceDown: {
-                  name: 'sort',
-                  indexes: this.props.structure!.sort.priceDown,
-                },
-              })
-            }
-          >
-            <View
-              style={[
-                Style.align__items_center,
-                Style.justify__content_between,
-                Style.flex__row,
-                Style.p__2,
-              ]}
-            >
+          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+            priceDown: {
+              name: 'sort',
+              indexes: this.props.structure!.sort.priceDown,
+            },
+          })}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('price-low-to-high')}</AppText>
               <Icon
                 type={'MaterialIcons'}
@@ -380,24 +296,13 @@ class HotelListPage extends Component<Props,
               />
             </View>
           </MenuOption>
-          <MenuOption
-            onSelect={() =>
-              this.props.ApplyHotelsFilters({
-                priceUp: {
-                  name: 'sort',
-                  indexes: this.props.structure!.sort.starUp,
-                },
-              })
-            }
-          >
-            <View
-              style={[
-                Style.align__items_center,
-                Style.justify__content_between,
-                Style.flex__row,
-                Style.p__2,
-              ]}
-            >
+          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
+            priceUp: {
+              name: 'sort',
+              indexes: this.props.structure!.sort.starUp,
+            },
+          })}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('price-high-to-low')}</AppText>
               <Icon
                 type={'MaterialIcons'}
@@ -430,29 +335,18 @@ class HotelListPage extends Component<Props,
         onPress={() => this.props.navigation.navigate('filter')}
       >
         <>
-          <Icon
-            type="AntDesign"
-            name="filter"
-            style={[Style.f__16, Style.text__info]}
-          />
-          <AppText style={[Style.ml__2, Style.text__primary]}>
-            {translate('filter')}
-          </AppText>
+          <Icon type="AntDesign" name="filter" style={[Style.f__16, Style.text__info]}/>
+          <AppText style={[Style.ml__2, Style.text__primary]}>{translate('filter')}</AppText>
           <Conditional>
             <If condition={this.activatedFilter > 1}>
-              <View
-                style={[
-                  Style.bg__danger,
-                  {
-                    width: 6,
-                    height: 6,
-                    borderRadius: 3,
-                    position: 'absolute',
-                    top: 15,
-                    right: 15,
-                  },
-                ]}
-              />
+              <View style={[Style.bg__danger, {
+                width: 6,
+                height: 6,
+                borderRadius: 3,
+                position: 'absolute',
+                top: 15,
+                right: 15,
+              },]}/>
             </If>
           </Conditional>
         </>
@@ -475,14 +369,8 @@ class HotelListPage extends Component<Props,
         onPress={() => this.props.navigation.navigate('map')}
       >
         <>
-          <Icon
-            type="SimpleLineIcons"
-            name="map"
-            style={[Style.f__14, Style.text__info]}
-          />
-          <AppText style={[Style.ml__2, Style.text__primary]}>
-            {translate('map')}
-          </AppText>
+          <Icon type="SimpleLineIcons" name="map" style={[Style.f__14, Style.text__info]}/>
+          <AppText style={[Style.ml__2, Style.text__primary]}>{translate('map')}</AppText>
         </>
       </TouchableOpacity>
     );
