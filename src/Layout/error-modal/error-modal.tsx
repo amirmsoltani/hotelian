@@ -85,11 +85,16 @@ const ErrorModal: FunctionComponent<{ config: propsType, visibility: boolean }> 
 
         {/*content*/}
         <View style={[Style.px__3, Style.py__5, Style.bg__white,]}>
-          <AppText style={[Style.f__14, Style.mb__3]} firstLetter>
-            {props.config.caption ?? translate('following-errors-are-reported')}:
-          </AppText>
+          <Conditional>
+            <If condition={props.config.caption !== ''}>
+              <AppText style={[Style.f__14, Style.mb__3]} firstLetter>
+                {props.config.caption ?? translate('following-errors-are-reported')}:
+              </AppText>
+            </If>
+          </Conditional>
           {messages_generator(props.config.message)}
         </View>
+
 
         {/*footer*/}
         <Conditional>

@@ -11,11 +11,11 @@ const close = () => {
     commonActions.goBack();
   }
 };
-export const buttonGenerator = (): {label: string, theme: ThemeType, click: () => void}[] => {
+export const buttonGenerator = (): { label: string, theme: ThemeType, click: () => void }[] => {
   const route = globalStore.getState().navigation.current?.name;
   switch (route) {
     default:
-      return [{theme: 'success', label: translate('close'), click: close}];
+      return [{theme: 'primary', label: translate('close'), click: close}];
   }
 };
 
