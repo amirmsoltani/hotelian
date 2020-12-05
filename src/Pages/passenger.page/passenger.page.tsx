@@ -8,7 +8,7 @@ import {LateCheckin} from '../index';
 import {translate as t} from '../../Lib/Languages';
 import GuestForm from '../../Forms/guest-form/guest-form';
 import {IconType, RoomType} from '../../Typescript/Types';
-import {Conditional, ElIf, If, ScreenLoading} from '../../Components';
+import {Conditional, ElIf, ExpireTimer, If, ScreenLoading} from '../../Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from '../../Containers';
 import {StackScreenProps} from '@react-navigation/stack';
 import GuestFromController, {FormContext} from '../../Forms/guest-form/form-context';
@@ -18,10 +18,11 @@ import {HotelOptionInterface, RootStateInterface} from '../../Typescript/Interfa
 const status: 'ok' | 'loading' | 'error' = 'ok';
 
 //type of cancellation policies, alerts and restrictions
-type cpt = {icon_name: string, icon_type: IconType, title: string, text?: string,}
+type cpt = { icon_name: string, icon_type: IconType, title: string, text?: string, }
 
-const mapStateToProps = ({searchReducer: {form_data: {checkOut, checkIn}}, hotelReducer: {hotel: {result}, rooms}}: RootStateInterface) => ({
+const mapStateToProps = ({searchReducer: {form_data: {checkOut, checkIn,}, expire}, hotelReducer: {hotel: {result}, rooms}}: RootStateInterface) => ({
   checkIn,
+  expire,
   checkOut,
   hotel: result!.hotel,
   rooms: rooms.result!.req_rooms,
@@ -29,7 +30,7 @@ const mapStateToProps = ({searchReducer: {form_data: {checkOut, checkIn}}, hotel
 const connector = connect(mapStateToProps);
 type propsType =
   ConnectedProps<typeof connector>
-  & StackScreenProps<{'passengers': HotelOptionInterface, 'booking-overview': undefined}, 'passengers'>;
+  & StackScreenProps<{ 'passengers': HotelOptionInterface, 'booking-overview': undefined }, 'passengers'>;
 
 class PassengerPage extends Component<propsType, any> {
   cancellation: cpt = {
@@ -75,7 +76,10 @@ class PassengerPage extends Component<propsType, any> {
             <AppTitle hasSubtitle>{this.props.hotel.name}</AppTitle>
             <AppSubtitle>{`${this.props.checkIn!.formatted} - ${this.props.checkOut!.formatted}`}</AppSubtitle>
           </Body>
-          <Right/>
+          <Right>
+            {this.props.expire !== undefined ?
+              <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
+          </Right>
         </Header>
         <GuestFromController rooms={this.rooms}>
           {/*content*/}
