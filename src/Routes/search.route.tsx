@@ -8,6 +8,7 @@ import {
   SelectDatePage,
   SelectDestinationPage,
   SelectNationalityPage,
+  TestPage,
 } from '../Pages';
 
 const Stack = createStackNavigator();
@@ -19,7 +20,8 @@ const SearchRoute = () => {
           ...TransitionPresets.SlideFromRightIOS,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
-        }} initialRouteName="from">
+        }} initialRouteName="test">
+        <Stack.Screen name="test" component={TestPage}/>
         <Stack.Screen name="form" component={SearchPage}/>
         <Stack.Screen name="destination" component={SelectDestinationPage}/>
         <Stack.Screen name="nationality" component={SelectNationalityPage}/>
