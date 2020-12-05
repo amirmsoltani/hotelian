@@ -16,3 +16,4 @@ export {default as HotelImages} from './hotel-images/hotel-images';
 export {default as ShareModal} from './share-modal/share-modal';
 export {default as ProgressiveImage} from './progressive-image/progressive-image';
 export {default as Badge} from './badge/badge';
+export {default as ExpireTimer} from './expire-timer/expire-timer';

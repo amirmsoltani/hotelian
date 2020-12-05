@@ -10,7 +10,7 @@ import {Conditional} from "../index";
 
 type propsType = {
   start_time: number;
-  styles: RnTextStyleProp;
+  styles?: RnTextStyleProp;
 };
 
 type statesType = {
@@ -33,7 +33,6 @@ class ExpireTimer extends Component<propsType, statesType> {
     this.state = {
       currentDuration: this.props.start_time && Number.isInteger(this.props.start_time) ?
         Math.floor(this.props.start_time - (new Date().getTime() / 1000)) : -1,
-      // currentDuration: 5,
     };
   }
 
@@ -60,6 +59,7 @@ class ExpireTimer extends Component<propsType, statesType> {
     clearInterval(this.interval);
   }
 
+
   render() {
     const seconds = Math.floor(this.state.currentDuration % 60);
     const minutes = Math.floor((this.state.currentDuration / 60) % 60);
@@ -67,12 +67,12 @@ class ExpireTimer extends Component<propsType, statesType> {
       <Conditional>
         <If condition={seconds >= 0 && minutes >= 0}>
           <AppText style={[Style.f__14, Style.text__white, {letterSpacing: 2}, this.props.styles]}>
-            {minutes >= 10 ? minutes : `0${minutes}`} : {seconds >= 10 ? seconds : `0${seconds}`}
+            {minutes >= 10 ? minutes : `0${minutes}`}:{seconds >= 10 ? seconds : `0${seconds}`}
           </AppText>
         </If>
         <Else>
           <AppText style={[Style.f__14, Style.text__white, {letterSpacing: 2}, this.props.styles]}
-          >-- : --</AppText>
+          >--:--</AppText>
         </Else>
       </Conditional>
     );
