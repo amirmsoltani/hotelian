@@ -18,10 +18,6 @@ import {drawerActions} from "../../Lib/navigation";
 
 
 class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
-  static navigationOptions = {
-    //To hide the ActionBar/NavigationBar
-    header: null,
-  };
 
   state = {
     modalVisibility: false,
@@ -158,7 +154,8 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
           <View style={style.bg_triangle}/>
 
           {/*search form*/}
-          <View style={[Style.px__3, Style.py__5]}><SearchFrom/></View>
+          <View style={[Style.px__3, Style.py__5]}>
+            <SearchFrom/></View>
 
           {/*recent search*/}
           <View style={[style.wrapper]}>

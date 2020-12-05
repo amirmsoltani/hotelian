@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Store} from 'redux';
 import {MenuProvider} from 'react-native-popup-menu';
 import {AppState, AppStateStatus, BackHandler} from 'react-native';
+import {Root} from "native-base";
 
 import {History, MemoryHistory} from 'history';
 import Storage from './src/Lib/Storage';
@@ -11,7 +12,6 @@ import {LANGUAGE_URL} from './src/URLS';
 import {StatusType} from './src/Typescript/Types';
 import {InitError, InitLoading} from "./src/Pages";
 import {Provider} from "react-redux";
-import {Root} from "native-base";
 import Routes from "./src/Routes";
 
 

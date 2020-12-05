@@ -24,6 +24,7 @@ import {colorMap} from '../../Lib/chen'
 type propsType = {
   theme?: ThemeType;
   hasDismiss?: boolean;
+  hasBackdrop?: boolean;
   icon?: { name: string, type: IconType };
   title: string;
   caption?: string;
@@ -47,6 +48,7 @@ const ErrorModal: FunctionComponent<{ config: propsType, visibility: boolean }> 
 
   return (
     <AppModal
+      backdrop={props.config.hasBackdrop ?? true}
       visibility={props.visibility}
       position={"top"}
       onClose={props.config.onClose}>

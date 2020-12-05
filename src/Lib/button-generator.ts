@@ -18,3 +18,5 @@ export const buttonGenerator = (): {label: string, theme: ThemeType, click: () =
       return [{theme: 'success', label: translate('close'), click: close}];
   }
 };
+
+export default close;

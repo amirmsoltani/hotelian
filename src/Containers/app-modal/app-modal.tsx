@@ -4,6 +4,7 @@ import {Style} from '../../Styles'
 
 type propType = {
   visibility?: boolean;
+  backdrop?: boolean;
   onClose?: () => void;
   children: ReactNode;
   position?: 'left' | 'right' | 'top' | 'bottom' | 'center';
@@ -36,7 +37,7 @@ const AppModal = (props: propType) => {
       visible={props.visibility ?? false}
       onRequestClose={props.onClose}>
       <TouchableOpacity
-        activeOpacity={1} onPress={props.onClose}
+        activeOpacity={1} onPress={props.backdrop ? props.onClose : undefined}
         style={[...styles, Style.w__100, Style.h__100, {backgroundColor: 'rgba(0,0,0,0.4)'},]}>
         <TouchableWithoutFeedback>{props.children}</TouchableWithoutFeedback>
       </TouchableOpacity>
