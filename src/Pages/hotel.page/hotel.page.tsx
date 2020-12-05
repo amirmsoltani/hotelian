@@ -135,6 +135,7 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
   // Sections
   //=======================================
   Header() {
+
     return (
       <Header style={[Style.bg__primary]}>
         <Left><BackNavigation/></Left>
