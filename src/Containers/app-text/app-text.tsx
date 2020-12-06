@@ -5,11 +5,10 @@ import {RnTextStyleProp} from "native-base";
 import {COLOR_BLACK, FONT_FAMILY, TEXT_SIZE} from "../../../native-base-theme/variables/config";
 
 type propTypes = {
-  style?: RnTextStyleProp,
-
-  //capitalize first letter of string ONLY and ONLY
+  //capitalize first letter of string
   firstLetter?: boolean,
 
+  style?: RnTextStyleProp,
   [key: string]: any
 }
 const AppText: FunctionComponent<propTypes & TextProps> = (props) => {
