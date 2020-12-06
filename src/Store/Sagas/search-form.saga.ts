@@ -6,6 +6,7 @@ import {HOTEL_SEARCH_URL} from 'URLS';
 import {stackActions} from 'Lib/navigation';
 import {GetHotels} from '../Actions';
 import {error_handler} from 'Lib/error-handler';
+import {NativeModules} from 'react-native';
 
 export function* AcceptSearchFrom() {
   const searchFormData: SearchFormDataInterface = yield select((state: RootStateInterface) => state.searchReducer.form_data);
@@ -43,10 +44,13 @@ export function* AcceptSearchFrom() {
     if (searchData.dest_type === 'city') {
       yield put(GetHotels(response.data.result.search_id));
     }
-    let now = Math.floor(new Date().getTime() / 1000);
-    while (response.data.result.expire > now++) {
-      yield delay(1000);
+    let now = new Date().getTime() / 1000;
+    const id = NativeModules.Timer.intervalEvent('sec', 1000);
+    while (response.data.result.expire > now) {
+      yield delay(5000);
+      now = new Date().getTime() / 1000;
     }
+    NativeModules.Timer.clearInterval(id);
     yield put(SearchExpire());
   } catch (e) {
     yield cancel(loader);

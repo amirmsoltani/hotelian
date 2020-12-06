@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {RnTextStyleProp} from "native-base";
-import {InteractionManager} from "react-native";
+import {RnTextStyleProp} from 'native-base';
+import {NativeEventEmitter} from 'react-native';
 
-import {AppText} from "../../Containers";
-import {Style} from "../../Styles";
-import {Else, If} from "../conditional.component";
-import {Conditional} from "../index";
+import {AppText} from '../../Containers';
+import {Style} from '../../Styles';
+import {Else, If} from '../conditional.component';
+import {Conditional} from '../index';
 
 
 type propsType = {
@@ -22,8 +22,8 @@ type statesType = {
 class ExpireTimer extends Component<propsType, statesType> {
 
   //for clearing interval
-  interval: any = null;
-
+  listener: any = null;
+  emitter = new NativeEventEmitter();
 
   //=======================================
   // Hooks
@@ -37,26 +37,22 @@ class ExpireTimer extends Component<propsType, statesType> {
   }
 
   componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      setTimeout(() => {
-        this.interval = setInterval(() => {
-          const duration = this.state.currentDuration - 1;
-          if (duration > 0) {
-            this.setState({currentDuration: duration});
-          } else if (duration === 0) {
-            clearInterval(this.interval);
-            this.setState({currentDuration: 0});
-          } else {
-            clearInterval(this.interval);
-            this.setState({currentDuration: -1});
-          }
-        }, 1000);
-      }, 0)
+    this.listener = this.emitter.addListener('sec', () => {
+      const duration = this.state.currentDuration - 1;
+      if (duration > 0) {
+        this.setState({currentDuration: duration});
+      } else if (duration === 0) {
+        this.listener.remove();
+        this.setState({currentDuration: 0});
+      } else {
+        this.listener.remove();
+        this.setState({currentDuration: -1});
+      }
     });
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    this.listener.remove();
   }
 
 
