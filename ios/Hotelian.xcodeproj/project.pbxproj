@@ -83,6 +83,7 @@
 		22AE033C72344590A488DC66 /* ic_img.png.png in Resources */ = {isa = PBXBuildFile; fileRef = E19CDFE7DBA2471D9FB92BCC /* ic_img.png.png */; };
 		C3C719BF81C14AE6A859FA15 /* ie_img.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA881CA972E4180A94B2C56 /* ie_img.png */; };
 		330D0D76142A410FB63AA382 /* ic_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 0203D50A28CD4C78B4FE9598 /* ic_img.png */; };
+		84AB5FC5E4594210863B0F4C /* no-results.png in Resources */ = {isa = PBXBuildFile; fileRef = E311D3CE6DA44E70809A3AFF /* no-results.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		E19CDFE7DBA2471D9FB92BCC /* ic_img.png.png */ = {isa = PBXFileReference; name = "ic_img.png.png"; path = "../src/Assets/Images/ic_img.png.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		CDA881CA972E4180A94B2C56 /* ie_img.png */ = {isa = PBXFileReference; name = "ie_img.png"; path = "../src/Assets/Images/ie_img.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0203D50A28CD4C78B4FE9598 /* ic_img.png */ = {isa = PBXFileReference; name = "ic_img.png"; path = "../src/Assets/Images/ic_img.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E311D3CE6DA44E70809A3AFF /* no-results.png */ = {isa = PBXFileReference; name = "no-results.png"; path = "../src/Assets/Images/no-results.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +364,7 @@
 				E19CDFE7DBA2471D9FB92BCC /* ic_img.png.png */,
 				CDA881CA972E4180A94B2C56 /* ie_img.png */,
 				0203D50A28CD4C78B4FE9598 /* ic_img.png */,
+				E311D3CE6DA44E70809A3AFF /* no-results.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				22AE033C72344590A488DC66 /* ic_img.png.png in Resources */,
 				C3C719BF81C14AE6A859FA15 /* ie_img.png in Resources */,
 				330D0D76142A410FB63AA382 /* ic_img.png in Resources */,
+				84AB5FC5E4594210863B0F4C /* no-results.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
