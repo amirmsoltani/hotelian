@@ -20,10 +20,14 @@ const HotelImageFlatList = (props: propsType) => {
 
   return (
     <>
-      <Header style={[Style.bg__primary]}>
-        <Left><BackNavigation/></Left>
-        <Body><AppTitle>{props.name}</AppTitle></Body>
-        <Right/>
+      {/*header*/}
+      <Header style={[Style.flex__row, Style.bg__primary, Style.align__items_center, Style.px__0]}>
+        <View>
+          <BackNavigation/>
+        </View>
+        <View style={[Style.flex__grow__1]}>
+          <AppTitle>{props.name}</AppTitle>
+        </View>
       </Header>
       <View style={[Style.bg__black, Style.p__2, {flex: 1}]}>
         <FlatList
