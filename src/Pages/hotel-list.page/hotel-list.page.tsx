@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
-import {Body, Header, Icon, Left, Right, Spinner} from 'native-base';
+import {Alert, SafeAreaView, TouchableOpacity, View, VirtualizedList} from 'react-native';
+import {Body, Header, Icon, Left, Right} from 'native-base';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 
 import {COLOR_INFO, MUTED_LIGHT_XX, MUTED_LIGHT_XXX, SHADOW_SM_X} from '../../../native-base-theme/variables/config';
 import {Style} from 'Styles';
 import {ApplyHotelsFilters, GetHotels} from 'Store/Actions';
 import {translate} from 'Lib/Languages';
-import {Conditional, ExpireTimer, HotelCard, If} from 'Components';
+import {Conditional, ExpireTimer, HotelCard, If, NoResults} from 'Components';
 import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {HotelInterface, RootStateInterface} from 'Typescript';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
@@ -118,9 +118,11 @@ class HotelListPage extends Component<Props, StatesType> {
 
         {/*content*/}
         <Body style={[{backgroundColor: MUTED_LIGHT_XXX, flex: 1}, Style.w__100]}>
+
           {/*actions*/}
-          <View
-            style={[{height: 50}, SHADOW_SM_X, Style.bg__white, Style.flex__row, Style.justify__content_between, Style.align__items_center,]}>
+          <View style={[{height: 50}, SHADOW_SM_X, Style.bg__white, Style.flex__row,
+            Style.justify__content_between, Style.align__items_center,]}>
+
             {/*sort*/}
             <this.Sort/>
 
@@ -135,6 +137,7 @@ class HotelListPage extends Component<Props, StatesType> {
 
             {/*map*/}
             <this.Map/>
+
           </View>
 
           {/*loading*/}
@@ -155,8 +158,22 @@ class HotelListPage extends Component<Props, StatesType> {
                 getItem={(data, index) => hotels![indexes![index]]}
                 getItemCount={() => indexes!.length}
                 keyExtractor={(item) => item.hotel_id.toString()}
-                ListFooterComponent={
-                  this.state.end ? null : <Spinner color={'blue'}/>
+                // ListFooterComponent={
+                //   this.state.end ? null : <Spinner color={'blue'}/>
+                // }
+                ListEmptyComponent={
+                  <>
+                    {/*TODO:no-results by filters*/}
+                    {/*no-results by search*/}
+                    <NoResults data={{
+                      title: translate('no-results-title'),
+                      text: translate('no-results-text'),
+                      button: {
+                        label: translate('research'),
+                        click: () => Alert.alert('research')
+                      }
+                    }}/>
+                  </>
                 }
                 onEndReached={() => this.setState({end: true})}
                 renderItem={({item}) => {
@@ -179,6 +196,7 @@ class HotelListPage extends Component<Props, StatesType> {
               <></>
             )}
           </SafeAreaView>
+
         </Body>
       </>
     );
