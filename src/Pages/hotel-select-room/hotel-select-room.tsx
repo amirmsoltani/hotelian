@@ -4,17 +4,17 @@ import {Body, Header, Left, Right, Toast} from 'native-base';
 import {Style} from 'Styles';
 import RoomCard from './room-card/room-card';
 import {translate as t} from 'Lib/Languages';
-import {AppSubtitle, AppTitle, BackNavigation} from 'Containers';
+import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {connect, ConnectedProps} from 'react-redux';
 import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
 import {get_politics as GetPolitics, GetHotelRooms} from 'Store/Actions';
 import SearchDetails from './search-details/search-details';
-import {LoadingAndError} from './loading-and-error/loading-and-error';
 import {HotelRoomAction} from '../index';
 import {StackScreenProps} from '@react-navigation/stack';
 import Clipboard from '@react-native-community/clipboard';
 import {COLOR_SUCCESS} from '../../../native-base-theme/variables/config';
-import {ExpireTimer} from "../../Components";
+import {Conditional, ElIf, Else, ExpireTimer, If} from "../../Components";
+import SkeletonLoader from "./room-card/skeleton-loader/skeleton-loader";
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -97,6 +97,7 @@ class HotelSelectRoom extends Component<Props> {
 
     return (
       <>
+        {/*header*/}
         <Header style={[Style.bg__primary, Style.flex__row]}>
           <Left><BackNavigation/></Left>
           <Body style={[Style.flex__grow__1]}>
@@ -111,13 +112,38 @@ class HotelSelectRoom extends Component<Props> {
               <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
           </Right>
         </Header>
+
         {/*actions*/}
         <View><HotelRoomAction hotel={hotel}/></View>
-        <View style={[Style.flex__shrink__1]}>
+
+        {/*content*/}
+        <View style={[Style.w__100, Style.flex__shrink__1]}>
+
           {/*hotel list*/}
           <FlatList<HotelOptionInterface>
             ListHeaderComponent={SearchDetails}
-            ListEmptyComponent={() => <LoadingAndError status={status}/>}
+            ListEmptyComponent={
+              <Conditional>
+
+                {/*loading*/}
+                <If condition={status === 'loading'}>
+                  <View style={[Style.w__100, Style.align__items_center, Style.justify__content_center]}>
+                    {[...Array(3)].map((item, index) => <SkeletonLoader key={index}/>)}
+                  </View>
+                </If>
+
+                {/*error*/}
+                <ElIf condition={status === 'error'}>
+                  <AppText>Error in empty list </AppText>
+                </ElIf>
+
+                {/*other*/}
+                <Else>
+                  <AppText>other in empty list</AppText>
+                </Else>
+
+              </Conditional>
+            }
             data={rooms}
             windowSize={3}
             keyExtractor={item => item.option_id}
@@ -144,9 +170,7 @@ class HotelSelectRoom extends Component<Props> {
                   }}/>
                 </View>
               );
-            }}
-
-          />
+            }}/>
 
         </View>
       </>

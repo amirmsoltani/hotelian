@@ -9,7 +9,7 @@ import {
 
 import {HotelImageFlatList, HotelPage, HotelSelectRoom, HotelsMapPage} from '../Pages';
 import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
-import ExpireModal from "../Layout/expire-modal/expire-modal";
+import {ExpireModal} from "../Layout";
 import {Alert} from "react-native";
 
 const Stack = createStackNavigator();

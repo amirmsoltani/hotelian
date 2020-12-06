@@ -1,11 +1,11 @@
 import React from 'react';
-import {Container} from 'native-base';
-import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
-import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {BookingOverview, PassengerPage} from '../Pages';
-import BoMore from '../Pages/booking-overview/bo-more/bo-more';
-import ExpireModal from '../Layout/expire-modal/expire-modal';
-import {Alert} from 'react-native';
+import {Container} from "native-base";
+import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
+import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from "@react-navigation/stack";
+import {BookingOverview, PassengerPage} from "../Pages";
+import BoMore from "../Pages/booking-overview/bo-more/bo-more";
+import {ExpireModal} from "../Layout";
+import {Alert} from "react-native";
 
 const Stack = createStackNavigator();
 const ReserveRoute = () => {
