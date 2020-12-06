@@ -12,7 +12,7 @@ import SearchDetails from './search-details/search-details';
 import {HotelRoomAction} from '../index';
 import {StackScreenProps} from '@react-navigation/stack';
 import Clipboard from '@react-native-community/clipboard';
-import {COLOR_SUCCESS} from '../../../native-base-theme/variables/config';
+import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {Conditional, ElIf, Else, ExpireTimer, If} from "../../Components";
 import SkeletonLoader from "./room-card/skeleton-loader/skeleton-loader";
 
@@ -85,9 +85,9 @@ class HotelSelectRoom extends Component<Props> {
          ${t('total')}: ${this.price} ${currency} 
       `);
       Toast.show({
-        text: t('room-information-was-successfully-copied'),
-        duration: 3000,
-        textStyle: {color: COLOR_SUCCESS},
+        text: t('copied') + '.',
+        duration: 1500,
+        textStyle: {color: COLOR_WHITE, textTransform: "capitalize", fontSize: 14,},
         position: 'bottom',
       });
     };
