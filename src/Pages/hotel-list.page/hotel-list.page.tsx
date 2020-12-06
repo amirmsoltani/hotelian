@@ -40,18 +40,27 @@ const mapStateToProps = (
 });
 
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
+type StatesType = {
+  end: boolean;
+  scroll: boolean;
+  modifySearch: boolean;
+}
 const mapDispatchToProps = {GetHotels, ApplyHotelsFilters};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-class HotelListPage extends Component<Props,
-  { end: boolean; scroll: boolean }> {
+class HotelListPage extends Component<Props, StatesType> {
   timeOut: any | null = null;
   state = {
     end: false,
     scroll: false,
+
     //flag for hide/show modify search modal
     modifySearch: false,
+
   };
+
+  //flag for hiding red_bullet for first time
+  firstType_sort = false;
   activatedFilter = 1;
   //=======================================
   // Hooks
@@ -222,7 +231,7 @@ class HotelListPage extends Component<Props,
             {translate('sort')}
           </AppText>
           <Conditional>
-            <If condition={!!this.activatedFilter}>
+            <If condition={!!this.activatedFilter && this.firstType_sort}>
               <View style={[Style.bg__danger, {
                 width: 6,
                 height: 6,
@@ -235,83 +244,51 @@ class HotelListPage extends Component<Props,
           </Conditional>
         </MenuTrigger>
         <MenuOptions customStyles={{optionsContainer: [{width: 270}]}}>
-          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
-            starUp: {
-              name: 'sort',
-              indexes: this.props.structure!.sort.starUp,
-            },
-          })}>
+          <MenuOption onSelect={() => {
+            this.firstType_sort = true;
+            this.props.ApplyHotelsFilters({starUp: {name: 'sort', indexes: this.props.structure!.sort.starUp}});
+          }}>
             <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('stars-5-0')}</AppText>
-              <Icon
-                type={'MaterialIcons'}
-                style={[
-                  sortBy === 'starUp' ? Style.text__info : null,
-                  Style.f__18,
-                  Style.text__gray_l,
-                ]}
-                name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}
+              <Icon type={'MaterialIcons'}
+                    style={[sortBy === 'starUp' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}
               />
             </View>
           </MenuOption>
-          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
-            starDown: {
-              name: 'sort',
-              indexes: this.props.structure!.sort.starDown,
-            },
-          })}>
+          <MenuOption onSelect={() => {
+            this.firstType_sort = true;
+            this.props.ApplyHotelsFilters({starDown: {name: 'sort', indexes: this.props.structure!.sort.starDown}});
+          }}>
             <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('stars-0-5')}</AppText>
-              <Icon
-                type={'MaterialIcons'}
-                style={[
-                  sortBy === 'starDown' ? Style.text__info : null,
-                  Style.f__18,
-                  Style.text__gray_l,
-                ]}
-                name={`radio-button-${
-                  sortBy === 'starDown' ? '' : 'un'
-                }checked`}
+              <Icon type={'MaterialIcons'}
+                    style={[sortBy === 'starDown' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}
               />
             </View>
           </MenuOption>
-          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
-            priceDown: {
-              name: 'sort',
-              indexes: this.props.structure!.sort.priceDown,
-            },
-          })}>
+          <MenuOption onSelect={() => {
+            this.firstType_sort = true;
+            this.props.ApplyHotelsFilters({starDown: {name: 'sort', indexes: this.props.structure!.sort.priceDown}});
+          }}>
             <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('price-low-to-high')}</AppText>
-              <Icon
-                type={'MaterialIcons'}
-                style={[
-                  sortBy === 'priceDown' ? Style.text__info : null,
-                  Style.f__18,
-                  Style.text__gray_l,
-                ]}
-                name={`radio-button-${
-                  sortBy === 'priceDown' ? '' : 'un'
-                }checked`}
+              <Icon type={'MaterialIcons'}
+                    style={[sortBy === 'priceDown' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    name={`radio-button-${sortBy === 'priceDown' ? '' : 'un'}checked`}
               />
             </View>
           </MenuOption>
-          <MenuOption onSelect={() => this.props.ApplyHotelsFilters({
-            priceUp: {
-              name: 'sort',
-              indexes: this.props.structure!.sort.starUp,
-            },
-          })}>
+          <MenuOption onSelect={() => {
+            this.firstType_sort = true;
+            this.props.ApplyHotelsFilters({priceUp: {name: 'sort', indexes: this.props.structure!.sort.starUp,},})
+          }}>
             <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
               <AppText>{translate('price-high-to-low')}</AppText>
-              <Icon
-                type={'MaterialIcons'}
-                style={[
-                  sortBy === 'priceUp' ? Style.text__info : null,
-                  Style.f__18,
-                  Style.text__gray_l,
-                ]}
-                name={`radio-button-${sortBy === 'priceUp' ? '' : 'un'}checked`}
+              <Icon type={'MaterialIcons'}
+                    style={[sortBy === 'priceUp' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    name={`radio-button-${sortBy === 'priceUp' ? '' : 'un'}checked`}
               />
             </View>
           </MenuOption>
