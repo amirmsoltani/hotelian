@@ -37,8 +37,15 @@ function late_checkin_change(this: GuestFromController, name: 'date_time' | 'des
 }
 
 function on_submit(this: GuestFromController) {
-  globalStore.dispatch(PassengerSave({rooms: this.state.rooms, lateCheckin: this.state.lateCheckin}));
-  commonActions.navigate('reserve', 'booking-overview');
+  const error = this.state.rooms.find(room => room.persons.find(person => [
+    person.field_state.last_name.status,
+    person.field_state.first_name.status,
+    person.field_state.gender.status,
+  ].includes('error')));
+  if (!error) {
+    globalStore.dispatch(PassengerSave({rooms: this.state.rooms, lateCheckin: this.state.lateCheckin}));
+    commonActions.navigate('reserve', 'booking-overview');
+  }
 }
 
 export const FormContext = React.createContext<{
