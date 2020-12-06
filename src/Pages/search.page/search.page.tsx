@@ -295,14 +295,15 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
             </MenuOptions>
           </Menu>
           <AppModal
+            backdrop
             visibility={this.state.modalVisibility}
-            onClose={() => this.onCloseModal()}>
+            onClose={this.onCloseModal}>
             <Conditional>
               <If condition={this.state.modalName === 'language'}>
-                <LanguageModal onClose={() => this.onCloseModal()}/>
+                <LanguageModal onClose={this.onCloseModal}/>
               </If>
               <ElIf condition={this.state.modalName === 'currency'}>
-                <CurrencyModal onClose={() => this.onCloseModal()}/>
+                <CurrencyModal onClose={this.onCloseModal}/>
               </ElIf>
             </Conditional>
           </AppModal>
@@ -315,7 +316,7 @@ class SearchPage extends Component<Props & StackScreenProps<{}>, State> {
   //=======================================
   // Handlers
   //=======================================
-  onCloseModal() {
+  onCloseModal = () => {
     this.setState({
       modalVisibility: false,
       modalName: null,

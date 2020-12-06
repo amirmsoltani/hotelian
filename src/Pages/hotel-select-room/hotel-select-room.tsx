@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import {FlatList, View} from 'react-native';
-import {Header, Toast} from 'native-base';
+import {Body, Header, Left, Right, Toast} from 'native-base';
 import {Style} from 'Styles';
 import RoomCard from './room-card/room-card';
 import {translate as t} from 'Lib/Languages';
 import {AppSubtitle, AppTitle, BackNavigation} from 'Containers';
 import {connect, ConnectedProps} from 'react-redux';
 import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
-import {GetHotelRooms, get_politics as GetPolitics} from 'Store/Actions';
+import {get_politics as GetPolitics, GetHotelRooms} from 'Store/Actions';
 import SearchDetails from './search-details/search-details';
 import {LoadingAndError} from './loading-and-error/loading-and-error';
 import {HotelRoomAction} from '../index';
 import {StackScreenProps} from '@react-navigation/stack';
 import Clipboard from '@react-native-community/clipboard';
 import {COLOR_SUCCESS} from '../../../native-base-theme/variables/config';
+import {ExpireTimer} from "../../Components";
 
-const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data}, appReducer: {currency}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
   rooms: rooms.result ? rooms.result.filter.rooms.map(item => rooms.result!.options[item]) : [],
   nights_count: rooms.result?.night_count,
@@ -27,7 +28,7 @@ const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_i
   form_data,
   search_id,
   currency,
-
+  expire,
 });
 const connector = connect(mapStateToProps, {GetHotelRooms, GetPolitics});
 
@@ -69,7 +70,7 @@ class HotelSelectRoom extends Component<Props> {
       form_data,
     } = this.props;
     const {navigation} = this.props;
-    const onCopy = function(this: {room_name: string[], board_type: string, price: string, per_night: string}) {
+    const onCopy = function (this: { room_name: string[], board_type: string, price: string, per_night: string }) {
       Clipboard.setString(`
          ${t('hotel-name')}: ${hotel.name}
          ${t('hotel-star')}: ${hotel.star}
@@ -90,23 +91,25 @@ class HotelSelectRoom extends Component<Props> {
         position: 'bottom',
       });
     };
-    const onReserve = function(this: {option: HotelOptionInterface}) {
+    const onReserve = function (this: { option: HotelOptionInterface }) {
       navigation.push('reserve', {screen: 'passenger', params: this.option});
     };
 
     return (
       <>
-        <Header style={[Style.flex__row, Style.bg__primary, Style.align__items_center, Style.px__0]}>
-          <View>
-            <BackNavigation/>
-          </View>
-          <View style={[Style.flex__grow__1]}>
+        <Header style={[Style.bg__primary, Style.flex__row]}>
+          <Left><BackNavigation/></Left>
+          <Body style={[Style.flex__grow__1]}>
             <AppTitle style={[Style.text__capitalize]} hasSubtitle>
               {t('choose-your-stay')}</AppTitle>
             <AppSubtitle hasSubtitle>
               {`${this.props.form_data.checkIn!.formatted} - ${this.props.form_data.checkOut!.formatted}`}
             </AppSubtitle>
-          </View>
+          </Body>
+          <Right>
+            {this.props.expire !== undefined ?
+              <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
+          </Right>
         </Header>
         {/*actions*/}
         <View><HotelRoomAction hotel={hotel}/></View>

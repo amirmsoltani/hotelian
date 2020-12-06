@@ -20,7 +20,7 @@ const SearchRoute = () => {
           ...TransitionPresets.SlideFromRightIOS,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
-        }} initialRouteName="test">
+        }} initialRouteName="form">
         <Stack.Screen name="test" component={TestPage}/>
         <Stack.Screen name="form" component={SearchPage}/>
         <Stack.Screen name="destination" component={SelectDestinationPage}/>

@@ -9,15 +9,15 @@ import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
 import {RootStateInterface} from 'Typescript';
 import {translate as t} from 'Lib/Languages';
-import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
+import {COLOR_MUTED, COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
-import {Conditional, ElIf, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
+import {Conditional, ElIf, ExpireTimer, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
 import ReviewSection from './review-section/review-section';
 
 const mapStateToProps = (
   {
     hotelsReducer: {basicData},
-    searchReducer: {search_id},
+    searchReducer: {search_id, expire},
     hotelReducer: {hotel: {status, result}},
 
   }: RootStateInterface) => (
@@ -25,6 +25,7 @@ const mapStateToProps = (
     search_id,
     status,
     result,
+    expire,
     hotels: basicData?.hotels,
   });
 const mapDispatchToProps = {GetHotel};
@@ -34,9 +35,9 @@ const styles = {container: [Style.mb__1, Style.bg__white, Style.py__2]};
 
 type Props =
   ConnectedProps<typeof connector> &
-  StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string}, 'select-room': any}, 'hotel'>;
+  StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string }, 'select-room': any }, 'hotel'>;
 
-class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: boolean}> {
+class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal: boolean }> {
   id?: string;
   hasSearchID: boolean;
   state = {
@@ -61,7 +62,6 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
     if (this.props.status === undefined || (result && result.hotel.id !== +this.id!)) {
       this.props.GetHotel(+this.id!);
     }
-
   }
 
   render() {
@@ -107,21 +107,28 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
         <AppModal
           visibility={this.state.shareModal}
           position={'bottom'} animation={'slide'}
-          onClose={() => this.setState({shareModal: false})}>
+          onClose={this.onHideShare} backdrop>
           <ShareModal/>
         </AppModal>
 
         {/*footer*/}
         <Conditional>
           <If condition={this.hasSearchID}>
-            <Footer style={[Style.bg__white]}>
-              <View style={[Style.w__100, Style.p__1]}>
+            <Footer style={[Style.bg__white, Style.flex__row]}>
+              <View style={[Style.flex__grow__1, Style.p__1]}>
                 <Button onPress={() => this.props.navigation.navigate('select-room')}
                         block style={[Style.bg__primary]}>
                   <AppText style={[Style.text__white, Style.text__bold]}>
                     {t('select-room')}</AppText>
                 </Button>
               </View>
+              {this.props.expire !== undefined ?
+                <View style={[Style.flex__shrink__0, Style.flex__grow__0, Style.justify__content_center,
+                  Style.align__items_center, {width: 90}]}>
+                  <ExpireTimer
+                    styles={[Style.pr__2, Style.f__18, Style.text__primary]}
+                    start_time={this.props.expire!}/>
+                </View> : null}
             </Footer>
           </If>
         </Conditional>
@@ -153,7 +160,7 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
             <Icon type="Ionicons" name={this.state.isLiked ? 'heart' : 'heart-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
-          <Button onPress={() => this.onShare()}
+          <Button onPress={this.onShare}
                   style={[Style.justify__content_end]} transparent>
             <Icon type="Ionicons" name={'share-social-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
@@ -239,8 +246,13 @@ class HotelListPage extends PureComponent<Props, {isLiked: boolean, shareModal: 
     });
   }
 
-  onShare() {
+  onShare = () => {
     this.setState({shareModal: true});
+  }
+
+  onHideShare = () => {
+    console.log(111);
+    this.setState({shareModal: false});
   }
 
 }
