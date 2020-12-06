@@ -119,8 +119,11 @@ const ErrorModal: FunctionComponent<{ config: propsType, visibility: boolean }> 
 
   function messages_generator(param: any) {
 
+    //when want to skip message [e.g expire modal]
+    if (param === undefined) return null;
+
     //error as string
-    if (typeof param === "string") {
+    else if (typeof param === "string") {
       return <StringError error={param}/>
     }
 
