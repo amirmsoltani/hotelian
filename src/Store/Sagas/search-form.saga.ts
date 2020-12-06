@@ -8,6 +8,8 @@ import {GetHotels} from '../Actions';
 import {error_handler} from 'Lib/error-handler';
 import {NativeModules} from 'react-native';
 
+let exists = false;
+
 export function* AcceptSearchFrom() {
   const searchFormData: SearchFormDataInterface = yield select((state: RootStateInterface) => state.searchReducer.form_data);
   const searchData = {
@@ -45,12 +47,17 @@ export function* AcceptSearchFrom() {
       yield put(GetHotels(response.data.result.search_id));
     }
     let now = new Date().getTime() / 1000;
-    const id = NativeModules.Timer.intervalEvent('sec', 1000);
+    if (exists) {
+      NativeModules.Timer.clearInterval('sec');
+      exists = false;
+    }
+    NativeModules.Timer.intervalEvent('sec', 1000);
+    exists = true;
     while (response.data.result.expire > now) {
       yield delay(5000);
       now = new Date().getTime() / 1000;
     }
-    NativeModules.Timer.clearInterval(id);
+    NativeModules.Timer.clearInterval('sec');
     yield put(SearchExpire());
   } catch (e) {
     yield cancel(loader);

@@ -7,13 +7,14 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.Arguments;
 
-import java.util.ArrayList;
+import java.sql.Time;
+import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerModule extends ReactContextBaseJavaModule {
     private static ReactApplicationContext reactContext;
-    private ArrayList<Timer> timer_list;
+    private Hashtable<String, Timer> timer_list;
     private int current;
     private DeviceEventManagerModule.RCTDeviceEventEmitter emitter;
     private WritableMap params;
@@ -21,8 +22,7 @@ public class TimerModule extends ReactContextBaseJavaModule {
     public TimerModule(ReactApplicationContext context) {
         super(context);
         reactContext = context;
-        timer_list = new ArrayList<>();
-        current = 0;
+        timer_list = new Hashtable<String, Timer>();
     }
 
     @Override
@@ -42,18 +42,17 @@ public class TimerModule extends ReactContextBaseJavaModule {
                 emitter.emit(name, params);
             }
         };
-        Timer timer = new Timer("interval" + current);
+        Timer timer = new Timer(name);
         timer.schedule(task, timeout, timeout);
-        timer_list.add(timer);
-        current++;
+        timer_list.put(name, timer);
         return current - 1;
     }
 
     @ReactMethod
-    void clearInterval(int interval) {
-        Timer timer = timer_list.get(interval);
+    void clearInterval(String name) {
+        Timer timer = timer_list.get(name);
         timer.cancel();
         timer.purge();
-        timer_list.remove(interval);
+        timer_list.remove(name);
     }
 }
