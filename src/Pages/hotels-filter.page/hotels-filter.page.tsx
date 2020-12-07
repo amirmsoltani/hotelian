@@ -14,6 +14,7 @@ import {translate, translate as t} from 'Lib/Languages';
 import {
   BORDER_RADIUS_SM,
   COLOR_PRIMARY,
+  GRAY_LIGHT_XXX,
   SHADOW_LG_XX,
 } from '../../../native-base-theme/variables/config';
 import {ObjectLen, ObjectMapToArray} from 'Lib/ObjectTool';
@@ -32,7 +33,7 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
 
-class HotelsFilterPage extends PureComponent<Props, {text: string}> {
+class HotelsFilterPage extends PureComponent<Props, { text: string }> {
   static readonly filters = ['other', 'stars', 'boardTypes', 'locations', 'rangePrice'];
   //=======================================
   // Hooks
@@ -86,11 +87,17 @@ class HotelsFilterPage extends PureComponent<Props, {text: string}> {
 
         <ScrollView style={[Style.bg__white]}>
           <View style={[style.wrapper, Style.mb__0]}>
-            {/*TODO fix input style*/}
-            <TextInput style={{width: '100%', borderBottomColor: 'red', borderBottomWidth: 1}}
-                       onChangeText={this.getHotels}
-                       value={this.state.text}
-                       placeholder={translate('search-hotel-name')}/>
+
+            <View>
+              <AppText style={[Style.text__bold, Style.f__14, Style.mb__1]} firstLetter>
+                {translate('search-by-hotel-name')}</AppText>
+              <TextInput
+                style={{width: '100%', borderBottomColor: GRAY_LIGHT_XXX, borderBottomWidth: 1}}
+                onChangeText={this.getHotels}
+                value={this.state.text}
+                placeholder={translate('enter-hotel-name')}/>
+            </View>
+
             {ObjectMapToArray(structure, (key) => {
               if (!HotelsFilterPage.filters.includes(key as string)) {
                 return 'jump';

@@ -38,7 +38,7 @@ function HotelsFilter({actives, length, structure, name, ApplyHotelsFilters}: Pr
   return (
     <View
       style={[(name !== 'rangePrice' ? {borderBottomColor: GRAY_LIGHT_XX, borderBottomWidth: 0.5} : {}), Style.py__2]}>
-      <AppText style={[Style.text__bold, Style.f__14, Style.mb__1]}>{filterNames[name]}</AppText>
+      <AppText firstLetter style={[Style.text__bold, Style.f__14, Style.mb__1]}>{filterNames[name]}</AppText>
       <View style={[Style.flex__row, Style.flex__wrap]}>
 
         <Conditional>
