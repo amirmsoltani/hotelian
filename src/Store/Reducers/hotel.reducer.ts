@@ -37,7 +37,7 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
     }
     case SET_STATUS: {
       if (action.target in state) {
-        return {...state, [action.target]: {...state[<keyof HotelStateInterface>action.target], status: action.status}};
+        return {...state, [action.target]: {status: action.status}};
       }
     }
     default:
