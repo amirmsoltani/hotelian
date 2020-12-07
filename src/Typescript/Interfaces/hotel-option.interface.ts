@@ -9,5 +9,5 @@ export interface HotelOptionInterface {
   price: PriceType;
   discount: number;
   rooms: RoomType[];
-  cancellation: CancellationPolicyInterface;
+  cancellation?: CancellationPolicyInterface | null;
 }

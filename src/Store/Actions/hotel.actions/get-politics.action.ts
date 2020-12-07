@@ -25,8 +25,13 @@ export function get_politics(ids: string[]) {
       });
       dispatch(SetOptionsPolitics(rooms.result!.options));
     } catch (e) {
-      console.log(e);
+      const {hotelReducer: {rooms}} = getState();
+      rooms.result!.options.forEach(option => {
+        if (ids.includes(option.option_id)) {
+          option.cancellation = null;
+        }
+      });
+      dispatch(SetOptionsPolitics(rooms.result!.options));
     }
-
   };
 }
