@@ -16,7 +16,7 @@ type propsType = {
   room_name: string[],
   board_type: string,
   nonrefundable: boolean,
-  cancellation_policies: PoliciesType[] | null,
+  cancellation_policies?: PoliciesType[] | null,
   nights_count: number;
   discount: boolean;
   price: number;

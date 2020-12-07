@@ -13,8 +13,8 @@ import {HotelRoomAction} from '../index';
 import {StackScreenProps} from '@react-navigation/stack';
 import Clipboard from '@react-native-community/clipboard';
 import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
-import {Conditional, ElIf, Else, ExpireTimer, If} from "../../Components";
-import SkeletonLoader from "./room-card/skeleton-loader/skeleton-loader";
+import {Conditional, ElIf, Else, ExpireTimer, If} from '../../Components';
+import SkeletonLoader from './room-card/skeleton-loader/skeleton-loader';
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -70,7 +70,7 @@ class HotelSelectRoom extends Component<Props> {
       form_data,
     } = this.props;
     const {navigation} = this.props;
-    const onCopy = function (this: { room_name: string[], board_type: string, price: string, per_night: string }) {
+    const onCopy = function(this: {room_name: string[], board_type: string, price: string, per_night: string}) {
       Clipboard.setString(`
          ${t('hotel-name')}: ${hotel.name}
          ${t('hotel-star')}: ${hotel.star}
@@ -87,11 +87,11 @@ class HotelSelectRoom extends Component<Props> {
       Toast.show({
         text: t('copied') + '.',
         duration: 1500,
-        textStyle: {color: COLOR_WHITE, textTransform: "capitalize", fontSize: 14,},
+        textStyle: {color: COLOR_WHITE, textTransform: 'capitalize', fontSize: 14},
         position: 'bottom',
       });
     };
-    const onReserve = function (this: { option: HotelOptionInterface }) {
+    const onReserve = function(this: {option: HotelOptionInterface}) {
       navigation.push('reserve', {screen: 'passenger', params: this.option});
     };
 
@@ -157,7 +157,7 @@ class HotelSelectRoom extends Component<Props> {
                     price: item.price.total,
                     per_night: item.price.per_night,
                     room_name: item.rooms.map(room => room.room_name!),
-                    cancellation_policies: item.cancellation?.policies,
+                    cancellation_policies: item.cancellation ? item.cancellation.policies : item.cancellation,
                     nonrefundable: item.deal_name !== null,
                     nights_count: nights_count!,
                     currency,
