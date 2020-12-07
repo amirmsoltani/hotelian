@@ -14,7 +14,7 @@ type propsType = {
   person_number: number;
 }
 
-const AdultForm: FunctionComponent<{data: propsType}> = ({data: {person_number, room_number}}) => {
+const AdultForm: FunctionComponent<{ data: propsType }> = ({data: {person_number, room_number}}) => {
 
   //for changing guest's title
   const [title, changeTitle] = useState('male');
@@ -40,28 +40,27 @@ const AdultForm: FunctionComponent<{data: propsType}> = ({data: {person_number, 
       {/*inputs*/}
       <View>
         <View style={[Style.mb__3]}>
-          <FormInput data={{
-            label: translate('first-name'),
-            input_state: self.field_state.first_name.status,
-          }}
-                     onFocus={() => {
-                       focus(room_number, person_number, 'first_name');
-                     }}
-                     onEndEditing={(event) => {
-                       blur(room_number, person_number, 'first_name', event.nativeEvent.text);
-                     }}
-                     defaultValue={first_name}
+          <FormInput
+            data={{
+              label: translate('first-name'),
+              input_state: self.field_state.first_name.status,
+              message: state.rooms[room_number].persons[person_number].field_state['first_name'].message,
+            }}
+            onFocus={() => focus(room_number, person_number, 'first_name')}
+            onEndEditing={(event) => blur(room_number, person_number, 'first_name', event.nativeEvent.text)}
+            defaultValue={first_name}
           />
         </View>
         <View>
-          <FormInput data={{label: translate('last-name'), input_state: self.field_state.last_name.status}}
-                     onFocus={() => {
-                       focus(room_number, person_number, 'last_name');
-                     }}
-                     onEndEditing={event => {
-                       blur(room_number, person_number, 'last_name', event.nativeEvent.text);
-                     }}
-                     defaultValue={last_name}
+          <FormInput
+            data={{
+              label: translate('last-name'),
+              input_state: self.field_state.last_name.status,
+              message: state.rooms[room_number].persons[person_number].field_state['last_name'].message,
+            }}
+            onFocus={() => focus(room_number, person_number, 'last_name')}
+            onEndEditing={event => blur(room_number, person_number, 'last_name', event.nativeEvent.text)}
+            defaultValue={last_name}
           />
         </View>
       </View>
