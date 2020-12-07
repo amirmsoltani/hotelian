@@ -70,7 +70,7 @@ class HotelSelectRoom extends Component<Props> {
       form_data,
     } = this.props;
     const {navigation} = this.props;
-    const onCopy = function(this: {room_name: string[], board_type: string, price: string, per_night: string}) {
+    const onCopy = function (this: { room_name: string[], board_type: string, price: string, per_night: string }) {
       Clipboard.setString(`
          ${t('hotel-name')}: ${hotel.name}
          ${t('hotel-star')}: ${hotel.star}
@@ -91,7 +91,7 @@ class HotelSelectRoom extends Component<Props> {
         position: 'bottom',
       });
     };
-    const onReserve = function(this: {option: HotelOptionInterface}) {
+    const onReserve = function (this: { option: HotelOptionInterface }) {
       navigation.push('reserve', {screen: 'passenger', params: this.option});
     };
 
@@ -159,12 +159,13 @@ class HotelSelectRoom extends Component<Props> {
                     room_name: item.rooms.map(room => room.room_name!),
                     cancellation_policies: item.cancellation ? item.cancellation.policies : item.cancellation,
                     nonrefundable: item.deal_name !== null,
+                    deadline: item.cancellation?.deadline ?? '',
                     nights_count: nights_count!,
-                    currency,
                     discount: item.discount > 0,
                     option: item,
-                    onCopy,
+                    currency,
                     onReserve: onReserve,
+                    onCopy,
                     onRules() {
                     },
                   }}/>

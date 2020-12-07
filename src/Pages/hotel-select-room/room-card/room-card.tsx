@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {Image, StyleSheet, TouchableHighlight, TouchableNativeFeedback, View} from 'react-native';
 import {AppText} from 'Containers';
 import {Style} from 'Styles';
-import {Conditional, ElIf, If} from 'Components';
+import {Badge, Conditional, ElIf, Else, If} from 'Components';
 import {
   BORDER_RADIUS_SM,
   COLOR_MINT,
@@ -10,7 +10,7 @@ import {
   COLOR_PURPLE,
   MUTED_LIGHT_XX,
 } from '../../../../native-base-theme/variables/config';
-import {Button, Icon, Spinner} from 'native-base';
+import {Button, Spinner} from 'native-base';
 import {PoliciesType} from '../../../Typescript/Types';
 import {translate} from "../../../Lib/Languages";
 
@@ -22,6 +22,7 @@ type propsType = {
   nights_count: number;
   discount: boolean;
   price: number;
+  deadline: string;
   currency: string;
   onCopy: () => void;
   onRules: () => void;
@@ -58,7 +59,7 @@ const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
           {/*outlined badges*/}
           <Conditional>
             <If condition={!!props.data.board_type || props.data.nonrefundable}>
-              <View style={[Style.flex__row, Style.mb__3, Style.px__3]}>
+              <View style={[Style.flex__row, Style.mb__1, Style.px__3]}>
                 <Conditional>
                   <If condition={!!props.data.board_type}>
                     <AppText style={[styles.badge, Style.px__2, Style.py__1, Style.f__12, Style.mr__1, Style.mb__1]}
@@ -78,12 +79,22 @@ const RoomCard: FunctionComponent<{ data: propsType }> = (props) => {
           <Conditional>
             <If condition={state === 'ok'}>
               <View style={[Style.mb__3, Style.px__3]}>
-                {props.data.cancellation_policies?.map((item, index) =>
-                  <View style={[Style.flex__row, Style.align__items_center, Style.mb__1]}
-                        key={item.from + item.type + item.from + index}>
-                    <Icon style={[Style.f__12, Style.mr__1]} name={'check'} type={'Feather'}/>
-                    <AppText firstLetter style={[Style.f__14, Style.text__light]}>{item.from + 'test test'}</AppText>
-                  </View>)}
+                <Conditional>
+                  <If condition={props.data.deadline.length > 0}>
+                    <View style={[Style.flex__row, Style.mb__1, Style.mr__1]}>
+                      <Badge type={"success"}
+                             text={`${translate('free-cancellation-before')} ${props.data.deadline}`}/>
+                    </View>
+                  </If>
+                  <Else>
+                    {props.data.cancellation_policies?.map((item, index) =>
+                      <View style={[Style.flex__row, Style.mb__1, Style.mr__1]}>
+                        <Badge type={"warning"}
+                               text={`${translate('from')} ${item.from} , ${item.value} ${item.type === 'nights' ? translate('night_s') : `${(item.type === 'percentage' ? '%' : 'USD')}`} ${translate('will-be-charged.')}`}/>
+                      </View>
+                    )}
+                  </Else>
+                </Conditional>
               </View>
             </If>
             <ElIf condition={state === 'loading'}>
