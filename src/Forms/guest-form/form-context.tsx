@@ -15,7 +15,7 @@ function on_blur(this: GuestFromController, room: number, person: number, field_
     field[field_name] = data as 'male' | 'female';
   } else {
     field.field_state[field_name].status = 'error';
-    field.field_state[field_name].message = translate('this-field-must-be-filled-with-english-letters');
+    field.field_state[field_name].message = translate('invalid-input-value');
   }
   this.setState({...this.state});
 }
@@ -51,7 +51,7 @@ function on_submit(this: GuestFromController) {
 export const FormContext = React.createContext<{
   state: Readonly<StateType>,
   methods?: {
-    focus:(room: number, person: number, field_name: 'first_name' | 'last_name' | 'gender') => void,
+    focus: (room: number, person: number, field_name: 'first_name' | 'last_name' | 'gender') => void,
     blur: (room: number, person: number, field_name: 'first_name' | 'last_name' | 'gender', data: string) => void,
     switch: (status: boolean) => void,
     late_change: (name: 'date_time' | 'description', data: string) => void,
@@ -74,7 +74,7 @@ class GuestFromController extends React.Component<PropTypes, StateType> {
         const child_count = room.children ? room.children.length : 0;
         const newRoom = [...new Array(+room.adults + child_count)]
           .map((_, index) => {
-            const filed: RoomData & {field_state: FieldState} = {
+            const filed: RoomData & { field_state: FieldState } = {
               field_state: {
                 first_name: {},
                 last_name: {},

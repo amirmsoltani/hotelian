@@ -14,7 +14,7 @@ type propsType = {
   child_age: number;
 }
 
-const ChildForm: FunctionComponent<{data: propsType}> = ({data: {person_number, room_number, child_age}}) => {
+const ChildForm: FunctionComponent<{ data: propsType }> = ({data: {person_number, room_number, child_age}}) => {
   const {state, methods} = React.useContext(FormContext);
   const {focus, blur} = methods!;
   const self = state.rooms[room_number].persons[person_number];
@@ -34,7 +34,10 @@ const ChildForm: FunctionComponent<{data: propsType}> = ({data: {person_number, 
       {/*inputs*/}
       <View>
         <View style={[Style.mb__3]}>
-          <FormInput data={{label: translate('first-name'), input_state: self.field_state.first_name.status}}
+          <FormInput data={{
+            label: translate('first-name'), input_state: self.field_state.first_name.status,
+            message: state.rooms[room_number].persons[person_number].field_state['first_name'].message,
+          }}
                      onFocus={() => {
                        focus(room_number, person_number, 'first_name');
                      }}
@@ -45,7 +48,10 @@ const ChildForm: FunctionComponent<{data: propsType}> = ({data: {person_number, 
           />
         </View>
         <View>
-          <FormInput data={{label: translate('last-name'), input_state: self.field_state.last_name.status}}
+          <FormInput data={{
+            label: translate('last-name'), input_state: self.field_state.last_name.status,
+            message: state.rooms[room_number].persons[person_number].field_state['last_name'].message,
+          }}
                      onFocus={() => {
                        focus(room_number, person_number, 'last_name');
                      }}

@@ -33,6 +33,7 @@ type propsType =
   & StackScreenProps<{ 'passengers': HotelOptionInterface, 'booking-overview': undefined }, 'passengers'>;
 
 class PassengerPage extends Component<propsType, any> {
+
   cancellation: cpt = {
     icon_name: 'ios-warning-outline',
     icon_type: 'Ionicons',
@@ -69,6 +70,7 @@ class PassengerPage extends Component<propsType, any> {
     const {cancellation, alerts, restrictions} = this;
     return (
       <>
+
         {/*header*/}
         <Header style={[Style.bg__primary]}>
           <Left><BackNavigation/></Left>
@@ -81,13 +83,14 @@ class PassengerPage extends Component<propsType, any> {
               <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
           </Right>
         </Header>
+
         <GuestFromController rooms={this.rooms}>
+
           {/*content*/}
           <Content style={[Style.w__100]}>
             <Conditional>
               <If condition={status === 'loading'}><ScreenLoading/></If>
               <ElIf condition={status === 'ok'}>
-
 
                 {/*hotel details*/}
                 {this.cancellationPolicies(cancellation)}
@@ -99,13 +102,10 @@ class PassengerPage extends Component<propsType, any> {
                 {this.cancellationPolicies(alerts)}
 
                 {/*guest form*/}
-                <View>
-                  <GuestForm/>
-                </View>
+                <View><GuestForm/></View>
 
                 {/*late checkin*/}
                 <View><LateCheckin/></View>
-
 
               </ElIf>
               <ElIf condition={status === 'error'}>

@@ -22,12 +22,12 @@ const GuestForm: FunctionComponent = () => {
             <AppText firstLetter style={[Style.text__bold, Style.f__14]}>#{room_number + 1} {item.room_name}</AppText>
           </View>
 
-          {/*room board type*/}
+          {/*guests count*/}
           <View style={[Style.flex__row, Style.mb__3, Style.px__3]}>
             <Badge size={'sm'}
                    text={`${item.adults} ${translate(item.adults > 1 ? 'adults' : 'adult')}`}
                    type={'info'}/>
-            {item.child ? <Badge size={'sm'}
+            {item.child ? <Badge size={'sm'} style={[Style.ml__1]}
                                  text={`${item.child} ${translate(item.child > 1 ? 'children' : 'child')}`}
                                  type={'info'}/> : null}
           </View>
