@@ -61,7 +61,7 @@ export function* AcceptSearchFrom() {
     yield put(SearchExpire());
   } catch (e) {
     yield cancel(loader);
-    yield put(yield call(error_handler, e));
+    yield put(yield call(error_handler, e,false));
   }
 }
 

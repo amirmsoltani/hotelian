@@ -27,7 +27,7 @@ export function* GetHotels(action: SetSearchIdType) {
       },
     }));
   } catch (e) {
-    yield put(yield error_handler(e));
+    yield put(yield error_handler({error: e, action}));
   }
 }
 

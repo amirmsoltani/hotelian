@@ -17,7 +17,7 @@ export const GetHotelRooms = ({search_id, hotel_id}: {hotel_id: number, search_i
       const rooms = response.data.result;
       dispatch(SetHotelRooms(rooms));
     } catch (e) {
-      dispatch(await error_handler(e));
+      dispatch(await error_handler({error: e, action: {type: '', search_id, hotel_id}}));
     }
   };
 

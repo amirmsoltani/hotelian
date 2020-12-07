@@ -47,7 +47,7 @@ class Routes extends Component<Props, States> {
           config={{
             title: this.props.error?.title || '',
             onClose: () => closeModal(),
-            hasDismiss: true,
+            hasDismiss: this.props.error?.close,
             hasBackdrop: false,
             theme: 'danger',
             message: this.props.error?.messages,

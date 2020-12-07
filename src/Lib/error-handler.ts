@@ -12,8 +12,15 @@ const Title: any = {
   403: translate('auth-error'),
   1: translate('unknown-error'),
 };
+type ParamType = {
+  error: AxiosError,
+  canClose?: boolean,
+  handlerAction?: (status: number, message: ErrorMessageType) => {type: string, payload: any},
+  costumeList?: number[],
+  action?: {type: string, [key: string]: any},
+};
 
-export async function error_handler(error: AxiosError, canClose: boolean = true, handlerAction?: (status: number, message: ErrorMessageType) => {type: string, payload: any}, costumeList?: number[]) {
+export async function error_handler({error, canClose = true, costumeList, handlerAction, action}: ParamType) {
   let message: ErrorMessageType;
   let code: number;
   if (!error.isAxiosError || !error.response) {
@@ -31,6 +38,6 @@ export async function error_handler(error: AxiosError, canClose: boolean = true,
   if (handlerAction && costumeList && (costumeList.includes(code) || costumeList.includes(0))) {
     return handlerAction(code, message);
   } else {
-    return AppError({close: canClose, code, messages: message, title: Title[code]});
+    return AppError({close: canClose, code, messages: message, title: Title[code], action});
   }
 }

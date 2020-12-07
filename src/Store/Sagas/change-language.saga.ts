@@ -20,7 +20,7 @@ function* ChangeLanguage({payload: {rtl, lang}}: ChangeLanguageType) {
     yield put(SetLanguage({lang, rtl, json: response.data.result}));
     RNRestart.Restart();
   } catch (e) {
-    yield put(yield error_handler(e));
+    yield put(yield error_handler(e,true));
   }
 }
 

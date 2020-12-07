@@ -4,6 +4,7 @@ import {Dispatch} from 'redux';
 import {SetHotelData} from './set-hotel-data.action';
 import {error_handler} from '../../../Lib/error-handler';
 import {setStatus} from '../global.actions/set-status.action';
+import {GET_HOTEL} from './hotel-actions.type';
 
 export function GetHotel(id: number) {
   return async (dispatch: Dispatch) => {
@@ -15,7 +16,7 @@ export function GetHotel(id: number) {
       });
       dispatch(SetHotelData(response.data.result));
     } catch (e) {
-      dispatch(await error_handler(e));
+      dispatch(await error_handler({error: e, action: {type: '', id}}));
     }
 
   };
