@@ -17,6 +17,7 @@ import {IconType} from "../../Typescript/Types";
 type inputState = 'error' | 'loading' | 'success' | 'focused' | 'disabled' | undefined;
 type propsType = {
   label: string;
+  message?: string;
   input_state?: inputState;
 };
 
@@ -26,7 +27,7 @@ const FormInput: FunctionComponent<{ data: propsType } & TextInputProps> = (prop
     icon_type: 'FontAwesome',
     icon_name: 'spinner',
     icon_color: GRAY_DARK_XX,
-    border_width: .5,
+    border_width: 1,
     border_color: GRAY_LIGHT,
     disable_background: 'transparent',
     editable: true,
@@ -51,7 +52,7 @@ const FormInput: FunctionComponent<{ data: propsType } & TextInputProps> = (prop
         config.label_color = config.border_color = config.icon_color = COLOR_SUCCESS;
         break;
       case "focused":
-        config.border_width = 1.5;
+        config.border_width = 2;
         config.label_color = config.border_color = config.icon_color = COLOR_INFO;
         break;
       case "disabled":
@@ -64,34 +65,45 @@ const FormInput: FunctionComponent<{ data: propsType } & TextInputProps> = (prop
   }
 
   return (
-    <View style={[Style.py__1, {
-      borderRadius: BORDER_RADIUS_SM,
-      borderBottomWidth: config.border_width,
-      borderBottomColor: config.border_color,
-      backgroundColor: config.disable_background,
-    }]}>
+    <>
+      <View style={[Style.py__1, {
+        borderRadius: BORDER_RADIUS_SM,
+        borderBottomWidth: config.border_width,
+        borderBottomColor: config.border_color,
+        backgroundColor: config.disable_background,
+      }]}>
 
-      {/*label*/}
-      <AppText style={[Style.f__12, Style.mb__1, {color: config.label_color}]} firstLetter>
-        {props.data.label}</AppText>
+        {/*label*/}
+        <AppText style={[Style.f__14, Style.mb__1, {color: config.label_color}]} firstLetter>
+          {props.data.label}</AppText>
 
-      {/*input*/}
-      <View style={[Style.flex__row]}>
-        <TextInput
-          onBlur={props.onBlur}
-          onFocus={props.onFocus}
-          {...props} editable={config.editable}
-          style={[Style.flex__grow__1, Style.flex__shrink__1,
-            Style.p__0, Style.m__0, Style.f__14,]}/>
+        {/*input*/}
+        <View style={[Style.flex__row]}>
+          <TextInput
+            onBlur={props.onBlur}
+            onFocus={props.onFocus}
+            {...props} editable={config.editable}
+            style={[Style.flex__grow__1, Style.flex__shrink__1,
+              Style.p__0, Style.m__0, Style.f__14,]}/>
 
-        {/*show icon only in special states [error, success, loading*/}
-        {props.data.input_state && ['error', 'loading', 'success'].includes(props.data.input_state) ?
-          <Icon style={[Style.flex__grow__0, Style.flex__shrink__0, Style.ml__2,
-            Style.f__14, Style.align__self_center, {color: config.icon_color}]}
-                type={(config.icon_type as IconType)} name={config.icon_name}/> : null}
+          {/*show icon only in special states [error, success, loading*/}
+          {props.data.input_state && ['error', 'loading', 'success'].includes(props.data.input_state) ?
+            <Icon style={[Style.flex__grow__0, Style.flex__shrink__0, Style.ml__2,
+              Style.f__14, Style.align__self_center, {color: config.icon_color}]}
+                  type={(config.icon_type as IconType)} name={config.icon_name}/> : null}
+        </View>
+
       </View>
 
-    </View>
+      {/*message*/}
+      {
+        props.data.input_state === 'error' &&
+        props.data.message &&
+        props.data.message.length ?
+          <AppText firstLetter style={[Style.f__12, Style.text__light, Style.text__danger]}>
+            {props.data.message}
+          </AppText> : null}
+    </>
   );
 };
 
