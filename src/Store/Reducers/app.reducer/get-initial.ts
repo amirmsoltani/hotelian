@@ -3,8 +3,8 @@ import axios from 'axios';
 import {INITIAL_URL, INTERNET_CONNECTION_ERROR, USER_INITIAL_ERROR_MESSAGE} from 'URLS';
 
 export const get_initial = async (defaultData: AppStateInterface) => {
-  if (defaultData.status !== 'ok')
-    {return '';}
+  if (defaultData.lang_version)
+    {return;}
   try {
     const response = await axios.get<{
       result: {

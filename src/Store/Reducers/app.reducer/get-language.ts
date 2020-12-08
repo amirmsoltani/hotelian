@@ -4,7 +4,7 @@ import storage from 'Lib/Storage';
 import {AppStateInterface} from 'Typescript/Interfaces';
 
 export const get_language = async (defaultData: AppStateInterface) => {
-  if (defaultData.status !== 'ok') {
+  if (defaultData.status !== 'ok' || !defaultData.lang_version) {
     return;
   }
   try {
