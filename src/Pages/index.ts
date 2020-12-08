@@ -20,3 +20,4 @@ export {default as BookingOverview} from './booking-overview/booking-overview';
 export {default as HotelRoomAction} from './hotel-select-room/hotel-room-action/hotel-room-action';
 export {default as InitLoading} from './init-loading/init-loading';
 export {default as InitError} from './init-error/init-error';
+export {default as SelectRoomFilter} from './select-room-filter/select-room-filter';
