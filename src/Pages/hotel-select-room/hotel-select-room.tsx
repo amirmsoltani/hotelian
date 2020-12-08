@@ -138,9 +138,7 @@ class HotelSelectRoom extends Component<Props> {
                 </ElIf>
 
                 {/*other*/}
-                <Else>
-                  <AppText>other in empty list</AppText>
-                </Else>
+                <Else><AppText>other in empty list</AppText></Else>
 
               </Conditional>
             }
