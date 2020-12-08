@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import SearchReducer, {searchInit} from './search.reducer';
-import AppReducer, {appInit} from './app.reducer';
+import AppReducer, {appInit} from './app.reducer/app.reducer';
 import HotelsReducer, {hotelsInit} from './hotels.reducer';
 import HotelReducer, {hotelInit} from './hotel.reducer';
 import NavigationReducer from './navigation.reducer';
