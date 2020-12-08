@@ -7,7 +7,7 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 
-import {HotelImageFlatList, HotelPage, HotelSelectRoom, HotelsMapPage} from '../Pages';
+import {HotelImageFlatList, HotelPage, HotelSelectRoom, HotelsMapPage, SelectRoomFilter} from '../Pages';
 import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
 import {ExpireModal} from "../Layout";
 import {Alert} from "react-native";
@@ -27,6 +27,7 @@ const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScree
         }}>
         <Stack.Screen name="hotel" component={HotelPage}/>
         <Stack.Screen name="select-room" component={HotelSelectRoom}/>
+        <Stack.Screen name="select-room-filter" component={SelectRoomFilter}/>
         <Stack.Screen name="hotel-image-flat-list" component={HotelImageFlatList}/>
         <Stack.Screen name="map" component={HotelsMapPage}/>
       </Stack.Navigator>
