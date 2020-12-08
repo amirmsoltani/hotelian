@@ -3,9 +3,9 @@ import {Content} from "native-base";
 import {useNavigation} from '@react-navigation/native';
 import {Image, TouchableNativeFeedback, View} from "react-native";
 
-import {Style} from "../../Styles";
-import {AppText} from "../../Containers";
-import {translate} from "../../Lib/Languages";
+import {Style} from "../Styles";
+import {AppText} from "../Containers";
+import {translate} from "../Lib/Languages";
 
 const _404 = () => {
   const image = require('Assets/Images/404.png');
