@@ -14,4 +14,6 @@ export interface AppStateInterface {
   status: StatusType;
   message?: string;
   errors?: AppErrorInterface;
+  app_version: string;
+  lang_version?: string;
 }
