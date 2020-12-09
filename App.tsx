@@ -35,7 +35,6 @@ class App extends React.Component<any,
 
 
   retry() {
-    console.log('hello');
     createStore().then(([store, app]) => {
       this.store = store;
       this.setState({

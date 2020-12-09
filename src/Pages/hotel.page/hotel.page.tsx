@@ -165,21 +165,6 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
             <Icon type="Ionicons" name={'share-social-outline'}
                   style={[Style.f__20, Style.text__right, Style.text__white]}/>
           </Button>
-          <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
-            <Menu style={[Style.justify__content_center]}>
-              <MenuTrigger>
-                <Icon type="Ionicons" name="ellipsis-vertical" style={[Style.f__20, Style.text__right]}/>
-              </MenuTrigger>
-              <MenuOptions>
-                <MenuOption style={[Style.p__2]}>
-                  <AppText style={Style.text__black}>{t('wish-list')}</AppText>
-                </MenuOption>
-                <MenuOption style={[Style.p__2]}>
-                  <AppText style={Style.text__black}>{t('change-currency')}</AppText>
-                </MenuOption>
-              </MenuOptions>
-            </Menu>
-          </Button>
         </Right>
       </Header>
     );
@@ -251,7 +236,6 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
   }
 
   onHideShare = () => {
-    console.log(111);
     this.setState({shareModal: false});
   }
 
