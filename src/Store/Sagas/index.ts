@@ -4,6 +4,7 @@ import AcceptSearchFromSaga from './search-form.saga';
 import ChangeLanguage from './change-language.saga';
 import GetHotels from './get-hotels.saga';
 import ApplyHotelsFilters from './apply-hotels-filter.saga';
+import UpdateSearch from './update-search-to-current.saga';
 
 function* appSaga() {
   yield all([
@@ -12,6 +13,7 @@ function* appSaga() {
     ...GetHotels,
     ApplyHotelsFilters,
     ChangeLanguage,
+    UpdateSearch,
   ]);
 }
 

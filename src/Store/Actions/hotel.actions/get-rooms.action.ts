@@ -3,7 +3,7 @@ import {Dispatch} from 'redux';
 import {HttpResultInterface, RoomsDetailsInterface} from 'Typescript';
 import Http from 'Lib/Http';
 import {SetHotelRooms} from './set-rooms.action';
-import {error_handler} from '../../../Lib/error-handler';
+import {error_handler} from 'Lib/error-handler';
 import {setStatus} from '../global.actions/set-status.action';
 
 export const GetHotelRooms = ({search_id, hotel_id}: {hotel_id: number, search_id: string}) =>

@@ -1,10 +1,9 @@
 import React from 'react';
 import {Container} from 'native-base';
 
-import {HotelListPage, HotelsFilterPage, HotelsMapPage,} from '../Pages';
+import {HotelListPage, HotelsFilterPage, HotelsMapPage} from '../Pages';
 import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {ExpireModal} from "../Layout";
-import {Alert} from "react-native";
+import {ExpireModal} from '../Layout';
 
 const Stack = createStackNavigator();
 const HotelsRoute = () => {
@@ -21,7 +20,7 @@ const HotelsRoute = () => {
         <Stack.Screen name="filter" component={HotelsFilterPage} options={{headerShown: false}}/>
         <Stack.Screen name="map" component={HotelsMapPage} options={{headerShown: false}}/>
       </Stack.Navigator>
-      <ExpireModal show={false} update={() => Alert.alert('click')}/>
+      <ExpireModal />
     </Container>
   );
 };

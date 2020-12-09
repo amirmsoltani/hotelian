@@ -96,7 +96,11 @@ class HotelListPage extends Component<Props, StatesType> {
   }
 
   shouldComponentUpdate(nextProps: Readonly<Props>): boolean {
-    return (nextProps.current === 'hotels' && (nextProps.indexes !== this.props.indexes || (this.props.current === 'filter')));
+    return (nextProps.current === 'hotels' &&
+      (nextProps.indexes !== this.props.indexes ||
+        nextProps.status !== this.props.status ||
+        nextProps.search_status !== this.props.search_status ||
+        (this.props.current === 'filter')));
 
   }
 
@@ -121,19 +125,19 @@ class HotelListPage extends Component<Props, StatesType> {
 
           {/*actions*/}
           <View style={[{height: 50}, SHADOW_SM_X, Style.bg__white, Style.flex__row,
-            Style.justify__content_between, Style.align__items_center,]}>
+            Style.justify__content_between, Style.align__items_center]}>
 
             {/*sort*/}
             <this.Sort/>
 
             {/*divider*/}
-            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
+            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*filter*/}
             <this.Filter/>
 
             {/*divider*/}
-            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX,}}/>
+            <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
             {/*map*/}
             <this.Map/>
@@ -151,7 +155,7 @@ class HotelListPage extends Component<Props, StatesType> {
 
           {/*hotel list*/}
           <SafeAreaView style={[Style.w__100, {flex: 1}]}>
-            {status === 'ok' && search_status === 'ok' ? (
+            {status === 'ok' && (search_status === 'ok' || search_status == 'expire') ? (
               <VirtualizedList<HotelInterface>
                 data={indexes}
                 initialNumToRender={10}
@@ -170,8 +174,8 @@ class HotelListPage extends Component<Props, StatesType> {
                       text: translate('no-results-text'),
                       button: {
                         label: translate('research'),
-                        click: () => Alert.alert('research')
-                      }
+                        click: () => Alert.alert('research'),
+                      },
                     }}/>
                   </>
                 }
@@ -226,7 +230,7 @@ class HotelListPage extends Component<Props, StatesType> {
           </TouchableOpacity>
         </Body>
         <Right>
-          {this.props.expire !== undefined ?
+          {this.props.search_status === 'ok' ?
             <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
         </Right>
       </Header>
@@ -237,11 +241,11 @@ class HotelListPage extends Component<Props, StatesType> {
     const {sortBy} = this.props;
     return (
       <Menu
-        style={[Style.col__4, Style.h__100, Style.flex__row, Style.justify__content_center, Style.align__items_center,]}>
+        style={[Style.col__4, Style.h__100, Style.flex__row, Style.justify__content_center, Style.align__items_center]}>
         <MenuTrigger
           disabled={this.props.status !== 'ok'}
           customStyles={{
-            triggerWrapper: [Style.h__100, Style.justify__content_center, Style.align__items_center, Style.flex__row,],
+            triggerWrapper: [Style.h__100, Style.justify__content_center, Style.align__items_center, Style.flex__row],
             triggerOuterWrapper: [Style.w__100, Style.h__100],
           }}>
           <Icon type="MaterialIcons" name="sort" style={[Style.f__16, Style.text__info]}/>
@@ -256,7 +260,7 @@ class HotelListPage extends Component<Props, StatesType> {
                 borderRadius: 3,
                 position: 'absolute',
                 top: 15,
-                right: 15
+                right: 15,
               }]}/>
             </If>
           </Conditional>
@@ -266,10 +270,10 @@ class HotelListPage extends Component<Props, StatesType> {
             this.firstType_sort = true;
             this.props.ApplyHotelsFilters({starUp: {name: 'sort', indexes: this.props.structure!.sort.starUp}});
           }}>
-            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2]}>
               <AppText>{translate('stars-5-0')}</AppText>
               <Icon type={'MaterialIcons'}
-                    style={[sortBy === 'starUp' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    style={[sortBy === 'starUp' ? Style.text__info : Style.text__gray_l, Style.f__18]}
                     name={`radio-button-${sortBy === 'starUp' ? '' : 'un'}checked`}
               />
             </View>
@@ -278,10 +282,10 @@ class HotelListPage extends Component<Props, StatesType> {
             this.firstType_sort = true;
             this.props.ApplyHotelsFilters({starDown: {name: 'sort', indexes: this.props.structure!.sort.starDown}});
           }}>
-            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2]}>
               <AppText>{translate('stars-0-5')}</AppText>
               <Icon type={'MaterialIcons'}
-                    style={[sortBy === 'starDown' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    style={[sortBy === 'starDown' ? Style.text__info : Style.text__gray_l, Style.f__18]}
                     name={`radio-button-${sortBy === 'starDown' ? '' : 'un'}checked`}
               />
             </View>
@@ -290,22 +294,22 @@ class HotelListPage extends Component<Props, StatesType> {
             this.firstType_sort = true;
             this.props.ApplyHotelsFilters({starDown: {name: 'sort', indexes: this.props.structure!.sort.priceDown}});
           }}>
-            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2]}>
               <AppText>{translate('price-low-to-high')}</AppText>
               <Icon type={'MaterialIcons'}
-                    style={[sortBy === 'priceDown' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    style={[sortBy === 'priceDown' ? Style.text__info : Style.text__gray_l, Style.f__18]}
                     name={`radio-button-${sortBy === 'priceDown' ? '' : 'un'}checked`}
               />
             </View>
           </MenuOption>
           <MenuOption onSelect={() => {
             this.firstType_sort = true;
-            this.props.ApplyHotelsFilters({priceUp: {name: 'sort', indexes: this.props.structure!.sort.starUp,},})
+            this.props.ApplyHotelsFilters({priceUp: {name: 'sort', indexes: this.props.structure!.sort.starUp}});
           }}>
-            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2,]}>
+            <View style={[Style.align__items_center, Style.justify__content_between, Style.flex__row, Style.p__2]}>
               <AppText>{translate('price-high-to-low')}</AppText>
               <Icon type={'MaterialIcons'}
-                    style={[sortBy === 'priceUp' ? Style.text__info : Style.text__gray_l, Style.f__18,]}
+                    style={[sortBy === 'priceUp' ? Style.text__info : Style.text__gray_l, Style.f__18]}
                     name={`radio-button-${sortBy === 'priceUp' ? '' : 'un'}checked`}
               />
             </View>
@@ -341,7 +345,7 @@ class HotelListPage extends Component<Props, StatesType> {
                 position: 'absolute',
                 top: 15,
                 right: 15,
-              },]}/>
+              }]}/>
             </If>
           </Conditional>
         </>

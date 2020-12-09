@@ -9,12 +9,12 @@ import {
 
 import {HotelImageFlatList, HotelPage, HotelSelectRoom, HotelsMapPage, SelectRoomFilter} from '../Pages';
 import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
-import {ExpireModal} from "../Layout";
-import {Alert} from "react-native";
+import {ExpireModal} from '../Layout';
+import {Alert} from 'react-native';
 
 const Stack = createStackNavigator();
 
-const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScreenProps<{ hotel: { id: string, name: string, checkin?: string, checkout?: string } }, 'hotel'>) => {
+const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScreenProps<{hotel: {id: string, name: string, checkin?: string, checkout?: string}}, 'hotel'>) => {
 
   return (
     <Container style={{backgroundColor: MUTED_LIGHT_XXX}}>
@@ -31,7 +31,7 @@ const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScree
         <Stack.Screen name="hotel-image-flat-list" component={HotelImageFlatList}/>
         <Stack.Screen name="map" component={HotelsMapPage}/>
       </Stack.Navigator>
-      <ExpireModal show={false} update={() => Alert.alert('click')}/>
+      <ExpireModal/>
     </Container>
   );
 };

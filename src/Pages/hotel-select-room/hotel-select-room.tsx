@@ -18,7 +18,7 @@ import SkeletonLoader from './room-card/skeleton-loader/skeleton-loader';
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import CurrencyModal from "../../Containers/currency-modal/currency-modal";
 
-const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire}, appReducer: {currency}}: RootStateInterface) => ({
+const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire, status}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
   rooms: rooms.result ? rooms.result.filter.rooms.map(item => rooms.result!.options[item]) : [],
   nights_count: rooms.result?.night_count,
@@ -31,6 +31,7 @@ const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_i
   search_id,
   currency,
   expire,
+  search_status: status,
 });
 const connector = connect(mapStateToProps, {GetHotelRooms, GetPolitics});
 
@@ -63,9 +64,10 @@ class HotelSelectRoom extends Component<Props, States> {
       currency,
       status,
       form_data,
+      search_status,
     } = this.props;
     const {navigation} = this.props;
-    const onCopy = function (this: { room_name: string[], board_type: string, price: string, per_night: string }) {
+    const onCopy = function(this: {room_name: string[], board_type: string, price: string, per_night: string}) {
       Clipboard.setString(`
          ${t('hotel-name')}: ${hotel.name}
          ${t('hotel-star')}: ${hotel.star}
@@ -86,7 +88,7 @@ class HotelSelectRoom extends Component<Props, States> {
         position: 'bottom',
       });
     };
-    const onReserve = function (this: { option: HotelOptionInterface }) {
+    const onReserve = function(this: {option: HotelOptionInterface}) {
       navigation.push('reserve', {screen: 'passenger', params: this.option});
     };
 

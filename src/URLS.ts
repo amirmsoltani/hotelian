@@ -18,3 +18,5 @@ export const GET_PASSENGERS = '/hotel/get-passengers';
 export const SET_PASSENGERS = '/hotel/set-passengers';
 export const USER_INITIAL_ERROR_MESSAGE = 'something wrong please try again';
 export const INTERNET_CONNECTION_ERROR = 'internet connection error';
+
+export const APP_V = '1';
