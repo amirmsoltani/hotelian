@@ -20,7 +20,6 @@ export function* AcceptSearchFrom(action: AcceptSearchFormType & {'@@redux-saga/
     checkout: searchFormData.checkOut?.value,
     rooms: searchFormData.rooms,
   };
-  console.log(action);
   const loader = yield fork(function* () {
     yield delay(1000);
     if (searchData.dest_type === 'hotel' && !action['@@redux-saga/SAGA_ACTION']) {

@@ -10,7 +10,6 @@ import {
 import {HotelImageFlatList, HotelPage, HotelSelectRoom, HotelsMapPage, SelectRoomFilter} from '../Pages';
 import {MUTED_LIGHT_XXX} from '../../native-base-theme/variables/config';
 import {ExpireModal} from '../Layout';
-import {Alert} from 'react-native';
 
 const Stack = createStackNavigator();
 

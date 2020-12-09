@@ -18,19 +18,19 @@ import {HotelOptionInterface, RootStateInterface} from '../../Typescript/Interfa
 const status: 'ok' | 'loading' | 'error' = 'ok';
 
 //type of cancellation policies, alerts and restrictions
-type cpt = { icon_name: string, icon_type: IconType, title: string, text?: string, }
+type cpt = {icon_name: string, icon_type: IconType, title: string, text?: string,}
 
-const mapStateToProps = ({searchReducer: {form_data: {checkOut, checkIn,}, expire}, hotelReducer: {hotel: {result}, rooms}}: RootStateInterface) => ({
+const mapStateToProps = ({searchReducer: {form_data: {checkOut, checkIn}, expire}, hotelReducer: {hotel: {result}, rooms}}: RootStateInterface) => ({
   checkIn,
   expire,
   checkOut,
   hotel: result!.hotel,
-  rooms: rooms.result!.req_rooms,
+  rooms: rooms.result?.req_rooms,
 });
 const connector = connect(mapStateToProps);
 type propsType =
   ConnectedProps<typeof connector>
-  & StackScreenProps<{ 'passengers': HotelOptionInterface, 'booking-overview': undefined }, 'passengers'>;
+  & StackScreenProps<{'passengers': HotelOptionInterface, 'booking-overview': undefined}, 'passengers'>;
 
 class PassengerPage extends Component<propsType, any> {
 
@@ -53,12 +53,12 @@ class PassengerPage extends Component<propsType, any> {
 
   constructor(props: propsType) {
     super(props);
-    const {policies, alerts, restrictions} = props.route.params.cancellation;
+    const {policies, alerts, restrictions} = props.route.params.cancellation!;
     // TODO fix policy
     this.cancellation.text = policies.map((policy, index) => `${index + 1} - ${policy.from} ${policy.type} ${policy.value}`).join('\n');
     this.alerts.text = alerts.map((alert, index) => `${index + 1} - ${alert}`).join('\n');
     this.restrictions.text = restrictions.map((rest, index) => `${index + 1} - ${rest}`).join('\n');
-    this.rooms = this.props.rooms.map((room, index) => ({
+    this.rooms = this.props.rooms!.map((room, index) => ({
       ...this.props.route.params.rooms[index],
       children: room.children,
     }));

@@ -15,8 +15,8 @@ import Clipboard from '@react-native-community/clipboard';
 import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {Conditional, ElIf, Else, ExpireTimer, If} from '../../Components';
 import SkeletonLoader from './room-card/skeleton-loader/skeleton-loader';
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
-import CurrencyModal from "../../Containers/currency-modal/currency-modal";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
+import CurrencyModal from '../../Containers/currency-modal/currency-modal';
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire, status}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -47,7 +47,7 @@ class HotelSelectRoom extends Component<Props, States> {
 
   state = {
     modalVisibility: false,
-  }
+  };
 
   //=======================================
   // Hooks
@@ -105,12 +105,12 @@ class HotelSelectRoom extends Component<Props, States> {
             </AppSubtitle>
           </Body>
           <Right style={[Style.flex__row, Style.align__items_center]}>
-            {this.props.expire !== undefined ?
+            {this.props.search_status === 'ok' ?
               <ExpireTimer styles={[Style.f__14]} start_time={this.props.expire!}/> : null}
             <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
               <Menu style={[Style.justify__content_center]}>
                 <MenuTrigger>
-                  <Icon type='Ionicons' name='ellipsis-vertical'
+                  <Icon type="Ionicons" name="ellipsis-vertical"
                         style={[Style.f__20, Style.text__right]}/>
                 </MenuTrigger>
                 <MenuOptions>
@@ -151,7 +151,7 @@ class HotelSelectRoom extends Component<Props, States> {
               <Conditional>
 
                 {/*loading*/}
-                <If condition={status === 'loading'}>
+                <If condition={status === 'loading' || search_status === 'loading'}>
                   <View style={[Style.w__100, Style.align__items_center, Style.justify__content_center]}>
                     {[...Array(3)].map((item, index) => <SkeletonLoader key={index}/>)}
                   </View>
@@ -221,13 +221,20 @@ class HotelSelectRoom extends Component<Props, States> {
     }, 500);
   }
 
-  onShowModal = () => {
-    this.setState({modalVisibility: true})
+  componentDidUpdate(prevProps: Readonly<Props>) {
+    if (prevProps.search_id !== this.props.search_id) {
+      this.loaded = [];
+      this.queue = [];
+    }
   }
 
+  onShowModal = () => {
+    this.setState({modalVisibility: true});
+  };
+
   onHideModal = () => {
-    this.setState({modalVisibility: false})
-  }
+    this.setState({modalVisibility: false});
+  };
 
 
 }
