@@ -251,7 +251,6 @@ class HotelListPage extends PureComponent<Props, { isLiked: boolean, shareModal:
   }
 
   onHideShare = () => {
-    console.log(111);
     this.setState({shareModal: false});
   }
 
