@@ -1,11 +1,11 @@
 import React, {FunctionComponent} from 'react';
 import {ImageSourcePropType, StyleSheet, View} from 'react-native';
-import {AppText} from '../../../Containers';
+import {AppText} from 'Containers';
 import {BORDER_RADIUS} from '../../../../native-base-theme/variables/config';
-import {Conditional, If, ProgressiveImage} from '../../../Components';
-import {Style} from '../../../Styles';
+import {Conditional, If, ProgressiveImage} from 'Components';
+import {Style} from 'Styles';
 import {Icon} from 'native-base';
-import {translate} from '../../../Lib/Languages';
+import {translate} from 'Lib/Languages';
 
 type propsType = {
   star?: number;

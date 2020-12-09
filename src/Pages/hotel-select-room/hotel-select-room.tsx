@@ -206,7 +206,7 @@ class HotelSelectRoom extends Component<Props, States> {
   // Handlers
   //=======================================
   onLoad(option: HotelOptionInterface) {
-    if (this.loaded.includes(option.option_id)) {
+    if (this.loaded.includes(option.option_id) || option.cancellation) {
       return;
     }
     this.loaded.push(option.option_id);
