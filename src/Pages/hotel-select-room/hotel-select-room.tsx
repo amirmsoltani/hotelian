@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {FlatList, View} from 'react-native';
-import {Body, Header, Left, Right, Toast} from 'native-base';
+import {Body, Button, Header, Icon, Left, Right, Toast} from 'native-base';
 import {Style} from 'Styles';
 import RoomCard from './room-card/room-card';
 import {translate as t} from 'Lib/Languages';
-import {AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
+import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {connect, ConnectedProps} from 'react-redux';
 import {HotelOptionInterface, RootStateInterface} from 'Typescript/Interfaces';
 import {get_politics as GetPolitics, GetHotelRooms} from 'Store/Actions';
@@ -15,6 +15,8 @@ import Clipboard from '@react-native-community/clipboard';
 import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {Conditional, ElIf, Else, ExpireTimer, If} from '../../Components';
 import SkeletonLoader from './room-card/skeleton-loader/skeleton-loader';
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import CurrencyModal from "../../Containers/currency-modal/currency-modal";
 
 const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_id, form_data, expire}, appReducer: {currency}}: RootStateInterface) => ({
   hotel: hotel.result,
@@ -33,32 +35,25 @@ const mapStateToProps = ({hotelReducer: {hotel, rooms}, searchReducer: {search_i
 const connector = connect(mapStateToProps, {GetHotelRooms, GetPolitics});
 
 type Props = ConnectedProps<typeof connector> & StackScreenProps<any>;
+type States = {
+  modalVisibility: boolean;
+}
 
-class HotelSelectRoom extends Component<Props> {
+class HotelSelectRoom extends Component<Props, States> {
   loaded: string[] = [];
   queue: string[] = [];
   timeout?: ReturnType<typeof setTimeout>;
 
+  state = {
+    modalVisibility: false,
+  }
+
+  //=======================================
+  // Hooks
+  //=======================================
   componentDidMount() {
     this.props.GetHotelRooms({hotel_id: this.props.hotel!.hotel.id, search_id: this.props.search_id!});
   }
-
-  onLoad(option: HotelOptionInterface) {
-    if (this.loaded.includes(option.option_id)) {
-      return;
-    }
-    this.loaded.push(option.option_id);
-    this.queue.push(option.option_id);
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.timeout = setTimeout(() => {
-      this.props.GetPolitics(this.queue);
-      this.queue = [];
-      this.timeout = undefined;
-    }, 500);
-  }
-
 
   render() {
     const hotel = this.props.hotel!.hotel;
@@ -107,10 +102,38 @@ class HotelSelectRoom extends Component<Props> {
               {`${this.props.form_data.checkIn!.formatted} - ${this.props.form_data.checkOut!.formatted}`}
             </AppSubtitle>
           </Body>
-          <Right>
+          <Right style={[Style.flex__row, Style.align__items_center]}>
             {this.props.expire !== undefined ?
-              <ExpireTimer styles={[Style.pr__2, Style.f__14]} start_time={this.props.expire!}/> : null}
+              <ExpireTimer styles={[Style.f__14]} start_time={this.props.expire!}/> : null}
+            <Button style={[Style.justify__content_end, Style.pr__0]} transparent>
+              <Menu style={[Style.justify__content_center]}>
+                <MenuTrigger>
+                  <Icon type='Ionicons' name='ellipsis-vertical'
+                        style={[Style.f__20, Style.text__right]}/>
+                </MenuTrigger>
+                <MenuOptions>
+                  <MenuOption style={[Style.p__2]}
+                              onSelect={this.onShowModal}>
+                    <AppText style={Style.text__black}>{t('change-currency')}</AppText>
+                  </MenuOption>
+                </MenuOptions>
+              </Menu>
+              <AppModal
+                backdrop
+                visibility={this.state.modalVisibility}
+                onClose={this.onHideModal}>
+                <CurrencyModal onClose={this.onHideModal}/>
+              </AppModal>
+            </Button>
           </Right>
+
+          {/*currency modal*/}
+          <AppModal
+            backdrop
+            visibility={this.state.modalVisibility}
+            onClose={this.onHideModal}>
+            <CurrencyModal onClose={this.onHideModal}/>
+          </AppModal>
         </Header>
 
         {/*actions*/}
@@ -138,9 +161,7 @@ class HotelSelectRoom extends Component<Props> {
                 </ElIf>
 
                 {/*other*/}
-                <Else>
-                  <AppText>other in empty list</AppText>
-                </Else>
+                <Else><AppText>other in empty list</AppText></Else>
 
               </Conditional>
             }
@@ -176,6 +197,34 @@ class HotelSelectRoom extends Component<Props> {
         </View>
       </>
     );
+  }
+
+
+  //=======================================
+  // Handlers
+  //=======================================
+  onLoad(option: HotelOptionInterface) {
+    if (this.loaded.includes(option.option_id)) {
+      return;
+    }
+    this.loaded.push(option.option_id);
+    this.queue.push(option.option_id);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(() => {
+      this.props.GetPolitics(this.queue);
+      this.queue = [];
+      this.timeout = undefined;
+    }, 500);
+  }
+
+  onShowModal = () => {
+    this.setState({modalVisibility: true})
+  }
+
+  onHideModal = () => {
+    this.setState({modalVisibility: false})
   }
 
 

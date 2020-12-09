@@ -78,7 +78,7 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
             <Conditional>
               <If condition={al > 1}>
                 <Button transparent onPress={this.reset}>
-                  <AppText style={[Style.text__white]}>{t('RESET')}</AppText>
+                  <AppText style={[Style.text__white, Style.text__upperCase]}>{t('reset')}</AppText>
                 </Button>
               </If>
             </Conditional>
@@ -109,14 +109,7 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
 
         <Conditional>
           <If condition={al > 1}>
-            <View
-              style={[
-                Style.p__1,
-                Style.bg__white,
-                Style.flex__column,
-                SHADOW_LG_XX,
-              ]}
-            >
+            <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX,]}>
               <FlatList
                 data={activesArray}
                 horizontal={true}
@@ -140,28 +133,10 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
                       }
                       }
                     >
-                      <View
-                        style={[
-                          {
-                            borderWidth: 0.5,
-                            borderColor: COLOR_PRIMARY,
-                            borderRadius: BORDER_RADIUS_SM,
-                          },
-                          Style.mr__1,
-                          Style.p__1,
-                          Style.bg__white,
-                        ]}
-                      >
-                        <View
-                          style={[Style.flex__row, Style.align__items_center]}
-                        >
-                          <AppText
-                            style={[
-                              Style.text__primary,
-                              Style.mr__1,
-                              Style.f__10,
-                            ]}
-                          >
+                      <View style={[{borderWidth: 0.5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM,},
+                        Style.mr__1, Style.p__1, Style.bg__white,]}>
+                        <View style={[Style.flex__row, Style.align__items_center]}>
+                          <AppText style={[Style.text__primary, Style.mr__1, Style.f__10,]}>
                             {item.key}{' '}
                             {item.value.name === 'stars'
                               ? +item.key > 1
@@ -176,12 +151,8 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
                 }}
               />
               <Button
-                block
-                style={[Style.bg__primary, Style.w__100]}
-                onPress={() => {
-                  this.props.navigation.goBack();
-                }}
-              >
+                block style={[Style.bg__primary, Style.w__100]}
+                onPress={() => this.props.navigation.goBack()}>
                 <AppText style={[Style.text__white, Style.text__bold]}>
                   {translate('show-results') + ` (${len})`}
                 </AppText>

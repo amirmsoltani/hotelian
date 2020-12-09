@@ -19,7 +19,8 @@ const HotelRoomAction = ({hotel}: { hotel: HotelType }) => {
       <View style={{width: 1, height: '70%', backgroundColor: MUTED_LIGHT_XX}}/>
 
       {/*filter*/}
-      <TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() => navigation.navigate('select-room-filter')}>
         <View style={[Style.col__6, Style.h__100, Style.flex__row,
           Style.justify__content_center, Style.align__items_center]}>
           <Icon type="AntDesign" name="filter" style={[Style.f__16, Style.text__info]}/>
