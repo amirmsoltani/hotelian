@@ -226,6 +226,11 @@ class HotelSelectRoom extends Component<Props, States> {
       this.loaded = [];
       this.queue = [];
     }
+    if (this.props.currency !== prevProps.currency) {
+      this.props.GetHotelRooms({hotel_id: this.props.hotel!.hotel.id, search_id: this.props.search_id!});
+      this.loaded = [];
+      this.queue = [];
+    }
   }
 
   onShowModal = () => {

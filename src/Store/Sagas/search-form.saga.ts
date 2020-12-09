@@ -42,7 +42,6 @@ export function* AcceptSearchFrom(action: AcceptSearchFormType & {'@@redux-saga/
       data: searchData,
       method: 'POST',
     });
-    response.data.result.expire = Math.floor(new Date().getTime() / 1000 + 60);
     yield put(SetSearchId(response.data.result.search_id, response.data.result.expire));
     if (searchData.dest_type === 'city') {
       yield put(GetHotels(response.data.result.search_id));

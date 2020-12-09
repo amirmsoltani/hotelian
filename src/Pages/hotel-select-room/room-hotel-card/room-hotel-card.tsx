@@ -38,8 +38,9 @@ const RoomHotelCard: FunctionComponent<{data: propsType}> = (props) => {
 
         {/*star*/}
         <View style={[Style.flex__row, Style.mb__2]}>
-          {[...Array(props.data.star)].map(_ => <Icon key={'star' + _} style={[Style.f__12, Style.text__warning]}
-                                                      name={'star'} type={'AntDesign'}/>)}
+          {([...Array(props.data.star)]).map((_, index) => <Icon key={'star-' + index}
+                                                                 style={[Style.f__12, Style.text__warning]}
+                                                                 name={'star'} type={'AntDesign'}/>)}
         </View>
 
         {/*address*/}
