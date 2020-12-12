@@ -21,7 +21,7 @@ export type SetHotelsAfterFiltersType = {
     // structure?: HotelsFilterInterface,
     actives: HotelsActivesFilterType | undefined;
     hotels: number[];
-    sorting: keyof SortType;
+    sorting?: keyof SortType;
   }
 }
 

@@ -31,6 +31,8 @@ export type SetOptionPoliticsType = {
   type: typeof SET_OPTIONS_POLITICS,
   payload: HotelOptionInterface[],
 }
+export const SET_HOTELS_OPTIONS_AFTER_FILTER = '[Hotel Reducer] Set Hotel Options After Filter';
+export type SetHotelsOptionsAfterFilterType = {type: typeof SET_HOTELS_OPTIONS_AFTER_FILTER, payload: {actives?: OptionsActiveFiltersType, options?: number[]}}
 
 export type HotelActionsType =
   SetHotelDataType
@@ -38,4 +40,5 @@ export type HotelActionsType =
   | GetHotelType
   | GetHotelRoomsType
   | SetOptionPoliticsType
-  | SetStatusType;
+  | SetStatusType
+  | SetHotelsOptionsAfterFilterType;

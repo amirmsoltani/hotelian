@@ -4,6 +4,7 @@ import {
   GET_HOTELS_ROOMS,
   HotelActionsType,
   SET_HOTEL_DATA,
+  SET_HOTELS_OPTIONS_AFTER_FILTER,
   SET_HOTELS_ROOMS,
   SET_OPTIONS_POLITICS,
 } from '../Actions/hotel.actions';
@@ -39,6 +40,23 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
       if (action.target in state) {
         return {...state, [action.target]: {status: action.status}};
       }
+      break;
+    }
+    case SET_HOTELS_OPTIONS_AFTER_FILTER: {
+      return {
+        ...state,
+        rooms: {
+          ...state.rooms,
+          result: {
+            ...state.rooms.result,
+            filter: {
+              ...state.rooms.result!.filter,
+              actives: action.payload.actives || {},
+              rooms: action.payload.options || state.rooms.result!.options.map((_, index) => index),
+            },
+          },
+        },
+      };
     }
     default:
       return state;

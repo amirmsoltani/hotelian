@@ -9,7 +9,7 @@ export const get_language = async (defaultData: AppStateInterface) => {
   }
   try {
     const lang_map =
-      await storage.load<{version: string, json: {[key: string]: string}}>({key: 'lang_map'});
+      await storage.load<{version: string, json: {[key: string]: string}}>({key: 'lang-map'});
     if (lang_map.version !== defaultData.lang_version) {
       throw 'version';
     }
@@ -17,7 +17,7 @@ export const get_language = async (defaultData: AppStateInterface) => {
   } catch (_) {
     try {
       const response = await axios.get(LANGUAGE_URL + defaultData.language);
-      await storage.save({key: 'lang_map', data: {version: defaultData.lang_version, json: response.data.result}});
+      await storage.save({key: 'lang-map', data: {version: defaultData.lang_version, json: response.data.result}});
       defaultData.json = response.data.result;
     } catch (e) {
       defaultData.status = 'error';

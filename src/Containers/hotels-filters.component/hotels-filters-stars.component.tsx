@@ -7,19 +7,20 @@ import {AppText} from '../index';
 import Conditional, {Else, If} from 'Components/conditional.component';
 import {BORDER_RADIUS_SM, COLOR_PRIMARY} from '../../../native-base-theme/variables/config';
 import {HotelsFilterInterface} from 'Typescript/Interfaces';
+import {HotelsActivesFilterType} from '../../Typescript/Types';
 
 type Props = {
   item: keyof HotelsFilterInterface['stars'];
   structure: number[]
   length?: number[];
-  actives: {[key: string]: {indexes: number[], name: string}} | undefined;
+  actives: HotelsActivesFilterType | undefined;
   onPressFilters: () => void
 };
 const HotelsFiltersStars = ({item, length, structure, actives, onPressFilters}: Props) => {
   const isActivated = !!(actives?.hasOwnProperty(item));
 
   return <TouchableOpacity activeOpacity={1} key={item} onPress={onPressFilters}>
-    <View style={[{borderWidth: .5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM},
+    <View style={[{borderWidth: 0.5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM},
       Style.mr__2, Style.mb__2, Style.p__1, isActivated ? Style.bg__primary : Style.bg__white]}>
       <View style={[Style.flex__row, Style.align__items_center]}>
         <AppText style={[Style.text__primary, Style.mr__1, Style.f__10]}>

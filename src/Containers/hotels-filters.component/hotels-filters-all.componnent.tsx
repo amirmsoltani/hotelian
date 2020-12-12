@@ -5,12 +5,12 @@ import {BORDER_RADIUS_SM, COLOR_PRIMARY} from '../../../native-base-theme/variab
 import {Style} from '../../Styles';
 import {AppText} from '../index';
 import {HotelsFilterInterface} from '../../Typescript/Interfaces';
+import {HotelsActivesFilterType} from '../../Typescript/Types';
 
 type Props = {
   item: keyof HotelsFilterInterface[keyof HotelsFilterInterface];
   structure: number[];
-  length?: number[];
-  actives: {[key: string]: {indexes: number[], name: string}} | undefined,
+  actives: HotelsActivesFilterType | undefined,
   name: keyof HotelsFilterInterface;
   onPressFilters: () => void
 };

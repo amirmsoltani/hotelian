@@ -13,6 +13,7 @@ export const SetHotelRooms = (rooms: RoomsDetailsInterface): SetHotelRoomType =>
       filter: {
         rooms: structureCreator.hotelsIndex,
         structure: structureCreator.structure,
+        actives: {},
       },
     },
   };

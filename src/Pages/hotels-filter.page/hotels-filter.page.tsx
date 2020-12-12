@@ -59,7 +59,7 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
     const activesArray =
       al > 1
         ? ObjectMapToArray(this.props.actives!, (key, value) => {
-          if (value.name === 'sort') {
+          if (value!.name === 'sort') {
             return 'jump';
           }
           return {key: key, value: value};
@@ -109,7 +109,7 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
 
         <Conditional>
           <If condition={al > 1}>
-            <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX,]}>
+            <View style={[Style.p__1, Style.bg__white, Style.flex__column, SHADOW_LG_XX]}>
               <FlatList
                 data={activesArray}
                 horizontal={true}
@@ -133,12 +133,12 @@ class HotelsFilterPage extends PureComponent<Props, { text: string }> {
                       }
                       }
                     >
-                      <View style={[{borderWidth: 0.5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM,},
-                        Style.mr__1, Style.p__1, Style.bg__white,]}>
+                      <View style={[{borderWidth: 0.5, borderColor: COLOR_PRIMARY, borderRadius: BORDER_RADIUS_SM},
+                        Style.mr__1, Style.p__1, Style.bg__white]}>
                         <View style={[Style.flex__row, Style.align__items_center]}>
-                          <AppText style={[Style.text__primary, Style.mr__1, Style.f__10,]}>
+                          <AppText style={[Style.text__primary, Style.mr__1, Style.f__10]}>
                             {item.key}{' '}
-                            {item.value.name === 'stars'
+                            {item.value!.name === 'stars'
                               ? +item.key > 1
                                 ? 'stars'
                                 : 'star'

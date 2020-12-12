@@ -50,7 +50,7 @@ function HotelsFilter({actives, length, structure, name, ApplyHotelsFilters}: Pr
                                       actives={actives}
                                       onPressFilters={() => ApplyHotelsFilters({[key]: {name, indexes: value!}})}
                                       length={length?.stars[key]}
-                                      key={key}
+                                      key={'star-' + key}
                   />
                 ),
               )
@@ -68,8 +68,8 @@ function HotelsFilter({actives, length, structure, name, ApplyHotelsFilters}: Pr
             {
               ObjectMapToArray(structure[name], (key, value) =>
                 <HotelsFiltersAll
-                  item={key} structure={value} actives={actives}
-                  name={name} key={key} length={length ? length[name][key] : undefined}
+                  item={key} structure={value!} actives={actives}
+                  name={name} key={key}
                   onPressFilters={() => ApplyHotelsFilters({[key]: {name, indexes: value!}})}/>,
               )
             }

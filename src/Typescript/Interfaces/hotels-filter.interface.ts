@@ -8,7 +8,7 @@ export interface HotelsFilterInterface<T = number[]> {
   sort: SortType<T>;
   other: OtherFilterType<T>;
 
-  [key: string]: any;
+  [key: string]: Partial<{[key: string]: T}>;
 
   // sorting: object;
   // other: object;

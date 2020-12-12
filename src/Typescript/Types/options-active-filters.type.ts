@@ -1,5 +1,5 @@
 import {OptionFilterInterface} from '../Interfaces';
 
 export type OptionsActiveFiltersType = {
-  [key in (keyof OptionFilterInterface[keyof OptionFilterInterface])]?: {key: keyof OptionFilterInterface, indexes: number[]}
+  [key in (keyof Required<OptionFilterInterface[keyof OptionFilterInterface]>)]?: {name: keyof OptionFilterInterface, indexes: number[]}
 }
