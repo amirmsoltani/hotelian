@@ -124,7 +124,12 @@ class BookingOverview extends Component<StackScreenProps<any>> {
 
         {/*footer*/}
         <Footer style={[Style.bg__white]}>
-          <BoFooter data={{button_label: t('final-step'), total_currency: 'IRR', total_price: '999,999,999,999'}}/>
+          <BoFooter data={{
+            button_label: t('final-step'),
+            total_currency: 'IRR',
+            total_price: '999,999,999,999',
+            click: this.onFinalStep,
+          }}/>
         </Footer>
 
       </>
@@ -142,6 +147,12 @@ class BookingOverview extends Component<StackScreenProps<any>> {
       tab_number: (tab_map[tab_name] || 0),
     });
   }
+
+  onFinalStep = () => {
+    //navigate to final step
+    this.props.navigation.navigate('confirm');
+  }
+
 }
 
 export default BookingOverview;

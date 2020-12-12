@@ -14,6 +14,8 @@ type propsType = {
   total_price: number | string;
 
   total_currency: string;
+
+  click?: () => void;
 };
 const BoFooter: FunctionComponent<{ data: propsType }> = (props) => {
   return (
@@ -27,8 +29,9 @@ const BoFooter: FunctionComponent<{ data: propsType }> = (props) => {
       </View>
       <View style={[Style.col__6, Style.pl__1
       ]}>
-        <Button block style={[Style.bg__primary]}>
-          <AppText firstLetter style={[Style.text__white, Style.text__bold]}>{t(props.data.button_label)}</AppText>
+        <Button onPress={props.data.click}
+                block style={[Style.bg__primary]}>
+          <AppText firstLetter style={[Style.text__white, Style.text__bold]}>{props.data.button_label}</AppText>
         </Button>
       </View>
     </View>
