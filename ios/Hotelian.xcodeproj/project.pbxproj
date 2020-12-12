@@ -84,6 +84,12 @@
 		C3C719BF81C14AE6A859FA15 /* ie_img.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA881CA972E4180A94B2C56 /* ie_img.png */; };
 		330D0D76142A410FB63AA382 /* ic_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 0203D50A28CD4C78B4FE9598 /* ic_img.png */; };
 		84AB5FC5E4594210863B0F4C /* no-results.png in Resources */ = {isa = PBXBuildFile; fileRef = E311D3CE6DA44E70809A3AFF /* no-results.png */; };
+		D2F07CF014ED4E51A172D76D /* 404.png in Resources */ = {isa = PBXBuildFile; fileRef = 020D9EEB4DDF4BB38D41B6B1 /* 404.png */; };
+		0A1B7CB4C3AE4BDFBFDF8947 /* pasargad-gateway.png in Resources */ = {isa = PBXBuildFile; fileRef = 23CF855919DC4DADBD0074A9 /* pasargad-gateway.png */; };
+		630A8E7A7B854BDF9DAF7AE0 /* paypal-gateway.png in Resources */ = {isa = PBXBuildFile; fileRef = 149925DD37854089B51E7135 /* paypal-gateway.png */; };
+		9D9D549F1FD74256A609F29A /* saman-gateway.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B131789F9344718AB1AD8E3 /* saman-gateway.png */; };
+		1C7261D3F10347B79DE6389E /* telr-gateway.png in Resources */ = {isa = PBXBuildFile; fileRef = 61A652C5BA9D4C08ACE08A2B /* telr-gateway.png */; };
+		7330A80CCF07482087ADFEC8 /* unavailable.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CDCF0CC8F9B468B9AB43155 /* unavailable.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +193,12 @@
 		CDA881CA972E4180A94B2C56 /* ie_img.png */ = {isa = PBXFileReference; name = "ie_img.png"; path = "../src/Assets/Images/ie_img.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0203D50A28CD4C78B4FE9598 /* ic_img.png */ = {isa = PBXFileReference; name = "ic_img.png"; path = "../src/Assets/Images/ic_img.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E311D3CE6DA44E70809A3AFF /* no-results.png */ = {isa = PBXFileReference; name = "no-results.png"; path = "../src/Assets/Images/no-results.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		020D9EEB4DDF4BB38D41B6B1 /* 404.png */ = {isa = PBXFileReference; name = "404.png"; path = "../src/Assets/Images/404.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		23CF855919DC4DADBD0074A9 /* pasargad-gateway.png */ = {isa = PBXFileReference; name = "pasargad-gateway.png"; path = "../src/Assets/Images/pasargad-gateway.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		149925DD37854089B51E7135 /* paypal-gateway.png */ = {isa = PBXFileReference; name = "paypal-gateway.png"; path = "../src/Assets/Images/paypal-gateway.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6B131789F9344718AB1AD8E3 /* saman-gateway.png */ = {isa = PBXFileReference; name = "saman-gateway.png"; path = "../src/Assets/Images/saman-gateway.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		61A652C5BA9D4C08ACE08A2B /* telr-gateway.png */ = {isa = PBXFileReference; name = "telr-gateway.png"; path = "../src/Assets/Images/telr-gateway.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3CDCF0CC8F9B468B9AB43155 /* unavailable.png */ = {isa = PBXFileReference; name = "unavailable.png"; path = "../src/Assets/Images/unavailable.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +377,12 @@
 				CDA881CA972E4180A94B2C56 /* ie_img.png */,
 				0203D50A28CD4C78B4FE9598 /* ic_img.png */,
 				E311D3CE6DA44E70809A3AFF /* no-results.png */,
+				020D9EEB4DDF4BB38D41B6B1 /* 404.png */,
+				23CF855919DC4DADBD0074A9 /* pasargad-gateway.png */,
+				149925DD37854089B51E7135 /* paypal-gateway.png */,
+				6B131789F9344718AB1AD8E3 /* saman-gateway.png */,
+				61A652C5BA9D4C08ACE08A2B /* telr-gateway.png */,
+				3CDCF0CC8F9B468B9AB43155 /* unavailable.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -576,6 +594,12 @@
 				C3C719BF81C14AE6A859FA15 /* ie_img.png in Resources */,
 				330D0D76142A410FB63AA382 /* ic_img.png in Resources */,
 				84AB5FC5E4594210863B0F4C /* no-results.png in Resources */,
+				D2F07CF014ED4E51A172D76D /* 404.png in Resources */,
+				0A1B7CB4C3AE4BDFBFDF8947 /* pasargad-gateway.png in Resources */,
+				630A8E7A7B854BDF9DAF7AE0 /* paypal-gateway.png in Resources */,
+				9D9D549F1FD74256A609F29A /* saman-gateway.png in Resources */,
+				1C7261D3F10347B79DE6389E /* telr-gateway.png in Resources */,
+				7330A80CCF07482087ADFEC8 /* unavailable.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
