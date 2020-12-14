@@ -9,6 +9,7 @@ import {SetNavigationState} from '../Store/Actions';
 import {AppDrawerContent, ErrorModal} from 'Layout';
 import closeModal, {buttonGenerator} from '../Lib/button-generator';
 import {RouteWithDrawer} from './RoutesWithDrawer';
+import {setNavigation} from '../Lib/navigation';
 
 
 const mapStateToProps = (state: RootStateInterface) => ({
@@ -54,7 +55,9 @@ class Routes extends Component<Props, States> {
             action: buttonGenerator(),
             caption: this.props.error?.code === 502 ? '' : undefined,
           }}/>
-        <NavigationContainer onStateChange={(state) => this.props.SetNavigationState(state)}>
+        <NavigationContainer onStateChange={(state) => this.props.SetNavigationState(state)}
+                             ref={(navigation) => setNavigation(navigation!)}
+        >
           <Drawer.Navigator
             initialRouteName="search"
             drawerContent={props => <AppDrawerContent {...props}/>}>

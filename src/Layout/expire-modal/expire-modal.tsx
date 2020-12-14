@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {Alert, TouchableNativeFeedback, View} from 'react-native';
+import {TouchableNativeFeedback, View} from 'react-native';
 
 import {SHADOW_LG_X} from '../../../native-base-theme/variables/config';
 import {AppText} from 'Containers';
@@ -11,7 +11,7 @@ import {updateSearchToCurrent} from 'Store/Actions/global.actions/update-search-
 
 const excludeRoute = ['hotel'];
 const mapStateToProps = (state: RootStateInterface) => ({
-  route: state.navigation.current.name,
+  route: state.navigation.current?.name,
   show: state.searchReducer.status === 'expire',
 });
 const connector = connect(mapStateToProps, {update: updateSearchToCurrent});

@@ -26,7 +26,7 @@ const HotelRoute = ({route: {params: {id, name, checkin, checkout}}}: StackScree
         }}>
         <Stack.Screen name="hotel" component={HotelPage}/>
         <Stack.Screen name="select-room" component={HotelSelectRoom}/>
-        <Stack.Screen name="select-room-filter" component={SelectRoomFilter}/>
+        <Stack.Screen name="select-room-filter" component={SelectRoomFilter} options={{gestureEnabled: false}}/>
         <Stack.Screen name="hotel-image-flat-list" component={HotelImageFlatList}/>
         <Stack.Screen name="map" component={HotelsMapPage}/>
       </Stack.Navigator>

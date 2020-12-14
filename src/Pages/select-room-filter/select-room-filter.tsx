@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, View} from 'react-native';
+import { View} from 'react-native';
 import {Body, Button, Content, Footer, Header, Left, Right} from 'native-base';
 
 import {Style} from 'Styles';

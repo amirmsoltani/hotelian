@@ -1,8 +1,9 @@
 export * from './config';
 import {navigate} from './navigate';
 import {goBack} from './go-back';
+import {reset} from './reset';
 
-export const commonActions = {navigate, goBack};
+export const commonActions = {navigate, goBack, reset};
 
 import {push} from './push';
 import {pop} from './pop';

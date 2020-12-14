@@ -1,7 +1,6 @@
-import {NavigationProp} from '@react-navigation/core/lib/typescript/src/types';
+import {NavigationContainerRef} from '@react-navigation/native';
 
-
-export let navigationConfig: NavigationProp<any>;
+export let navigationConfig: NavigationContainerRef;
 
 export function setNavigation(navigation: typeof navigationConfig) {
   navigationConfig = navigation;
