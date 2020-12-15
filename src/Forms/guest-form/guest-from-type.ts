@@ -7,6 +7,6 @@ export type Room = {room_name: string, room_id: string, adults: number, child: n
 
 export type LateCheckin = {active: boolean, date_time?: string, description: string, state: InputStateType};
 
-export type StateType = {rooms: Room[], lateCheckin: LateCheckin};
+export type StateType = {rooms: Room[], lateCheckin: LateCheckin, option_id?: string};
 
-export type PropTypes = {rooms: RoomType[]}
+export type PropTypes = {rooms: RoomType[], option_id: string}

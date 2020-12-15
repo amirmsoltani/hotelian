@@ -1,0 +1,112 @@
+{
+  "hotel_details": {
+    "hotel_name": "Hotel darvishi new york",
+    "hotel_star": 3,
+    "hotel_address": "meydoon shohada, nareside be abmive reza",
+    "hotel_location": "NY City",
+    "hotel_image": null
+  },
+  "search_details": {
+    "checkIn": "99 December 9999",
+    "checkout": "99 December 9999",
+    "adults_count": 4,
+    "nights_count": 3,
+    "children_ages": [
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "children_count": 3,
+    "rooms_count": 6
+  },
+  "facilities": [
+    "parking",
+    "wifi",
+    "dog",
+    "sandis",
+    "pool",
+    "door",
+    "bedroom",
+    "windows",
+    "photoshop",
+    "alignItems",
+    "kotlet",
+    "boom boom"
+  ],
+  "room_details": {
+    "room_names": [
+      "kings and queen bed",
+      "ECMA 2016",
+      "eslint Vs tslint"
+    ],
+    "cancellation_policies": [
+      "az 99/99/99 ta 99/99/99 zelzele miyad",
+      "drum dum dum umuddmdudm d"
+    ],
+    "alerts": "aaaa llllll eeeeee rrrrrr tttttt sssssss",
+    "restrictions": "rrr eee sss tttt rrr iii cccc ttt iii ooo nnn ssss",
+    "boardType": "bed and breakfast"
+  },
+  "late_check_in": {
+    "late_check_in": "99:99 - 99:99",
+    "request_message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+  },
+  "guest_information": [
+    [
+      {
+        "first_name": "ali",
+        "last_name": "alizade",
+        "title": "MR",
+        "age": null
+      },
+      {
+        "first_name": "sanaz",
+        "last_name": "sanaz zade",
+        "title": "MS",
+        "age": null
+      },
+      {
+        "first_name": "ali",
+        "last_name": "alizade",
+        "title": null,
+        "age": 6
+      }
+    ],
+    [
+      {
+        "first_name": "akbar",
+        "last_name": "misaqiyan",
+        "title": "MR",
+        "age": null
+      },
+      {
+        "first_name": "hazrat",
+        "last_name": "mohamad",
+        "title": null,
+        "age": 9
+      },
+      {
+        "first_name": "ali",
+        "last_name": "khameneyi",
+        "title": null,
+        "age": 6
+      }
+    ],
+    [
+      {
+        "first_name": "darkmoon",
+        "last_name": "faire",
+        "title": "MR",
+        "age": null
+      },
+      {
+        "first_name": "spectrum",
+        "last_name": "coordination",
+        "title": "MS",
+        "age": null
+      }
+    ]
+  ]
+};

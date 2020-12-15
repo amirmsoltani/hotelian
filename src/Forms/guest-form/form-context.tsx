@@ -43,7 +43,11 @@ function on_submit(this: GuestFromController) {
     person.field_state.gender.status,
   ].includes('error')));
   if (!error) {
-    globalStore.dispatch(PassengerSave({rooms: this.state.rooms, lateCheckin: this.state.lateCheckin}));
+    globalStore.dispatch(PassengerSave({
+      rooms: this.state.rooms,
+      lateCheckin: this.state.lateCheckin,
+      option_id: this.props.option_id,
+    }));
     commonActions.navigate('reserve', 'booking-overview');
   }
 }
@@ -51,7 +55,7 @@ function on_submit(this: GuestFromController) {
 export const FormContext = React.createContext<{
   state: Readonly<StateType>,
   methods?: {
-    focus: (room: number, person: number, field_name: 'first_name' | 'last_name' | 'gender') => void,
+    focus:(room: number, person: number, field_name: 'first_name' | 'last_name' | 'gender') => void,
     blur: (room: number, person: number, field_name: 'first_name' | 'last_name' | 'gender', data: string) => void,
     switch: (status: boolean) => void,
     late_change: (name: 'date_time' | 'description', data: string) => void,
@@ -74,7 +78,7 @@ class GuestFromController extends React.Component<PropTypes, StateType> {
         const child_count = room.children ? room.children.length : 0;
         const newRoom = [...new Array(+room.adults + child_count)]
           .map((_, index) => {
-            const filed: RoomData & { field_state: FieldState } = {
+            const filed: RoomData & {field_state: FieldState} = {
               field_state: {
                 first_name: {},
                 last_name: {},

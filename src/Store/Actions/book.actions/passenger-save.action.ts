@@ -6,6 +6,7 @@ export const PassengerSave = (state: StateType): PassengerSaveType => {
     type: PASSENGER_SAVE,
     payload: {
       rooms: state.rooms,
+      option_id: state.option_id!,
       description: state.lateCheckin.description,
       late_checkin: state.lateCheckin.date_time,
     },

@@ -1,15 +1,17 @@
-import {View} from "react-native";
+import {View} from 'react-native';
 import React, {FunctionComponent} from 'react';
-import {Header, Tab, Tabs} from "native-base";
-import {StackScreenProps} from "@react-navigation/stack";
+import {Header, Tab, Tabs} from 'native-base';
+import {StackScreenProps} from '@react-navigation/stack';
 
-import {AppText, AppTitle, BackNavigation} from "../../../Containers";
-import {Style} from "../../../Styles";
-import {translate} from "../../../Lib/Languages";
-import {MUTED_LIGHT_XXX} from "../../../../native-base-theme/variables/config";
-import GuestsTab from "./guests-tab/gursts-tab";
-import FacilitiesTab from "./facilities-tab/facilities-tab";
-import PoliciesTab from "./policies-tab/policies-tab";
+import {AppText, AppTitle, BackNavigation} from '../../../Containers';
+import {Style} from '../../../Styles';
+import {translate} from '../../../Lib/Languages';
+import {MUTED_LIGHT_XXX} from '../../../../native-base-theme/variables/config';
+import GuestsTab from './guests-tab/gursts-tab';
+import FacilitiesTab from './facilities-tab/facilities-tab';
+import PoliciesTab from './policies-tab/policies-tab';
+import {RootStateInterface} from '../../../Typescript/Interfaces';
+import {connect, ConnectedProps} from 'react-redux';
 
 type navigation_params = {
   tab_number: number;
@@ -17,37 +19,28 @@ type navigation_params = {
   //TODO :
   // remove search-route screen (BoMore)
 }
-const BoMore: FunctionComponent<StackScreenProps<Record<string, navigation_params>>> = (props) => {
-
-  const hotel_name = 'Hotel darvishi new york';
-  const rooms_name = ['kings and queen bed', 'ECMA 2016', 'eslint Vs tslint']
-  const facilities = [
-    'parking', 'wifi', 'dog', 'sandis', 'pool', 'door',
-    'bedroom', 'windows', 'photoshop', 'alignItems', 'kotlet', 'boom boom',
-  ];
-  const guest_information = [
-    [
-      {first_name: 'ali', last_name: 'alizade', title: 'MR', age: null},
-      {first_name: 'sanaz', last_name: 'sanaz zade', title: 'MS', age: null},
-      {first_name: 'ali', last_name: 'alizade', title: null, age: 6},
-    ],
-    [
-      {first_name: 'akbar', last_name: 'misaqiyan', title: 'MR', age: null},
-      {first_name: 'hazrat', last_name: 'mohamad', title: null, age: 9},
-      {first_name: 'ali', last_name: 'khameneyi', title: null, age: 6},
-    ],
-    [
-      {first_name: 'darkmoon', last_name: 'faire', title: 'MR', age: null},
-      {first_name: 'spectrum', last_name: 'coordination', title: 'MS', age: null},
-    ]
-  ];
-  const policies= {
-      cancellation_policies: ['az 99/99/99 ta 99/99/99 zelzele miyad', 'drum dum dum umuddmdudm d'],
-      alerts: 'aaaa llllll eeeeee rrrrrr tttttt sssssss',
-      restrictions: 'rrr eee sss tttt rrr iii cccc ttt iii ooo nnn ssss',
-      boardType: 'bed and breakfast',
+const mapStateToProps = ({hotelReducer: {hotel, rooms}, bookReducer: {passenger}}: RootStateInterface) => {
+  const room = rooms.result!.options.find(option => option.option_id === passenger!.option_id);
+  return {
+    hotel_name: hotel.result!.hotel.name,
+    rooms_name: room!.rooms.map(r => r.room_name!),
+    facilities: hotel.result!.nsg_facilities.hotel_facilities!.values,
+    guest_information: passenger!.rooms!.map(room => room.persons.map(person => ({
+      first_name: person.first_name!,
+      last_name: person.last_name!,
+      title: person.gender ?? null,
+      age: person.age ?? null,
+    }))),
+    policies: {
+      cancellation_policies: ['TODO fix here'],//room!.cancellation!.policies,
+      alerts: room!.cancellation!.alerts.map((alert, index) => `${index + 1} - ${alert}`).join('\n'),
+      restrictions: 'TODO Fix Here',//room!.cancellation!.restrictions,
+    },
   };
-
+};
+const connector = connect(mapStateToProps);
+const BoMore: FunctionComponent<StackScreenProps<Record<string, navigation_params>> & ConnectedProps<typeof connector>> = (
+  {facilities, guest_information, hotel_name, policies, rooms_name, route}) => {
   return (
     <>
       <Header hasTabs
@@ -55,7 +48,7 @@ const BoMore: FunctionComponent<StackScreenProps<Record<string, navigation_param
         <View><BackNavigation/></View>
         <View style={[Style.flex__grow__1]}><AppTitle>{hotel_name}</AppTitle></View>
       </Header>
-      <Tabs initialPage={props.route.params.tab_number}>
+      <Tabs initialPage={route.params.tab_number}>
 
         {/*guests tab*/}
         <Tab heading={(
@@ -92,4 +85,4 @@ const BoMore: FunctionComponent<StackScreenProps<Record<string, navigation_param
 };
 
 
-export default BoMore;
+export default connector(BoMore);

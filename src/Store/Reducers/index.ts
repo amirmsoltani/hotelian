@@ -12,7 +12,7 @@ const rootReducer = () => combineReducers({
   hotelsReducer: HotelsReducer,
   hotelReducer: HotelReducer,
   navigation: NavigationReducer,
-  BookReducer: BookReducer,
+  bookReducer: BookReducer,
 });
 export const Initial = {
   searchInit,

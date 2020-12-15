@@ -84,7 +84,7 @@ class PassengerPage extends Component<propsType, any> {
           </Right>
         </Header>
 
-        <GuestFromController rooms={this.rooms}>
+        <GuestFromController rooms={this.rooms} option_id={this.props.route.params.option_id}>
 
           {/*content*/}
           <Content style={[Style.w__100]}>
