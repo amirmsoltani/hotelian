@@ -1,32 +1,19 @@
-import React, {FunctionComponent} from 'react';
-import {Style} from "../../Styles";
-import {AppText} from "../../Containers";
-import {
-  BORDER_RADIUS_SM,
-  COLOR_BLACK,
-  COLOR_DANGER,
-  COLOR_INFO,
-  COLOR_PRIMARY,
-  COLOR_SUCCESS,
-  COLOR_WARNING
-} from "../../../native-base-theme/variables/config";
+import React, {FC} from 'react';
 import {RnTextStyleProp} from "native-base";
 
+import {Style} from "../../Styles";
+import {AppText} from "../../Containers";
+import {BORDER_RADIUS_SM, COLOR_WHITE} from "../../../native-base-theme/variables/config";
+import {ThemeType} from "../../Typescript/Types";
+import {colorMap} from "../../Lib/chen";
+
 type propsType = {
-  type?: 'success' | 'danger' | 'warning' | 'primary' | 'info';
+  type?: ThemeType;
   size?: 'sm' | 'md' | 'lg';
   text: string;
   style?: RnTextStyleProp;
+  bordered?: boolean;
 };
-
-const color_map = {
-  danger: COLOR_DANGER,
-  success: COLOR_SUCCESS,
-  warning: COLOR_WARNING,
-  info: COLOR_INFO,
-  primary: COLOR_PRIMARY,
-  black: COLOR_BLACK,
-}
 
 const size_map = {
   sm: [Style.f__10, Style.px__1, Style.py__0],
@@ -34,19 +21,27 @@ const size_map = {
   lg: [Style.f__16, Style.px__5, Style.py__3],
 }
 
-const Badge: FunctionComponent<propsType> = (props) => {
+const Badge: FC<propsType> = (props) => {
+  const color = colorMap(props?.type!!)!!;
   const styles = {
     badge: {
-      borderColor: color_map[props?.type || 'black'],
+      borderColor: color,
       borderWidth: .5,
       borderRadius: BORDER_RADIUS_SM,
-      color: color_map[props?.type || 'black'],
+      color: !props.bordered ? COLOR_WHITE : color,
+      backgroundColor: props.bordered ? COLOR_WHITE : color,
     },
   };
   return (
-    <AppText style={[styles.badge, size_map[props?.size || 'md'], props?.style]}
+    <AppText style={[styles.badge, size_map[props?.size!!], props?.style]}
              firstLetter>{props.text}</AppText>
   );
 };
+
+Badge.defaultProps = {
+  bordered: false,
+  size: 'md',
+  type: 'black',
+}
 
 export default Badge;

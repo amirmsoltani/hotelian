@@ -46,7 +46,7 @@ const Actions:FC<props_type> = ({status}) => {
         <View style={[Style.col__6, Style.h__100, Style.flex__row,
           Style.justify__content_center, Style.align__items_center,]}>
           <Icon type="Ionicons" name="search" style={[Style.f__16, Style.text__info]}/>
-          <AppText style={[Style.ml__2, Style.text__primary]}>{translate('filter')}</AppText>
+          <AppText style={[Style.ml__2, Style.text__primary]}>{translate('search')}</AppText>
           <Conditional>
             <If condition={true}>
               <View style={[Style.bg__danger, {

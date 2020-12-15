@@ -9,11 +9,12 @@ type propsType<T> = {
   click?: (item: T) => void;
 }
 
-function Items<T>({data, columns}: propsType<T>) {
+function Items<T>({data, columns,click}: propsType<T>) {
   return (
     <>
       {data.map((item, index) =>
         <Item
+          click={click}
           data={item}
           columns={columns}
           key={`tr_${index}`}/>

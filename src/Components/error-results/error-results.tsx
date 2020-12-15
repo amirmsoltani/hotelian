@@ -4,7 +4,7 @@ import {Button} from "native-base";
 
 import {AppText} from "../../Containers";
 import {Style} from "../../Styles";
-import {MUTED_LIGHT_XXX} from "../../../native-base-theme/variables/config";
+import {MUTED_LIGHT_X, MUTED_LIGHT_XXX} from "../../../native-base-theme/variables/config";
 import {Conditional, If} from "../index";
 
 type propsType = {
@@ -18,8 +18,7 @@ type propsType = {
 const image = require('Assets/Images/error.png');
 const NoResults: FunctionComponent<{ data: propsType }> = (props) => {
   return (
-    <View style={[Style.w__100, Style.h__100, Style.bg__danger, Style.py__5, Style.px__3,
-      {backgroundColor: MUTED_LIGHT_XXX}]}>
+    <View style={[Style.w__100, Style.h__100, Style.py__5, Style.px__3,]}>
       <Image source={image} resizeMode={"contain"}
              style={[{width: undefined, height: 120}, Style.mb__3]}/>
       <AppText style={[Style.text__bold, Style.f__16, Style.text__center, Style.mb__2, Style.text__muted_d_X]}>
