@@ -1,9 +1,11 @@
 import React, {FunctionComponent} from 'react';
 import {Image, View} from "react-native";
+import {Button} from "native-base";
+
 import {AppText} from "../../Containers";
 import {Style} from "../../Styles";
-import {Button} from "native-base";
 import {MUTED_LIGHT_XXX} from "../../../native-base-theme/variables/config";
+import {Conditional, If} from "../index";
 
 type propsType = {
   title?: string,
@@ -24,10 +26,14 @@ const NoResults: FunctionComponent<{ data: propsType }> = (props) => {
         {props.data.title}</AppText>
       <AppText style={[Style.mb__3, Style.text__muted_d_X, Style.w__75, Style.mx__auto, Style.text__center]}>
         {props.data.text}</AppText>
-      <Button style={[Style.px__3, Style.mx__auto]} onPress={props.data.button?.click}>
-        <AppText firstLetter style={[Style.text__white, Style.f__14]}>
-          {props.data.button?.label}</AppText>
-      </Button>
+      <Conditional>
+        <If condition={!!(props.data.button ?? false)}>
+          <Button style={[Style.px__3, Style.mx__auto]} onPress={props.data.button?.click}>
+            <AppText firstLetter style={[Style.text__white, Style.f__14]}>
+              {props.data.button?.label}</AppText>
+          </Button>
+        </If>
+      </Conditional>
     </View>
   );
 };
