@@ -14,9 +14,9 @@ export const USER_TRACK_CODE_URL = API_URL + '/general/get-user-track-code';
 export const HOTEL_DETAILS = API_URL + '/hotel/get-hotel-details';
 export const HOTEL_ROOMS = API_URL + '/hotel/get-hotel-rooms';
 export const CANCELLATION_POLICY = API_URL + '/hotel/get-cancellation-policy';
-export const GET_PASSENGERS = '/hotel/get-passengers';
-export const SET_PASSENGERS = '/hotel/set-passengers';
+export const GET_PASSENGERS = API_URL + '/hotel/get-passengers';
+export const SET_PASSENGERS = API_URL + '/hotel/set-passengers';
+export const LOGIN_URL = API_URL + '/account/login';
 export const USER_INITIAL_ERROR_MESSAGE = 'something wrong please try again';
 export const INTERNET_CONNECTION_ERROR = 'internet connection error';
-
 export const APP_V = '1';

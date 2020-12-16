@@ -1,8 +1,9 @@
-import {AppError} from '../Store/Actions';
+import {AppError, AppErrorType} from '../Store/Actions';
 import {AxiosError} from 'axios';
 import {ErrorMessageType} from 'Typescript/Types';
 import {translate} from 'Lib/Languages';
 import NetInfo from '@react-native-community/netinfo';
+import {Action} from 'redux';
 
 const Title: any = {
   500: translate('server-error'),
@@ -12,15 +13,15 @@ const Title: any = {
   403: translate('auth-error'),
   1: translate('unknown-error'),
 };
-type ParamType = {
+type ParamType<A> = {
   error: AxiosError,
   canClose?: boolean,
-  handlerAction?: (status: number, message: ErrorMessageType) => {type: string, payload: any},
   costumeList?: number[],
   action?: {type: string, [key: string]: any},
+  handlerAction?: (status: number, message: ErrorMessageType) => A,
 };
 
-export async function error_handler({error, canClose = true, costumeList, handlerAction, action}: ParamType) {
+export async function error_handler<A extends {type: string}>({error, canClose = true, costumeList, action, handlerAction}: ParamType<A>): Promise<AppErrorType | A> {
   let message: ErrorMessageType;
   let code: number;
   if (!error.isAxiosError || !error.response) {
@@ -41,3 +42,5 @@ export async function error_handler({error, canClose = true, costumeList, handle
     return AppError({close: canClose, code, messages: message, title: Title[code], action});
   }
 }
+
+

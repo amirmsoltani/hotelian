@@ -21,6 +21,7 @@ export default async function(): Promise<[Store, {message?: string, status: Stat
       searchReducer: await Initial.searchInit(),
       appReducer: await appInit,
       hotelsReducer: Initial.hotelsInit,
+      userReducer: await Initial.userInit(),
     }
     ,
     __DEV__ ? require('redux-devtools-extension').composeWithDevTools(apply) : compose(apply),

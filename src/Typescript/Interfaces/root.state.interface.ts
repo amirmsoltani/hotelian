@@ -4,6 +4,7 @@ import {HotelsStateInterface} from './hotels-state.interface';
 import {HotelStateInterface} from './hotel-state.interface';
 import {NavigationStateInterface} from './navigation-state.interface';
 import {BookStateInterface} from './book-state.interface';
+import {UserStateInterface} from './user-state-interface';
 
 export interface RootStateInterface {
   navigation: NavigationStateInterface;
@@ -12,4 +13,5 @@ export interface RootStateInterface {
   hotelsReducer: HotelsStateInterface;
   hotelReducer: HotelStateInterface;
   bookReducer: BookStateInterface;
+  userReducer: UserStateInterface;
 }
