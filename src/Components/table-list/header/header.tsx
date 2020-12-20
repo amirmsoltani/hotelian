@@ -1,20 +1,22 @@
-import React, {FC} from 'react';
+import React, {useContext} from 'react';
 import {View} from "react-native";
-import {Header as H} from "native-base";
 
 import {Style} from "../../../Styles";
 import {AppTitle, BackNavigation} from "../../../Containers";
+import {TableContext} from "../table-list";
 
-const Header: FC<{ title: string }> = ({title}) => {
+const Header = () => {
+  const {title}=useContext(TableContext)
+
   return (
-    <H style={[Style.flex__row, Style.bg__primary, Style.align__items_center, Style.px__0]}>
+    <View style={[Style.flex__row, Style.bg__primary, Style.align__items_center, Style.px__0]}>
       <View>
         <BackNavigation/>
       </View>
       <View style={[Style.flex__grow__1]}>
         <AppTitle>{title}</AppTitle>
       </View>
-    </H>
+    </View>
   );
 };
 

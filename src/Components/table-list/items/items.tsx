@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {column_type} from "../column";
+import {column_type} from "../column.type";
 import Item from "./item/item";
 
 type propsType<T> = {
@@ -9,7 +9,7 @@ type propsType<T> = {
   click?: (item: T) => void;
 }
 
-function Items<T>({data, columns,click}: propsType<T>) {
+function Items<T>({data, columns, click}: propsType<T>) {
   return (
     <>
       {data.map((item, index) =>

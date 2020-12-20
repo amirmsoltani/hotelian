@@ -6,7 +6,7 @@ import {If} from "../../conditional.component";
 import {Style} from "../../../Styles";
 import {COLOR_INFO} from "../../../../native-base-theme/variables/config";
 import {Conditional} from "../../index";
-import {status_type} from "../status";
+import {status_type} from "../status.type";
 
 type props_type = {
   status: status_type;
