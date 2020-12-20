@@ -8,8 +8,7 @@ export const get_language = async (defaultData: AppStateInterface) => {
     return;
   }
   try {
-    const lang_map =
-      await storage.load<{version: string, json: {[key: string]: string}}>({key: 'lang-map'});
+    const lang_map = await storage.load<{version: string, json: {[key: string]: string}}>({key: 'lang-map'});
     if (lang_map.version !== defaultData.lang_version) {
       throw 'version';
     }
