@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 export const RouteWithDrawer = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false, gestureEnabled: true}} initialRouteName="auth">
+    <Stack.Navigator screenOptions={{headerShown: false, gestureEnabled: true}} >
       <Stack.Screen component={SearchRoute} name="search"/>
       <Stack.Screen component={ModifySearchRoute} name="modify-search"/>
       <Stack.Screen component={HotelsRoute} name="hotels"/>

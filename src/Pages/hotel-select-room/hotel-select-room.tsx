@@ -177,6 +177,7 @@ class HotelSelectRoom extends Component<Props, States> {
             }
             data={rooms}
             windowSize={3}
+            initialNumToRender={5}
             keyExtractor={item => item.option_id}
             style={[Style.mb__1]}
             renderItem={({item}) => {

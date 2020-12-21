@@ -1,3 +1,5 @@
+import {StatusType} from './status.type';
+
 export type userType = {
   id: number;
   first_name: string;
@@ -12,7 +14,7 @@ export type userType = {
   pref_currency?: string;
   perf_currency_amount?: number;
   is_mobile_verified?: boolean;
-  is_email_verified?: boolean;
+  is_email_verified?: StatusType | boolean;
   profile_pic?: string;
   currency?: string
 }

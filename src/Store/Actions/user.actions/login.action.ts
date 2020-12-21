@@ -1,14 +1,14 @@
 import {Dispatch} from 'redux';
-import Http from '../../../Lib/Http';
+import Http from 'Lib/Http';
 import {getMacId} from 'Lib/get-mac-id';
 import {userType, HttpResultInterface} from 'Typescript';
 import {setStatus, SetStatusType} from '../global.actions/set-status.action';
-import {error_handler} from '../../../Lib/error-handler';
+import {error_handler} from 'Lib/error-handler';
 import {AppErrorType} from '../app.actions';
 import {userError, UserErrorType} from './user-error.action';
-import {commonActions} from '../../../Lib/navigation';
-import {LOGIN_URL} from '../../../URLS';
-import storage from '../../../Lib/Storage';
+import {commonActions} from 'Lib/navigation';
+import {LOGIN_URL} from 'URLS';
+import storage from 'Lib/Storage';
 
 export const USER_LOGIN = '[User Reducer] User Login';
 export type UserLoginType = {type: typeof USER_LOGIN, payload: {user: userType, user_token: string}};

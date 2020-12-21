@@ -21,3 +21,4 @@ export {default as HotelRoomAction} from './hotel-select-room/hotel-room-action/
 export {default as InitLoading} from './init-loading/init-loading';
 export {default as InitError} from './init-error/init-error';
 export {default as SelectRoomFilter} from './select-room-filter/select-room-filter';
+export {default as EmailVerify} from './email-verify/email-verify.page';

@@ -3,8 +3,17 @@ import {globalStore} from '../Store';
 
 export default {
   headers() {
-    const {currency, language, track_code} = globalStore.getState().appReducer;
-    return {'X-Currency': currency, 'X-Language': language, 'X-USER-TRACK-CODE': track_code};
+    const {
+      appReducer: {
+        currency, language, track_code,
+      },
+      userReducer: {user_token, status},
+    } = globalStore.getState();
+    const header: any = {'X-Currency': currency, 'X-Language': language, 'X-USER-TRACK-CODE': track_code};
+    if (user_token && status === 'ok') {
+      header.authorization = 'Bearer ' + user_token;
+    }
+    return header;
   },
 
   request<T = any, R = AxiosResponse<T>>(config: AxiosRequestConfig): Promise<R> {
