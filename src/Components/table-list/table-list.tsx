@@ -1,10 +1,9 @@
 import React, {Component, createContext} from 'react';
+import {Content} from "native-base";
 
-import ListHeader from './header/header';
-import ListActions from './actions/actions';
-import {column_type} from './column.type';
-import {filter_type} from './filter.type';
-import {status_type} from './status.type';
+import {Conditional, ElIf, Else, ErrorResults, If, NoResults} from "../index";
+import {column_type, filter_type, search_type, status_type} from './types';
+import {translate} from "../../Lib/Languages";
 
 type props_type<T> = {
 
@@ -13,10 +12,11 @@ type props_type<T> = {
 
   /**
    * [required]
-   * loading    : disable filter and search input add progress bar behind <Header/> and hide other content
-   * ok         : enable filter and search input and show table content
-   * error      : disable filter and search input add <NoResults/> (can bind <ErrorResults/> for further controlling
+   * loading  : disable filter and search input add progress bar behind <Header/> and hide other content
+   * ok : enable filter and search input and show table content
+   * error  : disable filter and search input add <ErrorResults/> (can bind <ErrorResults/> for further controlling
    * no-result  : disable filter and search input add <NoResults/> (can bind <Button/> for further controlling
+   * no-result-by-filter  : disable filter and search input add <NoResults/> (can bind <Button/> for further controlling
    */
   status: status_type;
 
@@ -37,39 +37,82 @@ type props_type<T> = {
    */
   click?: (item: T) => void;
 
-  /** List of filter for <Picker/> */
+  /** [optional] List of filter for <Picker/> */
   filters?: filter_type<T>[];
+
+  /** [optional] Filter data base on entered term (only apply for one column) */
+  input_search?: search_type<T>;
 
 };
 
 type state_type<T> = {
 
   /** hold selected picker item */
-  activated_filter?: filter_type<T> | null;
+  activated_filter: filter_type<T> | null;
+
+  /** hold input value */
+  searched_value: string | undefined;
 
   /** hold array of presenting data */
   filtered_data: T[];
 
+  /** flag for resetting search input */
+  no_results_by_filter: boolean;
+
 };
 
-export type context_type<T> = props_type<T> & state_type<T>;
+export type context_type<T> = props_type<T> & state_type<T> & {
 
-export const TableContext = createContext<context_type<any>>({
+  /** fire when 'non-All' picker selected */
+  onSelectFilter?: (f: filter_type<T>) => void,
 
-  //props
-  status: 'ok',
-  title: '',
-  data: [],
-  filters: [],
-  columns: [],
+  /** fire when 'All' picker selected */
+  onRemoveFilter: () => void,
 
-  //states
-  filtered_data: [],
-  activated_filter: null,
+  /** fire when pressing SEARCH button in search-modal */
+  onSearchTerm: (s: string) => void,
 
-});
+  /** fire when pressing RESET button in search-modal */
+  onClearTerm: () => void,
+
+  /** remove all filters */
+  onResetAllFilters: () => void;
+
+};
 
 class TableList<T> extends Component<props_type<T>, state_type<T>, context_type<T>> {
+
+  static contextType = createContext<context_type<any>>({
+
+    //props
+    status: 'ok',
+    title: '',
+    data: [],
+    filters: [],
+    columns: [],
+
+    //states
+    filtered_data: [],
+    activated_filter: null,
+    searched_value: undefined,
+    no_results_by_filter: false,
+
+    //functions
+    onSelectFilter: () => {
+    },
+    onRemoveFilter: () => {
+    },
+    onSearchTerm: () => {
+    },
+    onClearTerm: () => {
+    },
+    onResetAllFilters: () => {
+    }
+  });
+  static ListHeader = require('./header/header').default;
+  static ListActions = require('./actions/actions').default;
+  static ListLoading = require('./loading/loading').default;
+  static ListItems = require('./items/items').default;
 
   //=======================================
   // Hooks
@@ -79,63 +122,92 @@ class TableList<T> extends Component<props_type<T>, state_type<T>, context_type<
     this.state = {
       filtered_data: this.props.data,
       activated_filter: null,
+      searched_value: undefined,
+      no_results_by_filter: false,
     };
   }
 
   render() {
     return (
-      <TableContext.Provider value={{
-        title: this.props.title,
-        status: this.props.status,
-        click: this.props.click,
-        data: this.props.data,
-        columns: this.props.columns,
-        filters: this.props.filters,
-        errorButton: this.props.errorButton,
-        noResults: this.props.noResults,
+      <TableList.contextType.Provider value={{
 
-        filtered_data: this.state.filtered_data,
-        activated_filter: this.state.activated_filter,
+        //props
+        ...this.props,
+
+        //states
+        ...this.state,
+
+        //handlers
+        onSelectFilter: this.onSelectFilter,
+        onRemoveFilter: this.onRemoveFilter,
+        onSearchTerm: this.onSearchTerm,
+        onClearTerm: this.onClearSearchTerm,
+        onResetAllFilters: this.onResetAllFilters,
+
       }}>
 
         {/*header*/}
-        <ListHeader/>
+        <TableList.ListHeader/>
 
         {/*actions*/}
-        <ListActions<T>/>
+        <TableList.ListActions<T>/>
 
         {/*loading*/}
-        {/*<ListLoading context={TableContext}/>*/}
+        <TableList.ListLoading<T>/>
 
-        {/*<Content>*/}
-        {/*  <Conditional>*/}
+        {/*content*/}
+        <Conditional>
 
-        {/*    /!*ok*!/*/}
-        {/*    <If condition={this.props.status === 'ok'}>*/}
-        {/*      <ListItems data={this.props.data} click={this.props.click} columns={this.props.columns}/>*/}
-        {/*    </If>*/}
+          {/*ok*/}
+          <If condition={this.props.status === 'ok'}>
+            <Conditional>
 
-        {/*    /!*error*!/*/}
-        {/*    <ElIf condition={this.props.status === 'error'}>*/}
-        {/*      <ErrorResults data={{*/}
-        {/*        button: this.props.errorButton,*/}
-        {/*        text: translate('error-results-text'),*/}
-        {/*        title: translate('error-results-title')*/}
-        {/*      }}/>*/}
-        {/*    </ElIf>*/}
+              {/*no-results by filter*/}
+              <If condition={this.state.no_results_by_filter}>
+                <NoResults data={{
+                  button: {
+                    label: translate('remove-all-filters'),
+                    click: this.onResetAllFilters,
+                  },
+                  text: translate('not-found-text'),
+                  title: translate('not-found-title')
+                }}/>
+              </If>
+              <Else>
+                <TableList.ListItems<T>
+                  data={this.props.data}
+                  click={this.props.click}
+                  columns={this.props.columns}/>
+              </Else>
+            </Conditional>
+          </If>
 
-        {/*    /!*no results*!/*/}
-        {/*    <ElIf condition={this.props.status === 'no-result'}>*/}
-        {/*      <NoResults data={{*/}
-        {/*        button: this.props.noResults,*/}
-        {/*        text: translate('not-found-text'), title: translate('not-found-title')*/}
-        {/*      }}/>*/}
-        {/*    </ElIf>*/}
+          {/*error*/}
+          <ElIf condition={this.props.status === 'error'}>
+            <Content>
+              <ErrorResults data={{
+                button: this.props.errorButton,
+                text: translate('error-results-text'),
+                title: translate('error-results-title')
+              }}/>
+            </Content>
+          </ElIf>
 
-        {/*  </Conditional>*/}
-        {/*</Content>*/}
+          {/*no results*/}
+          <ElIf condition={this.props.status === 'no-result'}>
+            <Content>
 
-      </TableContext.Provider>
+              <NoResults data={{
+                button: this.props.noResults,
+                text: translate('not-found-text'),
+                title: translate('not-found-title')
+              }}/>
+            </Content>
+          </ElIf>
+
+        </Conditional>
+
+      </TableList.contextType.Provider>
     );
   }
 
@@ -143,6 +215,73 @@ class TableList<T> extends Component<props_type<T>, state_type<T>, context_type<
   //=======================================
   // Handlers
   //=======================================
+  onSelectFilter = (filter: filter_type<T>) => {
+    const data = this.state.searched_value ?
+      this.selectFilter(filter, this.searchTerm(this.state.searched_value, this.props.data)) :
+      this.selectFilter(filter, this.props.data);
+
+    this.setState({
+      filtered_data: data,
+      activated_filter: filter,
+      no_results_by_filter: data.length < 1,
+    });
+  }
+
+  onRemoveFilter = () => {
+    this.setState({
+      filtered_data: this.state.searched_value ?
+        this.searchTerm(this.state.searched_value, this.props.data) :
+        this.props.data,
+      activated_filter: null,
+    });
+  }
+
+  onSearchTerm = (term: string | undefined) => {
+    const data = this.state.activated_filter ?
+      this.searchTerm(term, this.selectFilter(this.state.activated_filter, this.props.data)) :
+      this.searchTerm(term, this.props.data);
+
+    this.setState({
+      searched_value: term,
+      filtered_data: data,
+      no_results_by_filter: data.length < 1,
+    });
+  }
+
+  onClearSearchTerm = () => {
+    this.setState({
+      filtered_data: this.state.activated_filter ?
+        this.searchTerm(this.state.searched_value, this.props.data) :
+        this.props.data,
+      searched_value: undefined,
+    });
+  }
+
+  private searchTerm(term: string | undefined, data: T[]): T[] {
+    if (term?.length && this.props.input_search && data.length &&
+      typeof data[0][this.props.input_search.index] === "string") {
+      return data.filter(item => {
+        return (((item[this.props.input_search?.index!] as unknown) as string).indexOf(term.toLowerCase()) > -1);
+      });
+    }
+    return data;
+  }
+
+  private selectFilter(filter: filter_type<T>, data: T[]): T[] {
+    if (filter) {
+      return data.filter(item => filter.handler(item));
+    }
+    return data;
+  }
+
+  onResetAllFilters = () => {
+    this.setState({
+      filtered_data: this.props.data,
+      no_results_by_filter: false,
+      searched_value: undefined,
+      activated_filter: null,
+    });
+  }
 
 }
 

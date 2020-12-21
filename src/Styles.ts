@@ -96,6 +96,7 @@ export const Style = StyleSheet.create({
   bg__amaranth: {backgroundColor: COLOR_AMARANTH,},
   bg__mint: {backgroundColor: COLOR_MINT,},
   bg__black: {backgroundColor: COLOR_BLACK,},
+  bg__backdrop: {backgroundColor: 'rgba(0,0,0,0.4)'},
 
 
 //=======================================

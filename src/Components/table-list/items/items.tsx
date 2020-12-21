@@ -1,24 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {FlatList, View} from "react-native";
 
-import {column_type} from "../column.type";
 import Item from "./item/item";
+import TableList, {context_type} from "../table-list";
+import {AppText} from "../../../Containers";
+import {Style} from "../../../Styles";
 
-type propsType<T> = {
-  data: T[],
-  columns: column_type<T>[];
-  click?: (item: T) => void;
-}
-
-function Items<T>({data, columns, click}: propsType<T>) {
+function Items<T>() {
+  const {filtered_data, click, columns, data} = useContext(TableList.contextType) as context_type<T>;
   return (
     <>
-      {data.map((item, index) =>
-        <Item
-          click={click}
-          data={item}
-          columns={columns}
-          key={`tr_${index}`}/>
-      )}
+      <View style={[Style.p__3, Style.bg__white, Style.mb__1,]}>
+        <AppText style={[Style.f__14, Style.text__muted_d_X]}>
+          Show : {filtered_data.length} out of {data.length}</AppText>
+      </View>
+      <FlatList data={filtered_data}
+                renderItem={({item}) => <Item click={click} data={item} columns={columns}/>}
+                keyExtractor={(_, index) => `k_${index}`}
+      />
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {Image, View} from "react-native";
+import {Image, StyleSheet, View} from "react-native";
 import {Button} from "native-base";
 
 import {AppText} from "../../Containers";
@@ -19,7 +19,7 @@ const NoResults: FunctionComponent<{ data: propsType }> = (props) => {
   return (
     <View style={[Style.w__100, Style.h__100, Style.py__5, Style.px__3,]}>
       <Image source={image} resizeMode={"contain"}
-             style={[{width: undefined, height: 120}, Style.mb__3]}/>
+             style={[styles.image, Style.mb__3]}/>
       <AppText style={[Style.text__bold, Style.f__16, Style.text__center, Style.mb__2, Style.text__muted_d_X]}>
         {props.data.title}</AppText>
       <AppText style={[Style.mb__3, Style.text__muted_d_X, Style.w__75, Style.mx__auto, Style.text__center]}>
@@ -35,5 +35,6 @@ const NoResults: FunctionComponent<{ data: propsType }> = (props) => {
     </View>
   );
 };
+const styles = StyleSheet.create({image:{width: undefined, height: 120}});
 
 export default NoResults;
