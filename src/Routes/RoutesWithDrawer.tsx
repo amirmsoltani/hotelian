@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {navigationConfig, setNavigation} from '../Lib/navigation';
 import SearchRoute from './search.route';
 import ModifySearchRoute from './modify-search.route';
 import HotelsRoute from './hotels.route';

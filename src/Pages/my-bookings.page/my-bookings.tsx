@@ -5,7 +5,11 @@ import {Badge} from "../../Components";
 import {AppText} from "../../Containers";
 import {Style} from "../../Styles";
 
-type DataType = { name: string; age: number; status: boolean; };
+type DataType = {
+  name: string;
+  age: number;
+  status: boolean;
+};
 
 const MyBookings = () => {
   const dummy_data: DataType[] = [
