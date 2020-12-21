@@ -5,6 +5,7 @@ import HotelsReducer, {hotelsInit} from './hotels.reducer';
 import HotelReducer, {hotelInit} from './hotel.reducer';
 import NavigationReducer from './navigation.reducer';
 import BookReducer, {bookInit} from './book.reducer';
+import userReducer, {userInit} from './user.reducer';
 
 const rootReducer = () => combineReducers({
   searchReducer: SearchReducer,
@@ -13,11 +14,13 @@ const rootReducer = () => combineReducers({
   hotelReducer: HotelReducer,
   navigation: NavigationReducer,
   bookReducer: BookReducer,
+  userReducer: userReducer,
 });
 export const Initial = {
   searchInit,
   appInit,
   hotelsInit,
+  userInit,
 };
 
 

@@ -1,5 +1,10 @@
 package com.hotelian;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -54,5 +59,13 @@ public class TimerModule extends ReactContextBaseJavaModule {
         timer.cancel();
         timer.purge();
         timer_list.remove(name);
+    }
+
+    @ReactMethod
+    void getMacId(Callback setMac) {
+        WifiManager manager = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        String address = info.getMacAddress();
+        setMac.invoke(address);
     }
 }

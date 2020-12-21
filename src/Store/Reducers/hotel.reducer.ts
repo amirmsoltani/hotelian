@@ -15,7 +15,7 @@ export const hotelInit: HotelStateInterface = {
   rooms: {status: undefined},
 };
 
-const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActionsType) => {
+const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActionsType): HotelStateInterface => {
   switch (action.type) {
     case GET_HOTEL:
     case GET_HOTELS_ROOMS: {
@@ -34,21 +34,22 @@ const hotelReducer = (state: HotelStateInterface = hotelInit, action: HotelActio
       };
     }
     case SET_OPTIONS_POLITICS: {
-      return {...state, rooms: {...state.rooms, result: {...state.rooms.result, options: action.payload}}};
+      return {...state, rooms: {...state.rooms, result: {...state.rooms.result!, options: action.payload}}};
     }
     case SET_STATUS: {
       if (action.target in state) {
         return {...state, [action.target]: {status: action.status}};
       }
-      break;
+      return state;
     }
     case SET_HOTELS_OPTIONS_AFTER_FILTER: {
       return {
         ...state,
+
         rooms: {
           ...state.rooms,
           result: {
-            ...state.rooms.result,
+            ...state.rooms.result!,
             filter: {
               ...state.rooms.result!.filter,
               actives: action.payload.actives || {},

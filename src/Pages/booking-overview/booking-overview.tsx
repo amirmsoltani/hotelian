@@ -3,20 +3,21 @@ import {Content, Footer, Header} from 'native-base';
 import {TouchableNativeFeedback, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 
-import {Style} from '../../Styles';
-import {AppText, AppTitle, BackNavigation} from '../../Containers';
-import {ElIf, If} from '../../Components/conditional.component';
-import {Conditional, ScreenLoading} from '../../Components';
-import {translate as t} from '../../Lib/Languages';
+import {Style} from 'Styles';
+import {AppText, AppTitle, BackNavigation} from 'Containers';
+import {ElIf, If} from 'Components/conditional.component';
+import {Conditional, ScreenLoading} from 'Components';
+import {translate as t} from 'Lib/Languages';
 import BoRoomDetails from './bo-room-details/bo-room-details';
 import BoHotelDetails from './bo-hotel-details/bo-hotel-details';
 import {RoomSearchDetails} from '../index';
 import BoFacilities from './bo-facilities/bo-facilities';
 import BoLateCheckIn from './bo-late-check-in/bo-late-check-in';
 import BoFooter from './bo-footer/bo-footer';
-import {RootStateInterface} from '../../Typescript/Interfaces';
+import {RootStateInterface} from 'Typescript/Interfaces';
 import moment from 'moment';
 import {connect, ConnectedProps} from 'react-redux';
+import {confirmReserveData} from '../../Store/Actions/book.actions';
 
 
 //status of receiving data
@@ -31,6 +32,7 @@ const mapStateToProps = (state: RootStateInterface) => {
   search_from.rooms!.forEach(room => {
     room.children.forEach(child => children_ages.push(child));
   });
+  const user = state.userReducer;
   return {
     hotel_details: {
       hotel_name: hotel.name,
@@ -68,10 +70,12 @@ const mapStateToProps = (state: RootStateInterface) => {
     }))),
     currency: state.appReducer.currency,
     price: option!.price.total,
+    user,
   };
+
 };
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {confirm: confirmReserveData});
 
 class BookingOverview extends Component
 
@@ -162,8 +166,7 @@ class BookingOverview extends Component
   }
 
   onFinalStep = () => {
-    //navigate to final step
-    this.props.navigation.navigate('confirm');
+    this.props.confirm();
   };
 
 

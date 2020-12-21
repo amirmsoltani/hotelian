@@ -1,16 +1,22 @@
-import {Alert} from "react-native";
+import {Alert} from 'react-native';
 import React, {Component} from 'react';
-import {Body, Content, Footer, Header, Left, Right, Toast, View} from "native-base";
+import {Body, Content, Footer, Header, Left, Right, Toast, View} from 'native-base';
 
-import {Style} from "../../Styles";
-import {AppTitle, BackNavigation} from "../../Containers";
-import {translate} from "../../Lib/Languages";
-import BoFooter from "../booking-overview/bo-footer/bo-footer";
-import Gateways from "./gateways/gateways";
-import Invoice from "./invoice/invoice";
-import {COLOR_BLACK, COLOR_WHITE} from "../../../native-base-theme/variables/config";
-import ReadAndConfirm from "./read-and-confirm/read-and-confirm";
+import {Style} from '../../Styles';
+import {AppTitle, BackNavigation} from '../../Containers';
+import {translate} from '../../Lib/Languages';
+import BoFooter from '../booking-overview/bo-footer/bo-footer';
+import Gateways from './gateways/gateways';
+import Invoice from './invoice/invoice';
+import {COLOR_BLACK, COLOR_WHITE} from '../../../native-base-theme/variables/config';
+import ReadAndConfirm from './read-and-confirm/read-and-confirm';
+import {getConfirmData} from '../../Store/Actions/book.actions';
+import {RootStateInterface} from '../../Typescript/Interfaces';
+import {connect, ConnectedProps} from 'react-redux';
 
+const mapStateToProps = (state: RootStateInterface) => ({});
+
+const connector = connect(mapStateToProps, {getData: getConfirmData});
 
 type state_types = {
   credit: number;
@@ -26,8 +32,9 @@ const gateways = [
   {key: 'gw_4', name: 'Pasargad', source: require('Assets/Images/pasargad-gateway.png')},
 ];
 
+type propType = ConnectedProps<typeof connector>;
 
-class ConfirmPage extends Component<any, state_types> {
+class ConfirmPage extends Component<propType, state_types> {
 
   //valid number or 0
   readonly subtotal = 1000;
@@ -44,8 +51,11 @@ class ConfirmPage extends Component<any, state_types> {
     pay_amount: (this.subtotal - this.discount) > 0 ? (this.subtotal - this.discount) : 0,
     booking_itinerary: false,
     terms_and_policies: false,
-  }
+  };
 
+  componentDidMount() {
+    this.props.getData();
+  }
 
   //=======================================
   // Hooks
@@ -67,7 +77,7 @@ class ConfirmPage extends Component<any, state_types> {
         <Content>
 
           {/*gateways*/}
-          <View style={[Style.p__3, Style.bg__white, Style.mb__1,]}>
+          <View style={[Style.p__3, Style.bg__white, Style.mb__1]}>
             <Gateways
               gateways={gateways}
               select={this.onSelectGateway}
@@ -75,7 +85,7 @@ class ConfirmPage extends Component<any, state_types> {
           </View>
 
           {/*invoice*/}
-          <View style={[Style.p__3, Style.bg__white, Style.mb__1,]}>
+          <View style={[Style.p__3, Style.bg__white, Style.mb__1]}>
             <Invoice
               discount={this.discount}
               currency={this.currency}
@@ -87,7 +97,7 @@ class ConfirmPage extends Component<any, state_types> {
           {/*coupon*/}
 
           {/*terms and policies*/}
-          <View style={[Style.p__3, Style.bg__white, Style.mb__1,]}>
+          <View style={[Style.p__3, Style.bg__white, Style.mb__1]}>
             <ReadAndConfirm
               booking_itinerary={this.state.booking_itinerary}
               terms_policies={this.state.terms_and_policies}
@@ -115,7 +125,7 @@ class ConfirmPage extends Component<any, state_types> {
   //=======================================
   onSelectGateway = (id: string) => {
     this.setState({selected_gateway: id});
-  }
+  };
 
   onToggleCredit = (v: boolean) => {
 
@@ -140,18 +150,19 @@ class ConfirmPage extends Component<any, state_types> {
         pay_amount: this.pay_amount,
       });
     }
-  }
+  };
 
   onToggleCheckbox = (k: string) => {
-    if (k === 'booking_itinerary')
+    if (k === 'booking_itinerary') {
       this.setState({booking_itinerary: !this.state.booking_itinerary});
-    else if (k === 'terms_policies')
+    } else if (k === 'terms_policies') {
       this.setState({terms_and_policies: !this.state.terms_and_policies});
-  }
+    }
+  };
 
   onPay = () => {
 
-    console.log(this.state)
+    console.log(this.state);
 
     //gateway selection checking
     if (this.state.selected_gateway === '') {
@@ -160,7 +171,7 @@ class ConfirmPage extends Component<any, state_types> {
         position: 'bottom',
         style: {backgroundColor: COLOR_BLACK},
         text: translate('please-choose-your-gateway'),
-        textStyle: {color: COLOR_WHITE, textTransform: "capitalize"},
+        textStyle: {color: COLOR_WHITE, textTransform: 'capitalize'},
       });
     }
 
@@ -171,7 +182,7 @@ class ConfirmPage extends Component<any, state_types> {
         position: 'bottom',
         style: {backgroundColor: COLOR_BLACK},
         text: translate('please-read-and-confirm-to-continue'),
-        textStyle: {color: COLOR_WHITE, textTransform: "capitalize"},
+        textStyle: {color: COLOR_WHITE, textTransform: 'capitalize'},
       });
     }
 
@@ -179,8 +190,8 @@ class ConfirmPage extends Component<any, state_types> {
     else {
       Alert.alert('Wa-Lah', 'Your money has been stolen successfully.');
     }
-  }
+  };
 
 }
 
-export default ConfirmPage;
+export default connector(ConfirmPage);
