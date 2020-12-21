@@ -18,3 +18,4 @@ export {default as ProgressiveImage} from './progressive-image/progressive-image
 export {default as Badge} from './badge/badge';
 export {default as ExpireTimer} from './expire-timer/expire-timer';
 export {default as NoResults} from './no-results/no-results';
+export {default as ErrorResults} from './error-results/error-results';

@@ -3,9 +3,7 @@ import {View} from "react-native";
 
 const TestPage = () => {
   return (
-    <View>
-
-    </View>
+    <View/>
   );
 };
 

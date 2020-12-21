@@ -14,12 +14,12 @@ type propsType = {
     click: () => void,
   }
 }
-const image = require('Assets/Images/no-results.png');
+const image = require('Assets/Images/error.png');
 const NoResults: FunctionComponent<{ data: propsType }> = (props) => {
   return (
     <View style={[Style.w__100, Style.h__100, Style.py__5, Style.px__3,]}>
       <Image source={image} resizeMode={"contain"}
-             style={[styles.image, Style.mb__3]}/>
+             style={[styles.img, Style.mb__3]}/>
       <AppText style={[Style.text__bold, Style.f__16, Style.text__center, Style.mb__2, Style.text__muted_d_X]}>
         {props.data.title}</AppText>
       <AppText style={[Style.mb__3, Style.text__muted_d_X, Style.w__75, Style.mx__auto, Style.text__center]}>
@@ -35,6 +35,7 @@ const NoResults: FunctionComponent<{ data: propsType }> = (props) => {
     </View>
   );
 };
-const styles = StyleSheet.create({image:{width: undefined, height: 120}});
+
+const styles = StyleSheet.create({img: {width: undefined, height: 120}});
 
 export default NoResults;

@@ -52,7 +52,7 @@ const ErrorModal: FunctionComponent<{ config: propsType, visibility: boolean }> 
       visibility={props.visibility}
       position={"top"}
       onClose={props.config.onClose}>
-      <View style={[SHADOW_SM_X, Style.bg__mint, Style.my__3,
+      <View style={[SHADOW_SM_X, Style.my__3,
         {width: '90%', backgroundColor: props.config.theme ? colorMap(props.config.theme)! : COLOR_WHITE}]}>
 
         {/*header*/}
