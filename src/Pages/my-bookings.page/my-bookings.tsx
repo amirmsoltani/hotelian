@@ -1,45 +1,85 @@
 import React from 'react';
 
 import TableList from "../../Components/table-list/table-list";
+import {BookingsType, ThemeType} from "../../Typescript/Types";
+import {translate} from "../../Lib/Languages";
 import {Badge} from "../../Components";
 import {AppText} from "../../Containers";
 import {Style} from "../../Styles";
 
-type DataType = {
-  name: string;
-  age: number;
-  status: boolean;
-};
-
 const MyBookings = () => {
-  const dummy_data: DataType[] = [
-    {name: 'fix', age: 10, status: true},
-    {name: 'me', age: 11, status: false},
-    {name: 'plz', age: 12, status: true},
-    {name: 'tq', age: 13, status: false},
-    {name: 'thx', age: 13, status: false},
+  const dummy_data: BookingsType[] = [
+    {
+      currency: "USD",
+      date: "15 Aug 2020",
+      hotel_name: "Motion Gran Via 1",
+      price: "11",
+      reference: "H396613010",
+      reserve_id: "410",
+      service_type: {value: "Hotel", label: "Hotel"},
+      status: {value: "Confirmed", label: "Confirmed"},
+    },
+    {
+      currency: "AED",
+      date: "15 Aug 2020",
+      hotel_name: "Motion Gran Via 2",
+      price: "111",
+      reference: "H396613011",
+      reserve_id: "411",
+      service_type: {value: "Hotel", label: "Hotel"},
+      status: {value: "Cancellation Pending", label: "Cancellation Pending"},
+    },
+    {
+      currency: "IRR",
+      date: "15 Aug 2020",
+      hotel_name: "Motion Gran Via 3",
+      price: "1111",
+      reference: "H396613012",
+      reserve_id: "412",
+      service_type: {value: "Hotel", label: "Hotel"},
+      status: {value: "Cancelled", label: "Cancelled"},
+    }
   ];
+  const badge_color = (status: string): ThemeType => {
+    switch (status) {
+      case 'Confirmed':
+        return 'success';
+      case 'Cancelled':
+        return 'danger';
+      case 'Cancellation Pending':
+        return 'warning';
+      default:
+        return 'primary';
+    }
+  }
   return (
     <>
-      <TableList<DataType>
+      <TableList<BookingsType>
         title={'my bookings'}
         status={'ok'}
         data={dummy_data}
         columns={[
-          {index: 'name', render: row => <Badge text={row.name}/>},
-          {index: 'age'},
+          {index: 'reference', label: translate('reference')},
           {
             index: 'status',
-            render: row => <AppText style={[Style.text__muted_d_X]}>{row.status ? 'true' : 'false'}</AppText>
+            label: translate('status'),
+            render: s => <Badge type={badge_color(s.status.value)} text={s.status.label}/>
+          },
+          {index: 'hotel_name', label: translate('hotel-name'),},
+          {index: 'date', label: translate('date'),},
+          {
+            index: 'price',
+            label: translate('price'),
+            render: s => <AppText style={[Style.text__bold, Style.text__important]}>{s.price} {s.currency}</AppText>
           },
         ]}
         filters={[
-          {label: 'Age <= 11', handler: item => item.age <= 11},
-          {label: 'Status === true', handler: item => item.status},
-          {label: `Name has 't'`, handler: item => item.name.indexOf('t') > -1},
+          {label: translate('confirmed'), handler: item => item.status.value === 'Confirmed'},
+          {label: translate('cancelled'), handler: item => item.status.value === 'Cancelled'},
+          {label: translate('cancellation-pending'), handler: item => item.status.value === 'Cancellation Pending'},
         ]}
         click={s => console.log(s)}
-        input_search={{index: 'name', label_text: 'label goes here!!!'}}
+        input_search={{index: 'reference', label_text: translate('enter-your-booking-reference')}}
       />
     </>
   );

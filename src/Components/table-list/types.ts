@@ -2,6 +2,7 @@ import {ReactNode} from "react";
 
 export type column_type<T> = {
   index: keyof T;
+  label?: string;
   render?: (row: T) => ReactNode;
 }
 export type status_type = 'loading' | 'error' | 'ok' | 'no-result' | 'no-result-by-filter';

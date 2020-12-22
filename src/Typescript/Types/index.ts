@@ -22,3 +22,4 @@ export * from './input-state.type';
 export * from './drawer-link.type';
 export * from './error-message.type';
 export * from './user.type';
+export * from './bookings.type';
