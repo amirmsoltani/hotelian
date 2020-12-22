@@ -1,12 +1,14 @@
 import React, {FunctionComponent} from 'react';
 import {DrawerContentComponentProps} from "@react-navigation/drawer";
 import {Alert, ScrollView, View} from "react-native";
+
 import {Style} from "../../Styles";
 import ProfileCard from "./profile-card/profile-card";
 import {AppText} from "../../Containers";
 import {DrawerLinkType} from "../../Typescript/Types";
 import DrawerItem from "./drawer-item/drawer-item";
 import {translate} from "../../Lib/Languages";
+import {navigate} from "../../Lib/navigation/navigate";
 
 const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props) => {
   const user_info = {
@@ -22,7 +24,7 @@ const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props)
         label: translate('my-bookings'),
         icon_name: 'calendar-check-o',
         icon_type: 'FontAwesome',
-        clicked: () => Alert.alert('my-bookings'),
+        clicked: () => navigate('banished', 'my-bookings'),
       },
       {
         label: translate('my-invoices'),
@@ -44,8 +46,8 @@ const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props)
       },
       {
         label: translate('my-reviews'),
-        icon_name: 'comment',
-        icon_type: 'Fontisto',
+        icon_name: 'comment-discussion',
+        icon_type: 'Octicons',
         clicked: () => Alert.alert('my-reviews'),
       },
     ],

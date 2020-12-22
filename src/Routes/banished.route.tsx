@@ -4,6 +4,7 @@ import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from "@
 
 import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
 import TermsAndPolicies from "../Pages/confirm-page/terms-and-policies/terms-and-policies";
+import {MyBookings} from "../Pages";
 
 const Stack = createStackNavigator();
 const ReserveRoute = () => {
@@ -16,6 +17,8 @@ const ReserveRoute = () => {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: false,
         }}>
+        <Stack.Screen name="my-bookings" component={MyBookings}/>
+
 
         {/*TODO:
           1. my bookings : view
