@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ScrollView, View} from "react-native";
 import {Body, Header, Left, Right, Tab, Tabs} from "native-base";
 
@@ -6,8 +6,13 @@ import {AppText, BackNavigation} from "../../../Containers";
 import {Style} from "../../../Styles";
 import {translate} from "../../../Lib/Languages";
 import {MUTED_LIGHT_XXX} from "../../../../native-base-theme/variables/config";
+import {StackScreenProps} from "@react-navigation/stack";
 
-const TermsAndPolicies = () => {
+type props_type = {
+  navigation: StackScreenProps<any>;
+  route: any;
+}
+const TermsAndPolicies: FC<props_type> = ({navigation, route}) => {
   return (
     <>
       <Header hasTabs style={[Style.bg__primary]}>
@@ -16,7 +21,7 @@ const TermsAndPolicies = () => {
           style={[Style.text__important, Style.text__bold, Style.f__18]}>.com</AppText></AppText></Body>
         <Right/>
       </Header>
-      <Tabs>
+      <Tabs initialPage={route?.params?.tab ?? 0}>
         <Tab heading={(
           <View style={[Style.bg__primary]}>
             <AppText style={[Style.text__white]} firstLetter>{translate('terms-and-conditions')}</AppText>
@@ -157,6 +162,7 @@ const TC = () => {
             contact us.
           </AppText>
         </View>
+
       </ScrollView>
     </>
   )
@@ -288,6 +294,7 @@ const PP = () => {
             https://termsandconditionstemplate.com/privacy-policy-generator/. If you have any questions about this
             Privacy Policy, please contact us via or phone.</AppText>
         </View>
+
       </ScrollView>
     </>
   )

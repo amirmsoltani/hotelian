@@ -26,3 +26,5 @@ export {default as MyBookings} from './my-bookings.page/my-bookings';
 export {default as MyInvoices} from './my-invoices.page/my-invoices';
 export {default as MyTransactions} from './my-transactions.page/my-transactions';
 export {default as MyRefundRequests} from './my-refund-requests.page/my-refund-requests';
+export {default as Support} from './support.page/support';
+
