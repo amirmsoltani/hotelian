@@ -25,3 +25,4 @@ export * from './user.type';
 export * from './booking.type';
 export * from './invoice.type';
 export * from './transaction.type';
+export * from './refund-request.type';
