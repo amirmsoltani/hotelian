@@ -30,7 +30,7 @@ const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props)
         label: translate('my-invoices'),
         icon_name: 'receipt-outline',
         icon_type: 'Ionicons',
-        clicked: () => Alert.alert('my-invoices'),
+        clicked: () => navigate('banished', 'my-invoices'),
       },
       {
         label: translate('my-transactions'),

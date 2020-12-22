@@ -4,7 +4,7 @@ import {CardStyleInterpolators, createStackNavigator, TransitionPresets} from "@
 
 import {MUTED_LIGHT_XXX} from "../../native-base-theme/variables/config";
 import TermsAndPolicies from "../Pages/confirm-page/terms-and-policies/terms-and-policies";
-import {MyBookings} from "../Pages";
+import {MyBookings, MyInvoices} from "../Pages";
 
 const Stack = createStackNavigator();
 const ReserveRoute = () => {
@@ -18,11 +18,11 @@ const ReserveRoute = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="my-bookings" component={MyBookings}/>
+        <Stack.Screen name="my-invoices" component={MyInvoices}/>
 
 
         {/*TODO:
           1. my bookings : view
-          2. my bookings : index
 
           3. my invoices : view
           4. my invoices : index
