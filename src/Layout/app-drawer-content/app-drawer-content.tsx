@@ -42,7 +42,7 @@ const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props)
         label: translate('my-refund-requests'),
         icon_name: 'calendar-times-o',
         icon_type: 'FontAwesome',
-        clicked: () => Alert.alert('my-refund-requests'),
+        clicked: () => navigate('banished', 'my-refund-requests'),
       },
       {
         label: translate('my-reviews'),
