@@ -1,9 +1,9 @@
-export type InvoiceServiceType = {
+type InvoiceServiceType = {
   label: string;
   value: string;
 }
 
-export type InvoiceStatusType = {
+type InvoiceStatusType = {
   label: string;
   value: string;
 }
@@ -16,5 +16,5 @@ export type InvoiceType = {
   invoice_id: string;
   service_type: InvoiceServiceType;
   status: InvoiceStatusType;
-  total: string;
+  total_amount: string;
 }

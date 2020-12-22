@@ -36,7 +36,7 @@ const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props)
         label: translate('my-transactions'),
         icon_name: 'credit-card',
         icon_type: 'SimpleLineIcons',
-        clicked: () => Alert.alert('my-transactions'),
+        clicked: () => navigate('banished', 'my-transactions'),
       },
       {
         label: translate('my-refund-requests'),

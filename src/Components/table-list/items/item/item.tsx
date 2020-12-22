@@ -22,7 +22,7 @@ function Item<T>({data, columns, click}: props_type<T>) {
               Style.flex__grow__0, Style.flex__shrink__0,]}>
               {item.label ?? item.index}:</AppText>
             <View style={[Style.flex__grow__1, Style.flex__shrink__1, Style.flex__row, Style.justify__content_end]}>
-              {item.render ? item.render(data) : <AppText>{data[item.index]}</AppText>}
+              {item.render ? item.render(data) : <AppText>{data[item.index] ?? '-'}</AppText>}
             </View>
           </View>
         ))}

@@ -2,17 +2,17 @@ import {HotelType} from "./hotel.type";
 import {CancellationPolicyInterface} from "../Interfaces";
 import {PassengerType} from "./passenger.type";
 
-export type BookingServiceType = {
+type BookingServiceType = {
   label: string;
   value: string;
 }
 
-export type BookingStatusType = {
+type BookingStatusType = {
   label: string;
   value: string;
 }
 
-export type BookingRoomType = {
+type BookingRoomType = {
   board_type: string;
   room_name: string;
   passengers: [];
@@ -23,7 +23,7 @@ export type BookingType = {
   date: string;
   hotel_name: string;
   price: string;
-  reference: string;
+  reference: string | null;
   reserve_id: string;
   service_type: BookingServiceType;
   status: BookingStatusType;

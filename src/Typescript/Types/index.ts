@@ -24,3 +24,4 @@ export * from './error-message.type';
 export * from './user.type';
 export * from './booking.type';
 export * from './invoice.type';
+export * from './transaction.type';
