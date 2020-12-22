@@ -1,14 +1,14 @@
 import React from 'react';
 
 import TableList from "../../Components/table-list/table-list";
-import {BookingsType, ThemeType} from "../../Typescript/Types";
+import {BookingType, ThemeType} from "../../Typescript/Types";
 import {translate} from "../../Lib/Languages";
 import {Badge} from "../../Components";
 import {AppText} from "../../Containers";
 import {Style} from "../../Styles";
 
 const MyBookings = () => {
-  const dummy_data: BookingsType[] = [
+  const dummy_data: BookingType[] = [
     {
       currency: "USD",
       date: "15 Aug 2020",
@@ -54,7 +54,7 @@ const MyBookings = () => {
   }
   return (
     <>
-      <TableList<BookingsType>
+      <TableList<BookingType>
         title={'my bookings'}
         status={'ok'}
         data={dummy_data}

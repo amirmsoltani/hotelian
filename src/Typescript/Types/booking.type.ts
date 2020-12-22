@@ -18,7 +18,7 @@ export type BookingRoomType = {
   passengers: [];
 }
 
-export type BookingsType = {
+export type BookingType = {
   currency: string;
   date: string;
   hotel_name: string;

@@ -23,3 +23,4 @@ export {default as InitError} from './init-error/init-error';
 export {default as SelectRoomFilter} from './select-room-filter/select-room-filter';
 export {default as EmailVerify} from './email-verify/email-verify.page';
 export {default as MyBookings} from './my-bookings.page/my-bookings';
+export {default as MyInvoices} from './my-invoices.page/my-invoices';
