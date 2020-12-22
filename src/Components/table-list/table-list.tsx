@@ -261,7 +261,9 @@ class TableList<T> extends Component<props_type<T>, state_type<T>, context_type<
     if (term?.length && this.props.input_search && data.length &&
       typeof data[0][this.props.input_search.index] === "string") {
       return data.filter(item => {
-        return (((item[this.props.input_search?.index!] as unknown) as string).indexOf(term.toLowerCase()) > -1);
+        const el = item[this.props.input_search?.index!];
+        if (el) return (((el as unknown) as string).indexOf(term.toLowerCase()) > -1);
+        else return false;
       });
     }
     return data;
