@@ -28,9 +28,9 @@ export const getConfirmData = () => async (dispatch: Dispatch<ActionTypes>, getS
       },
     });
     const {confirm, user, gateways} = response.data.result;
-    if ([confirm.ok, user.ok, gateways.ok].includes(false)) {
-      const message = confirm.result.message || user.result.message || gateways.result.message;
-      const code = confirm.result.status || user.result.status || gateways.result.status || 500;
+    if ([confirm.ok, user.ok].includes(false)) {
+      const message = confirm.result.message || user.result.message;
+      const code = confirm.result.status || user.result.status || 500;
       dispatch(await error_handler({
         error: {
           response: {data: {result: {message: message}}},
@@ -42,7 +42,7 @@ export const getConfirmData = () => async (dispatch: Dispatch<ActionTypes>, getS
     }
     dispatch({
       type: GET_CONFIRM_DATA,
-      payload: {gateways: gateways.result, user: user.result, invoice: confirm.result.invoice},
+      payload: {gateways: gateways, user: user.result, invoice: confirm.result.invoice},
     });
   } catch (e) {
     dispatch(await error_handler({error: e, action: {type: GET_CONFIRM_DATA}}) as AppErrorType);
