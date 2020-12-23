@@ -9,6 +9,7 @@ import {
   GRAY_LIGHT_XX
 } from "../../../../../native-base-theme/variables/config";
 import {Radio} from "native-base";
+import {GatewayType} from "../../../../Typescript/Types";
 
 type propsType = {
   gateway: GatewayType,
@@ -26,9 +27,9 @@ const Gateway: FC<propsType> = ({gateway, selected, onSelect}) => {
           borderWidth: 1,
         }]}>
         <Image resizeMode={"contain"} style={[{width: 24, height: 24,}, Style.mr__3]}
-               source={gateway.source}/>
+               source={{uri:gateway.image}}/>
         <AppText style={[Style.f__14, Style.text__muted_d_X]}>
-          {gateway.name}</AppText>
+          {gateway.label}</AppText>
         <View style={[Style.ml__auto, Style.flex__grow__1, Style.flex__row__reverse,]}>
           <Radio
             style={[Style.ml__auto, Style.ml__auto,]}
@@ -43,9 +44,3 @@ const Gateway: FC<propsType> = ({gateway, selected, onSelect}) => {
 };
 
 export default Gateway;
-
-export type GatewayType = {
-  name: string,
-  source: ImageSourcePropType,
-  key: string;
-};

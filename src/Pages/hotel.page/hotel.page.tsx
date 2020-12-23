@@ -2,14 +2,13 @@ import {View} from 'react-native';
 import React, {PureComponent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Menu, MenuOption, MenuOptions, MenuTrigger} from 'react-native-popup-menu';
 import {Body, Button, Content, Footer, Header, Icon, Left, Right, Toast} from 'native-base';
 
 import {Style} from 'Styles';
 import {GetHotel} from 'Store/Actions';
 import {RootStateInterface} from 'Typescript';
 import {translate as t} from 'Lib/Languages';
-import {COLOR_MUTED, COLOR_WHITE} from '../../../native-base-theme/variables/config';
+import {COLOR_WHITE} from '../../../native-base-theme/variables/config';
 import {AppModal, AppSubtitle, AppText, AppTitle, BackNavigation} from 'Containers';
 import {Conditional, ElIf, ExpireTimer, HotelFacilities, HotelImages, If, ScreenLoading, ShareModal} from 'Components';
 import ReviewSection from './review-section/review-section';

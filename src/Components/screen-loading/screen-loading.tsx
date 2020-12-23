@@ -9,8 +9,8 @@ import {COLOR_INFO} from "../../../native-base-theme/variables/config";
 
 const ScreenLoading = () => {
   return (
-    <View style={[Style.align__self_center, {marginTop: '40%'}]}>
-      <AppText style={[Style.text__muted_d_X, Style.px__3, Style.mb__2]}>
+    <View style={[Style.align__self_center, Style.w__100, {marginTop: '40%', maxWidth: 240}]}>
+      <AppText firstLetter style={[Style.text__muted_d_X, Style.px__3, Style.mb__2, Style.text__center]}>
         {`${translate('loading')}...`}</AppText>
       <ProgressBar style={{marginTop: -7, height: 20}} color={COLOR_INFO} styleAttr="Horizontal"/>
     </View>
