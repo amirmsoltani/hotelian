@@ -36,9 +36,6 @@ function userReducer(state: UserStateInterface = defaultData, action: UserAction
         case 'user_verify_email':
           return {...state, user: {...state.user!, is_email_verified: action.status}};
       }
-      if (action.target === 'user') {
-        return {...state, status: action.status};
-      }
     default:
       return state;
   }

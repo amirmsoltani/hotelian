@@ -37,6 +37,7 @@ function* confirmReserveData(action: ConfirmReserveDataType) {
         hotel_id,
         late_checkin: passengers!.late_checkin!,
         option_id: passengers!.option_id!,
+        reserve_id:passengers!.reserve_id,
         rooms: passengers!.rooms!.map(room => ({
           adults: room.persons.filter(r => r.gender).map(r => ({
             first_name: r.first_name,

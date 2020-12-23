@@ -1,7 +1,18 @@
 import {BookStateInterface} from 'Typescript/Interfaces';
-import {BookActionsType, CONFIRM_RESERVE_DATA, PASSENGER_SAVE, SET_RESERVE_ID} from '../Actions/book.actions';
+import {
+  BookActionsType,
+  CONFIRM_RESERVE_DATA,
+  GET_CONFIRM_DATA,
+  PASSENGER_SAVE,
+  SET_RESERVE_ID,
+} from '../Actions/book.actions';
+import {SET_STATUS} from '../Actions/global.actions/set-status.action';
 
-export const bookInit: BookStateInterface = {};
+export const bookInit: BookStateInterface = {
+  confirm: {
+    confirm_s: undefined,
+  },
+};
 
 function bookReducer(state: BookStateInterface = bookInit, action: BookActionsType): BookStateInterface {
   switch (action.type) {
@@ -25,6 +36,17 @@ function bookReducer(state: BookStateInterface = bookInit, action: BookActionsTy
           reserve_id: action.payload,
         },
       };
+    case GET_CONFIRM_DATA:
+      return {
+        ...state,
+        confirm: { ...action.payload, confirm_s: 'ok'},
+      };
+
+    case SET_STATUS:
+      switch (action.target) {
+        case GET_CONFIRM_DATA:
+          return {...state, confirm: {...state.confirm, confirm_s: action.status}};
+      }
     default:
       return state;
   }
