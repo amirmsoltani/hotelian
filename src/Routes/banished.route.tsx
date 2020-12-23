@@ -18,10 +18,12 @@ const ReserveRoute = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="my-bookings" component={MyBookings}/>
+
         <Stack.Screen name="my-invoices" component={MyInvoices}/>
+
+        <Stack.Screen name="support" component={Support}/>
         <Stack.Screen name="my-transactions" component={MyTransactions}/>
         <Stack.Screen name="my-refund-requests" component={MyRefundRequests}/>
-        <Stack.Screen name="support" component={Support}/>
         <Stack.Screen name="terms-and-policies" component={TermsAndPolicies}/>
 
         {/*TODO: Left overs :)
@@ -29,6 +31,7 @@ const ReserveRoute = () => {
 
           3. my invoices : view
 
+          5. my reviews : index
           6. my reviews : view
 
           9. supports : view
