@@ -22,8 +22,11 @@ export * from './input-state.type';
 export * from './drawer-link.type';
 export * from './error-message.type';
 export * from './user.type';
+export * from './confirm-invoice.type';
+export * from './gateway.type';
 export * from './booking.type';
 export * from './invoice.type';
 export * from './transaction.type';
 export * from './refund-request.type';
 export * from './support.type';
+

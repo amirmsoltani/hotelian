@@ -1,5 +1,7 @@
 import {HttpRequestActionInterface} from '../../../Typescript/Interfaces';
 import {Room} from 'Forms/guest-form/guest-from-type';
+import {SetStatusType} from '../global.actions/set-status.action';
+import {GatewayType, ConfirmInvoiceType, userType} from '../../../Typescript/Types';
 
 export const GET_PASSENGERS = '[Book Reducer] Get Passengers';
 type GetPassengersType = HttpRequestActionInterface<typeof GET_PASSENGERS, 'passengers', 'GET', any>
@@ -11,7 +13,7 @@ export const SET_RESERVE_ID = '[Book Reducer] Set Reserve Data';
 export type SetReserveIdType = {type: typeof SET_RESERVE_ID, payload: number};
 
 export const GET_CONFIRM_DATA = '[Book Reducer] Get Confirm Data';
-export type GetConfirmDataType = {type: typeof GET_CONFIRM_DATA};
+export type GetConfirmDataType = {type: typeof GET_CONFIRM_DATA, payload: {invoice: ConfirmInvoiceType, gateways: GatewayType[], user: userType}};
 
 
 export type BookHttp = GetPassengersType
@@ -34,3 +36,4 @@ export type BookActionsType =
   | ConfirmReserveDataType
   | SetReserveIdType
   | GetConfirmDataType
+  | SetStatusType

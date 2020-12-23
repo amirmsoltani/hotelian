@@ -19,6 +19,7 @@ export const SET_PASSENGERS = API_URL + '/hotel/set-passengers';
 export const LOGIN_URL = API_URL + '/account/login';
 export const SEND_EMAIL_VERIFICATION_CODE_URL = API_URL + '/account/send-email-verification-code';
 export const VERIFY_EMAIL_BY_CODE_URL = API_URL + '/account/verify-email-by-code';
+export const GET_GATEWAYS_URL = API_URL + '/account/get-gateways';
 
 export const USER_INITIAL_ERROR_MESSAGE = 'something wrong please try again';
 export const INTERNET_CONNECTION_ERROR = 'internet connection error';

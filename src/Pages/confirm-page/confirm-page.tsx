@@ -14,7 +14,17 @@ import {getConfirmData} from '../../Store/Actions/book.actions';
 import {RootStateInterface} from '../../Typescript/Interfaces';
 import {connect, ConnectedProps} from 'react-redux';
 
-const mapStateToProps = (state: RootStateInterface) => ({});
+const mapStateToProps = (state: RootStateInterface) => ({
+  status: state.bookReducer.confirm.confirm_s,
+  gateways: state.bookReducer.confirm.gateways?.map(gateway => ({
+    key: gateway.label,
+    name: gateway.name,
+    image: {uri: gateway.image},
+  })),
+  invoice: state.bookReducer.confirm.invoice,
+  user: state.bookReducer.confirm.user,
+  currency: state.appReducer.currency,
+});
 
 const connector = connect(mapStateToProps, {getData: getConfirmData});
 
@@ -31,10 +41,32 @@ const gateways = [
   {key: 'gw_3', name: 'Saman', source: require('Assets/Images/saman-gateway.png')},
   {key: 'gw_4', name: 'Pasargad', source: require('Assets/Images/pasargad-gateway.png')},
 ];
-
 type propType = ConnectedProps<typeof connector>;
 
 class ConfirmPage extends Component<propType, state_types> {
+
+  constructor(props: propType) {
+    super(props);
+    this.state = {
+      credit: props.user?.credit!,
+      booking_itinerary: false,
+      terms_and_policies: false,
+      pay_amount: props.invoice!.total_amount,
+      selected_gateway: '',
+    };
+  }
+
+  componentDidUpdate(prevProps: Readonly<propType>) {
+    if (prevProps.status !== 'ok' && this.props.status === 'ok') {
+      this.setState({
+        credit: this.props.user!.credit!,
+        booking_itinerary: false,
+        terms_and_policies: false,
+        pay_amount: this.props.invoice!.total_amount,
+        selected_gateway: '',
+      });
+    }
+  }
 
   //valid number or 0
   readonly subtotal = 1000;
@@ -61,7 +93,7 @@ class ConfirmPage extends Component<propType, state_types> {
   // Hooks
   //=======================================
   render() {
-
+    const {gateways} = this.props;
     return (
       <>
         {/*header*/}
@@ -87,10 +119,10 @@ class ConfirmPage extends Component<propType, state_types> {
           {/*invoice*/}
           <View style={[Style.p__3, Style.bg__white, Style.mb__1]}>
             <Invoice
-              discount={this.discount}
-              currency={this.currency}
+              discount={this.props.invoice?.off_amount}
+              currency={this.props.currency}
               credit={this.state.credit}
-              pay_amount={this.pay_amount}
+              pay_amount={this.props.invoice?.total_amount}
               onCredit={this.onToggleCredit}/>
           </View>
 
@@ -112,7 +144,7 @@ class ConfirmPage extends Component<propType, state_types> {
           <BoFooter data={{
             click: this.onPay,
             button_label: translate('pay'),
-            total_currency: this.currency, total_price: this.state.pay_amount,
+            total_currency: this.props.currency, total_price: this.props.invoice?.total_amount,
           }}/>
         </Footer>
 
