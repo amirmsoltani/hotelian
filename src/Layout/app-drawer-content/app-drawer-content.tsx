@@ -1,11 +1,14 @@
 import React, {FunctionComponent} from 'react';
 import {DrawerContentComponentProps} from "@react-navigation/drawer";
 import {Alert, ScrollView, View} from "react-native";
+
 import {Style} from "../../Styles";
 import ProfileCard from "./profile-card/profile-card";
 import {AppText} from "../../Containers";
 import {DrawerLinkType} from "../../Typescript/Types";
 import DrawerItem from "./drawer-item/drawer-item";
+import {translate} from "../../Lib/Languages";
+import {navigate} from "../../Lib/navigation/navigate";
 
 const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props) => {
   const user_info = {
@@ -16,100 +19,82 @@ const AppDrawerContent: FunctionComponent<DrawerContentComponentProps> = (props)
     clicked: () => Alert.alert('profile'),
   }
   const drawer_links = {
-    'Group one drawer list': [
+    'Useful links': [
       {
-        label: 'Help',
-        icon_name: 'ios-help-circle-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('help'),
+        label: translate('my-bookings'),
+        icon_name: 'calendar-check-o',
+        icon_type: 'FontAwesome',
+        clicked: () => navigate('banished', 'my-bookings'),
       },
       {
-        label: 'Settings',
+        label: translate('my-invoices'),
+        icon_name: 'receipt-outline',
+        icon_type: 'Ionicons',
+        clicked: () => navigate('banished', 'my-invoices'),
+      },
+      {
+        label: translate('my-transactions'),
+        icon_name: 'credit-card',
+        icon_type: 'SimpleLineIcons',
+        clicked: () => navigate('banished', 'my-transactions'),
+      },
+      {
+        label: translate('my-refund-requests'),
+        icon_name: 'calendar-times-o',
+        icon_type: 'FontAwesome',
+        clicked: () => navigate('banished', 'my-refund-requests'),
+      },
+      {
+        label: translate('my-reviews'),
+        icon_name: 'comment-discussion',
+        icon_type: 'Octicons',
+        clicked: () => Alert.alert('my-reviews'),
+      },
+    ],
+    'Help and support': [
+      {
+        label: translate('support'),
+        icon_name: 'md-headset-outline',
+        icon_type: 'Ionicons',
+        clicked: () => navigate('banished', 'support'),
+      },
+      {
+        label: translate('terms-and-conditions'),
+        icon_name: 'md-list-outline',
+        icon_type: 'Ionicons',
+        clicked: () => navigate('banished', 'terms-and-policies', {tab: 0}),
+      },
+      {
+        label: translate('privacy-and-policies'),
+        icon_name: 'ios-shield-checkmark-outline',
+        icon_type: 'Ionicons',
+        clicked: () => navigate('banished', 'terms-and-policies', {tab: 1}),
+      },
+      {
+        label: translate('faq'),
+        icon_name: 'question',
+        icon_type: 'SimpleLineIcons',
+        clicked: () => Alert.alert('FAQ'),
+      },
+    ],
+    'Settings and legal': [
+      {
+        label: 'settings',
         icon_name: 'md-settings-outline',
         icon_type: 'Ionicons',
         clicked: () => Alert.alert('settings'),
       },
       {
-        label: 'Share',
+        label: 'share-the-app',
         icon_name: 'ios-share-social-outline',
         icon_type: 'Ionicons',
-        clicked: () => Alert.alert('share'),
+        clicked: () => Alert.alert('share-the-app'),
       },
       {
-        label: 'construct-outline',
-        icon_name: 'construct-outline',
+        label: 'rate-this-app',
+        icon_name: 'star-outline',
         icon_type: 'Ionicons',
-        clicked: () => Alert.alert('construct-outline'),
-      },
-      {
-        label: 'file-tray-stacked-outline',
-        icon_name: 'file-tray-stacked-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('file-tray-stacked-outline'),
-      },
-    ],
-    'Group two drawer list': [
-      {
-        label: 'game-controller-outline',
-        icon_name: 'game-controller-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('game-controller-outline'),
-      },
-      {
-        label: 'images-outline',
-        icon_name: 'images-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('images-outline'),
-      },
-      {
-        label: 'logo-closed-captioning',
-        icon_name: 'logo-closed-captioning',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('logo-closed-captioning'),
-      },
-      {
-        label: 'logo-twitch',
-        icon_name: 'logo-twitch',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('logo-twitch'),
-      },
-      {
-        label: 'megaphone-outline',
-        icon_name: 'megaphone-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('megaphone-outline'),
-      },
-    ],
-    'Group Three drawer list': [
-      {
-        label: 'rocket-outline',
-        icon_name: 'rocket-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('rocket-outline'),
-      },
-      {
-        label: 'trophy-outline',
-        icon_name: 'trophy-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('trophy-outline'),
-      },
-      {
-        label: 'sunny-outline',
-        icon_name: 'sunny-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('sunny-outline'),
-      },
-      {
-        label: 'ios-bar-chart-outline',
-        icon_name: 'ios-bar-chart-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('ios-bar-chart-outline'),
-      },
-      {
-        label: 'ios-cloud-upload-outline',
-        icon_name: 'ios-cloud-upload-outline',
-        icon_type: 'Ionicons',
-        clicked: () => Alert.alert('ios-cloud-upload-outline'),
+        clicked: () => Alert.alert('rate-this-app'),
       },
     ],
   }

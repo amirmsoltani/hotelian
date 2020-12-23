@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableNativeFeedback, View} from "react-native";
 
-import {column_type} from "../../column.type";
+import {column_type} from "../../types";
 import {Style} from "../../../../Styles";
 import {AppText} from "../../../../Containers";
 
@@ -20,9 +20,9 @@ function Item<T>({data, columns, click}: props_type<T>) {
             Style.align__items_center, Style.py__2,]}>
             <AppText style={[Style.mr__1, Style.f__14, Style.text__bold, Style.text__capitalize,
               Style.flex__grow__0, Style.flex__shrink__0,]}>
-              {item.index}:</AppText>
+              {item.label ?? item.index}:</AppText>
             <View style={[Style.flex__grow__1, Style.flex__shrink__1, Style.flex__row, Style.justify__content_end]}>
-              {item.render ? item.render(data) : <AppText>{data[item.index]}</AppText>}
+              {item.render ? item.render(data) : <AppText>{data[item.index] ?? '-'}</AppText>}
             </View>
           </View>
         ))}

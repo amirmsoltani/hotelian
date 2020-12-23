@@ -1,9 +1,20 @@
+type InvoiceServiceType = {
+  label: string;
+  value: string;
+}
+
+type InvoiceStatusType = {
+  label: string;
+  value: string;
+}
+
+
 export type InvoiceType = {
-  invoice_number: number;
+  amount: string;
   currency: string;
-  amount: number;
-  off_amount: number;
-  total_amount: number;
-  applied_gift_code: string | null;
-  is_paid: {value: string, label: string}
+  date: string;
+  invoice_id: string;
+  service_type: InvoiceServiceType;
+  status: InvoiceStatusType;
+  total_amount: string;
 }
